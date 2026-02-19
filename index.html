@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONYX Taiwan Private Chauffeur | 台湾高端私人包车</title>
+    <meta name="description" content="Premium chauffeur services in Taiwan for global travelers. Airport transfers, private charters, and luxury fleet."><!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script><!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet"><!-- Flatpickr CSS (Dark Theme) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css"><!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script><!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f0f0f;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+
+        /* Custom Input Styles */
+        .onyx-input {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            color: #e5e5e5;
+            transition: all 0.3s ease;
+        }
+
+        .onyx-input:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+            outline: none;
+        }
+
+        /* Flatpickr Customization */
+        .flatpickr-day.selected,
+        .flatpickr-day.startRange,
+        .flatpickr-day.endRange {
+            background: #d4af37 !important;
+            border-color: #d4af37 !important;
+            color: #0f0f0f !important;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-[#0f0f0f] text-gray-300 antialiased selection:bg-[#d4af37] selection:text-[#0f0f0f]"><!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center cursor-pointer"><span class="text-2xl font-bold text-white tracking-widest uppercase mr-3">&nbsp;ONYX <span class="text-[#d4af37]">TAIWAN</span>&nbsp;</span> <!-- LOGO Image --> <img src="./images/logo.png" alt="ONYX Logo" class="h-10 w-auto object-contain"></div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6"><a href="#home" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Home</a> <a href="#services" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Services</a> <a href="#itineraries" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Itineraries</a> <a href="#fleet" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Fleet</a> <a href="#pricing" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Pricing</a> <a href="#contact" class="bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 ml-2">Book Now</a></div>
+                </div><!-- Mobile Menu Button -->
+                <div class="-mr-2 flex md:hidden"><button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-[#d4af37] hover:text-white focus:outline-none">&nbsp;&nbsp;</button></div>
+            </div>
+        </div><!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-[#0a0a0a]" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3"><a href="#home" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Home</a> <a href="#services" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Services</a> <a href="#itineraries" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Itineraries</a> <a href="#pricing" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Pricing</a> <a href="#contact" class="text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium font-bold">Book Now</a></div>
+        </div>
+    </nav><!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center bg-[#0a0a0a] pt-16">
+        <div class="absolute inset-0 z-0"><!-- Hero Image --> <img src="./images/hero.jpg" alt="Mercedes-Benz V-Class" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/80 via-[#0f0f0f]/60 to-[#0f0f0f]"><br></div>
+        </div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-[#d4af37] font-semibold tracking-[0.2em] uppercase text-sm md:text-base mb-4 animate-fade-in-up">ONYX Taiwan</h2>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">Premium Chauffeur Services<br><span class="text-gray-400 font-light italic text-2xl md:text-4xl block mt-2">for Global Travelers</span></h1>
+            <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300 font-light mb-10">专为星马与全球旅客打造的台湾高端私人司乘服务</p>
+            <div class="flex justify-center"><a href="#contact" class="flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg hover:shadow-[#d4af37]/50 transform hover:scale-105">&nbsp; Book Your Trip&nbsp;</a></div>
+        </div>
+    </section><!-- Trust Banner -->
+    <div class="bg-[#0a0a0a] border-y border-white/5 py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 text-center">
+                <div class="group">
+                    <p class="text-[#d4af37] font-bold text-sm md:text-base tracking-widest uppercase mb-1">Licensed Commercial Vehicles</p>
+                    <p class="text-gray-500 text-xs md:text-sm">合法营业车</p>
+                </div>
+                <div class="hidden md:block w-px h-8 bg-white/10"><br></div>
+                <div class="group">
+                    <p class="text-[#d4af37] font-bold text-sm md:text-base tracking-widest uppercase mb-1">Professional Team</p>
+                    <p class="text-gray-500 text-xs md:text-sm">专业团队</p>
+                </div>
+                <div class="hidden md:block w-px h-8 bg-white/10"><br></div>
+                <div class="group">
+                    <p class="text-[#d4af37] font-bold text-sm md:text-base tracking-widest uppercase mb-1">English &amp; Mandarin support</p>
+                    <p class="text-gray-500 text-xs md:text-sm">中英文服务</p>
+                </div>
+            </div>
+        </div>
+    </div><!-- Services Section -->
+    <section id="services" class="py-24 bg-[#0f0f0f]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Services</h2>
+                <div class="w-24 h-1 bg-[#d4af37] mx-auto rounded-full"><br></div>
+                <p class="mt-4 text-gray-400">Professional &bull; Private &bull; Customized</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"><!-- Service Cards -->
+                <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]"><br></div>
+                    <h3 class="text-xl font-bold text-white mb-3">Transfers</h3>
+                    <p class="text-gray-400 text-sm mb-2">TPE/TSA/KHH Airports &amp; Private Charters.</p>
+                    <p class="text-gray-500 text-xs">机场接驳与私人包车</p>
+                </div>
+                <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]"><br></div>
+                    <h3 class="text-xl font-bold text-white mb-3">Luxury Fleet</h3>
+                    <p class="text-gray-400 text-sm mb-2">Luxury vehicles, privacy &amp; comfort.</p>
+                    <p class="text-gray-500 text-xs">豪华车款，重視隱私與舒適</p>
+                </div>
+                <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]"><br></div>
+                    <h3 class="text-xl font-bold text-white mb-3">Concierge</h3>
+                    <p class="text-gray-400 text-sm mb-2">Chia Te, Ruyi, Pan&rsquo;s Cake (Skip-the-Queue).</p>
+                    <p class="text-gray-500 text-xs">伴手礼代购 (免排隊)</p>
+                </div>
+                <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]"><br></div>
+                    <h3 class="text-xl font-bold text-white mb-3">Support</h3>
+                    <p class="text-gray-400 text-sm mb-2">Dining coordination &amp; curated food guides.</p>
+                    <p class="text-gray-500 text-xs">餐厅订位协助与美食推荐</p>
+                </div>
+            </div>
+        </div>
+    </section><!-- Itineraries Section -->
+    <section id="itineraries" class="py-24 bg-[#0a0a0a] border-t border-white/5 relative overflow-hidden"><!-- Background Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-[#d4af37]/5 rounded-full blur-3xl -mr-32 -mt-32"><br></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-[#d4af37]/5 rounded-full blur-3xl -ml-48 -mb-48"><br></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Recommended Itineraries</h2>
+                <div class="w-24 h-1 bg-[#d4af37] mx-auto rounded-full"><br></div>
+                <p class="mt-4 text-gray-400">Discover Taiwan with Our Curated Plans<br>精选包车建议行程</p>
+            </div>
+            <div id="itinerary-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Itinerary Cards will be injected here by JS --><br></div>
+        </div>
+    </section><!-- Fleet Section -->
+    <section id="fleet" class="py-24 bg-[#0f0f0f] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white">Vehicle Options</h2>
+            <p class="text-[#d4af37] mt-2 font-medium">车型等级选择</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+                <div class="bg-[#1a1a1a] p-6 rounded-lg text-center border-t-4 border-gray-600 hover:border-[#d4af37] transition-colors">
+                    <h4 class="text-xl font-bold mb-1 text-white">Standard</h4>
+                    <p class="text-gray-500 text-sm mb-4">标准型</p>
+                    <div class="text-gray-300 mb-2 font-mono text-sm">1-4 Pax</div>
+                    <div class="text-gray-400 text-xs">RAV4, CR-V or equivalent</div>
+                </div>
+                <div class="bg-[#1a1a1a] p-6 rounded-lg text-center border-t-4 border-gray-600 hover:border-[#d4af37] transition-colors">
+                    <h4 class="text-xl font-bold mb-1 text-[#d4af37]">Premium SUV</h4>
+                    <p class="text-gray-500 text-sm mb-4">豪华型</p>
+                    <div class="text-gray-300 mb-2 font-mono text-sm">1-4 Pax</div>
+                    <div class="text-gray-400 text-xs">Benz(SUV), Lexus(SUV)</div>
+                </div>
+                <div class="bg-[#1a1a1a] p-6 rounded-lg text-center border-t-4 border-gray-600 hover:border-[#d4af37] transition-colors">
+                    <h4 class="text-xl font-bold mb-1 text-[#d4af37]">Premium Van</h4>
+                    <p class="text-gray-500 text-sm mb-4">豪华型多人</p>
+                    <div class="text-gray-300 mb-2 font-mono text-sm">5-8 Pax</div>
+                    <div class="text-gray-400 text-xs">Benz Vito, VW T6</div>
+                </div>
+                <div class="bg-[#1a1a1a] p-6 rounded-lg text-center border-t-4 border-[#b4941f] shadow-lg shadow-[#b4941f]/20 relative">
+                    <div class="absolute top-0 right-0 -mt-3 -mr-3"><span class="bg-[#b4941f] text-[#0f0f0f] text-xs font-bold px-2 py-1 rounded">TOP</span></div>
+                    <h4 class="text-xl font-bold mb-1 text-[#d4af37]">Luxury</h4>
+                    <p class="text-gray-500 text-sm mb-4">顶级型</p>
+                    <div class="text-gray-300 mb-2 font-mono text-sm">1-6 Pax</div>
+                    <div class="text-gray-400 text-xs">Alphard, Benz V-Class</div>
+                </div>
+            </div>
+        </div>
+    </section><!-- Pricing Section -->
+    <section id="pricing" class="py-24 bg-[#0f0f0f]">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white">Pricing Guide</h2>
+            <p class="text-gray-400 mt-4">Transparent rates for Airport &amp; Charters<br>公开透明的价格</p>
+            <div class="overflow-x-auto mt-12 rounded-xl border border-white/10 shadow-2xl bg-[#1a1a1a]">
+                <table class="w-full text-left border-collapse min-w-[800px]">
+                    <thead>
+                        <tr class="bg-gradient-to-r from-[#8a7114] to-[#b4941f] text-[#0f0f0f]">
+                            <th class="p-5 text-sm font-bold uppercase">Service</th>
+                            <th class="p-5 text-sm font-bold uppercase">Vehicle</th>
+                            <th class="p-5 text-sm font-bold uppercase">Capacity</th>
+                            <th class="p-5 text-sm font-bold uppercase bg-[#d4af37]/20">TWD</th>
+                            <th class="p-5 text-sm font-bold uppercase text-[#1a1a1a]/70">MYR</th>
+                            <th class="p-5 text-sm font-bold uppercase text-[#1a1a1a]/70">SGD</th>
+                            <th class="p-5 text-sm font-bold uppercase text-[#1a1a1a]/70">USD</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5 text-gray-300" id="pricing-body">
+                        <tr class="hover:bg-white/5">
+                            <td rowspan="4" class="p-5 font-medium text-[#d4af37] bg-[#1a1a1a]/50 align-top border-r border-white/5">Airport Transfer<br><span class="text-xs text-gray-500">TPE &rarr; Taipei City</span></td>
+                            <td class="p-4 pl-5">Standard</td>
+                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
+                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">1,200</td>
+                            <td class="p-4 text-sm">150</td>
+                            <td class="p-4 text-sm">48</td>
+                            <td class="p-4 text-sm">38</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td class="p-4 pl-5">Premium</td>
+                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
+                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">1,800</td>
+                            <td class="p-4 text-sm">225</td>
+                            <td class="p-4 text-sm">73</td>
+                            <td class="p-4 text-sm">57</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td class="p-4 pl-5">Premium (Van)</td>
+                            <td class="p-4 text-sm text-gray-400">5-8 Pax / 7 Bags</td>
+                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">1,800</td>
+                            <td class="p-4 text-sm">225</td>
+                            <td class="p-4 text-sm">73</td>
+                            <td class="p-4 text-sm">57</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td class="p-4 pl-5 text-[#d4af37]">Luxury</td>
+                            <td class="p-4 text-sm text-gray-400">1-6 Pax / 6 Bags</td>
+                            <td class="p-4 font-bold text-lg text-[#d4af37] bg-[#2a2a2a]/30">2,800</td>
+                            <td class="p-4 text-sm">350</td>
+                            <td class="p-4 text-sm">113</td>
+                            <td class="p-4 text-sm">89</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td rowspan="4" class="p-5 font-medium text-[#d4af37] bg-[#1a1a1a]/50 align-top border-r border-white/5">Half-Day Charter<br><span class="text-xs text-gray-500">4 Hours</span></td>
+                            <td class="p-4 pl-5">Standard</td>
+                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
+                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">3,000</td>
+                            <td class="p-4 text-sm">375</td>
+                            <td class="p-4 text-sm">121</td>
+                            <td class="p-4 text-sm">95</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td class="p-4 pl-5">Premium</td>
+                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
+                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">4,000</td>
+                            <td class="p-4 text-sm">500</td>
+                            <td class="p-4 text-sm">161</td>
+                            <td class="p-4 text-sm">127</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td class="p-4 pl-5">Premium (Van)</td>
+                            <td class="p-4 text-sm text-gray-400">5-8 Pax / 7 Bags</td>
+                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">4,000</td>
+                            <td class="p-4 text-sm">500</td>
+                            <td class="p-4 text-sm">161</td>
+                            <td class="p-4 text-sm">127</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td class="p-4 pl-5 text-[#d4af37]">Luxury</td>
+                            <td class="p-4 text-sm text-gray-400">1-6 Pax / 6 Bags</td>
+                            <td class="p-4 font-bold text-lg text-[#d4af37] bg-[#2a2a2a]/30">5,800</td>
+                            <td class="p-4 text-sm">725</td>
+                            <td class="p-4 text-sm">234</td>
+                            <td class="p-4 text-sm">184</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td rowspan="4" class="p-5 font-medium text-[#d4af37] bg-[#1a1a1a]/50 align-top border-r border-white/5">Full-Day Charter<br><span class="text-xs text-gray-500">8 Hours</span></td>
+                            <td class="p-4 pl-5">Standard</td>
+                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
+                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">5,500</td>
+                            <td class="p-4 text-sm">688</td>
+                            <td class="p-4 text-sm">222</td>
+                            <td class="p-4 text-sm">175</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td class="p-4 pl-5">Premium</td>
+                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
+                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">7,500</td>
+                            <td class="p-4 text-sm">938</td>
+                            <td class="p-4 text-sm">302</td>
+                            <td class="p-4 text-sm">239</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td class="p-4 pl-5">Premium (Van)</td>
+                            <td class="p-4 text-sm text-gray-400">5-8 Pax / 7 Bags</td>
+                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">7,500</td>
+                            <td class="p-4 text-sm">938</td>
+                            <td class="p-4 text-sm">302</td>
+                            <td class="p-4 text-sm">239</td>
+                        </tr>
+                        <tr class="hover:bg-white/5">
+                            <td class="p-4 pl-5 text-[#d4af37]">Luxury</td>
+                            <td class="p-4 text-sm text-gray-400">1-6 Pax / 6 Bags</td>
+                            <td class="p-4 font-bold text-lg text-[#d4af37] bg-[#2a2a2a]/30">11,000</td>
+                            <td class="p-4 text-sm">1,375</td>
+                            <td class="p-4 text-sm">443</td>
+                            <td class="p-4 text-sm">350</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
+                <div class="bg-[#1a1a1a] p-6 rounded-lg border border-white/5">
+                    <h4 class="text-[#d4af37] font-bold mb-2 text-sm">📌 Pricing Notes 费用说明</h4>
+                    <ul class="list-disc pl-5 space-y-1 text-xs text-gray-400">
+                        <li>Includes: Vehicle, Driver, Fuel, Insurance (含车资、司机、油费、保险)</li>
+                        <li>Overtime: Standard $600/hr, Premium $900/hr, Luxury $1,200/hr (Charged per 30 mins)</li>
+                        <li>Cross-region travel: +$1,000~2,000 TWD/day</li>
+                        <li>Overnight Chauffeur: +$1,200 TWD/night</li>
+                    </ul>
+                </div>
+                <div class="bg-[#1a1a1a] p-6 rounded-lg border border-white/5">
+                    <h4 class="text-[#d4af37] font-bold mb-2 text-sm">📌 Luggage Policy 行李说明</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">Standard 28-inch suitcases. Please confirm luggage quantity in advance.<br>行李空间以标准28寸行李为基准，超大或超量行李须提前告知。</p>
+                </div>
+            </div>
+        </div>
+    </section><!-- Booking Form Section -->
+    <section id="contact" class="py-24 bg-[#0a0a0a] relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] p-8 md:p-12 rounded-2xl border border-white/10 shadow-2xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-2">Booking Form</h2>
+                    <p class="text-[#d4af37]">预约单</p>
+                </div><!-- Success Message Container -->
+                <div id="success-container" class="hidden bg-green-900/30 border border-green-500 rounded-xl p-8 text-center animate-fade-in-up">
+                    <h3 class="text-xl font-bold text-white mb-2">Booking Confirmed!</h3>
+                    <div class="bg-[#1a1a1a] p-4 rounded-lg border border-[#d4af37]/30 inline-block mb-4"><span class="text-gray-400 text-xs block mb-1">Order ID</span> </div>
+                    <p class="text-gray-300 mb-2">您的预约单已成功送出！</p>
+                    <p class="text-[#d4af37] font-bold mb-6">訂購成功後，我們會以 WhatsApp 與 Email 聯繫確認。</p>
+                    <div class="space-y-4 max-w-sm mx-auto"><!-- WhatsApp Link Button --> <a id="success-whatsapp-btn" href="https://wa.me/886970326591" target="_blank" class="w-full flex items-center justify-center bg-[#25D366] hover:bg-[#1ebd5b] text-white py-4 rounded-lg font-bold transition-all transform hover:scale-105 shadow-lg shadow-[#25D366]/20">&nbsp; WhatsApp Us &ndash; Same Day Reply&nbsp;</a></div><button class="mt-8 text-[#d4af37] hover:text-white underline text-sm block mx-auto">Book another trip</button>
+                </div><!-- Form Container -->
+                <div id="form-container" class="space-y-6">
+                    <div class="bg-[#0f0f0f]/50 p-4 rounded border-l-4 border-[#d4af37]">
+                        <p class="text-xs text-gray-400 mt-1 font-bold text-[#d4af37]">※ Booking Confirmation: We will contact you via WhatsApp &amp; Email to confirm details after submission.<br>※ 订购确认：送出预约单后，我们将透过 WhatsApp 与 Email 與您聯繫確認行程細節。</p>
+                    </div><!-- Contact Info -->
+                    <div class="border-b border-gray-800 pb-4 mb-4">
+                        <h5 class="text-[#d4af37] font-bold text-sm mb-3">Contact Information 联络资讯</h5>
+                        <div class="space-y-4">
+                            <div><label class="block text-xs font-bold text-gray-400 mb-1">Name 姓名 <span class="text-red-500">*</span></label> <input type="text" id="name" placeholder="Your Name" class="w-full onyx-input p-3 rounded-lg text-sm required"></div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div><label class="block text-xs font-bold text-gray-400 mb-1">Phone 电话 <span class="text-red-500">*</span></label> <input type="tel" id="phone" placeholder="+886 912 345 678" class="w-full onyx-input p-3 rounded-lg text-sm required"></div>
+                                <div><label class="block text-xs font-bold text-gray-400 mb-1">Email 电子信箱 <span class="text-red-500">*</span></label> <input type="email" id="email" placeholder="example@email.com" class="w-full onyx-input p-3 rounded-lg text-sm required"></div>
+                            </div>
+                        </div>
+                    </div><!-- Trip Info -->
+                    <h5 class="text-[#d4af37] font-bold text-sm mb-3">Trip Details 行程资讯</h5>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Service Type 服務類型 <span class="text-red-500">*</span></label> <select id="serviceType" class="w-full onyx-input p-3 rounded-lg text-sm required">&nbsp;<option value="Private Charter (4 Hrs) 包車旅遊 (4小時)">Private Charter (4 Hrs) 包車旅遊 (4小時)</option>
+                                <option value="Private Charter (8 Hrs) 包車旅遊 (8小時)">Private Charter (8 Hrs) 包車旅遊 (8小時)</option>
+                                <option value="Private Charter (Custom) 包車旅遊 (其他客製時間)">Private Charter (Custom) 包車旅遊 (其他客製時間)</option>
+                                <option value="Airport Transfer (機場接送)">Airport Transfer (機場接送)</option>&nbsp;
+                            </select></div>
+                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Date of Service 用车日期 <span class="text-red-500">*</span></label> <input type="text" id="date" class="w-full onyx-input p-3 rounded-lg text-sm cursor-pointer required" placeholder="Select Date Range" readonly=""></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Vehicle Grade 车型等级 <span class="text-red-500">*</span></label> <select id="vehicle" class="w-full onyx-input p-3 rounded-lg text-sm required">&nbsp;<option value="Standard (标准型)">Standard (标准型)</option>
+                                <option value="Premium SUV (豪华型)">Premium SUV (豪华型)</option>
+                                <option value="Premium Van (豪华型多人)">Premium Van (豪华型多人)</option>
+                                <option value="Luxury (顶级型)">Luxury (顶级型)</option>&nbsp;
+                            </select></div>
+                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Passengers 乘客人數 <span class="text-red-500">*</span></label> <select id="pax" class="w-full onyx-input p-3 rounded-lg text-sm required">&nbsp;<!-- Generated by JS 1-20 -->&nbsp;</select></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Luggage 行李数量 <span class="text-red-500">*</span></label> <select id="luggage" class="w-full onyx-input p-3 rounded-lg text-sm required">&nbsp;<!-- Generated by JS 0-20 -->&nbsp;</select></div>
+                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Baby Seats 婴儿座椅 <span class="text-red-500">*</span></label> <select id="babySeat" class="w-full onyx-input p-3 rounded-lg text-sm required">&nbsp;<!-- Generated by JS 0-10 -->&nbsp;</select></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Pick-up Location 上车地点 <span class="text-red-500">*</span></label> <input type="text" id="locations" class="w-full onyx-input p-3 rounded-lg text-sm required" placeholder="e.g. W Hotel Taipei or Taoyuan Airport T1"></div>
+                        <div><label id="flight-label" class="block text-xs font-bold text-gray-400 mb-1">Flight Number 航班號碼 (Optional)</label> <input type="text" id="flightNumber" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. BR123"></div>
+                    </div>
+                    <div><label class="block text-xs font-bold text-gray-400 mb-1">Itinerary &amp; Remarks 预计行程内容与其他备注事项 (Optional)</label> <textarea id="itinerary" rows="3" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. Visiting No.01 Itinerary, need stop for lunch, need 2 cars, etc."></textarea></div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Souvenir Pre-purchase 伴手礼代购 (Optional)</label> <input type="text" id="souvenir" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. Chia Te Pineapple Cake"></div>
+                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Referral Code 推荐代码 (Optional)</label> <input type="text" id="referral" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="Promo Code"></div>
+                    </div>
+                    <div class="mt-6"><button id="submit-btn" class="w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-4 rounded-lg font-bold text-lg transition-all transform hover:-translate-y-1 shadow-lg shadow-[#d4af37]/20">&nbsp; 送出預約單 Submit Booking&nbsp;</button></div>
+                </div>
+            </div>
+        </div>
+    </section><!-- Footer -->
+    <footer class="bg-black py-12 border-t border-white/10 text-center">
+        <div class="max-w-7xl mx-auto px-4"><span class="text-xl font-bold text-white tracking-widest uppercase block mb-4">&nbsp;ONYX <span class="text-[#d4af37]">TAIWAN</span>&nbsp;</span>
+            <div class="flex justify-center space-x-8 mb-6"> </div>
+            <p class="text-gray-500 text-sm">&copy; 2026 ONYX Taiwan Private Chauffeur. All rights reserved.</p>
+        </div>
+    </footer><!-- Scripts -->
+    <script>
+        // Global variables
+        window.currentOrderId = '';
+        window.GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzThsRiY-EUzRToyBhAZ8PAy5IpQnevch7-Gr_NaHs9FzfN8Ec-8pOC0cJov1u9Zkdu/exec";
+        
+        // Populate Select Options
+        const paxSelect = document.getElementById('pax');
+        for(let i=1; i<=20; i++) paxSelect.add(new Option(i, i));
+        
+        const luggageSelect = document.getElementById('luggage');
+        for(let i=0; i<=20; i++) luggageSelect.add(new Option(i, i));
+        
+        const babySeatSelect = document.getElementById('babySeat');
+        for(let i=0; i<=10; i++) babySeatSelect.add(new Option(i, i));
+        
+        // Itineraries Data
+        const itineraries = [
+            { 
+                id: 1, 
+                title_en: "Classic Must-Visit: Jiufen, Shifen & Yehliu (1 Day)", 
+                title_cn: "【经典必修】九份、十分、野柳 (1日游)", 
+                day: 1, 
+                region: "North", 
+                image_url: "./images/itinerary-01.jpg", 
+                desc: "The most comprehensive North Taiwan route. Includes the 'Yin Yang Sea' and 'Golden Waterfall' in the Gold Rush area, alongside the Queen's Head and Sky Lanterns. Ends with tea and ocean views in the lantern-lit village of Jiufen.", 
+                desc_cn: "这是北台湾最丰富的一日路线。除了野柳女王头与平溪天灯外，特别增加金瓜石地区的“阴阳海”与“黄金瀑布”奇景，最后在九份山城的红灯笼下品茶赏海景，感受电影《千与千寻》般的梦幻氛围。", 
+                spots: ["Yehliu Geopark (野柳地质公园)", "Yin Yang Sea (阴阳海)", "Golden Waterfall (黄金瀑布)", "Jiufen Old Street (九份老街)", "Shifen Waterfall (十分瀑布)", "Shifen Sky Lanterns (十分老街放天灯)"] 
+            },
+            { 
+                id: 2, 
+                title_en: "Instagram Hotspots: Taichung City & Gaomei Wetlands (1 Day)", 
+                title_cn: "【网美打卡】台中都会与湿地 (1日游)", 
+                day: 1, 
+                region: "Central", 
+                image_url: "./images/itinerary-02.jpg", 
+                desc: "Designed for photography lovers. Connects the colorful Rainbow Village, a Harry Potter-style ice cream shop, creative markets, and architectural masterpieces, concluding with a spectacular sunset at the wetlands.", 
+                desc_cn: "专为摄影与文青设计。串联色彩缤纷的彩绘村、哈利波特风格的冰淇淋店、文创市集与世界级曲墙建筑，最后以高美湿地的风车与绝美夕阳作为完美句点。", 
+                spots: ["Rainbow Village (彩虹眷村)", "Miyahara (宫原眼科)", "Shenji New Village (审计新村)", "National Taichung Theater (台中国家歌剧院)", "Gaomei Wetlands (高美湿地)"] 
+            },
+            { 
+                id: 3, 
+                title_en: "Lake & Mountains: Sun Moon Lake Scenic Tour (2 Days)", 
+                title_cn: "【湖光山色】日月潭环湖 (2日游)", 
+                day: 2, 
+                region: "Central", 
+                image_url: "./images/itinerary-03.jpg", 
+                desc: "A comprehensive land, water, and air experience. Includes the Paper Dome architecture, the scenic Xiangshan Center, a ropeway ride overlooking the lake, the grand Wenwu Temple, and indigenous cuisine at Ita Thao.", 
+                desc_cn: "结合水陆空的立体玩法。包含著名的纸教堂建筑，漫步全球最美自行车道旁的向山中心，搭乘缆车俯瞰湖景，参拜宏伟的文武庙，并走访伊达邵部落品尝原住民美食。", 
+                spots: ["【 Day 1 】", "Paper Dome (埔里纸教堂)", "Xiangshan Visitor Center (向山游客中心)", "Shuishe Pier (水社码头)", "Hanbi Trail (涵碧步道)", "【 Day 2 】", "Sun Moon Lake Ropeway (日月潭缆车)", "Lake Cruise: Lalu Island (日月潭游湖)", "Ita Thao Shopping District (伊达邵老街)", "Wenwu Temple & Year of Steps (文武庙与年梯步道)"] 
+            },
+            { 
+                id: 4, 
+                title_en: "Family & Hot Springs: Yilan Lanyang Plain (1 Day)", 
+                title_cn: "【亲子温泉】宜兰慢活之旅 (1日游)", 
+                day: 1, 
+                region: "East", 
+                image_url: "./images/itinerary-04.jpg", 
+                desc: "Perfect balance for families. Interact with Capybaras in yukatas, visit the world-champion whisky distillery, admire the unique Lanyang Museum, and relax with a soothing hot spring foot bath in Jiaoxi.", 
+                desc_cn: "亲子与休闲的最佳平衡。穿着浴衣与水豚互动，参观世界冠军威士忌酒厂，欣赏单面山造型的博物馆，最后享受礁溪著名的平原碳酸氢钠泉足汤，疗愈身心。", 
+                spots: ["Jimmy Park (几米公园)", "Zhang Mei Ama's Farm (张美阿姨农场)", "Kavalan Whisky Distillery (噶玛兰威士忌酒厂)", "Lanyang Museum (兰阳博物馆)", "Jiaoxi Hot Spring Park (礁溪温泉公园)"] 
+            },
+            { 
+                id: 5, 
+                title_en: "Alpine Retreat: Qingjing & Hehuanshan (2 Days)", 
+                title_cn: "【高山避暑】清境与合欢山 (2日游)", 
+                day: 2, 
+                region: "Mountain", 
+                image_url: "./images/itinerary-05.jpg", 
+                desc: "Experience the Alps of Taiwan. Visit Puli's famous spots, watch the sheep show, walk the Skywalk, and drive to Wuling, the highest point of Taiwan's highways, for breathtaking views of the sea of clouds.", 
+                desc_cn: "体验台湾的阿尔卑斯山风情。顺游埔里名产，在云端草原观赏绵羊秀，行走高空步道，并驱车直上台湾公路最高点“武岭”(3275公尺)，眺望壮阔的云海与连绵百岳。", 
+                spots: ["【 Day 1 】", "Puli Brewery (埔里酒厂)", "Feeling 18 Chocolate (18度C巧克力工房)", "The Old England Manor - Photo Stop (老英格兰庄园)", "Small Swiss Garden (清境小瑞士花园)", "【 Day 2 】", "Green Green Grassland Sheep Show (青青草原绵羊秀)", "Qingjing Skywalk (清境高空观景步道)", "Kunyang Rest Stop (昆阳休息站)", "Hehuanshan Wuling (合欢山武岭)"] 
+            },
+            { 
+                id: 6, 
+                title_en: "World Heritage: Alishan Forest Railway (3 Days)", 
+                title_cn: "【世界地标】阿里山森林铁道 (3日游)", 
+                day: 3, 
+                region: "South", 
+                image_url: "./images/itinerary-06.jpg", 
+                desc: "Dive into Taiwan's forestry history. Visit the largest Japanese dormitory complex, ride the century-old forest train through giant sacred trees, enjoy a railway lunchbox, and walk the famous Eternity Suspension Bridges.", 
+                desc_cn: "深入台湾林业历史。走访全台最大日式宿舍群，搭乘百年森林小火车穿梭神木群，品尝奋起湖铁路便当，并在触口欣赏著名的天长地久吊桥。", 
+                spots: ["【 Day 1 】", "Hinoki Village (桧意森活村)", "Alishan Forest Railway Garage Park (阿里山森林铁路车库园区)", "Chiayi Wenhua Road Night Market (嘉义文化路夜市)", "【 Day 2 】", "Alishan Forest Recreation Area (阿里山森林游乐区)", "Sisters Ponds & Shouzhen Temple (姊妹潭与受镇宫)", "Giant Tree Trail (巨木群栈道)", "【 Day 3 】", "Fenqihu Old Street (奋起湖老街)", "Fenqihu Cedar Boardwalk (奋起湖杉林栈道)", "Eternity Suspension Bridges (天长地久桥)"] 
+            },
+            { 
+                id: 7, 
+                title_en: "Metropolitan VIP: Taipei Highlights (1 Day)", 
+                title_cn: "【尊荣都会】台北市区 VIP (1日游)", 
+                day: 1, 
+                region: "Taipei", 
+                image_url: "./images/itinerary-07.jpg", 
+                desc: "A contrast of ancient and modern Taipei. Watch the changing of the guard, view imperial treasures, ascend the tallest landmark, visit the historic Lungshan Temple, and wander through baroque streets.", 
+                desc_cn: "古今台北的极致对比。欣赏卫兵交接与中华皇室珍宝，登上台湾最高地标俯瞰城市，参拜百年古刹龙山寺，最后穿梭于巴洛克式老街，感受传统與现代的交融。", 
+                spots: ["C.K.S Memorial Hall (中正纪念堂)", "National Palace Museum (国立故宫博物院)", "Taipei 101 & Xinyi District (台北 101 与信义商圈)", "Lungshan Temple (龙山寺)", "Dadaocheng Dihua Street (大稻埕迪化街)"] 
+            },
+            { 
+                id: 8, 
+                title_en: "Culinary Capital: Tainan History & Food (3 Days)", 
+                title_cn: "【美食古都】台南历史与小吃 (3日游)", 
+                day: 3, 
+                region: "South", 
+                image_url: "./images/itinerary-08.jpg", 
+                desc: "A feast for the eyes and palate. Visit a museum resembling a European palace, explore Dutch colonial forts and tree houses, take a raft through the 'Amazon of Taiwan' mangrove forest, and see Taiwan's oldest salt fields.", 
+                desc_cn: "视觉與味觉的双重飨宴。仿佛置身欧洲宫廷的博物馆，探索荷兰时期的古老城堡與树屋奇景，搭乘竹筏进入“台湾亚马逊”红树林，并造访台湾最古老的盐田。", 
+                spots: ["【 Day 1 】", "Chimei Museum (奇美博物馆)", "Ten Drum Creative Park (十鼓文创园区)", "Night Market Food (夜市小吃)", "【 Day 2 】", "Anping Fort (安平古堡)", "Anping Tree House (安平树屋)", "Confucius Temple (台南孔庙)", "Hayashi Store (林百货)", "【 Day 3 】", "Sicao Green Tunnel (四草绿色隧道)", "Jingzaijiao Salt Fields (井仔脚瓦盘盐田)", "Blueprint Park (蓝晒图文创园区)"] 
+            },
+            { 
+                id: 9, 
+                title_en: "Gorge Marvels: Hualien Taroko (3 Days)", 
+                title_cn: "【峡谷奇景】花莲太鲁阁 (3日游)", 
+                day: 3, 
+                region: "East", 
+                image_url: "./images/itinerary-09.jpg", 
+                desc: "World-class natural wonders. From the dramatic Qingshui Cliffs to the marble gorges of Taroko. Walk the suspension bridge over the river, visit historic Japanese buildings, and Asia's first shipping container Starbucks.", 
+                desc_cn: "世界级的大自然鬼斧神工。从太平洋畔的清水断崖，深入大理石峡谷，行走高空吊桥俯瞰立雾溪，并造访日式历史建筑與亚洲首座货柜屋星巴克打卡。", 
+                spots: ["【 Day 1 】", "Qingshui Cliff (清水断崖)", "Chongde Beach (崇德海滩)", "Qixingtan Beach (七星潭)", "【 Day 2 】", "Buluowan Bridge (布洛湾吊桥)", "Swallow Grotto Trail (燕子口步道)", "Tianxiang (天祥)", "Eternal Spring Shrine (长春祠)", "【 Day 3 】", "Pine Garden (松园别馆)", "Cultural Park (文化创意园区)", "Starbucks Container Store (货柜星巴克)"] 
+            },
+            { 
+                id: 10, 
+                title_en: "Southern Border: Kenting Peninsula (4 Days)", 
+                title_cn: "【国境之南】垦丁恒春半岛 (4日游)", 
+                day: 4, 
+                region: "South", 
+                image_url: "./images/itinerary-10.jpg", 
+                desc: "The ultimate tropical getaway. Features white sandy beaches, CNN-rated world-class sunsets, the southernmost lighthouse of Taiwan, vast cliff landscapes, historic city gates, and authentic local cuisine on the return trip.", 
+                desc_cn: "热带度假氛围的首选。拥有洁白的沙滩、CNN评选的世界级日落、台湾最南端的白色灯塔，以及壮阔的崩崖地形與古城门历史，回程更可品尝道地的屏东美食。", 
+                spots: ["【 Day 1 】", "Pier-2 Art Center (驳二艺术特区)", "Great Harbor Bridge (大港桥)", "The Dome of Light (光之穹顶)", "【 Day 2 】", "South Bay or Baisha Beach (南湾/白沙湾)", "Houbihu Harbor (后壁湖)", "Maobitou (猫鼻头)", "Sunset (关山夕照)", "【 Day 3 】", "Chuanfan Rock (船帆石)", "Eluanbi Lighthouse (灯塔)", "Longpan Park (龙磐公园)", "Ancient City (恒春古城)", "【 Day 4 】", "Victory Star Village (胜利星村)", "Dapeng Bay (大鹏湾)", "Wanluan Pig's Knuckle (万峦猪脚)"] 
+            },
+            { 
+                id: 11, 
+                title_en: "Mountain Railway: Miaoli Old Mountain Line (1 Day)", 
+                title_cn: "【山城铁道】苗栗旧山线與古堡 (1日游)", 
+                day: 1, 
+                region: "Central", 
+                image_url: "./images/itinerary-11.jpg", 
+                desc: "A nostalgic and fun experience. Ride the popular Rail Bike across the high-altitude bridge overlooking the Longteng Broken Bridge ruins, stroll through the century-old wooden station, and finish with tea at the 'Château in the Air'.", 
+                desc_cn: "充满怀旧與童趣的体验。骑乘超人气的铁道自行车(Rail Bike)行驶在高空鱼藤坪铁桥上，俯瞰壮观的红砖断桥遗迹，漫步於百年木造车站，最后在如宫崎骏动画场景般的古堡餐厅享用下午茶。", 
+                spots: ["Rail Bike (旧山线铁道自行车)", "Longteng Broken Bridge (龙腾断桥)", "Shengxing Station (胜兴车站)", "Wood Sculpture Museum (三义木雕博物馆)", "Château in the Air (天空之城)"] 
+            },
+            { 
+                id: 12, 
+                title_en: "Volcanic Wonders: Yangmingshan & Beitou (1 Day)", 
+                title_cn: "【火山地质】阳明山與北投温泉 (1日游)", 
+                day: 1, 
+                region: "Taipei", 
+                image_url: "./images/itinerary-12.jpg", 
+                desc: "The closest natural wonders to Taipei. Witness the impressive sulfur vents at Xiaoyoukeng, take photos with grazing water buffaloes at Qingtiangang, and step into the misty Thermal Valley to experience rich Japanese culture.", 
+                desc_cn: "距离台北最近的自然奇景。近距離觀賞小油坑硫磺噴氣孔的震撼地質，在擎天崗與放牧水牛合影，午後走入煙霧繚繞的地熱谷，體驗浓厚的日式温泉鄉文化與歷史建築。", 
+                spots: ["Xiaoyoukeng (小油坑)", "Qingtiangang Grassland (擎天岗)", "Milk Lake (冷水坑與牛奶湖)", "Thermal Valley (地热谷)", "Hot Spring Museum (温泉博物馆)", "Xinbeitou Historic Station (新北投车站)"] 
+            }
+        ];
+        
+        // Render Itineraries
+        const grid = document.getElementById('itinerary-grid');
+        itineraries.forEach((item, idx) => {
+            const indexStr = (idx + 1).toString().padStart(2, '0');
+            const spotList = item.spots.map(spot => {
+                if(spot.includes("Day")) return `<li class="text-[#d4af37] font-bold pt-2 list-none -ml-2">${spot}</li>`;
+                return `<li>• ${spot}</li>`;
+            }).join('');
+            
+            const card = `
+            <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
+                <div class="h-48 overflow-hidden relative">
+                    <img src="${item.image_url}" alt="${item.title_en}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                </div>
+                <div class="p-6 flex-grow">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[#d4af37] font-bold text-xl tracking-wider">No.${indexStr}</span>
+                            <span class="bg-[#b4941f] text-[#0f0f0f] text-xs font-bold px-3 py-1 rounded-full uppercase">${item.day} Day Tour</span>
+                        </div>
+                        <span class="text-gray-500 text-xs">${item.region}</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-1 leading-tight">${item.title_en}</h3>
+                    <p class="text-[#d4af37] text-sm mb-4 font-medium">${item.title_cn}</p>
+                    <ul class="text-gray-400 text-sm space-y-1.5 mb-6 pl-2">${spotList}</ul>
+                    <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50">
+                        <p class="text-gray-300 text-sm mb-2 leading-relaxed">${item.desc}</p>
+                        <p class="text-gray-500 text-xs italic">✨ ${item.desc_cn}</p>
+                    </div>
+                </div>
+            </div>`;
+            grid.innerHTML += card;
+        });
+        
+        // Toggle Flight Field
+        window.toggleFlightField = function() {
+            const type = document.getElementById('serviceType').value;
+            const flightInput = document.getElementById('flightNumber');
+            const label = document.getElementById('flight-label');
+            
+            if(type.includes("Airport")) {
+                label.innerHTML = 'Flight Number 航班号码 <span class="text-red-500">*</span>';
+                flightInput.classList.add('required');
+            } else {
+                label.innerHTML = 'Flight Number 航班号码 (Optional)';
+                flightInput.classList.remove('required');
+                flightInput.style.borderColor = '#333';
+            }
+        };
+        
+        // Initialize Flatpickr & Icons
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr("#date", {
+                dateFormat: "Y-m-d",
+                minDate: "today",
+                mode: "range",
+                theme: "dark",
+                disableMobile: "true"
+            });
+            lucide.createIcons();
+        
+            // --- New Function: Auto-fill Referral Code from URL ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const refCode = urlParams.get('ref') || urlParams.get('promo');
+            if (refCode) {
+                const refInput = document.getElementById('referral');
+                refInput.value = refCode;
+                // Highlight with gold border and slight shadow
+                refInput.style.borderColor = '#d4af37';
+                refInput.style.boxShadow = '0 0 10px rgba(212, 175, 55, 0.4)';
+            }
+        });
+        
+        // Booking Logic
+        window.submitBooking = async function() {
+            const btn = document.getElementById('submit-btn');
+            const inputs = document.querySelectorAll('.required');
+            let valid = true;
+        
+            inputs.forEach(input => {
+                if(!input.value.trim()) {
+                    input.style.borderColor = '#ef4444';
+                    valid = false;
+                } else {
+                    input.style.borderColor = '#333';
+                }
+            });
+        
+            if(!valid) {
+                alert("Please fill in all required fields marked with * \n请填写所有标示 * 的必填栏位");
+                return;
+            }
+        
+            const d = new Date();
+            const dateStr = d.toLocaleDateString('en-CA', { timeZone: 'Asia/Taipei' }).replace(/-/, "").replace(/-/, "").slice(2);
+            const random = Math.floor(Math.random() * 100000).toString().padStart(5, '0');
+            const orderId = `ONYX-${dateStr}-${random}`;
+            window.currentOrderId = orderId; 
+        
+            const formData = {
+                orderId: orderId,
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                serviceType: document.getElementById('serviceType').value,
+                date: document.getElementById('date').value,
+                vehicle: document.getElementById('vehicle').value,
+                pax: document.getElementById('pax').value,
+                luggage: document.getElementById('luggage').value,
+                babySeat: document.getElementById('babySeat').value,
+                locations: document.getElementById('locations').value,
+                flightNumber: document.getElementById('flightNumber').value || 'N/A',
+                itinerary: document.getElementById('itinerary').value || 'N/A',
+                souvenir: document.getElementById('souvenir').value || 'N/A',
+                referral: document.getElementById('referral').value || 'N/A',
+                createdAt: new Date().toISOString()
+            };
+        
+            const waMessage = `📌 NEW BOOKING REQUEST
+        Order ID: ${formData.orderId}
+        Name: ${formData.name}
+        Phone: ${formData.phone}
+        Email: ${formData.email}
+        Service: ${formData.serviceType}
+        Date: ${formData.date}
+        Vehicle: ${formData.vehicle}
+        Pax: ${formData.pax} | Luggage: ${formData.luggage}
+        Baby Seat: ${formData.babySeat}
+        Location: ${formData.locations}
+        Flight: ${formData.flightNumber}
+        Itinerary/Notes: ${formData.itinerary}
+        Souvenir: ${formData.souvenir}
+        Promo Code: ${formData.referral}`;
+        
+            const encodedMessage = encodeURIComponent(waMessage);
+            const waUrl = `https://wa.me/886970326591?text=${encodedMessage}`;
+        
+            btn.innerHTML = '<i data-lucide="loader-2" class="mr-2 animate-spin"></i> Processing...';
+            btn.disabled = true;
+        
+            try {
+                if(window.GOOGLE_SCRIPT_URL) {
+                    const form = new FormData();
+                    form.append('Order ID', formData.orderId);
+                    form.append('Name', formData.name);
+                    form.append('Phone', formData.phone);
+                    form.append('Email', formData.email);
+                    form.append('Service', formData.serviceType);
+                    form.append('Date', formData.date);
+                    form.append('Vehicle', formData.vehicle);
+                    form.append('Pax', formData.pax);
+                    form.append('Luggage', formData.luggage);
+                    form.append('Baby Seat', formData.babySeat);
+                    form.append('Location', formData.locations);
+                    form.append('Flight', formData.flightNumber);
+                    form.append('Itinerary', formData.itinerary);
+                    form.append('Souvenir', formData.souvenir);
+                    form.append('Promo Code', formData.referral);
+                    await fetch(window.GOOGLE_SCRIPT_URL, { method: 'POST', body: form, mode: 'no-cors' });
+                }
+        
+                await fetch("https://formsubmit.co/ajax/onyxtaiwan.official@gmail.com", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        _subject: `Booking: ${orderId}`,
+                        _cc: "treetea3322@gmail.com",
+                        _template: "table",
+                        ...formData
+                    })
+                });
+        
+                document.getElementById('form-container').classList.add('hidden');
+                const successDiv = document.getElementById('success-container');
+                successDiv.classList.remove('hidden');
+                document.getElementById('success-order-id').innerText = orderId;
+                
+                const waBtn = document.getElementById('success-whatsapp-btn');
+                if(waBtn) waBtn.href = waUrl;
+        
+            } catch (e) {
+                console.error(e);
+                alert("Error submitting booking. Please check your network connection.");
+                btn.innerHTML = 'Retry Submit';
+                btn.disabled = false;
+            }
+        };
+        
+        window.resetForm = function() {
+            location.reload();
+        };
+    </script>
+</body>
+
+</html>
