@@ -1,43 +1,37 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="zh-Hans">
-
+<html lang="zh-Hans" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONYX Taiwan Private Chauffeur | 台湾高端私人包车</title>
-    <meta name="description" content="Premium chauffeur services in Taiwan for global travelers. Airport transfers, private charters, and luxury fleet."><!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script><!-- Google Fonts -->
+    <meta name="description" content="Premium chauffeur services in Taiwan for global travelers. Airport transfers, private charters, and luxury fleet.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet"><!-- Flatpickr CSS (Dark Theme) -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Flatpickr CSS (Dark Theme) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css"><!-- Flatpickr JS -->
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script><!-- Lucide Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+    
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        body {
-            font-family: 'Inter', 'Noto Sans SC', sans-serif;
-        }
-
+        body { font-family: 'Inter', 'Noto Sans SC', sans-serif; }
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0f0f0f;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #2a2a2a;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #d4af37;
-        }
-
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0f0f0f; }
+        ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+        
         /* Custom Input Styles */
         .onyx-input {
             background-color: #0a0a0a;
@@ -45,55 +39,90 @@
             color: #e5e5e5;
             transition: all 0.3s ease;
         }
-
         .onyx-input:focus {
             border-color: #d4af37;
             box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
             outline: none;
         }
-
         /* Flatpickr Customization */
-        .flatpickr-day.selected,
-        .flatpickr-day.startRange,
-        .flatpickr-day.endRange {
+        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
             background: #d4af37 !important;
             border-color: #d4af37 !important;
             color: #0f0f0f !important;
             font-weight: bold;
         }
-
-        .hidden {
-            display: none;
-        }
+        .hidden { display: none; }
     </style>
 </head>
+<body class="bg-[#0f0f0f] text-gray-300 antialiased selection:bg-[#d4af37] selection:text-[#0f0f0f]">
 
-<body class="bg-[#0f0f0f] text-gray-300 antialiased selection:bg-[#d4af37] selection:text-[#0f0f0f]"><!-- Navigation -->
+    <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 flex items-center cursor-pointer"><span class="text-2xl font-bold text-white tracking-widest uppercase mr-3">&nbsp;ONYX <span class="text-[#d4af37]">TAIWAN</span>&nbsp;</span> <!-- LOGO Image --> <img src="./images/logo.png" alt="ONYX Logo" class="h-10 w-auto object-contain"></div>
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                    <span class="text-2xl font-bold text-white tracking-widest uppercase mr-3">
+                        ONYX <span class="text-[#d4af37]">TAIWAN</span>
+                    </span>
+                    <!-- LOGO Image -->
+                    <img src="./images/logo.png" alt="ONYX Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none'">
+                </div>
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-6"><a href="#home" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Home</a> <a href="#services" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Services</a> <a href="#itineraries" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Itineraries</a> <a href="#fleet" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Fleet</a> <a href="#pricing" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Pricing</a> <a href="#contact" class="bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 ml-2">Book Now</a></div>
-                </div><!-- Mobile Menu Button -->
-                <div class="-mr-2 flex md:hidden"><button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-[#d4af37] hover:text-white focus:outline-none">&nbsp;&nbsp;</button></div>
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="#home" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Home</a>
+                        <a href="#services" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Services</a>
+                        <a href="#itineraries" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Itineraries</a>
+                        <a href="#fleet" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Fleet</a>
+                        <a href="#pricing" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Pricing</a>
+                        <a href="#contact" class="bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 ml-2">Book Now</a>
+                    </div>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-[#d4af37] hover:text-white focus:outline-none">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
             </div>
-        </div><!-- Mobile Menu -->
-        <div class="hidden md:hidden bg-[#0a0a0a]" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3"><a href="#home" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Home</a> <a href="#services" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Services</a> <a href="#itineraries" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Itineraries</a> <a href="#pricing" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Pricing</a> <a href="#contact" class="text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium font-bold">Book Now</a></div>
         </div>
-    </nav><!-- Hero Section -->
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-[#0a0a0a]" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#services" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Services</a>
+                <a href="#itineraries" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Itineraries</a>
+                <a href="#pricing" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Pricing</a>
+                <a href="#contact" class="text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium font-bold">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex items-center justify-center bg-[#0a0a0a] pt-16">
-        <div class="absolute inset-0 z-0"><!-- Hero Image --> <img src="./images/hero.jpg" alt="Mercedes-Benz V-Class" class="w-full h-full object-cover opacity-40">
-            <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/80 via-[#0f0f0f]/60 to-[#0f0f0f]"><br></div>
+        <div class="absolute inset-0 z-0">
+            <!-- Hero Image -->
+            <img src="./images/hero.jpg" alt="Mercedes-Benz V-Class" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/80 via-[#0f0f0f]/60 to-[#0f0f0f]"></div>
         </div>
         <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-[#d4af37] font-semibold tracking-[0.2em] uppercase text-sm md:text-base mb-4 animate-fade-in-up">ONYX Taiwan</h2>
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">Premium Chauffeur Services<br><span class="text-gray-400 font-light italic text-2xl md:text-4xl block mt-2">for Global Travelers</span></h1>
-            <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300 font-light mb-10">专为星马与全球旅客打造的台湾高端私人司乘服务</p>
-            <div class="flex justify-center"><a href="#contact" class="flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg hover:shadow-[#d4af37]/50 transform hover:scale-105">&nbsp; Book Your Trip&nbsp;</a></div>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+                Premium Chauffeur Services<br>
+                <span class="text-gray-400 font-light italic text-2xl md:text-4xl block mt-2">for Global Travelers</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-300 font-light mb-10">
+                专为星马与全球旅客打造的台湾高端私人司乘服务
+            </p>
+            
+            <div class="flex justify-center">
+                <a href="#contact" class="flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg hover:shadow-[#d4af37]/50 transform hover:scale-105">
+                    <i data-lucide="calendar" class="mr-2"></i> Book Your Trip
+                </a>
+            </div>
         </div>
-    </section><!-- Trust Banner -->
+    </section>
+
+    <!-- Trust Banner -->
     <div class="bg-[#0a0a0a] border-y border-white/5 py-8">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 text-center">
@@ -101,66 +130,86 @@
                     <p class="text-[#d4af37] font-bold text-sm md:text-base tracking-widest uppercase mb-1">Licensed Commercial Vehicles</p>
                     <p class="text-gray-500 text-xs md:text-sm">合法营业车</p>
                 </div>
-                <div class="hidden md:block w-px h-8 bg-white/10"><br></div>
+                <div class="hidden md:block w-px h-8 bg-white/10"></div>
                 <div class="group">
                     <p class="text-[#d4af37] font-bold text-sm md:text-base tracking-widest uppercase mb-1">Professional Team</p>
                     <p class="text-gray-500 text-xs md:text-sm">专业团队</p>
                 </div>
-                <div class="hidden md:block w-px h-8 bg-white/10"><br></div>
+                <div class="hidden md:block w-px h-8 bg-white/10"></div>
                 <div class="group">
-                    <p class="text-[#d4af37] font-bold text-sm md:text-base tracking-widest uppercase mb-1">English &amp; Mandarin support</p>
+                    <p class="text-[#d4af37] font-bold text-sm md:text-base tracking-widest uppercase mb-1">English & Mandarin support</p>
                     <p class="text-gray-500 text-xs md:text-sm">中英文服务</p>
                 </div>
             </div>
         </div>
-    </div><!-- Services Section -->
+    </div>
+
+    <!-- Services Section -->
     <section id="services" class="py-24 bg-[#0f0f0f]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Services</h2>
-                <div class="w-24 h-1 bg-[#d4af37] mx-auto rounded-full"><br></div>
-                <p class="mt-4 text-gray-400">Professional &bull; Private &bull; Customized</p>
+                <div class="w-24 h-1 bg-[#d4af37] mx-auto rounded-full"></div>
+                <p class="mt-4 text-gray-400">Professional • Private • Customized</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"><!-- Service Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service Cards -->
                 <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
-                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]"><br></div>
+                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]">
+                        <i data-lucide="plane" width="32" height="32"></i>
+                    </div>
                     <h3 class="text-xl font-bold text-white mb-3">Transfers</h3>
-                    <p class="text-gray-400 text-sm mb-2">TPE/TSA/KHH Airports &amp; Private Charters.</p>
+                    <p class="text-gray-400 text-sm mb-2">TPE/TSA/KHH Airports & Private Charters.</p>
                     <p class="text-gray-500 text-xs">机场接驳与私人包车</p>
                 </div>
                 <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
-                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]"><br></div>
+                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]">
+                        <i data-lucide="car" width="32" height="32"></i>
+                    </div>
                     <h3 class="text-xl font-bold text-white mb-3">Luxury Fleet</h3>
-                    <p class="text-gray-400 text-sm mb-2">Luxury vehicles, privacy &amp; comfort.</p>
+                    <p class="text-gray-400 text-sm mb-2">Luxury vehicles, privacy & comfort.</p>
                     <p class="text-gray-500 text-xs">豪华车款，重視隱私與舒適</p>
                 </div>
                 <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
-                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]"><br></div>
+                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]">
+                        <i data-lucide="gift" width="32" height="32"></i>
+                    </div>
                     <h3 class="text-xl font-bold text-white mb-3">Concierge</h3>
-                    <p class="text-gray-400 text-sm mb-2">Chia Te, Ruyi, Pan&rsquo;s Cake (Skip-the-Queue).</p>
+                    <p class="text-gray-400 text-sm mb-2">Chia Te, Ruyi, Pan’s Cake (Skip-the-Queue).</p>
                     <p class="text-gray-500 text-xs">伴手礼代购 (免排隊)</p>
                 </div>
                 <div class="bg-[#1a1a1a] p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
-                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]"><br></div>
+                    <div class="w-14 h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-6 text-[#d4af37]">
+                        <i data-lucide="utensils" width="32" height="32"></i>
+                    </div>
                     <h3 class="text-xl font-bold text-white mb-3">Support</h3>
-                    <p class="text-gray-400 text-sm mb-2">Dining coordination &amp; curated food guides.</p>
+                    <p class="text-gray-400 text-sm mb-2">Dining coordination & curated food guides.</p>
                     <p class="text-gray-500 text-xs">餐厅订位协助与美食推荐</p>
                 </div>
             </div>
         </div>
-    </section><!-- Itineraries Section -->
-    <section id="itineraries" class="py-24 bg-[#0a0a0a] border-t border-white/5 relative overflow-hidden"><!-- Background Decoration -->
-        <div class="absolute top-0 right-0 w-64 h-64 bg-[#d4af37]/5 rounded-full blur-3xl -mr-32 -mt-32"><br></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-[#d4af37]/5 rounded-full blur-3xl -ml-48 -mb-48"><br></div>
+    </section>
+
+    <!-- Itineraries Section -->
+    <section id="itineraries" class="py-24 bg-[#0a0a0a] border-t border-white/5 relative overflow-hidden">
+        <!-- Background Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-[#d4af37]/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-[#d4af37]/5 rounded-full blur-3xl -ml-48 -mb-48"></div>
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Recommended Itineraries</h2>
-                <div class="w-24 h-1 bg-[#d4af37] mx-auto rounded-full"><br></div>
+                <div class="w-24 h-1 bg-[#d4af37] mx-auto rounded-full"></div>
                 <p class="mt-4 text-gray-400">Discover Taiwan with Our Curated Plans<br>精选包车建议行程</p>
             </div>
-            <div id="itinerary-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Itinerary Cards will be injected here by JS --><br></div>
+
+            <div id="itinerary-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Itinerary Cards will be injected here by JS -->
+            </div>
         </div>
-    </section><!-- Fleet Section -->
+    </section>
+
+    <!-- Fleet Section -->
     <section id="fleet" class="py-24 bg-[#0f0f0f] border-t border-white/5">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white">Vehicle Options</h2>
@@ -169,35 +218,37 @@
                 <div class="bg-[#1a1a1a] p-6 rounded-lg text-center border-t-4 border-gray-600 hover:border-[#d4af37] transition-colors">
                     <h4 class="text-xl font-bold mb-1 text-white">Standard</h4>
                     <p class="text-gray-500 text-sm mb-4">标准型</p>
-                    <div class="text-gray-300 mb-2 font-mono text-sm">1-4 Pax</div>
+                    <div class="text-gray-300 mb-2 font-mono text-sm"><i data-lucide="users" class="inline mr-2 w-4"></i>1-4 Pax</div>
                     <div class="text-gray-400 text-xs">RAV4, CR-V or equivalent</div>
                 </div>
                 <div class="bg-[#1a1a1a] p-6 rounded-lg text-center border-t-4 border-gray-600 hover:border-[#d4af37] transition-colors">
                     <h4 class="text-xl font-bold mb-1 text-[#d4af37]">Premium SUV</h4>
                     <p class="text-gray-500 text-sm mb-4">豪华型</p>
-                    <div class="text-gray-300 mb-2 font-mono text-sm">1-4 Pax</div>
+                    <div class="text-gray-300 mb-2 font-mono text-sm"><i data-lucide="users" class="inline mr-2 w-4"></i>1-4 Pax</div>
                     <div class="text-gray-400 text-xs">Benz(SUV), Lexus(SUV)</div>
                 </div>
                 <div class="bg-[#1a1a1a] p-6 rounded-lg text-center border-t-4 border-gray-600 hover:border-[#d4af37] transition-colors">
                     <h4 class="text-xl font-bold mb-1 text-[#d4af37]">Premium Van</h4>
                     <p class="text-gray-500 text-sm mb-4">豪华型多人</p>
-                    <div class="text-gray-300 mb-2 font-mono text-sm">5-8 Pax</div>
+                    <div class="text-gray-300 mb-2 font-mono text-sm"><i data-lucide="users" class="inline mr-2 w-4"></i>5-8 Pax</div>
                     <div class="text-gray-400 text-xs">Benz Vito, VW T6</div>
                 </div>
                 <div class="bg-[#1a1a1a] p-6 rounded-lg text-center border-t-4 border-[#b4941f] shadow-lg shadow-[#b4941f]/20 relative">
                     <div class="absolute top-0 right-0 -mt-3 -mr-3"><span class="bg-[#b4941f] text-[#0f0f0f] text-xs font-bold px-2 py-1 rounded">TOP</span></div>
                     <h4 class="text-xl font-bold mb-1 text-[#d4af37]">Luxury</h4>
                     <p class="text-gray-500 text-sm mb-4">顶级型</p>
-                    <div class="text-gray-300 mb-2 font-mono text-sm">1-6 Pax</div>
+                    <div class="text-gray-300 mb-2 font-mono text-sm"><i data-lucide="users" class="inline mr-2 w-4"></i>1-6 Pax</div>
                     <div class="text-gray-400 text-xs">Alphard, Benz V-Class</div>
                 </div>
             </div>
         </div>
-    </section><!-- Pricing Section -->
+    </section>
+
+    <!-- Pricing Section -->
     <section id="pricing" class="py-24 bg-[#0f0f0f]">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white">Pricing Guide</h2>
-            <p class="text-gray-400 mt-4">Transparent rates for Airport &amp; Charters<br>公开透明的价格</p>
+            <p class="text-gray-400 mt-4">Transparent rates for Airport & Charters<br>公开透明的价格</p>
             <div class="overflow-x-auto mt-12 rounded-xl border border-white/10 shadow-2xl bg-[#1a1a1a]">
                 <table class="w-full text-left border-collapse min-w-[800px]">
                     <thead>
@@ -212,108 +263,24 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-white/5 text-gray-300" id="pricing-body">
-                        <tr class="hover:bg-white/5">
-                            <td rowspan="4" class="p-5 font-medium text-[#d4af37] bg-[#1a1a1a]/50 align-top border-r border-white/5">Airport Transfer<br><span class="text-xs text-gray-500">TPE &rarr; Taipei City</span></td>
-                            <td class="p-4 pl-5">Standard</td>
-                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
-                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">1,200</td>
-                            <td class="p-4 text-sm">150</td>
-                            <td class="p-4 text-sm">48</td>
-                            <td class="p-4 text-sm">38</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td class="p-4 pl-5">Premium</td>
-                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
-                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">1,800</td>
-                            <td class="p-4 text-sm">225</td>
-                            <td class="p-4 text-sm">73</td>
-                            <td class="p-4 text-sm">57</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td class="p-4 pl-5">Premium (Van)</td>
-                            <td class="p-4 text-sm text-gray-400">5-8 Pax / 7 Bags</td>
-                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">1,800</td>
-                            <td class="p-4 text-sm">225</td>
-                            <td class="p-4 text-sm">73</td>
-                            <td class="p-4 text-sm">57</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td class="p-4 pl-5 text-[#d4af37]">Luxury</td>
-                            <td class="p-4 text-sm text-gray-400">1-6 Pax / 6 Bags</td>
-                            <td class="p-4 font-bold text-lg text-[#d4af37] bg-[#2a2a2a]/30">2,800</td>
-                            <td class="p-4 text-sm">350</td>
-                            <td class="p-4 text-sm">113</td>
-                            <td class="p-4 text-sm">89</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td rowspan="4" class="p-5 font-medium text-[#d4af37] bg-[#1a1a1a]/50 align-top border-r border-white/5">Half-Day Charter<br><span class="text-xs text-gray-500">4 Hours</span></td>
-                            <td class="p-4 pl-5">Standard</td>
-                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
-                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">3,000</td>
-                            <td class="p-4 text-sm">375</td>
-                            <td class="p-4 text-sm">121</td>
-                            <td class="p-4 text-sm">95</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td class="p-4 pl-5">Premium</td>
-                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
-                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">4,000</td>
-                            <td class="p-4 text-sm">500</td>
-                            <td class="p-4 text-sm">161</td>
-                            <td class="p-4 text-sm">127</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td class="p-4 pl-5">Premium (Van)</td>
-                            <td class="p-4 text-sm text-gray-400">5-8 Pax / 7 Bags</td>
-                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">4,000</td>
-                            <td class="p-4 text-sm">500</td>
-                            <td class="p-4 text-sm">161</td>
-                            <td class="p-4 text-sm">127</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td class="p-4 pl-5 text-[#d4af37]">Luxury</td>
-                            <td class="p-4 text-sm text-gray-400">1-6 Pax / 6 Bags</td>
-                            <td class="p-4 font-bold text-lg text-[#d4af37] bg-[#2a2a2a]/30">5,800</td>
-                            <td class="p-4 text-sm">725</td>
-                            <td class="p-4 text-sm">234</td>
-                            <td class="p-4 text-sm">184</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td rowspan="4" class="p-5 font-medium text-[#d4af37] bg-[#1a1a1a]/50 align-top border-r border-white/5">Full-Day Charter<br><span class="text-xs text-gray-500">8 Hours</span></td>
-                            <td class="p-4 pl-5">Standard</td>
-                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
-                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">5,500</td>
-                            <td class="p-4 text-sm">688</td>
-                            <td class="p-4 text-sm">222</td>
-                            <td class="p-4 text-sm">175</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td class="p-4 pl-5">Premium</td>
-                            <td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td>
-                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">7,500</td>
-                            <td class="p-4 text-sm">938</td>
-                            <td class="p-4 text-sm">302</td>
-                            <td class="p-4 text-sm">239</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td class="p-4 pl-5">Premium (Van)</td>
-                            <td class="p-4 text-sm text-gray-400">5-8 Pax / 7 Bags</td>
-                            <td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">7,500</td>
-                            <td class="p-4 text-sm">938</td>
-                            <td class="p-4 text-sm">302</td>
-                            <td class="p-4 text-sm">239</td>
-                        </tr>
-                        <tr class="hover:bg-white/5">
-                            <td class="p-4 pl-5 text-[#d4af37]">Luxury</td>
-                            <td class="p-4 text-sm text-gray-400">1-6 Pax / 6 Bags</td>
-                            <td class="p-4 font-bold text-lg text-[#d4af37] bg-[#2a2a2a]/30">11,000</td>
-                            <td class="p-4 text-sm">1,375</td>
-                            <td class="p-4 text-sm">443</td>
-                            <td class="p-4 text-sm">350</td>
-                        </tr>
+                        <tr class="hover:bg-white/5"><td rowspan="4" class="p-5 font-medium text-[#d4af37] bg-[#1a1a1a]/50 align-top border-r border-white/5">Airport Transfer<br><span class="text-xs text-gray-500">TPE → Taipei City</span></td><td class="p-4 pl-5">Standard</td><td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td><td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">1,200</td><td class="p-4 text-sm">150</td><td class="p-4 text-sm">48</td><td class="p-4 text-sm">38</td></tr>
+                        <tr class="hover:bg-white/5"><td class="p-4 pl-5">Premium</td><td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td><td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">1,800</td><td class="p-4 text-sm">225</td><td class="p-4 text-sm">73</td><td class="p-4 text-sm">57</td></tr>
+                        <tr class="hover:bg-white/5"><td class="p-4 pl-5">Premium (Van)</td><td class="p-4 text-sm text-gray-400">5-8 Pax / 7 Bags</td><td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">1,800</td><td class="p-4 text-sm">225</td><td class="p-4 text-sm">73</td><td class="p-4 text-sm">57</td></tr>
+                        <tr class="hover:bg-white/5"><td class="p-4 pl-5 text-[#d4af37]">Luxury</td><td class="p-4 text-sm text-gray-400">1-6 Pax / 6 Bags</td><td class="p-4 font-bold text-lg text-[#d4af37] bg-[#2a2a2a]/30">2,800</td><td class="p-4 text-sm">350</td><td class="p-4 text-sm">113</td><td class="p-4 text-sm">89</td></tr>
+                        
+                        <tr class="hover:bg-white/5"><td rowspan="4" class="p-5 font-medium text-[#d4af37] bg-[#1a1a1a]/50 align-top border-r border-white/5">Half-Day Charter<br><span class="text-xs text-gray-500">4 Hours</span></td><td class="p-4 pl-5">Standard</td><td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td><td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">3,000</td><td class="p-4 text-sm">375</td><td class="p-4 text-sm">121</td><td class="p-4 text-sm">95</td></tr>
+                        <tr class="hover:bg-white/5"><td class="p-4 pl-5">Premium</td><td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td><td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">4,000</td><td class="p-4 text-sm">500</td><td class="p-4 text-sm">161</td><td class="p-4 text-sm">127</td></tr>
+                        <tr class="hover:bg-white/5"><td class="p-4 pl-5">Premium (Van)</td><td class="p-4 text-sm text-gray-400">5-8 Pax / 7 Bags</td><td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">4,000</td><td class="p-4 text-sm">500</td><td class="p-4 text-sm">161</td><td class="p-4 text-sm">127</td></tr>
+                        <tr class="hover:bg-white/5"><td class="p-4 pl-5 text-[#d4af37]">Luxury</td><td class="p-4 text-sm text-gray-400">1-6 Pax / 6 Bags</td><td class="p-4 font-bold text-lg text-[#d4af37] bg-[#2a2a2a]/30">5,800</td><td class="p-4 text-sm">725</td><td class="p-4 text-sm">234</td><td class="p-4 text-sm">184</td></tr>
+
+                        <tr class="hover:bg-white/5"><td rowspan="4" class="p-5 font-medium text-[#d4af37] bg-[#1a1a1a]/50 align-top border-r border-white/5">Full-Day Charter<br><span class="text-xs text-gray-500">8 Hours</span></td><td class="p-4 pl-5">Standard</td><td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td><td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">5,500</td><td class="p-4 text-sm">688</td><td class="p-4 text-sm">222</td><td class="p-4 text-sm">175</td></tr>
+                        <tr class="hover:bg-white/5"><td class="p-4 pl-5">Premium</td><td class="p-4 text-sm text-gray-400">1-4 Pax / 2-3 Bags</td><td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">7,500</td><td class="p-4 text-sm">938</td><td class="p-4 text-sm">302</td><td class="p-4 text-sm">239</td></tr>
+                        <tr class="hover:bg-white/5"><td class="p-4 pl-5">Premium (Van)</td><td class="p-4 text-sm text-gray-400">5-8 Pax / 7 Bags</td><td class="p-4 font-bold text-lg text-white bg-[#2a2a2a]/30">7,500</td><td class="p-4 text-sm">938</td><td class="p-4 text-sm">302</td><td class="p-4 text-sm">239</td></tr>
+                        <tr class="hover:bg-white/5"><td class="p-4 pl-5 text-[#d4af37]">Luxury</td><td class="p-4 text-sm text-gray-400">1-6 Pax / 6 Bags</td><td class="p-4 font-bold text-lg text-[#d4af37] bg-[#2a2a2a]/30">11,000</td><td class="p-4 text-sm">1,375</td><td class="p-4 text-sm">443</td><td class="p-4 text-sm">350</td></tr>
                     </tbody>
                 </table>
             </div>
+            
             <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 text-left max-w-4xl mx-auto">
                 <div class="bg-[#1a1a1a] p-6 rounded-lg border border-white/5">
                     <h4 class="text-[#d4af37] font-bold mb-2 text-sm">📌 Pricing Notes 费用说明</h4>
@@ -326,80 +293,180 @@
                 </div>
                 <div class="bg-[#1a1a1a] p-6 rounded-lg border border-white/5">
                     <h4 class="text-[#d4af37] font-bold mb-2 text-sm">📌 Luggage Policy 行李说明</h4>
-                    <p class="text-xs text-gray-400 leading-relaxed">Standard 28-inch suitcases. Please confirm luggage quantity in advance.<br>行李空间以标准28寸行李为基准，超大或超量行李须提前告知。</p>
+                    <p class="text-xs text-gray-400 leading-relaxed">
+                        Standard 28-inch suitcases. Please confirm luggage quantity in advance.<br>
+                        行李空间以标准28寸行李为基准，超大或超量行李须提前告知。
+                    </p>
                 </div>
             </div>
         </div>
-    </section><!-- Booking Form Section -->
+    </section>
+
+    <!-- Booking Form Section -->
     <section id="contact" class="py-24 bg-[#0a0a0a] relative">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] p-8 md:p-12 rounded-2xl border border-white/10 shadow-2xl">
                 <div class="text-center mb-10">
                     <h2 class="text-3xl font-bold text-white mb-2">Booking Form</h2>
                     <p class="text-[#d4af37]">预约单</p>
-                </div><!-- Success Message Container -->
+                </div>
+
+                <!-- Success Message Container -->
                 <div id="success-container" class="hidden bg-green-900/30 border border-green-500 rounded-xl p-8 text-center animate-fade-in-up">
+                    <i data-lucide="check-circle" class="mx-auto mb-4 text-green-400" width="48" height="48"></i>
                     <h3 class="text-xl font-bold text-white mb-2">Booking Confirmed!</h3>
-                    <div class="bg-[#1a1a1a] p-4 rounded-lg border border-[#d4af37]/30 inline-block mb-4"><span class="text-gray-400 text-xs block mb-1">Order ID</span> </div>
+                    <div class="bg-[#1a1a1a] p-4 rounded-lg border border-[#d4af37]/30 inline-block mb-4">
+                        <span class="text-gray-400 text-xs block mb-1">Order ID</span>
+                        <span id="success-order-id" class="text-[#d4af37] font-mono font-bold text-lg tracking-widest"></span>
+                    </div>
                     <p class="text-gray-300 mb-2">您的预约单已成功送出！</p>
                     <p class="text-[#d4af37] font-bold mb-6">訂購成功後，我們會以 WhatsApp 與 Email 聯繫確認。</p>
-                    <div class="space-y-4 max-w-sm mx-auto"><!-- WhatsApp Link Button --> <a id="success-whatsapp-btn" href="https://wa.me/886970326591" target="_blank" class="w-full flex items-center justify-center bg-[#25D366] hover:bg-[#1ebd5b] text-white py-4 rounded-lg font-bold transition-all transform hover:scale-105 shadow-lg shadow-[#25D366]/20">&nbsp; WhatsApp Us &ndash; Same Day Reply&nbsp;</a></div><button class="mt-8 text-[#d4af37] hover:text-white underline text-sm block mx-auto">Book another trip</button>
-                </div><!-- Form Container -->
+                    
+                    <div class="space-y-4 max-w-sm mx-auto">
+                        <!-- WhatsApp Link Button -->
+                        <a id="success-whatsapp-btn" href="https://wa.me/886970326591" target="_blank" class="w-full flex items-center justify-center bg-[#25D366] hover:bg-[#1ebd5b] text-white py-4 rounded-lg font-bold transition-all transform hover:scale-105 shadow-lg shadow-[#25D366]/20">
+                            <i data-lucide="message-circle" class="mr-2"></i> WhatsApp Us – Same Day Reply
+                        </a>
+                    </div>
+                    <button onclick="resetForm()" class="mt-8 text-[#d4af37] hover:text-white underline text-sm block mx-auto">Book another trip</button>
+                </div>
+
+                <!-- Form Container -->
                 <div id="form-container" class="space-y-6">
                     <div class="bg-[#0f0f0f]/50 p-4 rounded border-l-4 border-[#d4af37]">
-                        <p class="text-xs text-gray-400 mt-1 font-bold text-[#d4af37]">※ Booking Confirmation: We will contact you via WhatsApp &amp; Email to confirm details after submission.<br>※ 订购确认：送出预约单后，我们将透过 WhatsApp 与 Email 與您聯繫確認行程細節。</p>
-                    </div><!-- Contact Info -->
+                        <p class="text-xs text-gray-400 mt-1 font-bold text-[#d4af37]">
+                            ※ Booking Confirmation: We will contact you via WhatsApp & Email to confirm details after submission.<br>
+                            ※ 订购确认：送出预约单后，我们将透过 WhatsApp 与 Email 與您聯繫確認行程細節。
+                        </p>
+                    </div>
+
+                    <!-- Contact Info -->
                     <div class="border-b border-gray-800 pb-4 mb-4">
                         <h5 class="text-[#d4af37] font-bold text-sm mb-3">Contact Information 联络资讯</h5>
                         <div class="space-y-4">
-                            <div><label class="block text-xs font-bold text-gray-400 mb-1">Name 姓名 <span class="text-red-500">*</span></label> <input type="text" id="name" placeholder="Your Name" class="w-full onyx-input p-3 rounded-lg text-sm required"></div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 mb-1">Name 姓名 <span class="text-red-500">*</span></label>
+                                <input type="text" id="name" placeholder="Your Name" class="w-full onyx-input p-3 rounded-lg text-sm required">
+                            </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div><label class="block text-xs font-bold text-gray-400 mb-1">Phone 电话 <span class="text-red-500">*</span></label> <input type="tel" id="phone" placeholder="+886 912 345 678" class="w-full onyx-input p-3 rounded-lg text-sm required"></div>
-                                <div><label class="block text-xs font-bold text-gray-400 mb-1">Email 电子信箱 <span class="text-red-500">*</span></label> <input type="email" id="email" placeholder="example@email.com" class="w-full onyx-input p-3 rounded-lg text-sm required"></div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 mb-1">Phone 电话 <span class="text-red-500">*</span></label>
+                                    <input type="tel" id="phone" placeholder="+886 912 345 678" class="w-full onyx-input p-3 rounded-lg text-sm required">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 mb-1">Email 电子信箱 <span class="text-red-500">*</span></label>
+                                    <input type="email" id="email" placeholder="example@email.com" class="w-full onyx-input p-3 rounded-lg text-sm required">
+                                </div>
                             </div>
                         </div>
-                    </div><!-- Trip Info -->
+                    </div>
+
+                    <!-- Trip Info -->
                     <h5 class="text-[#d4af37] font-bold text-sm mb-3">Trip Details 行程资讯</h5>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Service Type 服務類型 <span class="text-red-500">*</span></label> <select id="serviceType" class="w-full onyx-input p-3 rounded-lg text-sm required">&nbsp;<option value="Private Charter (4 Hrs) 包車旅遊 (4小時)">Private Charter (4 Hrs) 包車旅遊 (4小時)</option>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Service Type 服務類型 <span class="text-red-500">*</span></label>
+                            <select id="serviceType" class="w-full onyx-input p-3 rounded-lg text-sm required" onchange="toggleFlightField()">
+                                <option value="Private Charter (4 Hrs) 包車旅遊 (4小時)">Private Charter (4 Hrs) 包車旅遊 (4小時)</option>
                                 <option value="Private Charter (8 Hrs) 包車旅遊 (8小時)">Private Charter (8 Hrs) 包車旅遊 (8小時)</option>
                                 <option value="Private Charter (Custom) 包車旅遊 (其他客製時間)">Private Charter (Custom) 包車旅遊 (其他客製時間)</option>
-                                <option value="Airport Transfer (機場接送)">Airport Transfer (機場接送)</option>&nbsp;
-                            </select></div>
-                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Date of Service 用车日期 <span class="text-red-500">*</span></label> <input type="text" id="date" class="w-full onyx-input p-3 rounded-lg text-sm cursor-pointer required" placeholder="Select Date Range" readonly=""></div>
+                                <option value="Airport Transfer (機場接送)">Airport Transfer (機場接送)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Date of Service 用车日期 <span class="text-red-500">*</span></label>
+                            <input type="text" id="date" class="w-full onyx-input p-3 rounded-lg text-sm cursor-pointer required" placeholder="Select Date Range" readonly>
+                        </div>
                     </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Vehicle Grade 车型等级 <span class="text-red-500">*</span></label> <select id="vehicle" class="w-full onyx-input p-3 rounded-lg text-sm required">&nbsp;<option value="Standard (标准型)">Standard (标准型)</option>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Vehicle Grade 车型等级 <span class="text-red-500">*</span></label>
+                            <select id="vehicle" class="w-full onyx-input p-3 rounded-lg text-sm required">
+                                <option value="Standard (标准型)">Standard (标准型)</option>
                                 <option value="Premium SUV (豪华型)">Premium SUV (豪华型)</option>
                                 <option value="Premium Van (豪华型多人)">Premium Van (豪华型多人)</option>
-                                <option value="Luxury (顶级型)">Luxury (顶级型)</option>&nbsp;
-                            </select></div>
-                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Passengers 乘客人數 <span class="text-red-500">*</span></label> <select id="pax" class="w-full onyx-input p-3 rounded-lg text-sm required">&nbsp;<!-- Generated by JS 1-20 -->&nbsp;</select></div>
+                                <option value="Luxury (顶级型)">Luxury (顶级型)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Passengers 乘客人數 <span class="text-red-500">*</span></label>
+                            <select id="pax" class="w-full onyx-input p-3 rounded-lg text-sm required">
+                                <!-- Generated by JS 1-20 -->
+                            </select>
+                        </div>
                     </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Luggage 行李数量 <span class="text-red-500">*</span></label> <select id="luggage" class="w-full onyx-input p-3 rounded-lg text-sm required">&nbsp;<!-- Generated by JS 0-20 -->&nbsp;</select></div>
-                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Baby Seats 婴儿座椅 <span class="text-red-500">*</span></label> <select id="babySeat" class="w-full onyx-input p-3 rounded-lg text-sm required">&nbsp;<!-- Generated by JS 0-10 -->&nbsp;</select></div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Luggage 行李数量 <span class="text-red-500">*</span></label>
+                            <select id="luggage" class="w-full onyx-input p-3 rounded-lg text-sm required">
+                                <!-- Generated by JS 0-20 -->
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Baby Seats 婴儿座椅 <span class="text-red-500">*</span></label>
+                            <select id="babySeat" class="w-full onyx-input p-3 rounded-lg text-sm required">
+                                <!-- Generated by JS 0-10 -->
+                            </select>
+                        </div>
                     </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Pick-up Location 上车地点 <span class="text-red-500">*</span></label> <input type="text" id="locations" class="w-full onyx-input p-3 rounded-lg text-sm required" placeholder="e.g. W Hotel Taipei or Taoyuan Airport T1"></div>
-                        <div><label id="flight-label" class="block text-xs font-bold text-gray-400 mb-1">Flight Number 航班號碼 (Optional)</label> <input type="text" id="flightNumber" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. BR123"></div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Pick-up Location 上车地点 <span class="text-red-500">*</span></label>
+                            <input type="text" id="locations" class="w-full onyx-input p-3 rounded-lg text-sm required" placeholder="e.g. W Hotel Taipei or Taoyuan Airport T1">
+                        </div>
+                        <div>
+                            <label id="flight-label" class="block text-xs font-bold text-gray-400 mb-1">Flight Number 航班號碼 (Optional)</label>
+                            <input type="text" id="flightNumber" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. BR123">
+                        </div>
                     </div>
-                    <div><label class="block text-xs font-bold text-gray-400 mb-1">Itinerary &amp; Remarks 预计行程内容与其他备注事项 (Optional)</label> <textarea id="itinerary" rows="3" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. Visiting No.01 Itinerary, need stop for lunch, need 2 cars, etc."></textarea></div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 mb-1">Itinerary & Remarks 预计行程内容与其他备注事项 (Optional)</label>
+                        <textarea id="itinerary" rows="3" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. Visiting No.01 Itinerary, need stop for lunch, need 2 cars, etc."></textarea>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Souvenir Pre-purchase 伴手礼代购 (Optional)</label> <input type="text" id="souvenir" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. Chia Te Pineapple Cake"></div>
-                        <div><label class="block text-xs font-bold text-gray-400 mb-1">Referral Code 推荐代码 (Optional)</label> <input type="text" id="referral" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="Promo Code"></div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Souvenir Pre-purchase 伴手礼代购 (Optional)</label>
+                            <input type="text" id="souvenir" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. Chia Te Pineapple Cake">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 mb-1">Referral Code 推荐代码 (Optional)</label>
+                            <input type="text" id="referral" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="Promo Code">
+                        </div>
                     </div>
-                    <div class="mt-6"><button id="submit-btn" class="w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-4 rounded-lg font-bold text-lg transition-all transform hover:-translate-y-1 shadow-lg shadow-[#d4af37]/20">&nbsp; 送出預約單 Submit Booking&nbsp;</button></div>
+
+                    <div class="mt-6">
+                        <button id="submit-btn" onclick="submitBooking()" class="w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-4 rounded-lg font-bold text-lg transition-all transform hover:-translate-y-1 shadow-lg shadow-[#d4af37]/20">
+                            <i data-lucide="check-circle" class="mr-2"></i> 送出預約單 Submit Booking
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </section><!-- Footer -->
+    </section>
+
+    <!-- Footer -->
     <footer class="bg-black py-12 border-t border-white/10 text-center">
-        <div class="max-w-7xl mx-auto px-4"><span class="text-xl font-bold text-white tracking-widest uppercase block mb-4">&nbsp;ONYX <span class="text-[#d4af37]">TAIWAN</span>&nbsp;</span>
-            <div class="flex justify-center space-x-8 mb-6"> </div>
-            <p class="text-gray-500 text-sm">&copy; 2026 ONYX Taiwan Private Chauffeur. All rights reserved.</p>
+        <div class="max-w-7xl mx-auto px-4">
+            <span class="text-xl font-bold text-white tracking-widest uppercase block mb-4">
+                ONYX <span class="text-[#d4af37]">TAIWAN</span>
+            </span>
+            <div class="flex justify-center space-x-8 mb-6">
+                <a href="https://www.facebook.com/share/18DZKr6Ssg/" target="_blank" class="text-gray-400 hover:text-[#d4af37] transition-transform hover:scale-110"><i data-lucide="facebook" width="36" height="36"></i></a>
+                <a href="https://www.instagram.com/onyxtaiwan?igsh=dTZkZXIybWFpM3Rh" target="_blank" class="text-gray-400 hover:text-[#d4af37] transition-transform hover:scale-110"><i data-lucide="instagram" width="36" height="36"></i></a>
+                <a href="https://wa.me/886970326591" target="_blank" class="text-gray-400 hover:text-[#25D366] transition-transform hover:scale-110"><i data-lucide="message-circle" width="36" height="36"></i></a>
+            </div>
+            <p class="text-gray-500 text-sm">
+                &copy; 2026 ONYX Taiwan Private Chauffeur. All rights reserved.
+            </p>
         </div>
-    </footer><!-- Scripts -->
+    </footer>
+
+    <!-- Scripts -->
     <script>
         // Global variables
         window.currentOrderId = '';
@@ -414,7 +481,7 @@
         
         const babySeatSelect = document.getElementById('babySeat');
         for(let i=0; i<=10; i++) babySeatSelect.add(new Option(i, i));
-        
+
         // Itineraries Data
         const itineraries = [
             { 
@@ -550,7 +617,7 @@
                 spots: ["Xiaoyoukeng (小油坑)", "Qingtiangang Grassland (擎天岗)", "Milk Lake (冷水坑與牛奶湖)", "Thermal Valley (地热谷)", "Hot Spring Museum (温泉博物馆)", "Xinbeitou Historic Station (新北投车站)"] 
             }
         ];
-        
+
         // Render Itineraries
         const grid = document.getElementById('itinerary-grid');
         itineraries.forEach((item, idx) => {
@@ -584,7 +651,7 @@
             </div>`;
             grid.innerHTML += card;
         });
-        
+
         // Toggle Flight Field
         window.toggleFlightField = function() {
             const type = document.getElementById('serviceType').value;
@@ -600,7 +667,7 @@
                 flightInput.style.borderColor = '#333';
             }
         };
-        
+
         // Initialize Flatpickr & Icons
         document.addEventListener('DOMContentLoaded', function() {
             flatpickr("#date", {
@@ -611,7 +678,7 @@
                 disableMobile: "true"
             });
             lucide.createIcons();
-        
+
             // --- New Function: Auto-fill Referral Code from URL ---
             const urlParams = new URLSearchParams(window.location.search);
             const refCode = urlParams.get('ref') || urlParams.get('promo');
@@ -623,13 +690,13 @@
                 refInput.style.boxShadow = '0 0 10px rgba(212, 175, 55, 0.4)';
             }
         });
-        
+
         // Booking Logic
         window.submitBooking = async function() {
             const btn = document.getElementById('submit-btn');
             const inputs = document.querySelectorAll('.required');
             let valid = true;
-        
+
             inputs.forEach(input => {
                 if(!input.value.trim()) {
                     input.style.borderColor = '#ef4444';
@@ -638,18 +705,18 @@
                     input.style.borderColor = '#333';
                 }
             });
-        
+
             if(!valid) {
                 alert("Please fill in all required fields marked with * \n请填写所有标示 * 的必填栏位");
                 return;
             }
-        
+
             const d = new Date();
             const dateStr = d.toLocaleDateString('en-CA', { timeZone: 'Asia/Taipei' }).replace(/-/, "").replace(/-/, "").slice(2);
             const random = Math.floor(Math.random() * 100000).toString().padStart(5, '0');
             const orderId = `ONYX-${dateStr}-${random}`;
             window.currentOrderId = orderId; 
-        
+
             const formData = {
                 orderId: orderId,
                 name: document.getElementById('name').value,
@@ -668,29 +735,29 @@
                 referral: document.getElementById('referral').value || 'N/A',
                 createdAt: new Date().toISOString()
             };
-        
+
             const waMessage = `📌 NEW BOOKING REQUEST
-        Order ID: ${formData.orderId}
-        Name: ${formData.name}
-        Phone: ${formData.phone}
-        Email: ${formData.email}
-        Service: ${formData.serviceType}
-        Date: ${formData.date}
-        Vehicle: ${formData.vehicle}
-        Pax: ${formData.pax} | Luggage: ${formData.luggage}
-        Baby Seat: ${formData.babySeat}
-        Location: ${formData.locations}
-        Flight: ${formData.flightNumber}
-        Itinerary/Notes: ${formData.itinerary}
-        Souvenir: ${formData.souvenir}
-        Promo Code: ${formData.referral}`;
-        
+Order ID: ${formData.orderId}
+Name: ${formData.name}
+Phone: ${formData.phone}
+Email: ${formData.email}
+Service: ${formData.serviceType}
+Date: ${formData.date}
+Vehicle: ${formData.vehicle}
+Pax: ${formData.pax} | Luggage: ${formData.luggage}
+Baby Seat: ${formData.babySeat}
+Location: ${formData.locations}
+Flight: ${formData.flightNumber}
+Itinerary/Notes: ${formData.itinerary}
+Souvenir: ${formData.souvenir}
+Promo Code: ${formData.referral}`;
+
             const encodedMessage = encodeURIComponent(waMessage);
             const waUrl = `https://wa.me/886970326591?text=${encodedMessage}`;
-        
+
             btn.innerHTML = '<i data-lucide="loader-2" class="mr-2 animate-spin"></i> Processing...';
             btn.disabled = true;
-        
+
             try {
                 if(window.GOOGLE_SCRIPT_URL) {
                     const form = new FormData();
@@ -711,7 +778,7 @@
                     form.append('Promo Code', formData.referral);
                     await fetch(window.GOOGLE_SCRIPT_URL, { method: 'POST', body: form, mode: 'no-cors' });
                 }
-        
+
                 await fetch("https://formsubmit.co/ajax/onyxtaiwan.official@gmail.com", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -722,7 +789,7 @@
                         ...formData
                     })
                 });
-        
+
                 document.getElementById('form-container').classList.add('hidden');
                 const successDiv = document.getElementById('success-container');
                 successDiv.classList.remove('hidden');
@@ -730,7 +797,7 @@
                 
                 const waBtn = document.getElementById('success-whatsapp-btn');
                 if(waBtn) waBtn.href = waUrl;
-        
+
             } catch (e) {
                 console.error(e);
                 alert("Error submitting booking. Please check your network connection.");
@@ -738,11 +805,10 @@
                 btn.disabled = false;
             }
         };
-        
+
         window.resetForm = function() {
             location.reload();
         };
     </script>
 </body>
-
 </html>
