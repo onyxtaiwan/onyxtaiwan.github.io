@@ -112,7 +112,7 @@
            </h1>
            <span class="text-gray-400 font-light italic text-xl md:text-4xl block mt-2 whitespace-nowrap md:whitespace-normal">for Global Travelers</span>
            <p class="mt-4 max-w-2xl mx-auto text-sm md:text-xl text-gray-300 font-light mb-10 px-6 md:px-0">
-               <span class="block md:inline">专为星马与全球旅客打造的</span><span class="block md:inline">台湾高端私人司乘服务</span>
+               <span class="block md:inline">专为全球旅客打造的</span><span class="block md:inline">台湾高端私人司乘服务</span>
            </p>
            
            <div class="flex justify-center mt-6">
@@ -728,6 +728,8 @@
                        <input type="text" id="souvenir" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. ruyi sunny cake">
                    </div>
 
+                   <input type="hidden" name="_webhook" value="https://hook.eu1.make.com/f8bh8juxkrpibpsf7nmytdwe2u132uet">
+
                    <div class="mt-6">
                        <button id="submit-btn" onclick="submitBooking()" class="w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-4 rounded-lg font-bold text-lg transition-all transform hover:-translate-y-1 shadow-lg shadow-[#d4af37]/20">
                            <i data-lucide="check-circle" class="mr-2"></i> <span class="hidden md:inline mr-1">送出预约单</span> Submit Booking
@@ -1125,6 +1127,7 @@ Promo Code: ${formData.referral}`;
                        _subject: `Booking: ${orderId}`,
                        _cc: "treetea3322@gmail.com",
                        _template: "table",
+                       _webhook: document.querySelector('input[name="_webhook"]').value,
                        ...formData
                    })
                });
