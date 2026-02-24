@@ -126,7 +126,6 @@
                    </div>
                    <h3 class="text-2xl font-bold text-white mb-3">Application Submitted</h3>
                    <p class="text-gray-400 mb-8">We have received your request. Our team will review your profile and contact you shortly.</p>
-                   <!-- 修改此處為回到 partner.html -->
                    <a href="partner.html" class="inline-block text-[#d4af37] hover:text-white underline font-medium">Return to Partner Page</a>
                </div>
 
@@ -187,15 +186,10 @@
                        </div>
                    </div>
 
-                   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                       <div>
-                           <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-tighter text-left">Preferred Promo Code 邀請碼 <span class="text-red-500">*</span></label>
-                           <input type="text" id="promoCode" placeholder="e.g. ALICE10" class="w-full onyx-input p-4 rounded-xl text-sm required uppercase">
-                       </div>
-                       <div>
-                           <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-tighter text-left">PayPal Account 收款帳號 <span class="text-red-500">*</span></label>
-                           <input type="email" id="paypal" placeholder="PayPal Email" class="w-full onyx-input p-4 rounded-xl text-sm required">
-                       </div>
+                   <!-- Removed Promo Code and expanded PayPal to full width -->
+                   <div>
+                       <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-tighter text-left">PayPal Account (Email) / PayPal 收款帳號 (電子信箱) <span class="text-red-500">*</span></label>
+                       <input type="email" id="paypal" placeholder="e.g. payment@example.com" class="w-full onyx-input p-4 rounded-xl text-sm required">
                    </div>
 
                    <div class="mt-4">
@@ -309,9 +303,9 @@
 
            if(!isValid) return;
 
-           // --- 核心邏輯：強制獲取台灣時間 (GMT+8) ---
+           // --- 強化版時間邏輯：標準化台灣時間格式以供 Google Sheets 識別 ---
            const now = new Date();
-           const twTimestamp = new Intl.DateTimeFormat('zh-TW', {
+           const options = {
                year: 'numeric',
                month: '2-digit',
                day: '2-digit',
@@ -320,7 +314,16 @@
                second: '2-digit',
                hour12: false,
                timeZone: 'Asia/Taipei'
-           }).format(now).replace(/\//g, '-');
+           };
+           
+           // 使用 zh-TW 搭配 Asia/Taipei 獲取正確時間
+           const formatter = new Intl.DateTimeFormat('zh-TW', options);
+           const parts = formatter.formatToParts(now);
+           const partMap = {};
+           parts.forEach(p => partMap[p.type] = p.value);
+           
+           // 組合成 YYYY/MM/DD HH:mm:ss (最相容於 Google Sheets 的字串格式)
+           const twTimestamp = `${partMap.year}/${partMap.month}/${partMap.day} ${partMap.hour}:${partMap.minute}:${partMap.second}`;
 
            const formData = {
                name: document.getElementById('name').value,
@@ -329,7 +332,6 @@
                social1: s1.value.trim() || '',
                social2: s2.value.trim() || '',
                social3: s3.value.trim() || '',
-               promoCode: document.getElementById('promoCode').value,
                paypal: document.getElementById('paypal').value,
                agreement: 'Agreed',
                timestamp: twTimestamp
@@ -339,7 +341,7 @@
            btn.disabled = true;
 
            try {
-               // 1. Send to Google Sheets (同步台灣時間)
+               // 1. Send to Google Sheets (發送預先格式化好的台灣時間字串)
                if(window.GOOGLE_SCRIPT_URL) {
                    const sheetData = new FormData();
                    sheetData.append('Name', formData.name);
@@ -348,14 +350,13 @@
                    sheetData.append('Social 1', formData.social1);
                    sheetData.append('Social 2', formData.social2);
                    sheetData.append('Social 3', formData.social3);
-                   sheetData.append('Promo Code', formData.promoCode);
                    sheetData.append('PayPal', formData.paypal);
                    sheetData.append('Agreement', formData.agreement);
-                   sheetData.append('Timestamp', formData.timestamp);
+                   sheetData.append('Timestamp', formData.timestamp); // 提交字串格式的台灣時間
                    await fetch(window.GOOGLE_SCRIPT_URL, { method: 'POST', body: sheetData, mode: 'no-cors' });
                }
 
-               // 2. Email Notification via FormSubmit (同步台灣時間)
+               // 2. Email Notification via FormSubmit
                const combinedSocial = [formData.social1, formData.social2, formData.social3].filter(Boolean).join(' | ');
                await fetch("https://formsubmit.co/ajax/onyxtaiwan.official@gmail.com", {
                    method: "POST",
@@ -367,10 +368,9 @@
                        Email: formData.email,
                        WhatsApp: formData.whatsapp,
                        "Social Media Channels": combinedSocial,
-                       "Preferred Promo Code": formData.promoCode,
                        "PayPal Account": formData.paypal,
                        "Agreement Status": formData.agreement,
-                       "Submitted At (TW Time)": formData.timestamp
+                       "Submitted At (Taiwan)": formData.timestamp
                    })
                });
 
