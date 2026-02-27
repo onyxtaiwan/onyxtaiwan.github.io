@@ -713,8 +713,15 @@
                            <input type="text" id="flightNumber" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. BR123">
                        </div>
                        <div>
-                           <label class="block text-xs font-bold text-gray-400 mb-1">Referral Code 推荐代码 (Optional)</label>
-                           <input type="text" id="referral" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="Promo Code">
+                           <!-- UPDATED: Promo Code Field with Verify Button -->
+                           <label class="block text-xs font-bold text-gray-400 mb-1">Promo Code推广码 (Optional)</label>
+                           <div class="flex gap-2">
+                               <input type="text" id="referral" class="w-full onyx-input p-3 rounded-lg text-sm uppercase" placeholder="Promo Code">
+                               <button type="button" id="verify-promo-btn" class="bg-[#2a2a2a] hover:bg-[#d4af37] text-white hover:text-[#0f0f0f] px-4 rounded-lg text-sm font-bold transition-colors whitespace-nowrap">
+                                   Verify
+                               </button>
+                           </div>
+                           <span id="promo-message" class="text-xs font-bold mt-1 hidden transition-all"></span>
                        </div>
                    </div>
                    
@@ -788,7 +795,12 @@
    <script>
        // Global variables
        window.currentOrderId = '';
+       
+       // File A: 送出預約單的網址 (維持不變)
        window.GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzThsRiY-EUzRToyBhAZ8PAy5IpQnevch7-Gr_NaHs9FzfN8Ec-8pOC0cJov1u9Zkdu/exec";
+       
+       // File B: 驗證優惠碼的專屬網址 (新增)
+       window.PROMO_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8k_OtqYgkec5VsmVlbOHjrn_u4PzKb_isHDaH3cWM57Wcvn6e8zZiqxpJ5mVyrgZMcA/exec";
        
        // Populate Select Options
        const paxSelect = document.getElementById('pax');
@@ -1031,6 +1043,86 @@
            }
        };
 
+       // ==========================================
+       // Promo Code 後端檢核功能
+       // ==========================================
+       document.getElementById('verify-promo-btn').addEventListener('click', async function() {
+           const codeInput = document.getElementById('referral');
+           const code = codeInput.value.trim().toUpperCase();
+           const messageEl = document.getElementById('promo-message');
+           const serviceTypeSelect = document.getElementById('serviceType');
+           const btn = this;
+
+           if (!code) return; // 如果沒輸入內容就不動作
+
+           const original8HrText = "Private Charter (8 Hrs) 包车旅游 (8小时)";
+           const promo8HrText = "Private Charter (8 Hrs) + 1 Free Hour 包车旅游 (8小时+额外赠送1小时)";
+
+           // 找到 8 小時的那個選項
+           let targetOption = Array.from(serviceTypeSelect.options).find(opt => 
+               opt.value === original8HrText || opt.value === promo8HrText
+           );
+
+           // 狀態變更為：驗證中
+           btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin mx-auto"></i>';
+           btn.disabled = true;
+
+           try {
+               // 向檔案 B (你的 Google Apps Script) 發送驗證請求
+               const response = await fetch(`${window.PROMO_SCRIPT_URL}?action=checkPromo&code=${code}`);
+               const result = await response.json();
+
+               if (result.valid) {
+                   // 驗證成功
+                   messageEl.textContent = "✅ Promo code applied! 8 Hrs package upgraded (+1 Hr Free).";
+                   messageEl.className = "text-xs font-bold mt-2 text-green-500 block";
+                   
+                   // 鎖定輸入框與按鈕 (Lock)
+                   codeInput.style.borderColor = '#22c55e';
+                   codeInput.readOnly = true;
+                   codeInput.classList.add('opacity-50', 'cursor-not-allowed'); // 視覺上變灰暗
+                   
+                   btn.textContent = 'Applied';
+                   btn.disabled = true;
+                   btn.classList.replace('bg-[#2a2a2a]', 'bg-green-600');
+                   btn.classList.replace('hover:bg-[#d4af37]', 'bg-green-600');
+                   btn.classList.replace('text-white', 'text-white');
+                   btn.classList.add('cursor-not-allowed');
+
+                   // 自動幫客戶切換到 8 小時升級選項
+                   if (targetOption) {
+                       targetOption.value = promo8HrText;
+                       targetOption.text = promo8HrText;
+                       serviceTypeSelect.value = promo8HrText; 
+                   }
+               } else {
+                   // 驗證失敗
+                   messageEl.textContent = "❌ Invalid or expired promo code.";
+                   messageEl.className = "text-xs font-bold mt-2 text-red-500 block";
+                   codeInput.style.borderColor = '#ef4444';
+                   
+                   // 恢復按鈕狀態
+                   btn.innerHTML = 'Verify';
+                   btn.disabled = false;
+                   lucide.createIcons();
+
+                   // 還原選項文字
+                   if (targetOption) {
+                       targetOption.value = original8HrText;
+                       targetOption.text = original8HrText;
+                   }
+               }
+           } catch (error) {
+               console.error("Promo verification failed:", error);
+               messageEl.textContent = "⚠️ Validation failed. Please try again.";
+               messageEl.className = "text-xs font-bold mt-2 text-yellow-500 block";
+               
+               btn.innerHTML = 'Verify';
+               btn.disabled = false;
+               lucide.createIcons();
+           }
+       });
+
        // Initialize
        document.addEventListener('DOMContentLoaded', function() {
            // Render initial itineraries
@@ -1045,13 +1137,18 @@
            });
            lucide.createIcons();
 
+           // 抓取網址參數 (自動套用優惠碼)
            const urlParams = new URLSearchParams(window.location.search);
            const refCode = urlParams.get('ref') || urlParams.get('promo');
+           
            if (refCode) {
                 const refInput = document.getElementById('referral');
                 refInput.value = refCode;
                 refInput.style.borderColor = '#d4af37';
                 refInput.style.boxShadow = '0 0 10px rgba(212, 175, 55, 0.4)';
+                
+                // 自動觸發 Verify 按鈕的點擊事件去雲端驗證，並在成功後自動鎖定
+                document.getElementById('verify-promo-btn').click();
            }
        });
 
@@ -1110,6 +1207,7 @@
            btn.disabled = true;
 
            try {
+               // 送出到檔案 A (預約單資料庫)
                if(window.GOOGLE_SCRIPT_URL) {
                    const form = new FormData();
                    form.append('Order ID', formData.orderId);
