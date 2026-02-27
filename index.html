@@ -372,7 +372,7 @@
                                 <td class="p-4 text-sm text-gray-500">38</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
-                                <td class="p-4 pl-5 text-sm text-gray-300">Premium (SUV, VAN)</td>
+                                <td class="p-4 pl-5 text-sm text-gray-300">Premium SUV / Van</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">1,800</td>
                                 <td class="p-4 text-sm text-gray-500">225</td>
                                 <td class="p-4 text-sm text-gray-500">73</td>
@@ -399,7 +399,7 @@
                                 <td class="p-4 text-sm text-gray-500">95</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
-                                <td class="p-4 pl-5 text-sm text-gray-300">Premium (SUV, VAN)</td>
+                                <td class="p-4 pl-5 text-sm text-gray-300">Premium SUV / Van</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">4,000</td>
                                 <td class="p-4 text-sm text-gray-500">500</td>
                                 <td class="p-4 text-sm text-gray-500">161</td>
@@ -426,7 +426,7 @@
                                 <td class="p-4 text-sm text-gray-500">175</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
-                                <td class="p-4 pl-5 text-sm text-gray-300">Premium (SUV, VAN)</td>
+                                <td class="p-4 pl-5 text-sm text-gray-300">Premium SUV / Van</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">7,500</td>
                                 <td class="p-4 text-sm text-gray-500">938</td>
                                 <td class="p-4 text-sm text-gray-500">302</td>
@@ -466,7 +466,7 @@
                        </div>
                        <!-- Premium -->
                        <div class="flex justify-between items-center border-b border-white/5 pb-2">
-                           <span class="text-xs text-gray-300">Premium (SUV, VAN)</span>
+                           <span class="text-xs text-gray-300">Premium SUV / Van</span>
                            <div class="text-right">
                                <span class="text-base font-black text-white block">1,800 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
                                <span class="text-[10px] text-gray-500 block -mt-1">MYR 225 | SGD 73 | USD 57</span>
@@ -503,7 +503,7 @@
                        </div>
                        <!-- Premium -->
                        <div class="flex justify-between items-center border-b border-white/5 pb-2">
-                           <span class="text-xs text-gray-300">Premium (SUV, VAN)</span>
+                           <span class="text-xs text-gray-300">Premium SUV / Van</span>
                            <div class="text-right">
                                <span class="text-base font-black text-white block">4,000 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
                                <span class="text-[10px] text-gray-500 block -mt-1">MYR 500 | SGD 161 | USD 127</span>
@@ -540,7 +540,7 @@
                        </div>
                        <!-- Premium -->
                        <div class="flex justify-between items-center border-b border-white/5 pb-2">
-                           <span class="text-xs text-gray-300">Premium (SUV, VAN)</span>
+                           <span class="text-xs text-gray-300">Premium SUV / Van</span>
                            <div class="text-right">
                                <span class="text-base font-black text-white block">7,500 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
                                <span class="text-[10px] text-gray-500 block -mt-1">MYR 938 | SGD 302 | USD 239</span>
@@ -644,11 +644,12 @@
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
                            <label class="block text-xs font-bold text-gray-400 mb-1">Service Type 服务类型 <span class="text-red-500">*</span></label>
-                           <select id="serviceType" class="w-full onyx-input p-3 rounded-lg text-sm required" onchange="toggleFlightField()">
-                               <option value="Private Charter (4 Hrs) 包车旅游 (4小时)">Private Charter (4 Hrs) 包车旅游 (4小时)</option>
-                               <option value="Private Charter (8 Hrs) 包车旅游 (8小时)">Private Charter (8 Hrs) 包车旅游 (8小时)</option>
-                               <option value="Private Charter (Custom) 包车旅游 (其他客制时间)">Private Charter (Custom) 包车旅游 (其他客制时间)</option>
-                               <option value="Airport Transfer (机场接送)">Airport Transfer (机场接送)</option>
+                           <!-- UPDATED: Options are now English only, calculatePrice() added to onchange -->
+                           <select id="serviceType" class="w-full onyx-input p-3 rounded-lg text-sm required" onchange="toggleFlightField(); calculatePrice();">
+                               <option value="Private Charter (4 Hrs)">Private Charter (4 Hrs)</option>
+                               <option value="Private Charter (8 Hrs)">Private Charter (8 Hrs)</option>
+                               <option value="Private Charter (Custom)">Private Charter (Custom)</option>
+                               <option value="Airport Transfer">Airport Transfer</option>
                            </select>
                        </div>
                        <div>
@@ -660,11 +661,12 @@
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
                            <label class="block text-xs font-bold text-gray-400 mb-1">Vehicle Grade 车型等级 <span class="text-red-500">*</span></label>
-                           <select id="vehicle" class="w-full onyx-input p-3 rounded-lg text-sm required">
-                               <option value="Standard (标准型)">Standard (标准型)</option>
-                               <option value="Premium SUV (豪华型)">Premium SUV (豪华型)</option>
-                               <option value="Premium Van (豪华型多人)">Premium Van (豪华型多人)</option>
-                               <option value="Luxury (顶级型)">Luxury (顶级型)</option>
+                           <!-- UPDATED: Options are now English only, calculatePrice() added to onchange -->
+                           <select id="vehicle" class="w-full onyx-input p-3 rounded-lg text-sm required" onchange="calculatePrice();">
+                               <option value="Standard">Standard</option>
+                               <option value="Premium SUV">Premium SUV</option>
+                               <option value="Premium Van">Premium Van</option>
+                               <option value="Luxury">Luxury</option>
                            </select>
                        </div>
                        <div>
@@ -713,7 +715,6 @@
                            <input type="text" id="flightNumber" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. BR123">
                        </div>
                        <div>
-                           <!-- UPDATED: Promo Code Field with Verify Button -->
                            <label class="block text-xs font-bold text-gray-400 mb-1">Promo Code推广码 (Optional)</label>
                            <div class="flex gap-2">
                                <input type="text" id="referral" class="w-full onyx-input p-3 rounded-lg text-sm uppercase" placeholder="Promo Code">
@@ -736,6 +737,16 @@
                    </div>
 
                    <input type="hidden" name="_webhook" value="https://hook.eu1.make.com/f8bh8juxkrpibpsf7nmytdwe2u132uet">
+
+                   <!-- NEW: Estimated Price Display block -->
+                   <div class="mt-8 mb-6 p-5 bg-gradient-to-b from-[#111] to-[#0a0a0a] border border-[#d4af37]/30 rounded-xl text-center shadow-lg">
+                       <p class="text-xs text-[#d4af37] font-bold uppercase tracking-widest mb-1">Estimated Price 预估金额</p>
+                       <p id="price-display" class="text-3xl font-black text-white my-2 tracking-wide">TWD 3,000</p>
+                       <p class="text-[11px] text-gray-500 leading-tight">
+                           * Excludes cross-region, overtime, and overnight fees.<br>
+                           * 不含跨区、超时与跨夜费用。
+                       </p>
+                   </div>
 
                    <div class="mt-6">
                        <button id="submit-btn" onclick="submitBooking()" class="w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-4 rounded-lg font-bold text-lg transition-all transform hover:-translate-y-1 shadow-lg shadow-[#d4af37]/20">
@@ -1033,7 +1044,8 @@
            const flightInput = document.getElementById('flightNumber');
            const label = document.getElementById('flight-label');
            
-           if(type.includes("Airport") || type.includes("机场接送")) {
+           // 改用英文選項判斷
+           if(type.includes("Airport")) {
                 label.innerHTML = 'Flight Number 航班号码 <span class="text-red-500">*</span>';
                flightInput.classList.add('required');
            } else {
@@ -1042,6 +1054,56 @@
                 flightInput.style.borderColor = '#333';
            }
        };
+
+       // ==========================================
+       // 即時預估金額計算 (Estimated Price Calculation)
+       // ==========================================
+       window.calculatePrice = function() {
+           const service = document.getElementById('serviceType').value;
+           const vehicle = document.getElementById('vehicle').value;
+           const priceDisplay = document.getElementById('price-display');
+
+           // 建立價格對照表 (依照你上方的 Pricing Table)
+           const pricingData = {
+               "Airport Transfer": {
+                   "Standard": 1200,
+                   "Premium SUV": 1800,
+                   "Premium Van": 1800,
+                   "Luxury": 2800
+               },
+               "Private Charter (4 Hrs)": {
+                   "Standard": 3000,
+                   "Premium SUV": 4000,
+                   "Premium Van": 4000,
+                   "Luxury": 5800
+               },
+               "Private Charter (8 Hrs)": {
+                   "Standard": 5500,
+                   "Premium SUV": 7500,
+                   "Premium Van": 7500,
+                   "Luxury": 11000
+               },
+               "Private Charter (8 Hrs) + 1 Free Hour": {
+                   "Standard": 5500,
+                   "Premium SUV": 7500,
+                   "Premium Van": 7500,
+                   "Luxury": 11000
+               }
+           };
+
+           if (service.includes('Custom')) {
+               priceDisplay.innerHTML = '<span class="text-xl">To be quoted 另行报价</span>';
+           } else {
+               const price = pricingData[service]?.[vehicle];
+               if (price) {
+                   // 加入千分位逗號
+                   priceDisplay.innerText = `TWD ${price.toLocaleString()}`;
+               } else {
+                   priceDisplay.innerText = 'TWD -';
+               }
+           }
+       };
+
 
        // ==========================================
        // Promo Code 後端檢核功能
@@ -1055,8 +1117,9 @@
 
            if (!code) return; // 如果沒輸入內容就不動作
 
-           const original8HrText = "Private Charter (8 Hrs) 包车旅游 (8小时)";
-           const promo8HrText = "Private Charter (8 Hrs) + 1 Free Hour 包车旅游 (8小时+额外赠送1小时)";
+           // 已更新為純英文比對
+           const original8HrText = "Private Charter (8 Hrs)";
+           const promo8HrText = "Private Charter (8 Hrs) + 1 Free Hour";
 
            // 找到 8 小時的那個選項
            let targetOption = Array.from(serviceTypeSelect.options).find(opt => 
@@ -1094,6 +1157,7 @@
                        targetOption.value = promo8HrText;
                        targetOption.text = promo8HrText;
                        serviceTypeSelect.value = promo8HrText; 
+                       calculatePrice(); // 重新計算與顯示價錢
                    }
                } else {
                    // 驗證失敗
@@ -1110,6 +1174,10 @@
                    if (targetOption) {
                        targetOption.value = original8HrText;
                        targetOption.text = original8HrText;
+                       if(serviceTypeSelect.value === promo8HrText) {
+                           serviceTypeSelect.value = original8HrText;
+                       }
+                       calculatePrice(); // 重新計算
                    }
                }
            } catch (error) {
@@ -1136,6 +1204,9 @@
                disableMobile: "true"
            });
            lucide.createIcons();
+           
+           // 初始載入時先計算一次價錢
+           calculatePrice();
 
            // 抓取網址參數 (自動套用優惠碼)
            const urlParams = new URLSearchParams(window.location.search);
