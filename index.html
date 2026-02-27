@@ -644,7 +644,6 @@
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
                            <label class="block text-xs font-bold text-gray-400 mb-1">Service Type 服务类型 <span class="text-red-500">*</span></label>
-                           <!-- UPDATED: Options are now English only, calculatePrice() added to onchange -->
                            <select id="serviceType" class="w-full onyx-input p-3 rounded-lg text-sm required" onchange="toggleFlightField(); calculatePrice();">
                                <option value="Private Charter (4 Hrs)">Private Charter (4 Hrs)</option>
                                <option value="Private Charter (8 Hrs)">Private Charter (8 Hrs)</option>
@@ -661,7 +660,6 @@
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
                            <label class="block text-xs font-bold text-gray-400 mb-1">Vehicle Grade 车型等级 <span class="text-red-500">*</span></label>
-                           <!-- UPDATED: Options are now English only, calculatePrice() added to onchange -->
                            <select id="vehicle" class="w-full onyx-input p-3 rounded-lg text-sm required" onchange="calculatePrice();">
                                <option value="Standard">Standard</option>
                                <option value="Premium SUV">Premium SUV</option>
@@ -715,6 +713,7 @@
                            <input type="text" id="flightNumber" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. BR123">
                        </div>
                        <div>
+                           <!-- Promo Code Field with Verify Button -->
                            <label class="block text-xs font-bold text-gray-400 mb-1">Promo Code推广码 (Optional)</label>
                            <div class="flex gap-2">
                                <input type="text" id="referral" class="w-full onyx-input p-3 rounded-lg text-sm uppercase" placeholder="Promo Code">
@@ -738,7 +737,7 @@
 
                    <input type="hidden" name="_webhook" value="https://hook.eu1.make.com/f8bh8juxkrpibpsf7nmytdwe2u132uet">
 
-                   <!-- NEW: Estimated Price Display block -->
+                   <!-- Estimated Price Display block -->
                    <div class="mt-8 mb-6 p-5 bg-gradient-to-b from-[#111] to-[#0a0a0a] border border-[#d4af37]/30 rounded-xl text-center shadow-lg">
                        <p class="text-xs text-[#d4af37] font-bold uppercase tracking-widest mb-1">Estimated Price 预估金额</p>
                        <p id="price-display" class="text-3xl font-black text-white my-2 tracking-wide">TWD 3,000</p>
@@ -807,10 +806,10 @@
        // Global variables
        window.currentOrderId = '';
        
-       // File A: 送出預約單的網址 (維持不變)
+       // File A: 送出預約單的網址
        window.GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzThsRiY-EUzRToyBhAZ8PAy5IpQnevch7-Gr_NaHs9FzfN8Ec-8pOC0cJov1u9Zkdu/exec";
        
-       // File B: 驗證優惠碼的專屬網址 (新增)
+       // File B: 驗證優惠碼的專屬網址
        window.PROMO_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8k_OtqYgkec5VsmVlbOHjrn_u4PzKb_isHDaH3cWM57Wcvn6e8zZiqxpJ5mVyrgZMcA/exec";
        
        // Populate Select Options
@@ -1249,6 +1248,7 @@
            const orderId = `ONYX-${dateStr}-${random}`;
            window.currentOrderId = orderId; 
 
+           // 把估價金額打包進 formData
            const formData = {
                orderId: orderId,
                name: document.getElementById('name').value,
@@ -1266,10 +1266,12 @@
                itinerary: document.getElementById('itinerary').value || 'N/A',
                souvenir: document.getElementById('souvenir').value || 'N/A',
                referral: document.getElementById('referral').value || 'N/A',
-               createdAt: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false })
+               createdAt: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false }),
+               estimatedPrice: document.getElementById('price-display').innerText // <--- 取出畫面的金額
            };
 
-           const waMessage = `📌 NEW BOOKING REQUEST\nOrder ID: ${formData.orderId}\nName: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email}\nService: ${formData.serviceType}\nDate: ${formData.date}\nVehicle: ${formData.vehicle}\nPax: ${formData.pax} | Luggage: ${formData.luggage}\nBaby Seat: ${formData.babySeat}\nPick-up: ${formData.pickupLocation}\nDrop-off: ${formData.dropoffLocation}\nFlight: ${formData.flightNumber}\nItinerary/Notes: ${formData.itinerary}\nSouvenir: ${formData.souvenir}\nPromo Code: ${formData.referral}`;
+           // 包含預估金額的 WhatsApp 訊息
+           const waMessage = `📌 NEW BOOKING REQUEST\nOrder ID: ${formData.orderId}\nName: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email}\nService: ${formData.serviceType}\nDate: ${formData.date}\nVehicle: ${formData.vehicle}\nPax: ${formData.pax} | Luggage: ${formData.luggage}\nBaby Seat: ${formData.babySeat}\nPick-up: ${formData.pickupLocation}\nDrop-off: ${formData.dropoffLocation}\nFlight: ${formData.flightNumber}\nItinerary/Notes: ${formData.itinerary}\nSouvenir: ${formData.souvenir}\nPromo Code: ${formData.referral}\nEstimated Price: ${formData.estimatedPrice}`;
 
            const encodedMessage = encodeURIComponent(waMessage);
            const waUrl = `https://wa.me/886970326591?text=${encodedMessage}`;
@@ -1278,7 +1280,7 @@
            btn.disabled = true;
 
            try {
-               // 送出到檔案 A (預約單資料庫)
+               // 1. 送出給 Google Apps Script (儲存至 Google Sheet)
                if(window.GOOGLE_SCRIPT_URL) {
                    const form = new FormData();
                    form.append('Order ID', formData.orderId);
@@ -1297,10 +1299,12 @@
                    form.append('Itinerary', formData.itinerary);
                    form.append('Souvenir', formData.souvenir);
                    form.append('Promo Code', formData.referral);
+                   form.append('Estimated Price', formData.estimatedPrice); // <--- 加入金額欄位
                    form.append('CreatedAt', formData.createdAt);
                    await fetch(window.GOOGLE_SCRIPT_URL, { method: 'POST', body: form, mode: 'no-cors' });
                }
 
+               // 2. 送出給 FormSubmit 觸發 Make.com Webhook
                await fetch("https://formsubmit.co/ajax/onyxtaiwan.official@gmail.com", {
                    method: "POST",
                    headers: { "Content-Type": "application/json" },
@@ -1309,7 +1313,7 @@
                        _cc: "treetea3322@gmail.com",
                        _template: "table",
                        _webhook: document.querySelector('input[name="_webhook"]').value,
-                       ...formData
+                       ...formData // <-- formData 裡面現在已經包含 estimatedPrice，Make 將會收到它
                    })
                });
 
