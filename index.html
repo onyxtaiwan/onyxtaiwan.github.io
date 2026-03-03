@@ -8,14 +8,14 @@
 
    <meta property="og:type" content="website">
    <meta property="og:url" content="https://onyxtaiwan.com/">
-   <meta property="og:title" content="ONYX Taiwan Private Chauffeur | 台湾高端私人包车">
-   <meta property="og:description" content="专为全球旅客打造的台湾高端私人司乘服务。提供机场接送、私人定制包车及豪华车队，支持中英文双语服务。">
+   <meta property="og:title" content="ONYX Taiwan Private Chauffeur | Premium Travel Services">
+   <meta property="og:description" content="Experience Taiwan with ONYX. Premium chauffeur services, luxury fleet, and curated itineraries for global travelers. Professional, private, and customized.">
    <meta property="og:image" content="./images/hero.jpg">
 
    <meta property="twitter:card" content="summary_large_image">
    <meta property="twitter:url" content="https://onyxtaiwan.com/">
-   <meta property="twitter:title" content="ONYX Taiwan Private Chauffeur | 台湾高端私人包车">
-   <meta property="twitter:description" content="专为全球旅客打造的台湾高端私人司乘服务。提供机场接送、私人定制包车及豪华车队，支持中英文双语服务。">
+   <meta property="twitter:title" content="ONYX Taiwan Private Chauffeur | Premium Travel Services">
+   <meta property="twitter:description" content="Experience Taiwan with ONYX. Premium chauffeur services, luxury fleet, and curated itineraries for global travelers. Professional, private, and customized.">
    <meta property="twitter:image" content="./images/hero.jpg">
 
    <script src="https://cdn.tailwindcss.com"></script>
@@ -582,7 +582,7 @@
                        </p>
                        <p class="text-xs text-gray-400 font-bold text-[#d4af37] leading-relaxed">
                            ※ Booking Confirmation: We will contact you via WhatsApp & Email to confirm details after submission.<br>
-                           ※ 订购确认：送出预约单后，我们将透过 WhatsApp 与 Email 与您联系确认行程细节。
+                           ※ 订购确认：送出预约单後，我们将透过 WhatsApp 与 Email 与您联系确认行程细节。
                        </p>
                    </div>
 
@@ -764,10 +764,10 @@
        // Global variables
        window.currentOrderId = '';
        
-       // File A: 送出預約單的網址
+       // File A: 送出预约单的网址
        window.GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzThsRiY-EUzRToyBhAZ8PAy5IpQnevch7-Gr_NaHs9FzfN8Ec-8pOC0cJov1u9Zkdu/exec";
        
-       // File B: 驗證優惠碼的專屬網址
+       // File B: 验证优惠码的专属网址
        window.PROMO_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8k_OtqYgkec5VsmVlbOHjrn_u4PzKb_isHDaH3cWM57Wcvn6e8zZiqxpJ5mVyrgZMcA/exec";
        
        // Populate Select Options
@@ -959,7 +959,7 @@
 
        document.getElementById('toggle-itineraries-btn').addEventListener('click', function() {
            const btn = this;
-           // 紀錄點擊前的座標高度，避免畫面跳動
+           // 纪录点击前的坐标高度，避免画面跳动
            const rectBefore = btn.getBoundingClientRect();
            
            isExpanded = !isExpanded;
@@ -976,7 +976,7 @@
                icon.style.transform = "rotate(0deg)";
            }
            
-           // 精算收合後的座標差異，將滾動軸維持在原視覺位子
+           // 精算收合後的坐标差异，将滚动轴维持在原视觉位子
            const rectAfter = btn.getBoundingClientRect();
            window.scrollBy(0, rectAfter.top - rectBefore.top);
        });
@@ -1000,7 +1000,7 @@
            const flightInput = document.getElementById('flightNumber');
            const label = document.getElementById('flight-label');
            
-           // 改用英文選項判斷
+           // 改用英文选项判断
            if(type.includes("Airport")) {
                 label.innerHTML = 'Flight Number 航班号码 <span class="text-red-500">*</span>';
                flightInput.classList.add('required');
@@ -1012,14 +1012,14 @@
        };
 
        // ==========================================
-       // 即時預估金額計算 (Estimated Price Calculation)
+       // 即时预估金额计算 (Estimated Price Calculation)
        // ==========================================
        window.calculatePrice = function() {
            const service = document.getElementById('serviceType').value;
            const vehicle = document.getElementById('vehicle').value;
            const priceDisplay = document.getElementById('price-display');
 
-           // 建立價格對照表 (依照你上方的 Pricing Table)
+           // 建立价格对照表 (依照你上方的 Pricing Table)
            const pricingData = {
                "Airport Transfer(One-way)": {
                    "Standard": 1200,
@@ -1052,7 +1052,7 @@
            } else {
                const price = pricingData[service]?.[vehicle];
                if (price) {
-                   // 加入千分位逗號
+                   // 加入千分位逗号
                    priceDisplay.innerText = `TWD ${price.toLocaleString()}`;
                } else {
                    priceDisplay.innerText = 'TWD -';
@@ -1062,7 +1062,7 @@
 
 
        // ==========================================
-       // Promo Code 後端檢核功能
+       // Promo Code 后端检核功能
        // ==========================================
        document.getElementById('verify-promo-btn').addEventListener('click', async function() {
            const codeInput = document.getElementById('referral');
@@ -1071,35 +1071,35 @@
            const serviceTypeSelect = document.getElementById('serviceType');
            const btn = this;
 
-           if (!code) return; // 如果沒輸入內容就不動作
+           if (!code) return; // 如果没输入内容就不动作
 
-           // 已更新為純英文比對
+           // 已更新为纯英文比对
            const original8HrText = "Private Charter (8 Hrs)";
            const promo8HrText = "Private Charter (8 Hrs) + 1 Free Hour";
 
-           // 找到 8 小時的那個選項
+           // 找到 8 小时的那个选项
            let targetOption = Array.from(serviceTypeSelect.options).find(opt => 
                opt.value === original8HrText || opt.value === promo8HrText
            );
 
-           // 狀態變更為：驗證中
+           // 状态变更为：验证中
            btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin mx-auto"></i>';
            btn.disabled = true;
 
            try {
-               // 向檔案 B (你的 Google Apps Script) 發送驗證請求
+               // 向档案 B (你的 Google Apps Script) 发送验证请求
                const response = await fetch(`${window.PROMO_SCRIPT_URL}?action=checkPromo&code=${code}`);
                const result = await response.json();
 
                if (result.valid) {
-                   // 驗證成功
+                   // 验证成功
                    messageEl.textContent = "✅ Promo code applied! 8 Hrs package upgraded (+1 Hr Free).";
                    messageEl.className = "text-xs font-bold mt-2 text-green-500 block";
                    
-                   // 鎖定輸入框與按鈕 (Lock)
+                   // 锁定输入框与按钮 (Lock)
                    codeInput.style.borderColor = '#22c55e';
                    codeInput.readOnly = true;
-                   codeInput.classList.add('opacity-50', 'cursor-not-allowed'); // 視覺上變灰暗
+                   codeInput.classList.add('opacity-50', 'cursor-not-allowed'); // 视觉上变灰暗
                    
                    btn.textContent = 'Applied';
                    btn.disabled = true;
@@ -1108,32 +1108,32 @@
                    btn.classList.replace('text-white', 'text-white');
                    btn.classList.add('cursor-not-allowed');
 
-                   // 自動幫客戶切換到 8 小時升級選項
+                   // 自动帮客户切换到 8 小时升级选项
                    if (targetOption) {
                        targetOption.value = promo8HrText;
                        targetOption.text = promo8HrText;
                        serviceTypeSelect.value = promo8HrText; 
-                       calculatePrice(); // 重新計算與顯示價錢
+                       calculatePrice(); // 重新计算与显示价钱
                    }
                } else {
-                   // 驗證失敗
+                   // 验证失败
                    messageEl.textContent = "❌ Invalid or expired promo code.";
                    messageEl.className = "text-xs font-bold mt-2 text-red-500 block";
                    codeInput.style.borderColor = '#ef4444';
                    
-                   // 恢復按鈕狀態
+                   // 恢复按钮状态
                    btn.innerHTML = 'Verify';
                    btn.disabled = false;
                    lucide.createIcons();
 
-                   // 還原選項文字
+                   // 还原选项文字
                    if (targetOption) {
                        targetOption.value = original8HrText;
                        targetOption.text = original8HrText;
                        if(serviceTypeSelect.value === promo8HrText) {
                            serviceTypeSelect.value = original8HrText;
                        }
-                       calculatePrice(); // 重新計算
+                       calculatePrice(); // 重新计算
                    }
                }
            } catch (error) {
@@ -1161,10 +1161,10 @@
            });
            lucide.createIcons();
            
-           // 初始載入時先計算一次價錢
+           // 初始载入时先计算一次价钱
            calculatePrice();
 
-           // 抓取網址參數 (自動套用優惠碼)
+           // 抓取网址参数 (自动套用优惠码)
            const urlParams = new URLSearchParams(window.location.search);
            const refCode = urlParams.get('ref') || urlParams.get('promo');
            
@@ -1174,7 +1174,7 @@
                 refInput.style.borderColor = '#d4af37';
                 refInput.style.boxShadow = '0 0 10px rgba(212, 175, 55, 0.4)';
                 
-                // 自動觸發 Verify 按鈕的點擊事件去雲端驗證，並在成功後自動鎖定
+                // 自动触发 Verify 按钮的点击事件去云端验证，并在成功后自动锁定
                 document.getElementById('verify-promo-btn').click();
            }
        });
@@ -1205,7 +1205,7 @@
            const orderId = `ONYX-${dateStr}-${random}`;
            window.currentOrderId = orderId; 
 
-           // 把估價金額打包進 formData
+           // 把估价金额打包进 formData
            const formData = {
                orderId: orderId,
                name: document.getElementById('name').value,
@@ -1224,10 +1224,10 @@
                souvenir: document.getElementById('souvenir').value || 'N/A',
                referral: document.getElementById('referral').value || 'N/A',
                createdAt: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false }),
-               estimatedPrice: document.getElementById('price-display').innerText // <--- 取出畫面的金額
+               estimatedPrice: document.getElementById('price-display').innerText // <--- 取出画面的金额
            };
 
-           // 包含預估金額的 WhatsApp 訊息
+           // 包含预估金额的 WhatsApp 讯息
            const waMessage = `📌 NEW BOOKING REQUEST\nOrder ID: ${formData.orderId}\nName: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email}\nService: ${formData.serviceType}\nDate: ${formData.date}\nVehicle: ${formData.vehicle}\nPax: ${formData.pax} | Luggage: ${formData.luggage}\nBaby Seat: ${formData.babySeat}\nPick-up: ${formData.pickupLocation}\nDrop-off: ${formData.dropoffLocation}\nFlight: ${formData.flightNumber}\nItinerary/Notes: ${formData.itinerary}\nSouvenir: ${formData.souvenir}\nPromo Code: ${formData.referral}\nEstimated Price: ${formData.estimatedPrice}`;
 
            const encodedMessage = encodeURIComponent(waMessage);
@@ -1237,7 +1237,7 @@
            btn.disabled = true;
 
            try {
-               // 1. 送出給 Google Apps Script (儲存至 Google Sheet)
+               // 1. 送出给 Google Apps Script (储存至 Google Sheet)
                if(window.GOOGLE_SCRIPT_URL) {
                    const form = new FormData();
                    form.append('Order ID', formData.orderId);
@@ -1256,12 +1256,12 @@
                    form.append('Itinerary', formData.itinerary);
                    form.append('Souvenir', formData.souvenir);
                    form.append('Promo Code', formData.referral);
-                   form.append('Estimated Price', formData.estimatedPrice); // <--- 加入金額欄位
+                   form.append('Estimated Price', formData.estimatedPrice); // <--- 加入金额栏位
                    form.append('CreatedAt', formData.createdAt);
                    await fetch(window.GOOGLE_SCRIPT_URL, { method: 'POST', body: form, mode: 'no-cors' });
                }
 
-               // 2. 送出給 FormSubmit 觸發 Make.com Webhook
+               // 2. 送出给 FormSubmit 触发 Make.com Webhook
                await fetch("https://formsubmit.co/ajax/onyxtaiwan.official@gmail.com", {
                    method: "POST",
                    headers: { "Content-Type": "application/json" },
@@ -1270,7 +1270,7 @@
                        _cc: "treetea3322@gmail.com",
                        _template: "table",
                        _webhook: document.querySelector('input[name="_webhook"]').value,
-                       ...formData // <-- formData 裡面現在已經包含 estimatedPrice，Make 將會收到它
+                       ...formData // <-- formData 里面现在已经包含 estimatedPrice，Make 将会收到它
                    })
                });
 
