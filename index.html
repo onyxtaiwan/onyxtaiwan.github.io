@@ -1214,6 +1214,29 @@
            // 初始載入時先計算一次價錢
            calculatePrice();
 
+           // -------------------------------------------
+           // 新增：電話輸入框 UX 處理 (點擊補上 + 號、限制非數字字元)
+           // -------------------------------------------
+           const phoneInput = document.getElementById('phone');
+           
+           phoneInput.addEventListener('focus', function() {
+               if (this.value === '') this.value = '+';
+           });
+
+           phoneInput.addEventListener('blur', function() {
+               if (this.value === '+') this.value = ''; // 失去焦點若只有 + 號則清空，讓 placeholder 再次顯示
+           });
+
+           phoneInput.addEventListener('input', function() {
+               // 確保第一碼是 +，且後面只能是數字或空白、橫線
+               if (this.value.length > 0 && !this.value.startsWith('+')) {
+                   this.value = '+' + this.value.replace(/\+/g, '');
+               }
+               // 即時把非數字、空白、橫線、括號的字元移除 (檢查非數字)
+               this.value = this.value.replace(/[^\+\d\s\-()]/g, '');
+           });
+           // -------------------------------------------
+
            // 抓取網址參數 (自動套用優惠碼)
            const urlParams = new URLSearchParams(window.location.search);
            const refCode = urlParams.get('ref') || urlParams.get('promo');
@@ -1235,6 +1258,7 @@
            const inputs = document.querySelectorAll('.required');
            let valid = true;
 
+           // 1. 基本必填檢查
            inputs.forEach(input => {
                 if(!input.value.trim()) {
                     input.style.borderColor = '#ef4444';
@@ -1248,6 +1272,40 @@
                alert("Please fill in all required fields marked with * \n请填写所有标示 * 的必填栏位");
                return;
            }
+
+           // -------------------------------------------
+           // 2. 格式檢核 (Email & Phone)
+           // -------------------------------------------
+           const emailInput = document.getElementById('email');
+           const phoneInput = document.getElementById('phone');
+           
+           // 正規表達式：信箱必須有 @ 與 . ；電話必須是 + 開頭且包含數字
+           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+           const phoneRegex = /^\+[0-9\s\-()]{7,20}$/; 
+
+           let formatValid = true;
+           let formatErrorMsgs = [];
+
+           // 檢核 Email
+           if (!emailRegex.test(emailInput.value.trim())) {
+               emailInput.style.borderColor = '#ef4444';
+               formatValid = false;
+               formatErrorMsgs.push("• Invalid Email Format (信箱缺少 @ 或格式错误)");
+           }
+
+           // 檢核 Phone
+           if (!phoneRegex.test(phoneInput.value.trim())) {
+               phoneInput.style.borderColor = '#ef4444';
+               formatValid = false;
+               formatErrorMsgs.push("• Invalid Phone Number (电话号码格式错误)");
+           }
+
+           // 若格式錯誤，阻斷送出並跳出提示
+           if (!formatValid) {
+               alert("Please check your input 请检查您的输入：\n\n" + formatErrorMsgs.join("\n"));
+               return;
+           }
+           // -------------------------------------------
 
            const d = new Date();
            const dateStr = d.toLocaleDateString('en-CA', { timeZone: 'Asia/Taipei' }).replace(/-/, "").replace(/-/, "").slice(2);
@@ -1274,7 +1332,7 @@
                souvenir: document.getElementById('souvenir').value || 'N/A',
                referral: document.getElementById('referral').value || 'N/A',
                createdAt: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false }),
-               estimatedPrice: document.getElementById('price-display').innerText // <--- 取出畫面的金額
+               estimatedPrice: document.getElementById('price-display').innerText // 取出畫面的金額
            };
 
            // 包含預估金額的 WhatsApp 訊息
@@ -1306,7 +1364,7 @@
                    form.append('Itinerary', formData.itinerary);
                    form.append('Souvenir', formData.souvenir);
                    form.append('Promo Code', formData.referral);
-                   form.append('Estimated Price', formData.estimatedPrice); // <--- 加入金額欄位
+                   form.append('Estimated Price', formData.estimatedPrice);
                    form.append('CreatedAt', formData.createdAt);
                    await fetch(window.GOOGLE_SCRIPT_URL, { method: 'POST', body: form, mode: 'no-cors' });
                }
@@ -1320,7 +1378,7 @@
                        _cc: "treetea3322@gmail.com",
                        _template: "table",
                        _webhook: document.querySelector('input[name="_webhook"]').value,
-                       ...formData // <-- formData 裡面現在已經包含 estimatedPrice，Make 將會收到它
+                       ...formData 
                    })
                });
 
