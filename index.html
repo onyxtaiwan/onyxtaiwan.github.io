@@ -62,7 +62,30 @@
 </head>
 <body class="bg-[#0f0f0f] text-gray-300 antialiased selection:bg-[#d4af37] selection:text-[#0f0f0f]">
 
-   <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/10">
+   <div class="fixed top-0 w-full h-10 bg-[#111] border-b border-white/10 z-[60] flex justify-between items-center px-4">
+       <div class="text-[10px] md:text-xs text-gray-400 font-medium tracking-wider hidden md:block">
+           PREMIUM CHAUFFEUR SERVICES IN TAIWAN
+       </div>
+       <div class="flex items-center justify-end w-full md:w-auto">
+           <div class="flex items-center gap-1.5">
+               <i data-lucide="circle-dollar-sign" class="w-3.5 h-3.5 text-[#d4af37]"></i>
+               <select id="global-currency-select" class="bg-transparent text-xs font-bold text-[#d4af37] focus:outline-none cursor-pointer appearance-none" onchange="changeCurrency(this.value)">
+                   <option value="cny" class="bg-[#111] text-white">CNY (¥)</option>
+                   <option value="eur" class="bg-[#111] text-white" selected>EUR (€)</option>
+                   <option value="idr" class="bg-[#111] text-white">IDR (Rp)</option>
+                   <option value="jpy" class="bg-[#111] text-white">JPY (¥)</option>
+                   <option value="krw" class="bg-[#111] text-white">KRW (₩)</option>
+                   <option value="myr" class="bg-[#111] text-white">MYR (RM)</option>
+                   <option value="php" class="bg-[#111] text-white">PHP (₱)</option>
+                   <option value="sgd" class="bg-[#111] text-white">SGD (S$)</option>
+                   <option value="thb" class="bg-[#111] text-white">THB (฿)</option>
+                   <option value="vnd" class="bg-[#111] text-white">VND (₫)</option>
+               </select>
+           </div>
+       </div>
+   </div>
+
+   <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/10 top-10">
        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div class="flex items-center justify-between h-20">
                 <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
@@ -99,7 +122,7 @@
        </div>
    </nav>
 
-   <section id="home" class="relative min-h-screen flex items-center justify-center bg-[#0a0a0a] pt-16">
+   <section id="home" class="relative min-h-screen flex items-center justify-center bg-[#0a0a0a] pt-32">
        <div class="absolute inset-0 z-0">
            <img src="./images/hero.jpg" alt="Mercedes-Benz V-Class" class="w-full h-full object-cover opacity-40">
            <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/80 via-[#0f0f0f]/60 to-[#0f0f0f]"></div>
@@ -335,9 +358,8 @@
                                 <th class="p-5 text-xs font-black uppercase tracking-widest border-r border-black/5">Service</th>
                                 <th class="p-5 text-xs font-black uppercase tracking-widest">Vehicle Grade</th>
                                 <th class="p-5 text-xs font-black uppercase tracking-widest bg-[#c5a02e]">Price (TWD)</th>
-                                <th class="p-5 text-xs font-bold uppercase opacity-80">MYR</th>
-                                <th class="p-5 text-xs font-bold uppercase opacity-80">SGD</th>
-                                <th class="p-5 text-xs font-bold uppercase opacity-80">USD</th>
+                                <th class="p-5 text-xs font-bold uppercase opacity-80 border-l border-black/5">USD</th>
+                                <th class="p-5 text-xs font-bold uppercase text-white tracking-wider" id="th-custom-currency">EUR</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-white/5">
@@ -349,23 +371,20 @@
                                 </td>
                                 <td class="p-4 pl-5 text-sm text-gray-300">Standard</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">1,200</td>
-                                <td class="p-4 text-sm text-gray-500">150</td>
-                                <td class="p-4 text-sm text-gray-500">48</td>
-                                <td class="p-4 text-sm text-gray-500">38</td>
+                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="1200">-</td>
+                                <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="1200">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
                                 <td class="p-4 pl-5 text-sm text-gray-300">Premium SUV / Van</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">1,800</td>
-                                <td class="p-4 text-sm text-gray-500">225</td>
-                                <td class="p-4 text-sm text-gray-500">73</td>
-                                <td class="p-4 text-sm text-gray-500">57</td>
+                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="1800">-</td>
+                                <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="1800">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
                                 <td class="p-4 pl-5 text-sm font-bold text-[#d4af37]">Luxury</td>
                                 <td class="p-4 font-black text-[#d4af37] text-lg bg-white/5">2,800</td>
-                                <td class="p-4 text-sm text-gray-500">350</td>
-                                <td class="p-4 text-sm text-gray-500">113</td>
-                                <td class="p-4 text-sm text-gray-500">89</td>
+                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="2800">-</td>
+                                <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="2800">-</td>
                             </tr>
 
                             <tr class="border-t-2 border-white/10 hover:bg-white/[0.02] transition-colors">
@@ -375,23 +394,20 @@
                                 </td>
                                 <td class="p-4 pl-5 text-sm text-gray-300">Standard</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">3,000</td>
-                                <td class="p-4 text-sm text-gray-500">375</td>
-                                <td class="p-4 text-sm text-gray-500">121</td>
-                                <td class="p-4 text-sm text-gray-500">95</td>
+                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="3000">-</td>
+                                <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="3000">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
                                 <td class="p-4 pl-5 text-sm text-gray-300">Premium SUV / Van</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">4,000</td>
-                                <td class="p-4 text-sm text-gray-500">500</td>
-                                <td class="p-4 text-sm text-gray-500">161</td>
-                                <td class="p-4 text-sm text-gray-500">127</td>
+                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="4000">-</td>
+                                <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="4000">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
                                 <td class="p-4 pl-5 text-sm font-bold text-[#d4af37]">Luxury</td>
                                 <td class="p-4 font-black text-[#d4af37] text-lg bg-white/5">5,800</td>
-                                <td class="p-4 text-sm text-gray-500">725</td>
-                                <td class="p-4 text-sm text-gray-500">234</td>
-                                <td class="p-4 text-sm text-gray-500">184</td>
+                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="5800">-</td>
+                                <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="5800">-</td>
                             </tr>
 
                             <tr class="border-t-2 border-white/10 hover:bg-white/[0.02] transition-colors">
@@ -401,23 +417,20 @@
                                 </td>
                                 <td class="p-4 pl-5 text-sm text-gray-300">Standard</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">5,500</td>
-                                <td class="p-4 text-sm text-gray-500">688</td>
-                                <td class="p-4 text-sm text-gray-500">222</td>
-                                <td class="p-4 text-sm text-gray-500">175</td>
+                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="5500">-</td>
+                                <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="5500">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
                                 <td class="p-4 pl-5 text-sm text-gray-300">Premium SUV / Van</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">7,500</td>
-                                <td class="p-4 text-sm text-gray-500">938</td>
-                                <td class="p-4 text-sm text-gray-500">302</td>
-                                <td class="p-4 text-sm text-gray-500">239</td>
+                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="7500">-</td>
+                                <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="7500">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
                                 <td class="p-4 pl-5 text-sm font-bold text-[#d4af37]">Luxury</td>
                                 <td class="p-4 font-black text-[#d4af37] text-lg bg-white/5">11,000</td>
-                                <td class="p-4 text-sm text-gray-500">1,375</td>
-                                <td class="p-4 text-sm text-gray-500">443</td>
-                                <td class="p-4 text-sm text-gray-500">350</td>
+                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="11000">-</td>
+                                <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="11000">-</td>
                             </tr>
                         </tbody>
                     </table>
@@ -434,25 +447,25 @@
                        <i data-lucide="chevron-down" class="text-gray-400 w-5 h-5 transition-transform duration-300" id="icon-acc-airport"></i>
                    </button>
                    <div id="acc-airport" class="hidden p-4 space-y-3 border-t border-white/5 bg-[#0a0a0a]">
-                       <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                       <div class="flex justify-between items-center border-b border-white/5 pb-3">
                            <span class="text-xs text-gray-300">Standard</span>
                            <div class="text-right">
-                               <span class="text-base font-black text-white block">1,200 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[10px] text-gray-500 block -mt-1">MYR 150 | SGD 48 | USD 38</span>
+                               <span class="text-lg font-black text-white block">1,200 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="1200">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="1200">-</span></span>
                            </div>
                        </div>
-                       <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                       <div class="flex justify-between items-center border-b border-white/5 pb-3">
                            <span class="text-xs text-gray-300">Premium SUV / Van</span>
                            <div class="text-right">
-                               <span class="text-base font-black text-white block">1,800 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[10px] text-gray-500 block -mt-1">MYR 225 | SGD 73 | USD 57</span>
+                               <span class="text-lg font-black text-white block">1,800 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="1800">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="1800">-</span></span>
                            </div>
                        </div>
-                       <div class="flex justify-between items-center">
+                       <div class="flex justify-between items-center pt-1">
                            <span class="text-xs font-bold text-[#d4af37]">Luxury</span>
                            <div class="text-right">
-                               <span class="text-base font-black text-[#d4af37] block">2,800 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[10px] text-gray-500 block -mt-1">MYR 350 | SGD 113 | USD 89</span>
+                               <span class="text-lg font-black text-[#d4af37] block">2,800 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="2800">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="2800">-</span></span>
                            </div>
                        </div>
                    </div>
@@ -467,25 +480,25 @@
                        <i data-lucide="chevron-down" class="text-gray-400 w-5 h-5 transition-transform duration-300" id="icon-acc-halfday"></i>
                    </button>
                    <div id="acc-halfday" class="hidden p-4 space-y-3 border-t border-white/5 bg-[#0a0a0a]">
-                       <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                       <div class="flex justify-between items-center border-b border-white/5 pb-3">
                            <span class="text-xs text-gray-300">Standard</span>
                            <div class="text-right">
-                               <span class="text-base font-black text-white block">3,000 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[10px] text-gray-500 block -mt-1">MYR 375 | SGD 121 | USD 95</span>
+                               <span class="text-lg font-black text-white block">3,000 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="3000">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="3000">-</span></span>
                            </div>
                        </div>
-                       <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                       <div class="flex justify-between items-center border-b border-white/5 pb-3">
                            <span class="text-xs text-gray-300">Premium SUV / Van</span>
                            <div class="text-right">
-                               <span class="text-base font-black text-white block">4,000 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[10px] text-gray-500 block -mt-1">MYR 500 | SGD 161 | USD 127</span>
+                               <span class="text-lg font-black text-white block">4,000 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="4000">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="4000">-</span></span>
                            </div>
                        </div>
-                       <div class="flex justify-between items-center">
+                       <div class="flex justify-between items-center pt-1">
                            <span class="text-xs font-bold text-[#d4af37]">Luxury</span>
                            <div class="text-right">
-                               <span class="text-base font-black text-[#d4af37] block">5,800 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[10px] text-gray-500 block -mt-1">MYR 725 | SGD 234 | USD 184</span>
+                               <span class="text-lg font-black text-[#d4af37] block">5,800 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="5800">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="5800">-</span></span>
                            </div>
                        </div>
                    </div>
@@ -500,25 +513,25 @@
                        <i data-lucide="chevron-down" class="text-gray-400 w-5 h-5 transition-transform duration-300" id="icon-acc-fullday"></i>
                    </button>
                    <div id="acc-fullday" class="hidden p-4 space-y-3 border-t border-white/5 bg-[#0a0a0a]">
-                       <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                       <div class="flex justify-between items-center border-b border-white/5 pb-3">
                            <span class="text-xs text-gray-300">Standard</span>
                            <div class="text-right">
-                               <span class="text-base font-black text-white block">5,500 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[10px] text-gray-500 block -mt-1">MYR 688 | SGD 222 | USD 175</span>
+                               <span class="text-lg font-black text-white block">5,500 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="5500">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="5500">-</span></span>
                            </div>
                        </div>
-                       <div class="flex justify-between items-center border-b border-white/5 pb-2">
+                       <div class="flex justify-between items-center border-b border-white/5 pb-3">
                            <span class="text-xs text-gray-300">Premium SUV / Van</span>
                            <div class="text-right">
-                               <span class="text-base font-black text-white block">7,500 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[10px] text-gray-500 block -mt-1">MYR 938 | SGD 302 | USD 239</span>
+                               <span class="text-lg font-black text-white block">7,500 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="7500">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="7500">-</span></span>
                            </div>
                        </div>
-                       <div class="flex justify-between items-center">
+                       <div class="flex justify-between items-center pt-1">
                            <span class="text-xs font-bold text-[#d4af37]">Luxury</span>
                            <div class="text-right">
-                               <span class="text-base font-black text-[#d4af37] block">11,000 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[10px] text-gray-500 block -mt-1">MYR 1,375 | SGD 443 | USD 350</span>
+                               <span class="text-lg font-black text-[#d4af37] block">11,000 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="11000">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="11000">-</span></span>
                            </div>
                        </div>
                    </div>
@@ -696,9 +709,17 @@
 
                    <input type="hidden" name="_webhook" value="https://hook.eu1.make.com/f8bh8juxkrpibpsf7nmytdwe2u132uet">
 
-                   <div class="mt-8 mb-6 p-5 bg-gradient-to-b from-[#111] to-[#0a0a0a] border border-[#d4af37]/30 rounded-xl text-center shadow-lg">
+                   <div class="mt-8 mb-6 p-6 bg-gradient-to-b from-[#111] to-[#0a0a0a] border border-[#d4af37]/30 rounded-xl text-center shadow-lg relative overflow-hidden">
+                       <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent opacity-50"></div>
                        <p class="text-xs text-[#d4af37] font-bold uppercase tracking-widest mb-1">Estimated Price 预估金额</p>
-                       <p id="price-display" class="text-3xl font-black text-white my-2 tracking-wide">TWD 3,000</p>
+                       <p id="price-display" class="text-3xl font-black text-white mt-2 mb-1 tracking-wide">TWD 3,000</p>
+                       <div id="price-converted-container" class="inline-block bg-white/5 px-4 py-1.5 rounded-full mb-3 border border-white/5 hidden">
+                           <p class="text-sm font-bold text-[#d4af37] tracking-wider text-center flex items-center justify-center gap-2">
+                               <span id="price-converted-usd">USD -</span>
+                               <span class="text-white/20">|</span>
+                               <span id="price-converted-custom">EUR -</span>
+                           </p>
+                       </div>
                        <p class="text-[11px] text-gray-500 leading-tight">
                            * Excludes cross-region, overtime, and overnight fees.<br>
                            * 不含跨区、超时与跨夜费用。
@@ -779,6 +800,60 @@
        // File B: 验证优惠码的专属网址
        window.PROMO_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8k_OtqYgkec5VsmVlbOHjrn_u4PzKb_isHDaH3cWM57Wcvn6e8zZiqxpJ5mVyrgZMcA/exec";
        
+       // ==========================================
+       // Currency API Logic (匯率換算邏輯)
+       // ==========================================
+       let exchangeRates = {};
+       let targetCurrency = 'eur';
+
+       // 避免 API 失效時的備用靜態匯率 (大致參考值)
+       const fallbackRates = {
+           usd: 0.031, eur: 0.029, cny: 0.22, jpy: 4.65, krw: 42.5,
+           thb: 1.05, idr: 490.0, php: 1.75, vnd: 780.0, myr: 0.14, sgd: 0.041
+       };
+
+       async function initCurrency() {
+           try {
+               const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/twd.json');
+               const data = await res.json();
+               exchangeRates = data.twd;
+           } catch (e) {
+               console.warn("Currency API failed, using fallback rates.");
+               exchangeRates = fallbackRates;
+           }
+           updatePricingDisplay();
+       }
+
+       window.changeCurrency = function(currency) {
+           targetCurrency = currency;
+           const selectEl = document.getElementById('global-currency-select');
+           const symbol = selectEl.options[selectEl.selectedIndex].text.split(' ')[0];
+           // 更新電腦版表格上方的自選幣別欄位標題
+           document.getElementById('th-custom-currency').innerText = symbol;
+           updatePricingDisplay();
+       }
+
+       window.updatePricingDisplay = function() {
+           const usdRate = exchangeRates['usd'] || fallbackRates['usd'];
+           const customRate = exchangeRates[targetCurrency] || fallbackRates[targetCurrency];
+           const selectEl = document.getElementById('global-currency-select');
+           const customSymbol = selectEl.options[selectEl.selectedIndex].text.split(' ')[0];
+
+           // 更新價格表 (電腦與手機版)
+           document.querySelectorAll('.price-usd').forEach(el => {
+               const base = parseInt(el.getAttribute('data-base'));
+               el.innerText = `USD ${Math.round(base * usdRate).toLocaleString()}`;
+           });
+           
+           document.querySelectorAll('.price-custom').forEach(el => {
+               const base = parseInt(el.getAttribute('data-base'));
+               el.innerText = `${customSymbol} ${Math.round(base * customRate).toLocaleString()}`;
+           });
+
+           // 同步更新下方表單的預估金額
+           calculatePrice();
+       }
+
        // Populate Select Options
        const paxSelect = document.getElementById('pax');
        for(let i=1; i<=8; i++) paxSelect.add(new Option(i, i));
@@ -1037,6 +1112,7 @@
            const service = document.getElementById('serviceType').value;
            const vehicle = document.getElementById('vehicle').value;
            const priceDisplay = document.getElementById('price-display');
+           const convertedContainer = document.getElementById('price-converted-container');
 
            // 建立價格對照表 (依照你上方的 Pricing Table)
            const pricingData = {
@@ -1083,14 +1159,32 @@
 
            if (service.includes('Bespoke')) {
                priceDisplay.innerHTML = '<span class="text-xl">To be quoted 另行报价</span>';
+               convertedContainer.classList.add('hidden');
            } else {
                const basePrice = pricingData[service]?.[vehicle];
                if (basePrice) {
                    const totalPrice = basePrice * days;
                    // 加入千分位逗號
                    priceDisplay.innerText = `TWD ${totalPrice.toLocaleString()}`;
+                   
+                   // 同步更新換算金額
+                   if(Object.keys(exchangeRates).length > 0) {
+                       const usdRate = exchangeRates['usd'] || fallbackRates['usd'];
+                       const customRate = exchangeRates[targetCurrency] || fallbackRates[targetCurrency];
+                       const selectEl = document.getElementById('global-currency-select');
+                       const customSymbol = selectEl.options[selectEl.selectedIndex].text.split(' ')[0];
+                       
+                       const usdVal = Math.round(totalPrice * usdRate);
+                       const customVal = Math.round(totalPrice * customRate);
+                       
+                       document.getElementById('price-converted-usd').innerText = `USD ${usdVal.toLocaleString()}`;
+                       document.getElementById('price-converted-custom').innerText = `${customSymbol} ${customVal.toLocaleString()}`;
+                       convertedContainer.classList.remove('hidden');
+                   }
+
                } else {
                    priceDisplay.innerText = 'TWD -';
+                   convertedContainer.classList.add('hidden');
                }
            }
        };
@@ -1184,6 +1278,9 @@
 
        // Initialize
        document.addEventListener('DOMContentLoaded', function() {
+           // Fetch API currency rates immediately
+           initCurrency();
+
            // Render initial itineraries
            renderItineraries();
            
