@@ -268,7 +268,7 @@
                            </div>
                            <div class="flex items-center justify-center gap-2">
                                <i data-lucide="briefcase" class="w-3.5 h-3.5 md:w-4 md:h-4 text-[#d4af37]"></i>
-                               <span>2 - 3 Suitcases</span>
+                               <span>Up to 3 Suitcases</span>
                            </div>
                        </div>
                    </div>
@@ -290,7 +290,7 @@
                            </div>
                            <div class="flex items-center justify-center gap-2">
                                <i data-lucide="briefcase" class="w-3.5 h-3.5 md:w-4 md:h-4 text-[#d4af37]"></i>
-                               <span>2 - 3 Suitcases</span>
+                               <span>Up to 3 Suitcases</span>
                            </div>
                        </div>
                    </div>
@@ -308,11 +308,11 @@
                        <div class="space-y-1.5 md:space-y-2 text-gray-400 text-xs md:text-sm">
                            <div class="flex items-center justify-center gap-2">
                                <i data-lucide="users" class="w-3.5 h-3.5 md:w-4 md:h-4 text-[#d4af37]"></i>
-                               <span>5 - 8 Passengers</span>
+                               <span>1 - 8 Passengers</span>
                            </div>
                            <div class="flex items-center justify-center gap-2">
                                <i data-lucide="briefcase" class="w-3.5 h-3.5 md:w-4 md:h-4 text-[#d4af37]"></i>
-                               <span>7 - 8 Suitcases</span>
+                               <span>Up to 8 Suitcases</span>
                            </div>
                        </div>
                    </div>
@@ -334,7 +334,7 @@
                            </div>
                            <div class="flex items-center justify-center gap-2">
                                <i data-lucide="briefcase" class="w-3.5 h-3.5 md:w-4 md:h-4 text-[#d4af37]"></i>
-                               <span>5 - 6 Suitcases</span>
+                               <span>Up to 6 Suitcases</span>
                            </div>
                        </div>
                    </div>
@@ -636,7 +636,7 @@
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
                            <label class="block text-xs font-bold text-gray-400 mb-1">Vehicle Grade 车型等级 <span class="text-red-500">*</span></label>
-                           <select id="vehicle" class="w-full onyx-input p-3 rounded-lg text-sm required" onchange="calculatePrice();">
+                           <select id="vehicle" class="w-full onyx-input p-3 rounded-lg text-sm required" onchange="updateVehicleLimits(); calculatePrice();">
                                <option value="Standard">Standard</option>
                                <option value="Premium SUV">Premium SUV</option>
                                <option value="Premium Van" selected>Premium Van</option>
@@ -854,15 +854,43 @@
            calculatePrice();
        }
 
-       // Populate Select Options
-       const paxSelect = document.getElementById('pax');
-       for(let i=1; i<=8; i++) paxSelect.add(new Option(i, i));
-       
-       const luggageSelect = document.getElementById('luggage');
-       for(let i=0; i<=8; i++) luggageSelect.add(new Option(i, i));
-       
-       const babySeatSelect = document.getElementById('babySeat');
-       for(let i=0; i<=6; i++) babySeatSelect.add(new Option(i, i));
+       // ==========================================
+       // 車型人數與行李限制連動 (Vehicle Capacity Limits)
+       // ==========================================
+       window.updateVehicleLimits = function() {
+           const vehicle = document.getElementById('vehicle').value;
+           let maxPax = 8, maxLuggage = 8, maxBaby = 3; 
+
+           if (vehicle === 'Standard' || vehicle === 'Premium SUV') {
+               maxPax = 4;
+               maxLuggage = 3;
+               maxBaby = 2;
+           } else if (vehicle === 'Premium Van') {
+               maxPax = 8;
+               maxLuggage = 8;
+               maxBaby = 3;
+           } else if (vehicle === 'Luxury') {
+               maxPax = 6;
+               maxLuggage = 6;
+               maxBaby = 2;
+           }
+
+           function updateSelect(selectId, maxVal, minVal = 0) {
+               const select = document.getElementById(selectId);
+               const currentVal = parseInt(select.value) || minVal;
+               select.innerHTML = ''; 
+               for (let i = minVal; i <= maxVal; i++) {
+                   select.add(new Option(i, i));
+               }
+               // 如果原本選擇的值還在新的範圍內，就保留原值；若超出範圍，就自動改為新的最大值
+               select.value = currentVal > maxVal ? maxVal : currentVal;
+           }
+
+           updateSelect('pax', maxPax, 1);
+           updateSelect('luggage', maxLuggage, 0);
+           updateSelect('babySeat', maxBaby, 0);
+       };
+
 
        // Itineraries Data (Simplified Chinese)
        const itineraries = [
@@ -995,7 +1023,7 @@
                region: "Taipei", 
                image_url: "./images/itinerary-12.jpg", 
                desc: "The closest natural wonders to Taipei. Witness the impressive sulfur vents at Xiaoyoukeng, take photos with grazing water buffaloes at Qingtiangang, and step into the misty Thermal Valley to experience rich Japanese culture.", 
-               desc_cn: "距离台北最近的自然奇景。近距離观赏小油坑硫磺喷气孔的震撼地质，在擎天岗与放牧水牛合影，午后走入烟雾缭绕的地热谷，体验浓厚的日式温泉乡文化与历史建筑。", 
+               desc_cn: "距离台北最近的自然奇景。近距离观赏小油坑硫磺喷气孔的震撼地质，在擎天岗与放牧水牛合影，午后走入烟雾缭绕的地热谷，体验浓厚的日式温泉乡文化与历史建筑。", 
                spots: ["Xiaoyoukeng (小油坑)", "Qingtiangang Grassland (擎天岗)", "Milk Lake (冷水坑与牛奶湖)", "Thermal Valley (地热谷)", "Hot Spring Museum (温泉博物馆)", "Xinbeitou Historic Station (新北投车站)"] 
            }
        ];
@@ -1307,6 +1335,9 @@
            
            // 新增：初始化時觸發切換狀態，讓日曆和航班欄位套用機場接送預設的限制
            toggleFlightField();
+           
+           // 初始化時，根據預設車型限制行李與人數數量
+           updateVehicleLimits();
            
            // 初始載入時先計算一次價錢
            calculatePrice();
