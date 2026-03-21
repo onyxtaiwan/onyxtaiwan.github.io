@@ -63,7 +63,7 @@
            color: #0f0f0f !important;
            font-weight: bold;
        }
-       .hidden { display: none; }
+       .hidden { display: none !important; }
        
        /* Google Places Autocomplete 強化修正 */
        .pac-container {
@@ -652,10 +652,10 @@
                            <label class="block text-xs font-bold text-gray-400 mb-1">Date of Service <span class="text-red-500">*</span></label>
                            <input type="text" id="date" class="w-full onyx-input p-3 rounded-lg text-sm cursor-pointer required" placeholder="Select Date" readonly>
                            
-                           <div id="time-container" class="flex gap-2 mt-2 hidden">
-                               <select id="pickupHour" class="w-1/2 onyx-input p-3 rounded-lg text-sm">
+                           <div id="time-container" class="flex gap-2 mt-2">
+                               <select id="pickupHour" class="w-1/2 onyx-input p-3 rounded-lg text-sm required">
                                </select>
-                               <select id="pickupMinute" class="w-1/2 onyx-input p-3 rounded-lg text-sm">
+                               <select id="pickupMinute" class="w-1/2 onyx-input p-3 rounded-lg text-sm required">
                                </select>
                            </div>
                        </div>
@@ -1031,16 +1031,17 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            const type = document.getElementById('serviceType').value;
            const flightInput = document.getElementById('flightNumber');
            const label = document.getElementById('flight-label');
-           const timeContainer = document.getElementById('time-container');
            const dateInput = document.getElementById('date');
+           
+           // 時間下拉選單永遠顯示，確保包車客人也可以選時間
+           document.getElementById('pickupHour').classList.add('required');
+           document.getElementById('pickupMinute').classList.add('required');
+           document.getElementById('pickupHour').style.borderColor = '#333';
+           document.getElementById('pickupMinute').style.borderColor = '#333';
            
            if(type.includes("Airport") || type.includes("One-Way")) {
                label.innerHTML = 'Flight Number <span class="text-red-500">*</span> <span class="text-[10px] text-gray-500 font-normal ml-1">(City Transfer please enter 0000)</span>';
                flightInput.classList.add('required');
-               
-               timeContainer.classList.remove('hidden');
-               document.getElementById('pickupHour').classList.add('required');
-               document.getElementById('pickupMinute').classList.add('required');
                dateInput.placeholder = "Select Date";
                
                if (window.fpInstance) {
@@ -1051,12 +1052,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                label.innerHTML = 'Flight Number (Optional)';
                flightInput.classList.remove('required');
                flightInput.style.borderColor = '#333';
-               
-               timeContainer.classList.add('hidden');
-               document.getElementById('pickupHour').classList.remove('required');
-               document.getElementById('pickupMinute').classList.remove('required');
-               document.getElementById('pickupHour').style.borderColor = '#333';
-               document.getElementById('pickupMinute').style.borderColor = '#333';
                dateInput.placeholder = "Select Date Range";
                
                if (window.fpInstance) {
@@ -1210,9 +1205,10 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        // 📍 全新計價系統與折扣邏輯整合
        // ==========================================
        
-       // 新增全域變數記錄折扣
        window.activePromoDiscount = 0;
        window.activePromoType = null;
+       window.activePromoMinSpend = 0;
+       window.activePromoMessage = "";
 
        const vehicleUpgrades = {
            "Standard": 0,
@@ -1243,12 +1239,31 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                days = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
            }
            
-           // --- 定義一個處理最終價格並更新 UI 的內部函式 ---
+           // --- 動態套用折扣與更新 UI 的內部函式 ---
            const applyDiscountAndUpdateUI = (baseTotal) => {
                let finalPrice = baseTotal;
-               // 扣除折扣金額 (確保不會扣到變負數)
+               const messageEl = document.getElementById('promo-message');
+
                if (window.activePromoType === 'discount' && window.activePromoDiscount > 0) {
-                   finalPrice = Math.max(0, finalPrice - window.activePromoDiscount);
+                   // 動態低消檢測
+                   if (baseTotal >= window.activePromoMinSpend) {
+                       finalPrice = Math.max(0, finalPrice - window.activePromoDiscount);
+                       if (messageEl && !messageEl.classList.contains('hidden')) {
+                           messageEl.textContent = `✅ Discount applied! (-TWD ${window.activePromoDiscount})`;
+                           messageEl.className = "text-xs font-bold mt-2 text-green-500 block transition-all";
+                       }
+                   } else {
+                       if (messageEl && !messageEl.classList.contains('hidden')) {
+                           messageEl.textContent = `⚠️ Minimum spend of TWD ${window.activePromoMinSpend.toLocaleString()} required.`;
+                           messageEl.className = "text-xs font-bold mt-2 text-yellow-500 block transition-all";
+                       }
+                   }
+               } else if (window.activePromoType === 'upgrade') {
+                   // KOL 升級提示
+                   if (messageEl && !messageEl.classList.contains('hidden')) {
+                       messageEl.textContent = `✅ ${window.activePromoMessage}`;
+                       messageEl.className = "text-xs font-bold mt-2 text-green-500 block transition-all";
+                   }
                }
                updatePriceUI(finalPrice);
            };
@@ -1295,7 +1310,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                        let preDiscountPrice = baseCalc + vehicleUpgrades[vehicle];
                        preDiscountPrice = Math.round(preDiscountPrice / 100) * 100;
                        
-                       // 呼叫折扣計算
                        applyDiscountAndUpdateUI(preDiscountPrice);
 
                        distMsg.innerText = `( Estimated Distance: ~${distanceKm.toFixed(1)} km )`;
@@ -1314,7 +1328,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    const basePrice = charterPricing[service]?.[vehicle];
                    if (basePrice) {
                        const preDiscountPrice = basePrice * days;
-                       // 呼叫折扣計算
                        applyDiscountAndUpdateUI(preDiscountPrice);
                    } else {
                        showToBeQuoted();
@@ -1337,19 +1350,18 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            btn.disabled = true;
 
            try {
-               // 呼叫您改寫後的 GAS API
                const response = await fetch(`${window.PROMO_SCRIPT_URL}?action=checkPromo&code=${code}&service=${encodeURIComponent(currentService)}`);
                const result = await response.json();
 
-               // 假設後端驗證失敗 (可能是無效、已達使用上限、或不適用當前服務)
                if (!result.valid) {
-                   messageEl.textContent = result.message || "❌ Invalid, expired, or not applicable to this service.";
+                   messageEl.textContent = result.message || "❌ Invalid, expired, or not applicable.";
                    messageEl.className = "text-xs font-bold mt-2 text-red-500 block transition-all";
                    codeInput.style.borderColor = '#ef4444';
                    
-                   // 重置狀態
                    window.activePromoDiscount = 0;
                    window.activePromoType = null;
+                   window.activePromoMinSpend = 0;
+                   window.activePromoMessage = "";
                    
                    btn.innerHTML = 'Verify';
                    btn.disabled = false;
@@ -1358,9 +1370,11 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    return;
                }
 
-               // 驗證成功：根據 Type 分支處理
-               messageEl.textContent = `✅ ${result.message}`;
-               messageEl.className = "text-xs font-bold mt-2 text-green-500 block transition-all";
+               // 驗證成功
+               window.activePromoType = result.type;
+               window.activePromoMinSpend = parseInt(result.minSpend) || 0;
+               window.activePromoMessage = result.message;
+
                codeInput.style.borderColor = '#22c55e';
                codeInput.readOnly = true;
                codeInput.classList.add('opacity-50', 'cursor-not-allowed');
@@ -1371,26 +1385,25 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                btn.classList.replace('hover:bg-[#d4af37]', 'bg-green-600');
                btn.classList.replace('text-white', 'text-white');
                btn.classList.add('cursor-not-allowed');
+               
+               messageEl.classList.remove('hidden');
 
-               window.activePromoType = result.type;
-
+               // KOL 強制切換選項邏輯
                if (result.type === 'upgrade') {
-                   // 原本的 KOL 升級邏輯
                    const original8HrText = "Private Charter (8 Hrs)";
                    const promo8HrText = "Private Charter (8 Hrs) + 1 Free Hour";
                    let targetOption = Array.from(serviceTypeSelect.options).find(opt => opt.value === original8HrText || opt.value === promo8HrText);
-                   if (targetOption && currentService === original8HrText) {
+                   if (targetOption) {
                        targetOption.value = promo8HrText;
                        targetOption.text = promo8HrText;
                        serviceTypeSelect.value = promo8HrText; 
+                       toggleFlightField(); // 觸發切換，隱藏航班必填
                    }
                    window.activePromoDiscount = 0;
                } else if (result.type === 'discount') {
-                   // 現金折扣邏輯
                    window.activePromoDiscount = parseInt(result.amount) || 0;
                }
                
-               // 重新計算價格 (套用折扣)
                calculatePrice();
 
            } catch (error) {
@@ -1403,7 +1416,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            }
        });
 
-       // 監聽 Service Type 改變時，如果已經上了折扣碼，清除折扣碼讓他重驗，以免「適用項目」不符
+       // 變更服務時重置折扣碼
        document.getElementById('serviceType').addEventListener('change', function() {
            const btn = document.getElementById('verify-promo-btn');
            if (btn.textContent === 'Applied') {
@@ -1422,8 +1435,10 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                
                window.activePromoDiscount = 0;
                window.activePromoType = null;
+               window.activePromoMinSpend = 0;
+               window.activePromoMessage = "";
                
-               alert("Service type changed. Please verify your promo code again.");
+               alert("Service type changed. Please verify your promo code again if applicable.");
            }
        });
 
@@ -1469,7 +1484,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            });
            lucide.createIcons();
            
-           // Google Places Autocomplete 初始化
            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
                const pickupInput = document.getElementById('pickupLocation');
                const dropoffInput = document.getElementById('dropoffLocation');
