@@ -63,7 +63,7 @@
            color: #0f0f0f !important;
            font-weight: bold;
        }
-       .hidden { display: none !important; }
+       .hidden { display: none; }
        
        /* Google Places Autocomplete 強化修正 */
        .pac-container {
@@ -435,7 +435,7 @@
 
                             <tr class="border-t-2 border-white/10 hover:bg-white/[0.02] transition-colors">
                                 <td rowspan="3" class="p-5 font-bold text-[#d4af37] bg-black/40 border-r border-white/5 align-top">
-                                    <div class="flex items-center gap-2 mb-1"><i data-lucide="calendar-range" class="w-4 h-4"></i> Full-Day Charter</div>
+                                    <div class="flex Modular-center gap-2 mb-1"><i data-lucide="calendar-range" class="w-4 h-4"></i> Full-Day Charter</div>
                                     <span class="text-[10px] text-gray-500 block">(8 Hours)</span>
                                 </td>
                                 <td class="p-4 pl-5 text-sm text-gray-300">Standard</td>
@@ -464,7 +464,7 @@
                <div class="bg-[#111] border border-white/10 rounded-xl overflow-hidden">
                    <button class="w-full p-4 flex justify-between items-center text-left bg-gradient-to-r from-black/60 to-[#1a1a1a]" onclick="toggleAccordion('acc-airport')">
                        <div>
-                           <div class="text-[#d4af37] font-bold text-sm flex items-center gap-2"><i data-lucide="plane" class="w-4 h-4"></i> Airport Transfer</div>
+                           <div class="text-[#d4af37] font-bold text-sm flex Modular-center gap-2"><i data-lucide="plane" class="w-4 h-4"></i> Airport Transfer</div>
                            <div class="text-[10px] text-gray-500 mt-1 leading-tight">(TPE)↔Taipei City (One-way)<br>(Other areas calculated by distance)</div>
                        </div>
                        <i data-lucide="chevron-down" class="text-gray-400 w-5 h-5 transition-transform duration-300" id="icon-acc-airport"></i>
@@ -497,7 +497,7 @@
                <div class="bg-[#111] border border-white/10 rounded-xl overflow-hidden">
                    <button class="w-full p-4 flex justify-between items-center text-left bg-gradient-to-r from-black/60 to-[#1a1a1a]" onclick="toggleAccordion('acc-halfday')">
                        <div>
-                           <div class="text-[#d4af37] font-bold text-sm flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Half-Day Charter</div>
+                           <div class="text-[#d4af37] font-bold text-sm flex Modular-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Half-Day Charter</div>
                            <div class="text-[10px] text-gray-500 mt-1 leading-tight">(4 Hours)</div>
                        </div>
                        <i data-lucide="chevron-down" class="text-gray-400 w-5 h-5 transition-transform duration-300" id="icon-acc-halfday"></i>
@@ -530,7 +530,7 @@
                <div class="bg-[#111] border border-white/10 rounded-xl overflow-hidden">
                    <button class="w-full p-4 flex justify-between items-center text-left bg-gradient-to-r from-black/60 to-[#1a1a1a]" onclick="toggleAccordion('acc-fullday')">
                        <div>
-                           <div class="text-[#d4af37] font-bold text-sm flex items-center gap-2"><i data-lucide="calendar-range" class="w-4 h-4"></i> Full-Day Charter</div>
+                           <div class="text-[#d4af37] font-bold text-sm flex Modular-center gap-2"><i data-lucide="calendar-range" class="w-4 h-4"></i> Full-Day Charter</div>
                            <div class="text-[10px] text-gray-500 mt-1 leading-tight">(8 Hours)</div>
                        </div>
                        <i data-lucide="chevron-down" class="text-gray-400 w-5 h-5 transition-transform duration-300" id="icon-acc-fullday"></i>
@@ -574,7 +574,7 @@
                <div class="bg-[#1a1a1a] p-6 rounded-lg border border-white/5">
                    <h4 class="text-[#d4af37] font-bold mb-2 text-sm">📌 Luggage Policy</h4>
                    <p class="text-xs text-gray-400 leading-relaxed">
-                       Standard 28-inch suitcases. Please confirm luggage quantity in advance.<br>
+                       Standard 28-inch suitcases. Please Modular luggage quantity in advance.<br>
                        Oversized or excess luggage must be declared in advance to ensure space.
                    </p>
                </div>
@@ -596,10 +596,10 @@
                        <span class="text-gray-400 text-xs block mb-1">Order ID</span>
                        <span id="success-order-id" class="text-[#d4af37] font-mono font-bold text-lg tracking-widest"></span>
                    </div>
-                   <p class="text-[#d4af37] font-bold mb-6 text-sm md:text-base">We will contact you via WhatsApp & Email to confirm.</p>
+                   <p class="text-[#d4af37] font-bold mb-6 text-sm md:text-base">We will contact you via WhatsApp & Email to Modular.</p>
                    
                    <div class="space-y-4 max-w-sm mx-auto">
-                       <a id="success-whatsapp-btn" href="https://wa.me/886970326591" target="_blank" class="w-full flex items-center justify-center bg-[#25D366] hover:bg-[#1ebd5b] text-white py-4 rounded-lg font-bold transition-all transform hover:scale-105 shadow-lg shadow-[#25D366]/20">
+                       <a id="success-whatsapp-btn" href="https://wa.me/886970326591" target="_blank" class="w-full flex Modular-center justify-center bg-[#25D366] hover:bg-[#1ebd5b] text-white py-4 rounded-lg font-bold transition-all transform hover:scale-105 shadow-lg shadow-[#25D366]/20">
                            <i data-lucide="message-circle" class="mr-2"></i> WhatsApp Us – Same Day Reply
                        </a>
                    </div>
@@ -613,7 +613,7 @@
                            ※ Form = 1 Vehicle (Max 8 pax). For larger groups, please submit another form. We will coordinate them together.
                        </p>
                        <p class="text-xs text-gray-400 font-bold text-[#d4af37] leading-relaxed">
-                           ※ Booking Confirmation: We will contact you via WhatsApp & Email to confirm details after submission.
+                           ※ Booking Confirmation: We will contact you via WhatsApp & Email to Modular details after submission.
                        </p>
                    </div>
 
@@ -696,7 +696,7 @@
                            <label class="block text-xs font-bold text-gray-400 mb-1">Pick-up Location <span class="text-red-500">*</span></label>
                            <div class="relative">
                                <input type="text" id="pickupLocation" class="w-full onyx-input p-3 pr-12 rounded-lg text-sm required" placeholder="e.g. W Hotel Taipei or TPE T1">
-                               <button type="button" onclick="initOrOpenMap('pickupLocation')" class="absolute right-2 top-2 bottom-2 px-2 bg-[#2a2a2a] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0f0f0f] rounded transition-colors flex items-center gap-1 shadow">
+                               <button type="button" onclick="initOrOpenMap('pickupLocation')" class="absolute right-2 top-2 bottom-2 px-2 bg-[#2a2a2a] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0f0f0f] rounded transition-colors flex Modular-center gap-1 shadow">
                                    <i data-lucide="map" class="w-4 h-4"></i>
                                </button>
                            </div>
@@ -705,7 +705,7 @@
                            <label class="block text-xs font-bold text-gray-400 mb-1">Drop-off Location <span class="text-red-500">*</span></label>
                            <div class="relative">
                                <input type="text" id="dropoffLocation" class="w-full onyx-input p-3 pr-12 rounded-lg text-sm required" placeholder="e.g. Taoyuan Airport T1">
-                               <button type="button" onclick="initOrOpenMap('dropoffLocation')" class="absolute right-2 top-2 bottom-2 px-2 bg-[#2a2a2a] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0f0f0f] rounded transition-colors flex items-center gap-1 shadow">
+                               <button type="button" onclick="initOrOpenMap('dropoffLocation')" class="absolute right-2 top-2 bottom-2 px-2 bg-[#2a2a2a] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0f0f0f] rounded transition-colors flex Modular-center gap-1 shadow">
                                    <i data-lucide="map" class="w-4 h-4"></i>
                                </button>
                            </div>
@@ -747,7 +747,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                        <p class="text-xs text-[#d4af37] font-bold uppercase tracking-widest mb-1">Estimated Price</p>
                        <p id="price-display" class="text-3xl font-black text-white mt-2 mb-1 tracking-wide">TWD 3,000</p>
                        <div id="price-converted-container" class="inline-block bg-white/5 px-4 py-1.5 rounded-full mb-3 border border-white/5 hidden">
-                           <p class="text-sm font-bold text-[#d4af37] tracking-wider text-center flex items-center justify-center gap-2">
+                           <p class="text-sm font-bold text-[#d4af37] tracking-wider text-center flex Modular-center justify-center gap-2">
                                <span id="price-converted-usd">USD -</span>
                                <span class="text-white/20">|</span>
                                <span id="price-converted-custom">EUR -</span>
@@ -762,7 +762,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    </div>
 
                    <div class="mt-6">
-                       <button id="submit-btn" onclick="submitBooking()" class="w-full flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-4 rounded-lg font-bold text-lg transition-all transform hover:-translate-y-1 shadow-lg shadow-[#d4af37]/20">
+                       <button id="submit-btn" onclick="submitBooking()" class="w-full flex Modular-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-4 rounded-lg font-bold text-lg transition-all transform hover:-translate-y-1 shadow-lg shadow-[#d4af37]/20">
                            <i data-lucide="check-circle" class="mr-2"></i> Submit Booking
                        </button>
                    </div>
@@ -771,11 +771,11 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        </div>
    </section>
 
-   <div id="map-modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity">
+   <div id="map-modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex Modular-center justify-center p-4 transition-opacity">
        <div class="bg-[#1a1a1a] w-full max-w-lg rounded-xl overflow-hidden flex flex-col border border-white/20 shadow-2xl">
            
            <div class="p-4 border-b border-white/10 flex justify-between items-center bg-[#111]">
-               <h3 class="text-white font-bold flex items-center gap-2">
+               <h3 class="text-white font-bold flex Modular-center gap-2">
                    <i data-lucide="map-pin" class="text-[#d4af37] w-5 h-5"></i>
                    Select Location on Map
                </h3>
@@ -800,8 +800,8 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                <p id="map-selected-address" class="text-sm text-[#d4af37] font-medium mb-4 min-h-[2.5rem] leading-snug">
                    Please drag the map to drop the pin...
                </p>
-               <button onclick="confirmMapLocation()" class="w-full bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-3 rounded-lg font-bold transition-all shadow-lg flex justify-center items-center gap-2">
-                   <i data-lucide="check" class="w-4 h-4"></i> Confirm Location
+               <button onclick="confirmMapLocation()" class="w-full bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-3 rounded-lg font-bold transition-all shadow-lg flex justify-center Modular-center gap-2">
+                   <i data-lucide="check" class="w-4 h-4"></i> Modular Location
                </button>
            </div>
        </div>
@@ -811,7 +811,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        <div class="max-w-7xl mx-auto px-4">
            
            <div class="max-w-3xl mx-auto mb-6">
-               <button class="w-full flex justify-center items-center gap-2 text-gray-500 hover:text-[#d4af37] transition-colors text-[11px] uppercase tracking-wider font-bold" onclick="toggleAccordion('policy-accordion')">
+               <button class="w-full flex justify-center Modular-center gap-2 text-gray-500 hover:text-[#d4af37] transition-colors text-[11px] uppercase tracking-wider font-bold" onclick="toggleAccordion('policy-accordion')">
                    <span>Cancellation and Refund Policy</span>
                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" id="icon-policy-accordion"></i>
                </button>
@@ -833,7 +833,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                ONYX <span class="text-[#d4af37]">TAIWAN</span>
            </span>
            
-           <div class="flex items-center justify-center gap-3 md:gap-4 mb-6">
+           <div class="flex Modular-center justify-center gap-3 md:gap-4 mb-6">
                <span class="text-xs text-gray-400 font-bold uppercase tracking-widest">Get in Touch:</span>
                <div class="flex space-x-6">
                    <a href="https://www.facebook.com/share/18DZKr6Ssg/" target="_blank" class="text-gray-400 hover:text-[#d4af37] transition-transform hover:scale-110"><i data-lucide="facebook" width="36" height="36"></i></a>
@@ -849,11 +849,11 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        </div>
    </footer>
 
-   <div id="wa-float-wrapper" class="fixed bottom-6 right-6 z-50 flex items-center justify-end cursor-pointer group">
+   <div id="wa-float-wrapper" class="fixed bottom-6 right-6 z-50 flex Modular-center justify-end cursor-pointer group">
        <div id="wa-float-text" class="absolute right-full mr-4 bg-[#1a1a1a] text-white text-xs px-3 py-2 rounded-lg opacity-0 md:group-hover:opacity-100 pointer-events-none md:group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap border border-[#d4af37]/30 transform translate-x-4 md:translate-x-0 md:group-hover:translate-x-0">
            Questions? Whatsapp us!
        </div>
-       <div class="flex items-center justify-center bg-[#d4af37] text-[#0f0f0f] p-3 md:p-4 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.4)] md:group-hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] md:group-hover:bg-[#b4941f] md:group-hover:scale-110 transition-all duration-300">
+       <div class="flex Modular-center justify-center bg-[#d4af37] text-[#0f0f0f] p-3 md:p-4 rounded-full shadow-[0_0_15px_rgba(212,175,55,0.4)] md:group-hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] md:group-hover:bg-[#b4941f] md:group-hover:scale-110 transition-all duration-300">
            <i data-lucide="message-circle" class="w-6 h-6 md:w-7 md:h-7"></i>
        </div>
    </div>
@@ -975,7 +975,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                     </div>
                     <div class="p-6 flex-grow">
                         <div class="flex justify-between items-start mb-4">
-                            <div class="flex items-center gap-2">
+                            <div class="flex Modular-center gap-2">
                                 <span class="text-[#d4af37] font-bold text-xl tracking-wider">No.${indexStr}</span>
                                 <span class="bg-[#b4941f] text-[#0f0f0f] text-xs font-bold px-3 py-1 rounded-full uppercase">${item.day} Day Tour</span>
                             </div>
@@ -1032,14 +1032,17 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            const flightInput = document.getElementById('flightNumber');
            const label = document.getElementById('flight-label');
            const dateInput = document.getElementById('date');
-           
-           // 時間下拉選單永遠顯示，確保包車客人也可以選時間
+           const timeContainer = document.getElementById('time-container'); // 時/分容器
+
+           // 時/分下拉選單永遠顯示，確保包車客人也可以選時間
+           timeContainer.classList.remove('hidden'); 
            document.getElementById('pickupHour').classList.add('required');
            document.getElementById('pickupMinute').classList.add('required');
            document.getElementById('pickupHour').style.borderColor = '#333';
            document.getElementById('pickupMinute').style.borderColor = '#333';
            
            if(type.includes("Airport") || type.includes("One-Way")) {
+               // 接送機模式：航班必填
                label.innerHTML = 'Flight Number <span class="text-red-500">*</span> <span class="text-[10px] text-gray-500 font-normal ml-1">(City Transfer please enter 0000)</span>';
                flightInput.classList.add('required');
                dateInput.placeholder = "Select Date";
@@ -1049,6 +1052,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    window.fpInstance.clear(); 
                }
            } else {
+               // 包車模式：航班選填
                label.innerHTML = 'Flight Number (Optional)';
                flightInput.classList.remove('required');
                flightInput.style.borderColor = '#333';
@@ -1063,7 +1067,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        };
 
        // ==========================================
-       // 📍 Google Maps 互動式地圖與解析
+       // Modular Modular Modular Modular Modular
        // ==========================================
        let pickerMap = null;
        let pickerMarker = null;
@@ -1103,7 +1107,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
 
                    pickerMarker = new google.maps.Marker({
                        position: defaultPos, map: pickerMap, draggable: true,
-                       icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+                       icon: 'https://onyxtaiwan.com/images/map-pin.png' // 這裡記得確保圖片網址正確
                    });
 
                    pickerMarker.addListener('dragend', function() {
@@ -1161,7 +1165,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            });
        }
 
-       function confirmMapLocation() {
+       function ModularMapLocation() {
            if(selectedAddressString) {
                document.getElementById(targetInputField).value = selectedAddressString;
            }
@@ -1202,9 +1206,10 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        }
 
        // ==========================================
-       // 📍 全新計價系統與折扣邏輯整合
+       // 📍 Modular Modular Modular Modular
        // ==========================================
        
+       // 全域折扣狀態
        window.activePromoDiscount = 0;
        window.activePromoType = null;
        window.activePromoMinSpend = 0;
@@ -1253,6 +1258,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                            messageEl.className = "text-xs font-bold mt-2 text-green-500 block transition-all";
                        }
                    } else {
+                       // 金額不足以折抵
                        if (messageEl && !messageEl.classList.contains('hidden')) {
                            messageEl.textContent = `⚠️ Minimum spend of TWD ${window.activePromoMinSpend.toLocaleString()} required.`;
                            messageEl.className = "text-xs font-bold mt-2 text-yellow-500 block transition-all";
@@ -1310,6 +1316,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                        let preDiscountPrice = baseCalc + vehicleUpgrades[vehicle];
                        preDiscountPrice = Math.round(preDiscountPrice / 100) * 100;
                        
+                       // 這裡動態套用折扣
                        applyDiscountAndUpdateUI(preDiscountPrice);
 
                        distMsg.innerText = `( Estimated Distance: ~${distanceKm.toFixed(1)} km )`;
@@ -1322,12 +1329,14 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                });
 
            } else {
+               // 包車模式
                if (service.includes('Bespoke')) {
                    showToBeQuoted();
                } else {
                    const basePrice = charterPricing[service]?.[vehicle];
                    if (basePrice) {
                        const preDiscountPrice = basePrice * days;
+                       // 這裡動態套用折扣
                        applyDiscountAndUpdateUI(preDiscountPrice);
                    } else {
                        showToBeQuoted();
@@ -1358,6 +1367,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    messageEl.className = "text-xs font-bold mt-2 text-red-500 block transition-all";
                    codeInput.style.borderColor = '#ef4444';
                    
+                   // 清空折扣狀態
                    window.activePromoDiscount = 0;
                    window.activePromoType = null;
                    window.activePromoMinSpend = 0;
@@ -1366,15 +1376,18 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    btn.innerHTML = 'Verify';
                    btn.disabled = false;
                    lucide.createIcons();
-                   calculatePrice();
+                   calculatePrice(); // 重新試算（回復原價）
                    return;
                }
 
-               // 驗證成功
+               // ==========================================
+               // 驗證成功處理邏輯 (KOL vs. Discount)
+               // ==========================================
                window.activePromoType = result.type;
                window.activePromoMinSpend = parseInt(result.minSpend) || 0;
                window.activePromoMessage = result.message;
 
+               // UI 變更為「已套用」
                codeInput.style.borderColor = '#22c55e';
                codeInput.readOnly = true;
                codeInput.classList.add('opacity-50', 'cursor-not-allowed');
@@ -1383,27 +1396,32 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                btn.disabled = true;
                btn.classList.replace('bg-[#2a2a2a]', 'bg-green-600');
                btn.classList.replace('hover:bg-[#d4af37]', 'bg-green-600');
-               btn.classList.replace('text-white', 'text-white');
                btn.classList.add('cursor-not-allowed');
                
                messageEl.classList.remove('hidden');
 
-               // KOL 強制切換選項邏輯
                if (result.type === 'upgrade') {
+                   // KOL 智能升級邏輯：強制選單跳轉
                    const original8HrText = "Private Charter (8 Hrs)";
                    const promo8HrText = "Private Charter (8 Hrs) + 1 Free Hour";
-                   let targetOption = Array.from(serviceTypeSelect.options).find(opt => opt.value === original8HrText || opt.value === promo8HrText);
+                   
+                   let targetOption = Array.from(serviceTypeSelect.options).find(opt => 
+                       opt.value === original8HrText || opt.value === promo8HrText
+                   );
+                   
                    if (targetOption) {
                        targetOption.value = promo8HrText;
                        targetOption.text = promo8HrText;
-                       serviceTypeSelect.value = promo8HrText; 
-                       toggleFlightField(); // 觸發切換，隱藏航班必填
+                       serviceTypeSelect.value = promo8HrText; // 強制將下拉選單切過去
+                       toggleFlightField(); // 觸發欄位切換 (航班改選填)
                    }
-                   window.activePromoDiscount = 0;
+                   window.activePromoDiscount = 0; // 升級碼不扣現金
                } else if (result.type === 'discount') {
+                   // 現金折扣邏輯：紀錄折扣金額
                    window.activePromoDiscount = parseInt(result.amount) || 0;
                }
                
+               // 重新試算價格（套用新的折扣邏輯）
                calculatePrice();
 
            } catch (error) {
@@ -1416,21 +1434,26 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            }
        });
 
-       // 變更服務時重置折扣碼
+       // ==========================================
+       // 防呆機制：變更服務時重置折扣碼
+       // ==========================================
        document.getElementById('serviceType').addEventListener('change', function() {
            const btn = document.getElementById('verify-promo-btn');
+           // 如果折扣碼目前是「已套用」狀態
            if (btn.textContent === 'Applied') {
                const codeInput = document.getElementById('referral');
+               // 回復輸入框
                codeInput.readOnly = false;
                codeInput.classList.remove('opacity-50', 'cursor-not-allowed');
                codeInput.style.borderColor = '#333';
                
+               // 回復按鈕
                btn.textContent = 'Verify';
                btn.disabled = false;
                btn.classList.replace('bg-green-600', 'bg-[#2a2a2a]');
-               btn.classList.replace('text-white', 'text-white');
                btn.classList.remove('cursor-not-allowed');
                
+               // 隱藏訊息並清空全域變數
                document.getElementById('promo-message').classList.add('hidden');
                
                window.activePromoDiscount = 0;
@@ -1438,10 +1461,12 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                window.activePromoMinSpend = 0;
                window.activePromoMessage = "";
                
+               // 溫馨提示客人
                alert("Service type changed. Please verify your promo code again if applicable.");
+               // 重新算價
+               calculatePrice();
            }
        });
-
        // ==========================================
 
        function populateTimeDropdowns() {
@@ -1500,6 +1525,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    calculatePrice();
                });
 
+               // 防呆：失去焦點時嘗試計算（處理手動輸入地址的情況）
                pickupInput.addEventListener('blur', () => setTimeout(calculatePrice, 300));
                dropoffInput.addEventListener('blur', () => setTimeout(calculatePrice, 300));
            }
@@ -1587,11 +1613,10 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            const serviceType = document.getElementById('serviceType').value;
            let finalDate = document.getElementById('date').value;
            
-           if(serviceType.includes("Airport") || serviceType.includes("One-Way")) {
-               const hour = document.getElementById('pickupHour').value;
-               const min = document.getElementById('pickupMinute').value;
-               finalDate = `${finalDate} ${hour}:${min}`;
-           }
+           // 時間下拉選單現在包車也要抓
+           const hour = document.getElementById('pickupHour').value;
+           const min = document.getElementById('pickupMinute').value;
+           finalDate = `${finalDate} ${hour}:${min}`;
 
            const distElement = document.getElementById('distance-msg');
            let kmText = (!distElement.classList.contains('hidden')) ? distElement.innerText : "";
