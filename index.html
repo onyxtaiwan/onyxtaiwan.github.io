@@ -1459,12 +1459,12 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            renderItineraries();
            populateTimeDropdowns();
            
-           let tomorrow = new Date();
-           tomorrow.setDate(tomorrow.getDate() + 1);
+           let minSelectableDate = new Date();
+           minSelectableDate.setDate(minSelectableDate.getDate() + 3);
 
            window.fpInstance = flatpickr("#date", {
                dateFormat: "Y-m-d",
-               minDate: tomorrow,
+               minDate: minSelectableDate,
                mode: "range",
                theme: "dark",
                disableMobile: "true",
