@@ -4,13 +4,13 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>ONYX Taiwan Premium Chauffeur Services for Global Travelers</title>
-   <meta name="description" content="Bespoke Private Charter tours and Airport Transfers in Taiwan. Elevate your Luxury Travel with our exclusive luxury fleet, skip-the-queue souvenir concierge, and curated dining support.">
+   <meta name="description" content="Bespoke Private Charter tours and Airport Transfers in Taiwan. Elevate your Luxury Travel with our exclusive premium fleet, skip-the-queue souvenir concierge, and curated dining support.">
 
    <meta property="og:type" content="website">
    <meta property="og:site_name" content="ONYX Taiwan">
    <meta property="og:url" content="https://onyxtaiwan.com/">
    <meta property="og:title" content="ONYX Taiwan Premium Chauffeur Services for Global Travelers">
-   <meta property="og:description" content="Bespoke Private Charter tours and Airport Transfers in Taiwan. Elevate your Luxury Travel with our exclusive luxury fleet, skip-the-queue souvenir concierge, and curated dining support.">
+   <meta property="og:description" content="Bespoke Private Charter tours and Airport Transfers in Taiwan. Elevate your Luxury Travel with our exclusive premium fleet, skip-the-queue souvenir concierge, and curated dining support.">
    <meta property="og:image" content="https://onyxtaiwan.com/images/og-cover.jpg">
    <meta property="og:image:width" content="1200">
    <meta property="og:image:height" content="630">
@@ -19,7 +19,7 @@
    <meta name="twitter:card" content="summary_large_image">
    <meta name="twitter:url" content="https://onyxtaiwan.com/">
    <meta name="twitter:title" content="ONYX Taiwan Premium Chauffeur Services for Global Travelers">
-   <meta name="twitter:description" content="Bespoke Private Charter tours and Airport Transfers in Taiwan. Elevate your Luxury Travel with our exclusive luxury fleet, skip-the-queue souvenir concierge, and curated dining support.">
+   <meta name="twitter:description" content="Bespoke Private Charter tours and Airport Transfers in Taiwan. Elevate your Luxury Travel with our exclusive premium fleet, skip-the-queue souvenir concierge, and curated dining support.">
    <meta name="twitter:image" content="https://onyxtaiwan.com/images/og-cover.jpg">
 
    <script src="https://cdn.tailwindcss.com"></script>
@@ -44,18 +44,23 @@
        ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
        
-       /* Custom Input Styles */
+       /* Custom Input Styles - 高對比度優化 */
        .onyx-input {
-           background-color: #0a0a0a;
-           border: 1px solid #333;
-           color: #e5e5e5;
+           background-color: #161616; /* 稍微調亮背景增加層次感 */
+           border: 1px solid #555;    /* 加深邊框增加辨識度 */
+           color: #ffffff;            /* 讓輸入的文字為純白 */
            transition: all 0.3s ease;
+       }
+       .onyx-input::placeholder {
+           color: #9ca3af;            /* Tailwind text-gray-400，維持適當的提示對比度 */
        }
        .onyx-input:focus {
            border-color: #d4af37;
+           background-color: #1a1a1a;
            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
            outline: none;
        }
+
        /* Flatpickr Customization */
        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
            background: #d4af37 !important;
@@ -68,7 +73,7 @@
        /* Google Places Autocomplete 強化修正 */
        .pac-container {
            background-color: #1a1a1a !important;
-           border: 1px solid #333 !important;
+           border: 1px solid #444 !important;
            border-radius: 4px !important;
            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8) !important;
            font-family: 'Inter', sans-serif !important;
@@ -88,12 +93,21 @@
            color: #d4af37 !important;
            font-weight: bold !important;
        }
+
+       /* 手機版左右滑動隱藏捲軸 */
+       .hide-scroll-mobile::-webkit-scrollbar {
+           display: none;
+       }
+       .hide-scroll-mobile {
+           -ms-overflow-style: none;
+           scrollbar-width: none;
+       }
    </style>
 </head>
-<body class="bg-[#0f0f0f] text-gray-300 antialiased selection:bg-[#d4af37] selection:text-[#0f0f0f]">
+<body class="bg-[#0f0f0f] text-gray-200 antialiased selection:bg-[#d4af37] selection:text-[#0f0f0f]">
 
    <div class="fixed top-0 w-full h-10 bg-[#111] border-b border-white/10 z-[60] flex justify-between items-center px-4">
-       <div class="text-[10px] md:text-xs text-gray-400 font-medium tracking-wider hidden md:block">
+       <div class="text-[10px] md:text-xs text-gray-300 font-medium tracking-wider hidden md:block">
            PREMIUM CHAUFFEUR SERVICES IN TAIWAN
        </div>
        <div class="flex items-center justify-end w-full md:w-auto">
@@ -126,11 +140,9 @@
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-6">
-                        <a href="#home" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Home</a>
-                        <a href="#services" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Services</a>
-                        <a href="#itineraries" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Itineraries</a>
-                        <a href="#fleet" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Fleet</a>
-                        <a href="#pricing" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Pricing</a>
+                        <a href="about.html" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Our Story</a>
+                        <a href="itineraries.html" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Itineraries</a>
+                        <a href="#fleet" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Fleet & Pricing</a>
                         <a href="#contact" class="bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 ml-2">Book Now</a>
                     </div>
                 </div>
@@ -141,13 +153,12 @@
                 </div>
            </div>
        </div>
-       <div class="hidden md:hidden bg-[#0a0a0a]" id="mobile-menu">
+       <div class="hidden md:hidden bg-[#0a0a0a] border-b border-white/10" id="mobile-menu">
            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Home</a>
-                <a href="#services" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Services</a>
-                <a href="#itineraries" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Itineraries</a>
-                <a href="#pricing" class="text-gray-300 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Pricing</a>
-                <a href="#contact" class="text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium font-bold">Book Now</a>
+                <a href="about.html" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Our Story</a>
+                <a href="itineraries.html" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Itineraries</a>
+                <a href="#fleet" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Fleet & Pricing</a>
+                <a href="#contact" class="text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium font-bold mt-2">Book Now</a>
            </div>
        </div>
    </nav>
@@ -155,7 +166,7 @@
    <section id="home" class="relative min-h-screen flex items-center justify-center bg-[#0a0a0a] pt-32">
        <div class="absolute inset-0 z-0">
            <img src="./images/hero.jpg" alt="Mercedes-Benz V-Class" class="w-full h-full object-cover opacity-40">
-           <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/80 via-[#0f0f0f]/60 to-[#0f0f0f]"></div>
+           <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-[#0f0f0f]/50 to-[#0f0f0f]"></div>
        </div>
        <div class="relative z-10 max-w-7xl mx-auto px-4 text-center">
            <h2 class="text-[#d4af37] font-semibold tracking-[0.2em] uppercase text-sm md:text-base mb-4 animate-fade-in-up">ONYX Taiwan</h2>
@@ -163,17 +174,12 @@
                <span class="block md:inline">Premium Chauffeur</span>
                <span class="block md:inline md:ml-2">Services</span>
            </h1>
-           <span class="text-gray-400 font-light italic text-xl md:text-4xl block mt-2 whitespace-nowrap md:whitespace-normal">for Global Travelers</span>
-           <p class="mt-4 max-w-2xl mx-auto text-sm md:text-xl text-gray-300 font-light mb-10 px-6 md:px-0">
+           <span class="text-gray-300 font-light italic text-xl md:text-4xl block mt-2 whitespace-nowrap md:whitespace-normal">for Global Travelers</span>
+           <p class="mt-4 max-w-2xl mx-auto text-sm md:text-xl text-gray-200 font-light mb-10 px-6 md:px-0">
                <span class="block">Exclusive bespoke private transport solutions in Taiwan</span>
            </p>
            
-           <div class="flex justify-center mt-6">
-               <a href="#contact" class="flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg hover:shadow-[#d4af37]/50 transform hover:scale-105">
-                   <i data-lucide="calendar" class="mr-2"></i> Book Your Trip
-               </a>
            </div>
-       </div>
    </section>
 
    <div class="bg-[#0a0a0a] border-y border-white/5 py-6 md:py-8">
@@ -208,7 +214,7 @@
            <div class="text-center mb-12 md:mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Our Services</h2>
                 <div class="w-24 h-1 bg-[#d4af37] mx-auto rounded-full"></div>
-                <p class="mt-4 text-gray-400 text-xs md:text-base whitespace-nowrap md:whitespace-normal">Professional • Private • Customized</p>
+                <p class="mt-4 text-gray-300 text-xs md:text-base whitespace-nowrap md:whitespace-normal">Professional • Private • Customized</p>
            </div>
            
            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
@@ -217,54 +223,53 @@
                         <i data-lucide="plane" class="w-5 h-5 md:w-8 md:h-8"></i>
                     </div>
                     <h3 class="text-base md:text-xl font-bold text-white mb-2 md:mb-3">Transfers</h3>
-                    <p class="text-gray-400 text-[11px] md:text-sm mb-0 leading-tight">TPE/TSA/KHH Airports & Private Charters.</p>
+                    <p class="text-gray-300 text-[11px] md:text-sm mb-0 leading-tight">TPE/TSA/KHH Airport & City Transfers, Private Charters.</p>
                 </div>
                 <div class="bg-[#1a1a1a] p-4 md:p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
                     <div class="w-10 h-10 md:w-14 md:h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-4 md:mb-6 text-[#d4af37]">
                         <i data-lucide="car" class="w-5 h-5 md:w-8 md:h-8"></i>
                     </div>
-                    <h3 class="text-base md:text-xl font-bold text-white mb-2 md:mb-3">Luxury Fleet</h3>
-                    <p class="text-gray-400 text-[11px] md:text-sm mb-0 leading-tight">Luxury vehicles, prioritizing privacy & comfort.</p>
+                    <h3 class="text-base md:text-xl font-bold text-white mb-2 md:mb-3">Premium Fleet</h3>
+                    <p class="text-gray-300 text-[11px] md:text-sm mb-0 leading-tight">Premium vehicles, prioritizing privacy & comfort.</p>
                 </div>
                 <div class="bg-[#1a1a1a] p-4 md:p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
                     <div class="w-10 h-10 md:w-14 md:h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-4 md:mb-6 text-[#d4af37]">
                         <i data-lucide="gift" class="w-5 h-5 md:w-8 md:h-8"></i>
                     </div>
                     <h3 class="text-base md:text-xl font-bold text-white mb-2 md:mb-3">Concierge</h3>
-                    <p class="text-gray-400 text-[11px] md:text-sm mb-0 leading-tight">Chia Te, Ruyi, Pan’s Cake (Skip-the-Queue).</p>
+                    <p class="text-gray-300 text-[11px] md:text-sm mb-0 leading-tight">Chia Te, Ruyi, Pan’s Cake (Skip-the-Queue).</p>
                 </div>
                 <div class="bg-[#1a1a1a] p-4 md:p-8 rounded-xl border border-white/5 hover:border-[#d4af37]/50 transition-all duration-300 hover:-translate-y-2 group">
                     <div class="w-10 h-10 md:w-14 md:h-14 bg-[#2a2a2a] rounded-lg flex items-center justify-center mb-4 md:mb-6 text-[#d4af37]">
                         <i data-lucide="utensils" class="w-5 h-5 md:w-8 md:h-8"></i>
                     </div>
                     <h3 class="text-base md:text-xl font-bold text-white mb-2 md:mb-3">Support</h3>
-                    <p class="text-gray-400 text-[11px] md:text-sm mb-0 leading-tight">Dining coordination & curated food guides.</p>
+                    <p class="text-gray-300 text-[11px] md:text-sm mb-0 leading-tight">Dining coordination & curated food guides.</p>
                 </div>
            </div>
        </div>
    </section>
 
-   <section id="itineraries" class="py-16 md:py-24 bg-[#0a0a0a] border-t border-white/5 relative overflow-hidden">
+   <section class="py-16 md:py-24 bg-[#0a0a0a] border-t border-white/5 relative overflow-hidden">
        <div class="absolute top-0 right-0 w-64 h-64 bg-[#d4af37]/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
        <div class="absolute bottom-0 left-0 w-96 h-96 bg-[#d4af37]/5 rounded-full blur-3xl -ml-48 -mb-48"></div>
 
        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-           <div class="text-center mb-12 md:mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Recommended Itineraries</h2>
+           <div class="text-center mb-10 md:mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Curated Journeys</h2>
                 <div class="w-24 h-1 bg-[#d4af37] mx-auto rounded-full"></div>
-                <p class="mt-4 text-gray-400 text-sm md:text-base">
-                    Discover Taiwan with Our Curated Plans
+                <p class="mt-4 text-gray-300 text-sm md:text-base">
+                    Discover Taiwan's finest destinations with our exclusive routes.
                 </p>
            </div>
 
-           <div id="itinerary-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+           <div id="itinerary-teaser-container" class="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 pb-6 hide-scroll-mobile snap-x snap-mandatory">
                </div>
 
-           <div class="mt-12 text-center">
-               <button id="toggle-itineraries-btn" class="border border-[#d4af37] text-[#d4af37] bg-transparent hover:bg-[#d4af37] hover:text-[#0f0f0f] px-6 py-3 rounded-full text-sm font-bold transition-colors inline-flex items-center gap-2">
-                   <span id="toggle-itineraries-text">View More Itineraries</span>
-                   <i data-lucide="chevron-down" id="toggle-itineraries-icon" class="w-4 h-4 transition-transform duration-300"></i>
-               </button>
+           <div class="mt-8 md:mt-12 text-center">
+               <a href="itineraries.html" class="inline-flex items-center text-[#d4af37] hover:text-white font-bold tracking-wider uppercase text-sm transition-colors group border-b border-dashed border-[#d4af37]/30 pb-1">
+                   Explore All Itineraries <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
+               </a>
            </div>
        </div>
    </section>
@@ -284,7 +289,7 @@
                        </div>
                        <h4 class="text-base md:text-xl font-bold mb-1 text-white">Standard</h4>
                        <p class="text-[#d4af37] text-[10px] md:text-xs font-bold uppercase tracking-tighter mb-3 md:mb-4">Economy Choice</p>
-                       <div class="space-y-1.5 md:space-y-2 text-gray-400 text-xs md:text-sm">
+                       <div class="space-y-1.5 md:space-y-2 text-gray-300 text-xs md:text-sm">
                            <div class="flex items-center justify-center gap-2">
                                <i data-lucide="users" class="w-3.5 h-3.5 md:w-4 md:h-4 text-[#d4af37]"></i>
                                <span>1 - 4 Passengers</span>
@@ -295,7 +300,7 @@
                            </div>
                        </div>
                    </div>
-                   <p class="mt-4 md:mt-6 text-[10px] md:text-xs text-gray-500 italic">RAV4, CR-V<br>or equivalent</p>
+                   <p class="mt-4 md:mt-6 text-[10px] md:text-xs text-gray-400 italic">RAV4, CR-V<br>or equivalent</p>
                </div>
 
                <div class="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] p-4 md:p-8 rounded-2xl text-center border border-white/5 hover:border-[#d4af37]/40 transition-all group relative overflow-hidden flex flex-col justify-between">
@@ -306,7 +311,7 @@
                        </div>
                        <h4 class="text-base md:text-xl font-bold mb-1 text-white">Premium SUV</h4>
                        <p class="text-[#d4af37] text-[10px] md:text-xs font-bold uppercase tracking-tighter mb-3 md:mb-4">Premium Experience</p>
-                       <div class="space-y-1.5 md:space-y-2 text-gray-400 text-xs md:text-sm">
+                       <div class="space-y-1.5 md:space-y-2 text-gray-300 text-xs md:text-sm">
                            <div class="flex items-center justify-center gap-2">
                                <i data-lucide="users" class="w-3.5 h-3.5 md:w-4 md:h-4 text-[#d4af37]"></i>
                                <span>1 - 4 Passengers</span>
@@ -317,7 +322,7 @@
                            </div>
                        </div>
                    </div>
-                   <p class="mt-4 md:mt-6 text-[10px] md:text-xs text-gray-500 italic">Benz GLC/GLE, Lexus RX/NX<br>or equivalent</p>
+                   <p class="mt-4 md:mt-6 text-[10px] md:text-xs text-gray-400 italic">Benz GLC/GLE, Lexus RX/NX<br>or equivalent</p>
                </div>
 
                <div class="bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] p-4 md:p-8 rounded-2xl text-center border border-white/5 hover:border-[#d4af37]/40 transition-all group relative overflow-hidden flex flex-col justify-between">
@@ -328,7 +333,7 @@
                        </div>
                        <h4 class="text-base md:text-xl font-bold mb-1 text-white">Premium Van</h4>
                        <p class="text-[#d4af37] text-[10px] md:text-xs font-bold uppercase tracking-tighter mb-3 md:mb-4">Group Travel</p>
-                       <div class="space-y-1.5 md:space-y-2 text-gray-400 text-xs md:text-sm">
+                       <div class="space-y-1.5 md:space-y-2 text-gray-300 text-xs md:text-sm">
                            <div class="flex items-center justify-center gap-2">
                                <i data-lucide="users" class="w-3.5 h-3.5 md:w-4 md:h-4 text-[#d4af37]"></i>
                                <span>5 - 8 Passengers</span>
@@ -339,7 +344,7 @@
                            </div>
                        </div>
                    </div>
-                   <p class="mt-4 md:mt-6 text-[10px] md:text-xs text-gray-500 italic">Benz Vito, VW T6.1<br>or equivalent</p>
+                   <p class="mt-4 md:mt-6 text-[10px] md:text-xs text-gray-400 italic">Benz Vito, VW T6.1<br>or equivalent</p>
                </div>
 
                <div class="bg-gradient-to-b from-[#2a220a] to-[#0a0a0a] p-4 md:p-8 rounded-2xl text-center border border-[#d4af37]/30 hover:border-[#d4af37] transition-all group relative overflow-hidden shadow-2xl shadow-[#d4af37]/10 flex flex-col justify-between">
@@ -350,7 +355,7 @@
                        </div>
                        <h4 class="text-base md:text-xl font-bold mb-1 text-[#d4af37]">Luxury</h4>
                        <p class="text-white/80 text-[10px] md:text-xs font-bold uppercase tracking-tighter mb-3 md:mb-4">The VIP Choice</p>
-                       <div class="space-y-1.5 md:space-y-2 text-gray-300 text-xs md:text-sm">
+                       <div class="space-y-1.5 md:space-y-2 text-gray-200 text-xs md:text-sm">
                            <div class="flex items-center justify-center gap-2">
                                <i data-lucide="users" class="w-3.5 h-3.5 md:w-4 md:h-4 text-[#d4af37]"></i>
                                <span>1 - 6 Passengers</span>
@@ -361,7 +366,7 @@
                            </div>
                        </div>
                    </div>
-                   <p class="mt-4 md:mt-6 text-[10px] md:text-xs text-[#d4af37]/80 italic font-bold">Alphard, Benz V-Class<br>or equivalent</p>
+                   <p class="mt-4 md:mt-6 text-[10px] md:text-xs text-[#d4af37] italic font-bold">Alphard, Benz V-Class<br>or equivalent</p>
                </div>
            </div>
        </div>
@@ -371,7 +376,7 @@
        <div class="max-w-7xl mx-auto px-4 text-center">
            <h2 class="text-3xl md:text-4xl font-bold text-white">Pricing Guide</h2>
            <div class="w-16 h-1 bg-[#d4af37] mx-auto rounded-full mt-4 mb-2"></div>
-           <p class="text-gray-400 mt-2 text-sm md:text-base">Transparent All-inclusive Rates (TWD)</p>
+           <p class="text-gray-300 mt-2 text-sm md:text-base">Transparent All-inclusive Rates (TWD)</p>
            
            <div class="hidden md:block max-w-5xl mx-auto mt-12 overflow-hidden rounded-xl border border-white/10 shadow-2xl bg-[#111]">
                 <div class="overflow-x-auto">
@@ -389,70 +394,70 @@
                             <tr class="hover:bg-white/[0.02] transition-colors">
                                 <td rowspan="3" class="p-5 font-bold text-[#d4af37] bg-black/40 border-r border-white/5 align-top">
                                     <div class="flex items-center gap-2 mb-1"><i data-lucide="plane" class="w-4 h-4"></i> Airport Transfer</div>
-                                    <span class="text-[10px] text-gray-500 block">(TPE)↔Taipei City (One-way)</span>
-                                    <span class="text-[10px] text-gray-400 block italic font-normal mt-1">(Other areas calculated by distance)</span>
+                                    <span class="text-[10px] text-gray-400 block">(TPE)↔Taipei City (One-way)</span>
+                                    <span class="text-[10px] text-gray-300 block italic font-normal mt-1">(Other areas calculated by distance)</span>
                                 </td>
-                                <td class="p-4 pl-5 text-sm text-gray-300">Standard</td>
+                                <td class="p-4 pl-5 text-sm text-gray-200">Standard</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">1,200</td>
-                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="1200">-</td>
+                                <td class="p-4 text-sm font-bold text-gray-300 border-l border-white/5 price-usd" data-base="1200">-</td>
                                 <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="1200">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
-                                <td class="p-4 pl-5 text-sm text-gray-300">Premium SUV / Van</td>
+                                <td class="p-4 pl-5 text-sm text-gray-200">Premium SUV / Van</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">1,800</td>
-                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="1800">-</td>
+                                <td class="p-4 text-sm font-bold text-gray-300 border-l border-white/5 price-usd" data-base="1800">-</td>
                                 <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="1800">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
                                 <td class="p-4 pl-5 text-sm font-bold text-[#d4af37]">Luxury</td>
                                 <td class="p-4 font-black text-[#d4af37] text-lg bg-white/5">2,800</td>
-                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="2800">-</td>
+                                <td class="p-4 text-sm font-bold text-gray-300 border-l border-white/5 price-usd" data-base="2800">-</td>
                                 <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="2800">-</td>
                             </tr>
 
                             <tr class="border-t-2 border-white/10 hover:bg-white/[0.02] transition-colors">
                                 <td rowspan="3" class="p-5 font-bold text-[#d4af37] bg-black/40 border-r border-white/5 align-top">
                                     <div class="flex items-center gap-2 mb-1"><i data-lucide="clock" class="w-4 h-4"></i> Half-Day Charter</div>
-                                    <span class="text-[10px] text-gray-500 block">(4 Hours)</span>
+                                    <span class="text-[10px] text-gray-400 block">(4 Hours)</span>
                                 </td>
-                                <td class="p-4 pl-5 text-sm text-gray-300">Standard</td>
+                                <td class="p-4 pl-5 text-sm text-gray-200">Standard</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">3,000</td>
-                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="3000">-</td>
+                                <td class="p-4 text-sm font-bold text-gray-300 border-l border-white/5 price-usd" data-base="3000">-</td>
                                 <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="3000">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
-                                <td class="p-4 pl-5 text-sm text-gray-300">Premium SUV / Van</td>
+                                <td class="p-4 pl-5 text-sm text-gray-200">Premium SUV / Van</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">4,000</td>
-                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="4000">-</td>
+                                <td class="p-4 text-sm font-bold text-gray-300 border-l border-white/5 price-usd" data-base="4000">-</td>
                                 <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="4000">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
                                 <td class="p-4 pl-5 text-sm font-bold text-[#d4af37]">Luxury</td>
                                 <td class="p-4 font-black text-[#d4af37] text-lg bg-white/5">5,800</td>
-                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="5800">-</td>
+                                <td class="p-4 text-sm font-bold text-gray-300 border-l border-white/5 price-usd" data-base="5800">-</td>
                                 <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="5800">-</td>
                             </tr>
 
                             <tr class="border-t-2 border-white/10 hover:bg-white/[0.02] transition-colors">
                                 <td rowspan="3" class="p-5 font-bold text-[#d4af37] bg-black/40 border-r border-white/5 align-top">
                                     <div class="flex items-center gap-2 mb-1"><i data-lucide="calendar-range" class="w-4 h-4"></i> Full-Day Charter</div>
-                                    <span class="text-[10px] text-gray-500 block">(8 Hours)</span>
+                                    <span class="text-[10px] text-gray-400 block">(8 Hours)</span>
                                 </td>
-                                <td class="p-4 pl-5 text-sm text-gray-300">Standard</td>
+                                <td class="p-4 pl-5 text-sm text-gray-200">Standard</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">5,500</td>
-                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="5500">-</td>
+                                <td class="p-4 text-sm font-bold text-gray-300 border-l border-white/5 price-usd" data-base="5500">-</td>
                                 <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="5500">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
-                                <td class="p-4 pl-5 text-sm text-gray-300">Premium SUV / Van</td>
+                                <td class="p-4 pl-5 text-sm text-gray-200">Premium SUV / Van</td>
                                 <td class="p-4 font-black text-white text-lg bg-white/5">7,500</td>
-                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="7500">-</td>
+                                <td class="p-4 text-sm font-bold text-gray-300 border-l border-white/5 price-usd" data-base="7500">-</td>
                                 <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="7500">-</td>
                             </tr>
                             <tr class="hover:bg-white/[0.02] transition-colors">
                                 <td class="p-4 pl-5 text-sm font-bold text-[#d4af37]">Luxury</td>
                                 <td class="p-4 font-black text-[#d4af37] text-lg bg-white/5">11,000</td>
-                                <td class="p-4 text-sm font-bold text-gray-400 border-l border-white/5 price-usd" data-base="11000">-</td>
+                                <td class="p-4 text-sm font-bold text-gray-300 border-l border-white/5 price-usd" data-base="11000">-</td>
                                 <td class="p-4 text-sm font-bold text-[#d4af37] price-custom" data-base="11000">-</td>
                             </tr>
                         </tbody>
@@ -465,30 +470,30 @@
                    <button class="w-full p-4 flex justify-between items-center text-left bg-gradient-to-r from-black/60 to-[#1a1a1a]" onclick="toggleAccordion('acc-airport')">
                        <div>
                            <div class="text-[#d4af37] font-bold text-sm flex items-center gap-2"><i data-lucide="plane" class="w-4 h-4"></i> Airport Transfer</div>
-                           <div class="text-[10px] text-gray-500 mt-1 leading-tight">(TPE)↔Taipei City (One-way)<br>(Other areas calculated by distance)</div>
+                           <div class="text-[10px] text-gray-400 mt-1 leading-tight">(TPE)↔Taipei City (One-way)<br>(Other areas calculated by distance)</div>
                        </div>
-                       <i data-lucide="chevron-down" class="text-gray-400 w-5 h-5 transition-transform duration-300" id="icon-acc-airport"></i>
+                       <i data-lucide="chevron-down" class="text-gray-300 w-5 h-5 transition-transform duration-300" id="icon-acc-airport"></i>
                    </button>
                    <div id="acc-airport" class="hidden p-4 space-y-3 border-t border-white/5 bg-[#0a0a0a]">
                        <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                           <span class="text-xs text-gray-300">Standard</span>
+                           <span class="text-xs text-gray-200">Standard</span>
                            <div class="text-right">
-                               <span class="text-lg font-black text-white block">1,200 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="1200">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="1200">-</span></span>
+                               <span class="text-lg font-black text-white block">1,200 <span class="text-[10px] text-gray-400 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-300 block mt-0.5"><span class="price-usd" data-base="1200">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="1200">-</span></span>
                            </div>
                        </div>
                        <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                           <span class="text-xs text-gray-300">Premium SUV / Van</span>
+                           <span class="text-xs text-gray-200">Premium SUV / Van</span>
                            <div class="text-right">
-                               <span class="text-lg font-black text-white block">1,800 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="1800">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="1800">-</span></span>
+                               <span class="text-lg font-black text-white block">1,800 <span class="text-[10px] text-gray-400 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-300 block mt-0.5"><span class="price-usd" data-base="1800">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="1800">-</span></span>
                            </div>
                        </div>
                        <div class="flex justify-between items-center pt-1">
                            <span class="text-xs font-bold text-[#d4af37]">Luxury</span>
                            <div class="text-right">
-                               <span class="text-lg font-black text-[#d4af37] block">2,800 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="2800">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="2800">-</span></span>
+                               <span class="text-lg font-black text-[#d4af37] block">2,800 <span class="text-[10px] text-gray-400 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-300 block mt-0.5"><span class="price-usd" data-base="2800">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="2800">-</span></span>
                            </div>
                        </div>
                    </div>
@@ -498,30 +503,30 @@
                    <button class="w-full p-4 flex justify-between items-center text-left bg-gradient-to-r from-black/60 to-[#1a1a1a]" onclick="toggleAccordion('acc-halfday')">
                        <div>
                            <div class="text-[#d4af37] font-bold text-sm flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Half-Day Charter</div>
-                           <div class="text-[10px] text-gray-500 mt-1 leading-tight">(4 Hours)</div>
+                           <div class="text-[10px] text-gray-400 mt-1 leading-tight">(4 Hours)</div>
                        </div>
-                       <i data-lucide="chevron-down" class="text-gray-400 w-5 h-5 transition-transform duration-300" id="icon-acc-halfday"></i>
+                       <i data-lucide="chevron-down" class="text-gray-300 w-5 h-5 transition-transform duration-300" id="icon-acc-halfday"></i>
                    </button>
                    <div id="acc-halfday" class="hidden p-4 space-y-3 border-t border-white/5 bg-[#0a0a0a]">
                        <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                           <span class="text-xs text-gray-300">Standard</span>
+                           <span class="text-xs text-gray-200">Standard</span>
                            <div class="text-right">
-                               <span class="text-lg font-black text-white block">3,000 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="3000">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="3000">-</span></span>
+                               <span class="text-lg font-black text-white block">3,000 <span class="text-[10px] text-gray-400 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-300 block mt-0.5"><span class="price-usd" data-base="3000">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="3000">-</span></span>
                            </div>
                        </div>
                        <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                           <span class="text-xs text-gray-300">Premium SUV / Van</span>
+                           <span class="text-xs text-gray-200">Premium SUV / Van</span>
                            <div class="text-right">
-                               <span class="text-lg font-black text-white block">4,000 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="4000">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="4000">-</span></span>
+                               <span class="text-lg font-black text-white block">4,000 <span class="text-[10px] text-gray-400 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-300 block mt-0.5"><span class="price-usd" data-base="4000">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="4000">-</span></span>
                            </div>
                        </div>
                        <div class="flex justify-between items-center pt-1">
                            <span class="text-xs font-bold text-[#d4af37]">Luxury</span>
                            <div class="text-right">
-                               <span class="text-lg font-black text-[#d4af37] block">5,800 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="5800">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="5800">-</span></span>
+                               <span class="text-lg font-black text-[#d4af37] block">5,800 <span class="text-[10px] text-gray-400 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-300 block mt-0.5"><span class="price-usd" data-base="5800">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="5800">-</span></span>
                            </div>
                        </div>
                    </div>
@@ -531,30 +536,30 @@
                    <button class="w-full p-4 flex justify-between items-center text-left bg-gradient-to-r from-black/60 to-[#1a1a1a]" onclick="toggleAccordion('acc-fullday')">
                        <div>
                            <div class="text-[#d4af37] font-bold text-sm flex items-center gap-2"><i data-lucide="calendar-range" class="w-4 h-4"></i> Full-Day Charter</div>
-                           <div class="text-[10px] text-gray-500 mt-1 leading-tight">(8 Hours)</div>
+                           <div class="text-[10px] text-gray-400 mt-1 leading-tight">(8 Hours)</div>
                        </div>
-                       <i data-lucide="chevron-down" class="text-gray-400 w-5 h-5 transition-transform duration-300" id="icon-acc-fullday"></i>
+                       <i data-lucide="chevron-down" class="text-gray-300 w-5 h-5 transition-transform duration-300" id="icon-acc-fullday"></i>
                    </button>
                    <div id="acc-fullday" class="hidden p-4 space-y-3 border-t border-white/5 bg-[#0a0a0a]">
                        <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                           <span class="text-xs text-gray-300">Standard</span>
+                           <span class="text-xs text-gray-200">Standard</span>
                            <div class="text-right">
-                               <span class="text-lg font-black text-white block">5,500 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="5500">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="5500">-</span></span>
+                               <span class="text-lg font-black text-white block">5,500 <span class="text-[10px] text-gray-400 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-300 block mt-0.5"><span class="price-usd" data-base="5500">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="5500">-</span></span>
                            </div>
                        </div>
                        <div class="flex justify-between items-center border-b border-white/5 pb-3">
-                           <span class="text-xs text-gray-300">Premium SUV / Van</span>
+                           <span class="text-xs text-gray-200">Premium SUV / Van</span>
                            <div class="text-right">
-                               <span class="text-lg font-black text-white block">7,500 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="7500">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="7500">-</span></span>
+                               <span class="text-lg font-black text-white block">7,500 <span class="text-[10px] text-gray-400 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-300 block mt-0.5"><span class="price-usd" data-base="7500">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="7500">-</span></span>
                            </div>
                        </div>
                        <div class="flex justify-between items-center pt-1">
                            <span class="text-xs font-bold text-[#d4af37]">Luxury</span>
                            <div class="text-right">
-                               <span class="text-lg font-black text-[#d4af37] block">11,000 <span class="text-[10px] text-gray-500 font-normal">TWD</span></span>
-                               <span class="text-[11px] text-gray-400 block mt-0.5"><span class="price-usd" data-base="11000">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="11000">-</span></span>
+                               <span class="text-lg font-black text-[#d4af37] block">11,000 <span class="text-[10px] text-gray-400 font-normal">TWD</span></span>
+                               <span class="text-[11px] text-gray-300 block mt-0.5"><span class="price-usd" data-base="11000">-</span> <span class="text-white/20 mx-1">|</span> <span class="price-custom text-[#d4af37] font-bold" data-base="11000">-</span></span>
                            </div>
                        </div>
                    </div>
@@ -564,7 +569,7 @@
            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 text-left max-w-4xl mx-auto">
                <div class="bg-[#1a1a1a] p-6 rounded-lg border border-white/5">
                    <h4 class="text-[#d4af37] font-bold mb-2 text-sm">📌 Pricing Notes</h4>
-                   <ul class="list-disc pl-5 space-y-1 text-xs text-gray-400">
+                   <ul class="list-disc pl-5 space-y-1 text-xs text-gray-300">
                        <li>Includes: Vehicle, Driver, Fuel, Basic Insurance</li>
                        <li>Overtime: Standard $600/hr, Premium $900/hr, Luxury $1,200/hr (Charged per 30 mins)</li>
                        <li>Cross-region travel: Single-day +$1,000 / Round-trip +$2,000 TWD</li>
@@ -573,7 +578,7 @@
                </div>
                <div class="bg-[#1a1a1a] p-6 rounded-lg border border-white/5">
                    <h4 class="text-[#d4af37] font-bold mb-2 text-sm">📌 Luggage Policy</h4>
-                   <p class="text-xs text-gray-400 leading-relaxed">
+                   <p class="text-xs text-gray-300 leading-relaxed">
                        Standard 28-inch suitcases. Please confirm luggage quantity in advance.<br>
                        Oversized or excess luggage must be declared in advance to ensure space.
                    </p>
@@ -593,7 +598,7 @@
                    <i data-lucide="check-circle" class="mx-auto mb-4 text-green-400" width="48" height="48"></i>
                    <h3 class="text-xl font-bold text-white mb-2">Booking Confirmed!</h3>
                    <div class="bg-[#1a1a1a] p-4 rounded-lg border border-[#d4af37]/30 inline-block mb-4">
-                       <span class="text-gray-400 text-xs block mb-1">Order ID</span>
+                       <span class="text-gray-300 text-xs block mb-1">Order ID</span>
                        <span id="success-order-id" class="text-[#d4af37] font-mono font-bold text-lg tracking-widest"></span>
                    </div>
                    <p class="text-[#d4af37] font-bold mb-6 text-sm md:text-base">We will contact you via WhatsApp & Email to confirm.</p>
@@ -609,10 +614,10 @@
                <div id="form-container" class="space-y-6">
 
                    <div class="bg-[#0f0f0f]/50 p-4 rounded border-l-4 border-[#d4af37]">
-                       <p class="text-xs text-gray-400 font-bold text-[#d4af37] mb-3 leading-relaxed">
+                       <p class="text-xs font-bold text-gray-300 mb-3 leading-relaxed">
                            ※ Form = 1 Vehicle (Max 8 pax). For larger groups, please submit another form. We will coordinate them together.
                        </p>
-                       <p class="text-xs text-gray-400 font-bold text-[#d4af37] leading-relaxed">
+                       <p class="text-xs font-bold text-gray-300 leading-relaxed">
                            ※ Booking Confirmation: We will contact you via WhatsApp & Email to confirm details after submission.
                        </p>
                    </div>
@@ -621,16 +626,16 @@
                        <h5 class="text-[#d4af37] font-bold text-sm mb-3">Contact Information</h5>
                        <div class="space-y-4">
                            <div>
-                               <label for="name" class="block text-xs font-bold text-gray-400 mb-1">Name <span class="text-red-500">*</span></label>
+                               <label for="name" class="block text-xs font-bold text-gray-200 mb-1">Name <span class="text-red-500">*</span></label>
                                <input type="text" id="name" placeholder="Your Name" class="w-full onyx-input p-3 rounded-lg text-sm required">
                            </div>
                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                <div>
-                                   <label for="phone" class="block text-xs font-bold text-gray-400 mb-1">Phone <span class="text-red-500">*</span></label>
+                                   <label for="phone" class="block text-xs font-bold text-gray-200 mb-1">Phone <span class="text-red-500">*</span></label>
                                    <input type="tel" id="phone" placeholder="+886 912 345 678" class="w-full onyx-input p-3 rounded-lg text-sm required">
                                </div>
                                <div>
-                                   <label for="email" class="block text-xs font-bold text-gray-400 mb-1">Email <span class="text-red-500">*</span></label>
+                                   <label for="email" class="block text-xs font-bold text-gray-200 mb-1">Email <span class="text-red-500">*</span></label>
                                    <input type="email" id="email" placeholder="example@email.com" class="w-full onyx-input p-3 rounded-lg text-sm required">
                                </div>
                            </div>
@@ -640,7 +645,7 @@
                    <h5 class="text-[#d4af37] font-bold text-sm mb-3">Trip Details</h5>
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
-                           <label for="serviceType" class="block text-xs font-bold text-gray-400 mb-1">Service Type <span class="text-red-500">*</span></label>
+                           <label for="serviceType" class="block text-xs font-bold text-gray-200 mb-1">Service Type <span class="text-red-500">*</span></label>
                            <select id="serviceType" class="w-full onyx-input p-3 rounded-lg text-sm required" onchange="toggleFlightField(); calculatePrice();">
                                <option value="One-Way Transfer (Airport & City)" selected>One-Way Transfer (Airport & City)</option>
                                <option value="Private Charter (4 Hrs)">Private Charter (4 Hrs)</option>
@@ -649,7 +654,7 @@
                            </select>
                        </div>
                        <div>
-                           <label for="date" class="block text-xs font-bold text-gray-400 mb-1">Date of Service <span class="text-red-500">*</span></label>
+                           <label for="date" class="block text-xs font-bold text-gray-200 mb-1">Date of Service <span class="text-red-500">*</span></label>
                            <input type="text" id="date" class="w-full onyx-input p-3 rounded-lg text-sm cursor-pointer required" placeholder="Select Date" readonly>
                            
                            <div id="time-container" class="flex gap-2 mt-2">
@@ -663,7 +668,7 @@
 
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
-                           <label for="vehicle" class="block text-xs font-bold text-gray-400 mb-1">Vehicle Grade <span class="text-red-500">*</span></label>
+                           <label for="vehicle" class="block text-xs font-bold text-gray-200 mb-1">Vehicle Grade <span class="text-red-500">*</span></label>
                            <select id="vehicle" class="w-full onyx-input p-3 rounded-lg text-sm required" onchange="updateVehicleLimits(); calculatePrice();">
                                <option value="Standard">Standard</option>
                                <option value="Premium SUV">Premium SUV</option>
@@ -672,7 +677,7 @@
                            </select>
                        </div>
                        <div>
-                           <label for="pax" class="block text-xs font-bold text-gray-400 mb-1">Passengers <span class="text-red-500">*</span></label>
+                           <label for="pax" class="block text-xs font-bold text-gray-200 mb-1">Passengers <span class="text-red-500">*</span></label>
                            <select id="pax" class="w-full onyx-input p-3 rounded-lg text-sm required">
                                </select>
                        </div>
@@ -680,12 +685,12 @@
 
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
-                           <label for="luggage" class="block text-xs font-bold text-gray-400 mb-1">Luggage <span class="text-red-500">*</span></label>
+                           <label for="luggage" class="block text-xs font-bold text-gray-200 mb-1">Luggage <span class="text-red-500">*</span></label>
                            <select id="luggage" class="w-full onyx-input p-3 rounded-lg text-sm required">
                                </select>
                        </div>
                        <div>
-                           <label for="babySeat" class="block text-xs font-bold text-gray-400 mb-1">Baby Seats <span class="text-red-500">*</span></label>
+                           <label for="babySeat" class="block text-xs font-bold text-gray-200 mb-1">Baby Seats <span class="text-red-500">*</span></label>
                            <select id="babySeat" class="w-full onyx-input p-3 rounded-lg text-sm required">
                                </select>
                        </div>
@@ -693,7 +698,7 @@
 
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
-                           <label for="pickupLocation" class="block text-xs font-bold text-gray-400 mb-1">Pick-up Location <span class="text-red-500">*</span></label>
+                           <label for="pickupLocation" class="block text-xs font-bold text-gray-200 mb-1">Pick-up Location <span class="text-red-500">*</span></label>
                            <div class="relative">
                                <input type="text" id="pickupLocation" class="w-full onyx-input p-3 pr-12 rounded-lg text-sm required" placeholder="e.g. W Hotel Taipei or TPE T1">
                                <button type="button" aria-label="Select Pick-up Location on Map" onclick="initOrOpenMap('pickupLocation')" class="absolute right-2 top-2 bottom-2 px-2 bg-[#2a2a2a] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0f0f0f] rounded transition-colors flex items-center gap-1 shadow">
@@ -702,7 +707,7 @@
                            </div>
                        </div>
                        <div>
-                           <label for="dropoffLocation" class="block text-xs font-bold text-gray-400 mb-1">Drop-off Location <span class="text-red-500">*</span></label>
+                           <label for="dropoffLocation" class="block text-xs font-bold text-gray-200 mb-1">Drop-off Location <span class="text-red-500">*</span></label>
                            <div class="relative">
                                <input type="text" id="dropoffLocation" class="w-full onyx-input p-3 pr-12 rounded-lg text-sm required" placeholder="e.g. Taoyuan Airport T1">
                                <button type="button" aria-label="Select Drop-off Location on Map" onclick="initOrOpenMap('dropoffLocation')" class="absolute right-2 top-2 bottom-2 px-2 bg-[#2a2a2a] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0f0f0f] rounded transition-colors flex items-center gap-1 shadow">
@@ -714,11 +719,11 @@
                    
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
-                           <label id="flight-label" for="flightNumber" class="block text-xs font-bold text-gray-400 mb-1">Flight Number (Optional)</label>
+                           <label id="flight-label" for="flightNumber" class="block text-xs font-bold text-gray-200 mb-1">Flight Number (Optional)</label>
                            <input type="text" id="flightNumber" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. BR123">
                        </div>
                        <div>
-                           <label for="referral" class="block text-xs font-bold text-gray-400 mb-1">Promo Code (Optional)</label>
+                           <label for="referral" class="block text-xs font-bold text-gray-200 mb-1">Promo Code (Optional)</label>
                            <div class="flex gap-2">
                                <input type="text" id="referral" class="w-full onyx-input p-3 rounded-lg text-sm uppercase" placeholder="Promo Code">
                                <button type="button" id="verify-promo-btn" class="bg-[#2a2a2a] hover:bg-[#d4af37] text-white hover:text-[#0f0f0f] px-4 rounded-lg text-sm font-bold transition-colors whitespace-nowrap">
@@ -730,13 +735,13 @@
                    </div>
                    
                    <div>
-                       <label for="itinerary" class="block text-xs font-bold text-gray-400 mb-1">Itinerary & Remarks (Optional)</label>
+                       <label for="itinerary" class="block text-xs font-bold text-gray-200 mb-1">Itinerary & Remarks (Optional)</label>
                        <textarea id="itinerary" rows="4" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. Visiting No.01 Itinerary, need stop for lunch,
 Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    </div>
 
                    <div>
-                       <label for="souvenir" class="block text-xs font-bold text-gray-400 mb-1">Souvenir Pre-purchase (Optional)</label>
+                       <label for="souvenir" class="block text-xs font-bold text-gray-200 mb-1">Souvenir Pre-purchase (Optional)</label>
                        <input type="text" id="souvenir" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. ruyi sunny cake">
                    </div>
 
@@ -756,7 +761,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                        
                        <p id="distance-msg" class="text-[11px] text-[#d4af37] mt-1 mb-2 italic font-bold tracking-wider hidden"></p>
                        
-                       <p class="text-[11px] text-gray-500 leading-tight">
+                       <p class="text-[11px] text-gray-400 leading-tight">
                            * Excludes cross-region, overtime, and overnight fees.
                        </p>
                    </div>
@@ -779,7 +784,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    <i data-lucide="map-pin" class="text-[#d4af37] w-5 h-5"></i>
                    Select Location on Map
                </h3>
-               <button onclick="closeMapModal()" aria-label="Close Map" class="text-gray-400 hover:text-white transition-colors bg-white/5 p-1 rounded">
+               <button onclick="closeMapModal()" aria-label="Close Map" class="text-gray-300 hover:text-white transition-colors bg-white/5 p-1 rounded">
                    <i data-lucide="x" class="w-5 h-5"></i>
                </button>
            </div>
@@ -796,7 +801,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            <div id="map-container" class="h-64 sm:h-80 w-full bg-[#0a0a0a]"></div>
            
            <div class="p-4 border-t border-white/10 bg-[#111]">
-               <p class="text-xs text-gray-500 mb-1 font-bold">Selected Address:</p>
+               <p class="text-xs text-gray-300 mb-1 font-bold">Selected Address:</p>
                <p id="map-selected-address" class="text-sm text-[#d4af37] font-medium mb-4 min-h-[2.5rem] leading-snug">
                    Please drag the map to drop the pin...
                </p>
@@ -811,11 +816,11 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        <div class="max-w-7xl mx-auto px-4">
            
            <div class="max-w-3xl mx-auto mb-6">
-               <button class="w-full flex justify-center items-center gap-2 text-gray-500 hover:text-[#d4af37] transition-colors text-[11px] uppercase tracking-wider font-bold" onclick="toggleAccordion('policy-accordion')">
+               <button class="w-full flex justify-center items-center gap-2 text-gray-300 hover:text-[#d4af37] transition-colors text-[11px] uppercase tracking-wider font-bold" onclick="toggleAccordion('policy-accordion')">
                    <span>Cancellation and Refund Policy</span>
                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" id="icon-policy-accordion"></i>
                </button>
-               <div id="policy-accordion" class="hidden mt-4 p-4 bg-[#0a0a0a] rounded-lg border border-white/5 text-[11px] text-gray-400 text-left leading-relaxed">
+               <div id="policy-accordion" class="hidden mt-4 p-4 bg-[#0a0a0a] rounded-lg border border-white/5 text-[11px] text-gray-300 text-left leading-relaxed">
                    <p class="mb-2">We strive to provide the best premium chauffeur experience. To ensure vehicle and driver availability for all our clients, we strictly adhere to the following cancellation policy:</p>
                    <ul class="list-disc pl-5 space-y-1 mb-3">
                        <li>Cancellations made 7 days (168 hours) or more prior to the scheduled pick-up time: 100% Full Refund.</li>
@@ -834,21 +839,21 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            </span>
            
            <div class="flex items-center justify-center gap-3 md:gap-4 mb-6">
-               <span class="text-xs text-gray-400 font-bold uppercase tracking-widest">Get in Touch:</span>
+               <span class="text-xs text-gray-300 font-bold uppercase tracking-widest">Get in Touch:</span>
                <div class="flex space-x-6">
-                   <a href="https://www.facebook.com/profile.php?id=61586931347980" aria-label="Facebook" target="_blank" class="text-gray-400 hover:text-[#d4af37] transition-transform hover:scale-110">
+                   <a href="https://www.facebook.com/profile.php?id=61586931347980" aria-label="Facebook" target="_blank" class="text-gray-300 hover:text-[#d4af37] transition-transform hover:scale-110">
                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                    </a>
-                   <a href="https://www.instagram.com/onyxtaiwan" aria-label="Instagram" target="_blank" class="text-gray-400 hover:text-[#d4af37] transition-transform hover:scale-110">
+                   <a href="https://www.instagram.com/onyxtaiwan" aria-label="Instagram" target="_blank" class="text-gray-300 hover:text-[#d4af37] transition-transform hover:scale-110">
                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
                    </a>
-                   <a href="https://wa.me/886970326591" aria-label="WhatsApp" target="_blank" class="text-gray-400 hover:text-[#25D366] transition-transform hover:scale-110">
+                   <a href="https://wa.me/886970326591" aria-label="WhatsApp" target="_blank" class="text-gray-300 hover:text-[#25D366] transition-transform hover:scale-110">
                        <i data-lucide="message-circle" class="w-8 h-8"></i>
                    </a>
                </div>
            </div>
            
-           <div class="text-gray-500 text-xs space-y-2">
+           <div class="text-gray-400 text-xs space-y-2">
                <p>Email: <a href="mailto:onyxtaiwan.official@gmail.com" class="hover:text-[#d4af37] transition-colors">onyxtaiwan.official@gmail.com</a></p>
                <p>© 2026 ONYX Taiwan Private Chauffeur. All rights reserved.</p>
            </div>
@@ -948,26 +953,14 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        const itineraries = [
            { id: 1, title_en: "Classic Must-Visit: Jiufen, Shifen & Yehliu (1 Day)", day: 1, region: "North", image_url: "./images/itinerary-01.jpg", desc: "The most comprehensive North Taiwan route. Includes the 'Yin Yang Sea' and 'Golden Waterfall' in the Gold Rush area, alongside the Queen's Head and Sky Lanterns. Ends with tea and ocean views in the lantern-lit village of Jiufen.", spots: ["Yehliu Geopark", "Yin Yang Sea", "Golden Waterfall", "Jiufen Old Street", "Shifen Waterfall", "Shifen Sky Lanterns"] },
            { id: 2, title_en: "Instagram Hotspots: Taichung City & Gaomei Wetlands (1 Day)", day: 1, region: "Central", image_url: "./images/itinerary-02.jpg", desc: "Designed for photography lovers. Connects the colorful Rainbow Village, a Harry Potter-style ice cream shop, creative markets, and architectural masterpieces, concluding with a spectacular sunset at the wetlands.", spots: ["Rainbow Village", "Miyahara", "Shenji New Village", "National Taichung Theater", "Gaomei Wetlands"] },
-           { id: 3, title_en: "Lake & Mountains: Sun Moon Lake Scenic Tour (2 Days)", day: 2, region: "Central", image_url: "./images/itinerary-03.jpg", desc: "A comprehensive land, water, and air experience. Includes the Paper Dome architecture, the scenic Xiangshan Center, a ropeway ride overlooking the lake, the grand Wenwu Temple, and indigenous cuisine at Ita Thao.", spots: ["【 Day 1 】", "Paper Dome", "Xiangshan Visitor Center", "Shuishe Pier", "Hanbi Trail", "【 Day 2 】", "Sun Moon Lake Ropeway", "Lake Cruise: Lalu Island", "Ita Thao Shopping District", "Wenwu Temple & Year of Steps"] },
-           { id: 4, title_en: "Family & Hot Springs: Yilan Lanyang Plain (1 Day)", day: 1, region: "East", image_url: "./images/itinerary-04.jpg", desc: "Perfect balance for families. Interact with Capybaras in yukatas, visit the world-champion whisky distillery, admire the unique Lanyang Museum, and relax with a soothing hot spring foot bath in Jiaoxi.", spots: ["Jimmy Park", "Zhang Mei Ama's Farm", "Kavalan Whisky Distillery", "Lanyang Museum", "Jiaoxi Hot Spring Park"] },
-           { id: 5, title_en: "Alpine Retreat: Qingjing & Hehuanshan (2 Days)", day: 2, region: "Mountain", image_url: "./images/itinerary-05.jpg", desc: "Experience the Alps of Taiwan. Visit Puli's famous spots, watch the sheep show, walk the Skywalk, and drive to Wuling, the highest point of Taiwan's highways, for breathtaking views of the sea of clouds.", spots: ["【 Day 1 】", "Puli Brewery", "Feeling 18 Chocolate", "The Old England Manor - Photo Stop", "Small Swiss Garden", "【 Day 2 】", "Green Green Grassland Sheep Show", "Qingjing Skywalk", "Kunyang Rest Stop", "Hehuanshan Wuling"] },
-           { id: 6, title_en: "World Heritage: Alishan Forest Railway (3 Days)", day: 3, region: "South", image_url: "./images/itinerary-06.jpg", desc: "Dive into Taiwan's forestry history. Visit the largest Japanese dormitory complex, ride the century-old forest train through giant sacred trees, enjoy a railway lunchbox, and walk the famous Eternity Suspension Bridges.", spots: ["【 Day 1 】", "Hinoki Village", "Alishan Forest Railway Garage Park", "Chiayi Wenhua Road Night Market", "【 Day 2 】", "Alishan Forest Recreation Area", "Sisters Ponds & Shouzhen Temple", "Giant Tree Trail", "【 Day 3 】", "Fenqihu Old Street", "Fenqihu Cedar Boardwalk", "Eternity Suspension Bridges"] },
-           { id: 7, title_en: "Metropolitan VIP: Taipei Highlights (1 Day)", day: 1, region: "Taipei", image_url: "./images/itinerary-07.jpg", desc: "A contrast of ancient and modern Taipei. Watch the changing of the guard, view imperial treasures, ascend the tallest landmark, visit the historic Lungshan Temple, and wander through baroque streets.", spots: ["C.K.S Memorial Hall", "National Palace Museum", "Taipei 101 & Xinyi District", "Lungshan Temple", "Dadaocheng Dihua Street"] },
-           { id: 8, title_en: "Culinary Capital: Tainan History & Food (3 Days)", day: 3, region: "South", image_url: "./images/itinerary-08.jpg", desc: "A feast for the eyes and palate. Visit a museum resembling a European palace, explore Dutch colonial forts and tree houses, take a raft through the 'Amazon of Taiwan' mangrove forest, and see Taiwan's oldest salt fields.", spots: ["【 Day 1 】", "Chimei Museum", "Ten Drum Creative Park", "Night Market Food", "【 Day 2 】", "Anping Fort", "Anping Tree House", "Confucius Temple", "Hayashi Store", "【 Day 3 】", "Sicao Green Tunnel", "Jingzaijiao Salt Fields", "Blueprint Park"] },
-           { id: 9, title_en: "Gorge Marvels: Hualien Taroko (3 Days)", day: 3, region: "East", image_url: "./images/itinerary-09.jpg", desc: "World-class natural wonders. From the dramatic Qingshui Cliffs to the marble gorges of Taroko. Walk the suspension bridge over the river, visit historic Japanese buildings, and Asia's first shipping container Starbucks.", spots: ["【 Day 1 】", "Qingshui Cliff", "Chongde Beach", "Qixingtan Beach", "【 Day 2 】", "Buluowan Bridge", "Swallow Grotto Trail", "Tianxiang", "Eternal Spring Shrine", "【 Day 3 】", "Pine Garden", "Cultural Park", "Starbucks Container Store"] },
-           { id: 10, title_en: "Southern Border: Kenting Peninsula (4 Days)", day: 4, region: "South", image_url: "./images/itinerary-10.jpg", desc: "The ultimate tropical getaway. Features white sandy beaches, CNN-rated world-class sunsets, the southernmost lighthouse of Taiwan, vast cliff landscapes, historic city gates, and authentic local cuisine on the return trip.", spots: ["【 Day 1 】", "Pier-2 Art Center", "Great Harbor Bridge", "The Dome of Light", "【 Day 2 】", "South Bay or Baisha Beach", "Houbihu Harbor", "Maobitou", "Sunset", "【 Day 3 】", "Chuanfan Rock", "Eluanbi Lighthouse", "Longpan Park", "Ancient City", "【 Day 4 】", "Victory Star Village", "Dapeng Bay", "Wanluan Pig's Knuckle"] },
-           { id: 11, title_en: "Mountain Railway: Miaoli Old Mountain Line (1 Day)", day: 1, region: "Central", image_url: "./images/itinerary-11.jpg", desc: "A nostalgic and fun experience. Ride the popular Rail Bike across the high-altitude bridge overlooking the Longteng Broken Bridge ruins, stroll through the century-old wooden station, and finish with tea at the 'Château in the Air'.", spots: ["Rail Bike", "Longteng Broken Bridge", "Shengxing Station", "Wood Sculpture Museum", "Château in the Air"] },
-           { id: 12, title_en: "Volcanic Wonders: Yangmingshan & Beitou (1 Day)", day: 1, region: "Taipei", image_url: "./images/itinerary-12.jpg", desc: "The closest natural wonders to Taipei. Witness the impressive sulfur vents at Xiaoyoukeng, take photos with grazing water buffaloes at Qingtiangang, and step into the misty Thermal Valley to experience rich Japanese culture.", spots: ["Xiaoyoukeng", "Qingtiangang Grassland", "Milk Lake", "Thermal Valley", "Hot Spring Museum", "Xinbeitou Historic Station"] }
+           { id: 3, title_en: "Lake & Mountains: Sun Moon Lake Scenic Tour (2 Days)", day: 2, region: "Central", image_url: "./images/itinerary-03.jpg", desc: "A comprehensive land, water, and air experience. Includes the Paper Dome architecture, the scenic Xiangshan Center, a ropeway ride overlooking the lake, the grand Wenwu Temple, and indigenous cuisine at Ita Thao.", spots: ["【 Day 1 】", "Paper Dome", "Xiangshan Visitor Center", "Shuishe Pier", "Hanbi Trail", "【 Day 2 】", "Sun Moon Lake Ropeway", "Lake Cruise: Lalu Island", "Ita Thao Shopping District", "Wenwu Temple & Year of Steps"] }
        ];
 
-       let isExpanded = false;
-
        function renderItineraries() {
-           const grid = document.getElementById('itinerary-grid');
-           grid.innerHTML = '';
-           const itemsToShow = isExpanded ? itineraries : itineraries.slice(0, 3);
+           const container = document.getElementById('itinerary-teaser-container');
+           container.innerHTML = '';
            
-           itemsToShow.forEach((item, idx) => {
+           itineraries.forEach((item, idx) => {
                const indexStr = (idx + 1).toString().padStart(2, '0');
                const spotList = item.spots.map(spot => {
                    if(spot.includes("Day")) return `<li class="text-[#d4af37] font-bold pt-2 list-none -ml-2">${spot}</li>`;
@@ -975,51 +968,29 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                }).join('');
                
                const card = `
-               <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
+               <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative shrink-0">
                     <div class="h-48 overflow-hidden relative">
                         <img src="${item.image_url}" alt="${item.title_en}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                     </div>
-                    <div class="p-6 flex-grow">
+                    <div class="p-6 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
                                 <span class="text-[#d4af37] font-bold text-xl tracking-wider">No.${indexStr}</span>
                                 <span class="bg-[#b4941f] text-[#0f0f0f] text-xs font-bold px-3 py-1 rounded-full uppercase">${item.day} Day Tour</span>
                             </div>
-                            <span class="text-gray-500 text-xs">${item.region}</span>
+                            <span class="text-gray-400 text-xs hidden sm:block">${item.region}</span>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-4 leading-tight">${item.title_en}</h3>
-                        <ul class="text-gray-400 text-sm space-y-1.5 mb-6 pl-2">${spotList}</ul>
+                        <ul class="text-gray-300 text-sm space-y-1.5 mb-6 pl-2 flex-grow">${spotList}</ul>
                         <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mt-auto">
-                            <p class="text-gray-300 text-sm leading-relaxed">${item.desc}</p>
+                            <p class="text-gray-200 text-sm leading-relaxed line-clamp-3">${item.desc}</p>
                         </div>
                     </div>
                </div>`;
-               grid.innerHTML += card;
+               container.innerHTML += card;
            });
            lucide.createIcons();
        }
-
-       document.getElementById('toggle-itineraries-btn').addEventListener('click', function() {
-           const btn = this;
-           const rectBefore = btn.getBoundingClientRect();
-           
-           isExpanded = !isExpanded;
-           renderItineraries();
-           
-           const textSpan = document.getElementById('toggle-itineraries-text');
-           const icon = document.getElementById('toggle-itineraries-icon');
-           
-           if (isExpanded) {
-               textSpan.innerHTML = 'Show Less';
-               icon.style.transform = "rotate(180deg)";
-           } else {
-               textSpan.innerHTML = 'View More Itineraries';
-               icon.style.transform = "rotate(0deg)";
-           }
-           
-           const rectAfter = btn.getBoundingClientRect();
-           window.scrollBy(0, rectAfter.top - rectBefore.top);
-       });
 
        window.toggleAccordion = function(id) {
            const content = document.getElementById(id);
@@ -1047,7 +1018,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            document.getElementById('pickupMinute').style.borderColor = '#333';
            
            if(type.includes("Airport") || type.includes("One-Way")) {
-               label.innerHTML = 'Flight Number <span class="text-red-500">*</span> <span class="text-[10px] text-gray-500 font-normal ml-1">(City Transfer please enter 0000)</span>';
+               label.innerHTML = 'Flight Number <span class="text-red-500">*</span> <span class="text-[10px] text-gray-400 font-normal ml-1">(City Transfer please enter 0000)</span>';
                flightInput.classList.add('required');
                dateInput.placeholder = "Select Date";
                
