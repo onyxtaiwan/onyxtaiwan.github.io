@@ -46,13 +46,13 @@
        
        /* Custom Input Styles - 高對比度優化 */
        .onyx-input {
-           background-color: #161616; /* 稍微調亮背景增加層次感 */
-           border: 1px solid #555;    /* 加深邊框增加辨識度 */
-           color: #ffffff;            /* 讓輸入的文字為純白 */
+           background-color: #161616;
+           border: 1px solid #555;
+           color: #ffffff;
            transition: all 0.3s ease;
        }
        .onyx-input::placeholder {
-           color: #9ca3af;            /* Tailwind text-gray-400，維持適當的提示對比度 */
+           color: #9ca3af;
        }
        .onyx-input:focus {
            border-color: #d4af37;
@@ -77,8 +77,8 @@
            border-radius: 4px !important;
            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8) !important;
            font-family: 'Inter', sans-serif !important;
-           z-index: 999999 !important; /* 確保在最上層 */
-           pointer-events: auto !important; /* 強制允許點擊 */
+           z-index: 999999 !important;
+           pointer-events: auto !important;
        }
        .pac-item {
            color: #e5e5e5 !important;
@@ -163,7 +163,7 @@
        </div>
    </nav>
 
-   <section id="home" class="relative min-h-screen flex items-center justify-center bg-[#0a0a0a] pt-32">
+   <section id="home" class="relative min-h-[85vh] md:min-h-screen flex items-center justify-center bg-[#0a0a0a] pt-32">
        <div class="absolute inset-0 z-0">
            <img src="./images/hero.jpg" alt="Mercedes-Benz V-Class" class="w-full h-full object-cover opacity-40">
            <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-[#0f0f0f]/50 to-[#0f0f0f]"></div>
@@ -178,8 +178,7 @@
            <p class="mt-4 max-w-2xl mx-auto text-sm md:text-xl text-gray-200 font-light mb-10 px-6 md:px-0">
                <span class="block">Exclusive bespoke private transport solutions in Taiwan</span>
            </p>
-           
-           </div>
+       </div>
    </section>
 
    <div class="bg-[#0a0a0a] border-y border-white/5 py-6 md:py-8">
@@ -265,6 +264,15 @@
 
            <div id="itinerary-teaser-container" class="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 pb-6 hide-scroll-mobile snap-x snap-mandatory">
                </div>
+
+           <div class="flex justify-center items-center gap-4 mt-2 md:hidden">
+               <button onclick="scrollItinerary(-1)" aria-label="Scroll Left" class="p-3 bg-[#1a1a1a] border border-[#d4af37]/30 text-[#d4af37] rounded-full hover:bg-[#d4af37] hover:text-[#0f0f0f] transition-colors shadow-lg">
+                   <i data-lucide="chevron-left" class="w-5 h-5"></i>
+               </button>
+               <button onclick="scrollItinerary(1)" aria-label="Scroll Right" class="p-3 bg-[#1a1a1a] border border-[#d4af37]/30 text-[#d4af37] rounded-full hover:bg-[#d4af37] hover:text-[#0f0f0f] transition-colors shadow-lg">
+                   <i data-lucide="chevron-right" class="w-5 h-5"></i>
+               </button>
+           </div>
 
            <div class="mt-8 md:mt-12 text-center">
                <a href="itineraries.html" class="inline-flex items-center text-[#d4af37] hover:text-white font-bold tracking-wider uppercase text-sm transition-colors group border-b border-dashed border-[#d4af37]/30 pb-1">
@@ -578,10 +586,11 @@
                </div>
                <div class="bg-[#1a1a1a] p-6 rounded-lg border border-white/5">
                    <h4 class="text-[#d4af37] font-bold mb-2 text-sm">📌 Luggage Policy</h4>
-                   <p class="text-xs text-gray-300 leading-relaxed">
-                       Standard 28-inch suitcases. Please confirm luggage quantity in advance.<br>
-                       Oversized or excess luggage must be declared in advance to ensure space.
-                   </p>
+                   <ul class="list-disc pl-5 space-y-1 text-xs text-gray-300">
+                       <li>Standard 28-inch suitcases. Please confirm luggage quantity in advance.</li>
+                       <li>One 28-inch suitcase is approximately equal to two 20-inch suitcases in volume.</li>
+                       <li>Oversized or excess luggage must be declared in advance to ensure space.</li>
+                   </ul>
                </div>
            </div>
        </div>
@@ -679,20 +688,28 @@
                        <div>
                            <label for="pax" class="block text-xs font-bold text-gray-200 mb-1">Passengers <span class="text-red-500">*</span></label>
                            <select id="pax" class="w-full onyx-input p-3 rounded-lg text-sm required">
-                               </select>
+                           </select>
                        </div>
                    </div>
 
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <div>
-                           <label for="luggage" class="block text-xs font-bold text-gray-200 mb-1">Luggage <span class="text-red-500">*</span></label>
-                           <select id="luggage" class="w-full onyx-input p-3 rounded-lg text-sm required">
+                           <label class="block text-xs font-bold text-gray-200 mb-1">Luggage (28" & 20") <span class="text-red-500">*</span></label>
+                           <div class="flex gap-2">
+                               <select id="luggage28" class="w-1/2 onyx-input p-3 rounded-lg text-sm required" onchange="handleLuggageChange('28')">
                                </select>
+                               <select id="luggage20" class="w-1/2 onyx-input p-3 rounded-lg text-sm required" onchange="handleLuggageChange('20')">
+                               </select>
+                           </div>
                        </div>
                        <div>
-                           <label for="babySeat" class="block text-xs font-bold text-gray-200 mb-1">Baby Seats <span class="text-red-500">*</span></label>
-                           <select id="babySeat" class="w-full onyx-input p-3 rounded-lg text-sm required">
+                           <label class="block text-xs font-bold text-gray-200 mb-1">Baby Seats <span class="text-red-500">*</span></label>
+                           <div class="flex gap-2">
+                               <select id="babySeat0to2" class="w-1/2 onyx-input p-3 rounded-lg text-sm required" onchange="handleBabySeatChange('0to2')">
                                </select>
+                               <select id="babySeat3to5" class="w-1/2 onyx-input p-3 rounded-lg text-sm required" onchange="handleBabySeatChange('3to5')">
+                               </select>
+                           </div>
                        </div>
                    </div>
 
@@ -923,6 +940,119 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            calculatePrice();
        }
 
+       // 雙嬰兒座椅動態連動邏輯
+       window.currentMaxBabySeats = 3;
+
+       function updateBabySeatOptions(select, maxVal, minVal, currentVal, label) {
+           select.innerHTML = '';
+           for (let i = minVal; i <= maxVal; i++) {
+               select.add(new Option(`${i}x ${label}`, i));
+           }
+           select.value = currentVal;
+       }
+
+       window.handleBabySeatChange = function(source) {
+           const sel0to2 = document.getElementById('babySeat0to2');
+           const sel3to5 = document.getElementById('babySeat3to5');
+
+           let val0to2 = parseInt(sel0to2.value) || 0;
+           let val3to5 = parseInt(sel3to5.value) || 0;
+           const maxBaby = window.currentMaxBabySeats;
+
+           if (source === 'all') {
+               if ((val0to2 + val3to5) > maxBaby) {
+                   val0to2 = 0;
+                   val3to5 = 0;
+               }
+           }
+
+           if (source === '0to2' || source === 'all') {
+               const available3to5 = maxBaby - val0to2;
+               if (val3to5 > available3to5) val3to5 = available3to5;
+               updateBabySeatOptions(sel3to5, available3to5, 0, val3to5, '3~5 yrs');
+           }
+
+           if (source === '3to5' || source === 'all') {
+               const available0to2 = maxBaby - val3to5;
+               if (val0to2 > available0to2) val0to2 = available0to2;
+               updateBabySeatOptions(sel0to2, available0to2, 0, val0to2, '0~2 yrs');
+           }
+       };
+
+       // 雙行李下拉選單動態連動邏輯 (支援自動收折)
+       window.currentMaxLuggage28 = 8;
+       
+       function updateLuggageSelectOptions(select, maxVal, minVal, currentVal, label, is20Inch) {
+           select.innerHTML = '';
+           let limit = maxVal;
+           let showMore = false;
+
+           // 當 20吋選項超過 8 個時，預設收折顯示
+           if (is20Inch && maxVal > 8 && select.dataset.expanded !== 'true') {
+               limit = 8;
+               showMore = true;
+           }
+
+           for (let i = minVal; i <= limit; i++) {
+               select.add(new Option(`${i}x ${label}`, i));
+           }
+
+           if (showMore) {
+               select.add(new Option(`More options...`, 'more'));
+           }
+
+           // 如果當前值大於 8，強制展開
+           if (currentVal !== 'more' && currentVal > 8 && is20Inch) {
+               select.dataset.expanded = 'true';
+               return updateLuggageSelectOptions(select, maxVal, minVal, currentVal, label, true);
+           }
+
+           select.value = currentVal;
+       }
+
+       window.handleLuggageChange = function(source) {
+           const sel28 = document.getElementById('luggage28');
+           const sel20 = document.getElementById('luggage20');
+           
+           // 如果使用者點擊了 "More options..."
+           if (source === '20' && sel20.value === 'more') {
+               sel20.dataset.expanded = 'true';
+               const max20 = window.currentMaxLuggage28 * 2;
+               const val28 = parseInt(sel28.value) || 0;
+               const available20 = max20 - (val28 * 2);
+               updateLuggageSelectOptions(sel20, available20, 0, 0, '20"', true);
+               return;
+           }
+
+           let val28 = parseInt(sel28.value) || 0;
+           let val20 = parseInt(sel20.value) || 0;
+
+           const max28 = window.currentMaxLuggage28;
+           const max20 = max28 * 2; // 1個28吋 = 2個20吋
+
+           if (source === 'all') {
+               sel20.dataset.expanded = 'false'; // 切換車型時重新收折
+               if ((val28 * 2 + val20) > max20) {
+                   val28 = 0;
+                   val20 = 0;
+               }
+           }
+
+           // 更新 20吋選單的可用數量
+           if (source === '28' || source === 'all') {
+               const available20 = max20 - (val28 * 2);
+               if (val20 > available20) val20 = available20;
+               updateLuggageSelectOptions(sel20, available20, 0, val20, '20"', true);
+           }
+           
+           // 更新 28吋選單的可用數量
+           if (source === '20' || source === 'all') {
+               const available28 = Math.floor((max20 - val20) / 2);
+               if (val28 > available28) val28 = available28;
+               updateLuggageSelectOptions(sel28, available28, 0, val28, '28"', false);
+           }
+       };
+
        window.updateVehicleLimits = function() {
            const vehicle = document.getElementById('vehicle').value;
            let maxPax = 8, maxLuggage = 8, maxBaby = 3; 
@@ -946,21 +1076,36 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            }
 
            updateSelect('pax', maxPax, 1);
-           updateSelect('luggage', maxLuggage, 0);
-           updateSelect('babySeat', maxBaby, 0);
+           
+           // 觸發嬰兒座椅連動更新
+           window.currentMaxBabySeats = maxBaby;
+           handleBabySeatChange('all');
+
+           // 觸發雙行李連動更新
+           window.currentMaxLuggage28 = maxLuggage;
+           handleLuggageChange('all');
        };
 
        const itineraries = [
-           { id: 1, title_en: "Classic Must-Visit: Jiufen, Shifen & Yehliu (1 Day)", day: 1, region: "North", image_url: "./images/itinerary-01.jpg", desc: "The most comprehensive North Taiwan route. Includes the 'Yin Yang Sea' and 'Golden Waterfall' in the Gold Rush area, alongside the Queen's Head and Sky Lanterns. Ends with tea and ocean views in the lantern-lit village of Jiufen.", spots: ["Yehliu Geopark", "Yin Yang Sea", "Golden Waterfall", "Jiufen Old Street", "Shifen Waterfall", "Shifen Sky Lanterns"] },
-           { id: 2, title_en: "Instagram Hotspots: Taichung City & Gaomei Wetlands (1 Day)", day: 1, region: "Central", image_url: "./images/itinerary-02.jpg", desc: "Designed for photography lovers. Connects the colorful Rainbow Village, a Harry Potter-style ice cream shop, creative markets, and architectural masterpieces, concluding with a spectacular sunset at the wetlands.", spots: ["Rainbow Village", "Miyahara", "Shenji New Village", "National Taichung Theater", "Gaomei Wetlands"] },
-           { id: 3, title_en: "Lake & Mountains: Sun Moon Lake Scenic Tour (2 Days)", day: 2, region: "Central", image_url: "./images/itinerary-03.jpg", desc: "A comprehensive land, water, and air experience. Includes the Paper Dome architecture, the scenic Xiangshan Center, a ropeway ride overlooking the lake, the grand Wenwu Temple, and indigenous cuisine at Ita Thao.", spots: ["【 Day 1 】", "Paper Dome", "Xiangshan Visitor Center", "Shuishe Pier", "Hanbi Trail", "【 Day 2 】", "Sun Moon Lake Ropeway", "Lake Cruise: Lalu Island", "Ita Thao Shopping District", "Wenwu Temple & Year of Steps"] }
+           { id: 1, title_en: "Classic Must-Visit: Jiufen, Shifen & Yehliu", day: 1, region: "North", image_url: "./images/itinerary-01.jpg", desc: "The most comprehensive North Taiwan route. Includes the 'Yin Yang Sea' and 'Golden Waterfall' in the Gold Rush area, alongside the Queen's Head and Sky Lanterns. Ends with tea and ocean views in the lantern-lit village of Jiufen.", spots: ["Yehliu Geopark", "Yin Yang Sea", "Golden Waterfall", "Jiufen Old Street", "Shifen Waterfall", "Shifen Sky Lanterns"] },
+           { id: 2, title_en: "Instagram Hotspots: Taichung City & Gaomei Wetlands", day: 1, region: "Central", image_url: "./images/itinerary-02.jpg", desc: "Designed for photography lovers. Connects the colorful Rainbow Village, a Harry Potter-style ice cream shop, creative markets, and architectural masterpieces, concluding with a spectacular sunset at the wetlands.", spots: ["Rainbow Village", "Miyahara", "Shenji New Village", "National Taichung Theater", "Gaomei Wetlands"] },
+           { id: 3, title_en: "Lake & Mountains: Sun Moon Lake Scenic Tour", day: 2, region: "Central", image_url: "./images/itinerary-03.jpg", desc: "A comprehensive land, water, and air experience. Includes the Paper Dome architecture, the scenic Xiangshan Center, a ropeway ride overlooking the lake, the grand Wenwu Temple, and indigenous cuisine at Ita Thao.", spots: ["【 Day 1 】", "Paper Dome", "Xiangshan Visitor Center", "Shuishe Pier", "Hanbi Trail", "【 Day 2 】", "Sun Moon Lake Ropeway", "Lake Cruise: Lalu Island", "Ita Thao Shopping District", "Wenwu Temple & Year of Steps"] },
+           { id: 4, title_en: "Family & Hot Springs: Yilan Lanyang Plain", day: 1, region: "East", image_url: "./images/itinerary-04.jpg", desc: "Perfect balance for families. Interact with Capybaras in yukatas, visit the world-champion whisky distillery, admire the unique Lanyang Museum, and relax with a soothing hot spring foot bath in Jiaoxi.", spots: ["Jimmy Park", "Zhang Mei Ama's Farm", "Kavalan Whisky Distillery", "Lanyang Museum", "Jiaoxi Hot Spring Park"] },
+           { id: 5, title_en: "Alpine Retreat: Qingjing & Hehuanshan", day: 2, region: "Mountain", image_url: "./images/itinerary-05.jpg", desc: "Experience the Alps of Taiwan. Visit Puli's famous spots, watch the sheep show, walk the Skywalk, and drive to Wuling, the highest point of Taiwan's highways, for breathtaking views of the sea of clouds.", spots: ["【 Day 1 】", "Puli Brewery", "Feeling 18 Chocolate", "The Old England Manor - Photo Stop", "Small Swiss Garden", "【 Day 2 】", "Green Green Grassland Sheep Show", "Qingjing Skywalk", "Kunyang Rest Stop", "Hehuanshan Wuling"] },
+           { id: 6, title_en: "World Heritage: Alishan Forest Railway", day: 3, region: "South", image_url: "./images/itinerary-06.jpg", desc: "Dive into Taiwan's forestry history. Visit the largest Japanese dormitory complex, ride the century-old forest train through giant sacred trees, enjoy a railway lunchbox, and walk the famous Eternity Suspension Bridges.", spots: ["【 Day 1 】", "Hinoki Village", "Alishan Forest Railway Garage Park", "Chiayi Wenhua Road Night Market", "【 Day 2 】", "Alishan Forest Recreation Area", "Sisters Ponds & Shouzhen Temple", "Giant Tree Trail", "【 Day 3 】", "Fenqihu Old Street", "Fenqihu Cedar Boardwalk", "Eternity Suspension Bridges"] },
+           { id: 7, title_en: "Metropolitan VIP: Taipei Highlights", day: 1, region: "Taipei", image_url: "./images/itinerary-07.jpg", desc: "A contrast of ancient and modern Taipei. Watch the changing of the guard, view imperial treasures, ascend the tallest landmark, visit the historic Lungshan Temple, and wander through baroque streets.", spots: ["C.K.S Memorial Hall", "National Palace Museum", "Taipei 101 & Xinyi District", "Lungshan Temple", "Dadaocheng Dihua Street"] },
+           { id: 8, title_en: "Culinary Capital: Tainan History & Food", day: 3, region: "South", image_url: "./images/itinerary-08.jpg", desc: "A feast for the eyes and palate. Visit a museum resembling a European palace, explore Dutch colonial forts and tree houses, take a raft through the 'Amazon of Taiwan' mangrove forest, and see Taiwan's oldest salt fields.", spots: ["【 Day 1 】", "Chimei Museum", "Ten Drum Creative Park", "Night Market Food", "【 Day 2 】", "Anping Fort", "Anping Tree House", "Confucius Temple", "Hayashi Store", "【 Day 3 】", "Sicao Green Tunnel", "Jingzaijiao Salt Fields", "Blueprint Park"] },
+           { id: 9, title_en: "Gorge Marvels: Hualien Taroko", day: 3, region: "East", image_url: "./images/itinerary-09.jpg", desc: "World-class natural wonders. From the dramatic Qingshui Cliffs to the marble gorges of Taroko. Walk the suspension bridge over the river, visit historic Japanese buildings, and Asia's first shipping container Starbucks.", spots: ["【 Day 1 】", "Qingshui Cliff", "Chongde Beach", "Qixingtan Beach", "【 Day 2 】", "Buluowan Bridge", "Swallow Grotto Trail", "Tianxiang", "Eternal Spring Shrine", "【 Day 3 】", "Pine Garden", "Cultural Park", "Starbucks Container Store"] },
+           { id: 10, title_en: "Southern Border: Kenting Peninsula", day: 4, region: "South", image_url: "./images/itinerary-10.jpg", desc: "The ultimate tropical getaway. Features white sandy beaches, CNN-rated world-class sunsets, the southernmost lighthouse of Taiwan, vast cliff landscapes, historic city gates, and authentic local cuisine on the return trip.", spots: ["【 Day 1 】", "Pier-2 Art Center", "Great Harbor Bridge", "The Dome of Light", "【 Day 2 】", "South Bay or Baisha Beach", "Houbihu Harbor", "Maobitou", "Sunset", "【 Day 3 】", "Chuanfan Rock", "Eluanbi Lighthouse", "Longpan Park", "Ancient City", "【 Day 4 】", "Victory Star Village", "Dapeng Bay", "Wanluan Pig's Knuckle"] },
+           { id: 11, title_en: "Mountain Railway: Miaoli Old Mountain Line", day: 1, region: "Central", image_url: "./images/itinerary-11.jpg", desc: "A nostalgic and fun experience. Ride the popular Rail Bike across the high-altitude bridge overlooking the Longteng Broken Bridge ruins, stroll through the century-old wooden station, and finish with tea at the 'Château in the Air'.", spots: ["Rail Bike", "Longteng Broken Bridge", "Shengxing Station", "Wood Sculpture Museum", "Château in the Air"] },
+           { id: 12, title_en: "Volcanic Wonders: Yangmingshan & Beitou", day: 1, region: "Taipei", image_url: "./images/itinerary-12.jpg", desc: "The closest natural wonders to Taipei. Witness the impressive sulfur vents at Xiaoyoukeng, take photos with grazing water buffaloes at Qingtiangang, and step into the misty Thermal Valley to experience rich Japanese culture.", spots: ["Xiaoyoukeng", "Qingtiangang Grassland", "Milk Lake", "Thermal Valley", "Hot Spring Museum", "Xinbeitou Historic Station"] }
        ];
 
        function renderItineraries() {
            const container = document.getElementById('itinerary-teaser-container');
            container.innerHTML = '';
            
-           itineraries.forEach((item, idx) => {
+           itineraries.slice(0, 3).forEach((item, idx) => {
                const indexStr = (idx + 1).toString().padStart(2, '0');
                const spotList = item.spots.map(spot => {
                    if(spot.includes("Day")) return `<li class="text-[#d4af37] font-bold pt-2 list-none -ml-2">${spot}</li>`;
@@ -968,7 +1113,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                }).join('');
                
                const card = `
-               <div class="min-w-[85vw] sm:min-w-[400px] md:min-w-0 snap-center bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative shrink-0">
+               <div class="w-[85vw] min-w-[85vw] max-w-[85vw] sm:w-[400px] sm:min-w-[400px] sm:max-w-[400px] md:w-auto md:min-w-0 md:max-w-none snap-center bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative shrink-0">
                     <div class="h-48 overflow-hidden relative">
                         <img src="${item.image_url}" alt="${item.title_en}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                     </div>
@@ -982,15 +1127,52 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-4 leading-tight">${item.title_en}</h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-6 pl-2 flex-grow">${spotList}</ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mt-auto">
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mt-auto mb-4">
                             <p class="text-gray-200 text-sm leading-relaxed line-clamp-3">${item.desc}</p>
                         </div>
+                        
+                        <a href="#contact" onclick="prefillItinerary(${item.id})" class="w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-2.5 rounded-lg text-sm font-bold transition-colors group/btn">
+                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+                        </a>
                     </div>
                </div>`;
                container.innerHTML += card;
            });
            lucide.createIcons();
        }
+
+       // 點擊行程按鈕後自動填寫表單的腳本
+       window.prefillItinerary = function(id) {
+           const item = itineraries.find(i => i.id === id);
+           if (!item) return;
+           
+           const indexStr = item.id.toString().padStart(2, '0');
+           const spotsText = item.spots.map(spot => {
+               if(spot.includes("Day")) return spot; // 針對多日遊的標題保留原樣
+               return `• ${spot}`;
+           }).join('\n');
+
+           const formattedText = `No.${indexStr}(${item.day} Day)\n${item.region}\n${item.title_en}\n${spotsText}`;
+           
+           document.getElementById('itinerary').value = formattedText;
+           
+           // 自動依照天數切換對應的 Service Type
+           const serviceTypeSelect = document.getElementById('serviceType');
+           if (item.day === 1) {
+               serviceTypeSelect.value = 'Private Charter (8 Hrs)';
+           } else {
+               serviceTypeSelect.value = 'Private Charter (Bespoke Duration)';
+           }
+           
+           toggleFlightField();
+           calculatePrice();
+       };
+
+       window.scrollItinerary = function(direction) {
+           const container = document.getElementById('itinerary-teaser-container');
+           const scrollAmount = container.clientWidth * 0.85; 
+           container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+       };
 
        window.toggleAccordion = function(id) {
            const content = document.getElementById(id);
@@ -1497,6 +1679,18 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                 refInput.style.boxShadow = '0 0 10px rgba(212, 175, 55, 0.4)';
                 document.getElementById('verify-promo-btn').click();
            }
+           
+           // 接收來自 itineraries.html 的參數並自動填表
+           const itiId = parseInt(urlParams.get('itinerary_id'));
+           if (itiId) {
+               setTimeout(() => {
+                   prefillItinerary(itiId);
+                   const contactSection = document.getElementById('contact');
+                   if (contactSection) {
+                       contactSection.scrollIntoView({ behavior: 'smooth' });
+                   }
+               }, 500);
+           }
        });
 
        window.submitBooking = async function() {
@@ -1560,6 +1754,14 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            const distElement = document.getElementById('distance-msg');
            let kmText = (!distElement.classList.contains('hidden')) ? distElement.innerText : "";
 
+           const baby0to2 = document.getElementById('babySeat0to2').value || '0';
+           const baby3to5 = document.getElementById('babySeat3to5').value || '0';
+           const combinedBabySeats = `${baby0to2}x 0~2 yrs, ${baby3to5}x 3~5 yrs`;
+
+           const luggage28 = document.getElementById('luggage28').value || '0';
+           const luggage20 = document.getElementById('luggage20').value || '0';
+           const combinedLuggage = `${luggage28}x 28", ${luggage20}x 20"`;
+
            const formData = {
                orderId: orderId,
                name: document.getElementById('name').value,
@@ -1569,8 +1771,8 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                date: finalDate, 
                vehicle: document.getElementById('vehicle').value,
                pax: document.getElementById('pax').value,
-               luggage: document.getElementById('luggage').value,
-               babySeat: document.getElementById('babySeat').value,
+               luggage: combinedLuggage, 
+               babySeat: combinedBabySeats, 
                pickupLocation: document.getElementById('pickupLocation').value,
                dropoffLocation: document.getElementById('dropoffLocation').value,
                flightNumber: document.getElementById('flightNumber').value || 'N/A',
