@@ -1607,6 +1607,32 @@
        // 💰 後端 PayPal 金流與表單送出邏輯
        // ==========================================
 
+       // ⭐ 新增：恢復表單狀態函數 (結帳失敗時呼叫，保留使用者填寫的資料)
+       window.restoreFormState = function() {
+           const isSameAsPickup = document.getElementById('sameAsPickupCharter').checked;
+           
+           // 將所有欄位解鎖，除了有勾選同上且是降落地的欄位
+           document.querySelectorAll('.onyx-input, select, textarea').forEach(input => {
+               if (input.id === 'dropoffLocation' && isSameAsPickup) {
+                   // 保持鎖定
+               } else {
+                   input.removeAttribute('disabled');
+               }
+           });
+           
+           // 恢復原本的「確認訂單」按鈕
+           document.getElementById('submit-btn').classList.remove('hidden');
+           
+           // 隱藏並清空 PayPal 容器，等待重新觸發
+           const container = document.getElementById('paypal-button-container');
+           container.innerHTML = ''; 
+           container.classList.add('hidden');
+           document.getElementById('deposit-notice').classList.add('hidden');
+           
+           // 重新綁定 PayPal 按鈕 (這樣客人才可以再按一次結帳)
+           renderPayPalButton();
+       };
+
        window.validateAndShowPayPal = function() {
            const btn = document.getElementById('submit-btn');
            const inputs = document.querySelectorAll('.required');
@@ -1667,6 +1693,9 @@
        };
 
        function renderPayPalButton() {
+           const container = document.getElementById('paypal-button-container');
+           container.innerHTML = ''; // 確保每次渲染前容器是乾淨的
+
            if (typeof paypal === 'undefined') {
                console.error("PayPal SDK not loaded.");
                return;
@@ -1706,39 +1735,62 @@
                    });
                },
                
+               // ⭐ 核心修正：加入強大的 Try-Catch 邏輯，避免 Sandbox 卡死
                onApprove: function(data, actions) {
                    document.getElementById('paypal-button-container').innerHTML = '<div class="text-center text-[#d4af37] py-8"><i data-lucide="loader-2" class="mx-auto w-10 h-10 animate-spin"></i><p class="mt-4 text-sm font-bold tracking-wider">Processing payment & securing your booking...</p></div>';
                    lucide.createIcons();
 
                    return actions.order.capture().then(function(orderData) {
-                       const transactionId = orderData.purchase_units[0].payments.captures[0].id;
-                       const paidAmount = orderData.purchase_units[0].payments.captures[0].amount.value;
-                       window.submitFinalBooking(transactionId, paidAmount);
-                   });
-               },
+                       console.log("✅ PayPal 授權成功，回傳資料：", orderData);
+                       try {
+                           let transactionId = "Sandbox_Test_ID";
+                           let paidAmount = "0";
 
-               onCancel: function (data) {
-                   alert("Payment was cancelled. You can modify your details and try again.");
-                   const isSameAsPickup = document.getElementById('sameAsPickupCharter').checked;
-                   document.querySelectorAll('.onyx-input, select, textarea').forEach(input => {
-                       if (input.id !== 'dropoffLocation' || !isSameAsPickup) {
-                           input.removeAttribute('disabled');
-                       } else {
-                           input.removeAttribute('disabled');
+                           // 安全地讀取 PayPal 回傳的資料
+                           if (orderData.purchase_units &&
+                               orderData.purchase_units[0].payments &&
+                               orderData.purchase_units[0].payments.captures &&
+                               orderData.purchase_units[0].payments.captures.length > 0) {
+                               
+                               transactionId = orderData.purchase_units[0].payments.captures[0].id;
+                               paidAmount = orderData.purchase_units[0].payments.captures[0].amount.value;
+                           } else {
+                               // 沙盒環境下如果沒有 captures，改抓 order ID
+                               transactionId = orderData.id;
+                               if (orderData.purchase_units && orderData.purchase_units[0].amount) {
+                                   paidAmount = orderData.purchase_units[0].amount.value;
+                               }
+                               console.warn("⚠️ 找不到 captures 陣列，可能是 Sandbox 狀態。改用 Order ID：", transactionId);
+                           }
+
+                           window.submitFinalBooking(transactionId, paidAmount);
+                       } catch (e) {
+                           console.error("❌ 解析 PayPal 資料時發生錯誤：", e);
+                           alert("付款已成功授權，但處理訂單時發生錯誤。請勿重複付款並聯絡客服。");
+                           window.restoreFormState();
                        }
+                   }).catch(function(err) {
+                       console.error("❌ 捕捉款項 (Capture) 失敗：", err);
+                       alert("付款處理失敗，請重新嘗試。您的資料已保留。");
+                       window.restoreFormState();
                    });
-                   document.getElementById('submit-btn').classList.remove('hidden');
-                   document.getElementById('paypal-button-container').classList.add('hidden');
-                   document.getElementById('deposit-notice').classList.add('hidden');
                },
 
+               // ⭐ 修正：取消付款時，保留欄位資料
+               onCancel: function (data) {
+                   alert("付款已取消。您可以修改資料後再次嘗試。");
+                   window.restoreFormState();
+               },
+
+               // ⭐ 修正：錯誤發生時，保留欄位資料
                onError: function (err) {
-                   console.error('PayPal Error:', err);
+                   console.error('❌ PayPal Error:', err);
+                   alert("發生 PayPal 連線或處理錯誤，請稍後再試。您的資料已保留。");
+                   window.restoreFormState();
                }
            }).render('#paypal-button-container');
        }
 
-       // 💡【核心修正】資料收集與散彈槍發送機制
        window.submitFinalBooking = async function(transactionId, paidAmount) {
            
            document.querySelectorAll('.onyx-input, select, textarea').forEach(input => {
@@ -1765,7 +1817,6 @@
            const luggage20 = document.getElementById('luggage20').value || '0';
            const combinedLuggage = `${luggage28}x 28", ${luggage20}x 20"`;
 
-           // 準備最完整、對應度最高的 Payload
            const payload = {
                "Order ID": orderId,
                "Name": document.getElementById('name').value,
@@ -1790,19 +1841,14 @@
            };
 
            const form = new FormData();
-           let debugMsg = "【資料發送檢測】系統即將送出以下欄位，請對照您的 Google Sheet 表頭：\n\n";
-
-           // 💡 散彈槍機制：同時送出 大寫、小寫、無空格，確保 100% 命中！
+           
+           // 散彈槍機制
            for (const key in payload) {
-               form.append(key, payload[key]);                          // 原本的大寫
-               form.append(key.toLowerCase(), payload[key]);            // 全小寫 (如 name)
-               form.append(key.replace(/ /g, ''), payload[key]);        // 無空格 (如 OrderID)
-               debugMsg += `${key}: ${payload[key]}\n`;
+               form.append(key, payload[key]);                          
+               form.append(key.toLowerCase(), payload[key]);            
+               form.append(key.replace(/ /g, ''), payload[key]);        
            }
            
-           // 💡 測試完沒問題可以把這行 alert 刪除
-           alert(debugMsg);
-
            // 1. UI 立即切換 (包含 WhatsApp 按鈕)
            document.getElementById('form-container').classList.add('hidden');
            document.getElementById('success-container').classList.remove('hidden');
@@ -1833,6 +1879,7 @@
            }).catch(e => console.error(e));
        };
 
+       // 結帳成功後客人要再訂一單，才會真正重整網頁洗掉資料
        window.resetForm = function() {
            location.reload();
        };
