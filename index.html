@@ -40,13 +40,11 @@
 
    <style>
        body { font-family: 'Inter', sans-serif; }
-       /* Custom Scrollbar */
        ::-webkit-scrollbar { width: 8px; height: 8px; }
        ::-webkit-scrollbar-track { background: #0f0f0f; }
        ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
        
-       /* Custom Input Styles - 高對比度優化 */
        .onyx-input {
            background-color: #161616;
            border: 1px solid #555;
@@ -62,14 +60,12 @@
            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
            outline: none;
        }
-       /* Disabled state styling for Form */
        .onyx-input:disabled {
            opacity: 0.6;
            cursor: not-allowed;
            background-color: #222;
        }
 
-       /* Flatpickr Customization */
        .flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange {
            background: #d4af37 !important;
            border-color: #d4af37 !important;
@@ -78,7 +74,6 @@
        }
        .hidden { display: none; }
        
-       /* Google Places Autocomplete 強化修正 */
        .pac-container {
            background-color: #1a1a1a !important;
            border: 1px solid #444 !important;
@@ -102,7 +97,6 @@
            font-weight: bold !important;
        }
 
-       /* 手機版左右滑動隱藏捲軸 */
        .hide-scroll-mobile::-webkit-scrollbar {
            display: none;
        }
@@ -907,9 +901,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        window.currentOrderId = '';
        window.fpInstance = null;
        
-       // 這是你用來建立 PayPal 訂單 + 存入 Google Sheet 的那隻升級版 GAS (直接延用)
        window.GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzThsRiY-EUzRToyBhAZ8PAy5IpQnevch7-Gr_NaHs9FzfN8Ec-8pOC0cJov1u9Zkdu/exec";
-       // 這是用來檢查 Promo Code 的另一隻 GAS (不變)
        window.PROMO_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8k_OtqYgkec5VsmVlbOHjrn_u4PzKb_isHDaH3cWM57Wcvn6e8zZiqxpJ5mVyrgZMcA/exec";
        
        let exchangeRates = {};
@@ -959,7 +951,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            calculatePrice();
        }
 
-       // --- 雙嬰兒座椅動態連動邏輯 ---
        window.currentMaxBabySeats = 3;
 
        function updateBabySeatOptions(select, maxVal, minVal, currentVal, label) {
@@ -998,7 +989,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            }
        };
 
-       // --- 雙行李下拉選單動態連動邏輯 ---
        window.currentMaxLuggage28 = 8;
        
        function updateLuggageSelectOptions(select, maxVal, minVal, currentVal, label, is20Inch) {
@@ -1196,7 +1186,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            }
        };
 
-       // --- ✅ [修改] 切換包車與接送時，自動顯示/隱藏 Drop-off Checkbox ---
        window.toggleFlightField = function() {
            const type = document.getElementById('serviceType').value;
            const flightInput = document.getElementById('flightNumber');
@@ -1217,7 +1206,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                flightInput.classList.add('required');
                dateInput.placeholder = "Select Date";
                
-               // 接送時隱藏 Checkbox 並解鎖欄位
                sameAsContainer.classList.add('hidden');
                sameAsContainer.classList.remove('flex');
                document.getElementById('sameAsPickupCharter').checked = false;
@@ -1234,7 +1222,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                flightInput.style.borderColor = '#333';
                dateInput.placeholder = "Select Date Range";
                
-               // 包車時顯示 Checkbox
                sameAsContainer.classList.remove('hidden');
                sameAsContainer.classList.add('flex');
 
@@ -1246,7 +1233,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            calculatePrice();
        };
 
-       // --- ✅ [新增] Charter Pick-up/Drop-off Checkbox 同步邏輯 ---
        function initCharterCheckboxLogic() {
            const checkbox = document.getElementById('sameAsPickupCharter');
            const pickupInput = document.getElementById('pickupLocation');
@@ -1430,7 +1416,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            "Private Charter (8 Hrs) + 1 Free Hour": { "Standard": 5500, "Premium SUV": 7500, "Premium Van": 7500, "Luxury": 11000 }
        };
 
-       // --- ✅ [新增] Charter 天數計算輔助函數 ---
        window.calculateCharterDays = function() {
            const fp = window.fpInstance;
            if (fp && fp.selectedDates.length === 2) {
@@ -1439,7 +1424,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            } else if (fp && fp.selectedDates.length === 1) {
                return 1;
            }
-           return 1; // Default
+           return 1; 
        };
 
        window.calculatePrice = function() {
@@ -1674,9 +1659,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            renderItineraries();
            populateTimeDropdowns();
            
-           // 初始化 Checkbox 連動
            initCharterCheckboxLogic();
-           // 初始化 PayPal
            renderPayPalButton();
            
            let minSelectableDate = new Date();
@@ -1763,7 +1746,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        // 💰 後端 PayPal 金流與表單送出邏輯
        // ==========================================
 
-       // 1. 驗證資料並展開 PayPal (取代原本的直接送出)
        window.validateAndShowPayPal = function() {
            const btn = document.getElementById('submit-btn');
            const inputs = document.querySelectorAll('.required');
@@ -1771,7 +1753,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            let valid = true;
 
            inputs.forEach(input => {
-                // 如果是 hidden 或 disabled (例如自動鎖定的 Dropoff)，跳過驗證空值
                 if (input.closest('.hidden') || input.disabled || input.hasAttribute('readonly')) return;
 
                 if(!input.value || !input.value.trim()) {
@@ -1812,22 +1793,18 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                return;
            }
 
-           // 驗證通過，鎖定所有輸入框
            document.querySelectorAll('.onyx-input, select, textarea').forEach(input => {
                input.setAttribute('disabled', true);
            });
 
-           // 隱藏原本的按鈕，顯示 PayPal 區塊
            btn.classList.add('hidden');
            document.getElementById('paypal-button-container').classList.remove('hidden');
            document.getElementById('deposit-notice').classList.remove('hidden');
 
-           // 動態顯示需支付訂金金額提示
            let estimatedDeposit = serviceType.includes("Charter") ? window.calculateCharterDays() * 1000 : 200;
            document.getElementById('deposit-notice').innerHTML = `A deposit of <strong>TWD ${estimatedDeposit.toLocaleString()}</strong> is required to secure your booking.<br>Please complete payment via PayPal above.`;
        };
 
-       // 2. 初始化 PayPal Smart Buttons
        function renderPayPalButton() {
            if (typeof paypal === 'undefined') {
                console.error("PayPal SDK not loaded.");
@@ -1837,7 +1814,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            paypal.Buttons({
                style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay', height: 50 },
                
-               // 呼叫你的 GAS 建立安全訂單
+               // 🚨【這裡換成了強力偵錯版】🚨
                createOrder: function(data, actions) {
                    const serviceType = document.getElementById('serviceType').value;
                    let days = serviceType.includes("Charter") ? window.calculateCharterDays() : 1;
@@ -1851,18 +1828,37 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                            days: days
                        })
                    })
-                   .then(res => res.json())
-                   .then(orderData => {
-                       if (orderData.error) {
-                           console.error("Backend Error:", orderData.error);
-                           alert("Failed to initialize secure payment. Please refresh the page.");
+                   .then(res => res.text()) // 抓取原始文字
+                   .then(text => {
+                       // 直接彈出視窗顯示 GAS 回傳了什麼
+                       alert("【系統偵測】GAS 回傳內容：\n" + text);
+                       
+                       try {
+                           const orderData = JSON.parse(text);
+                           
+                           // 如果回傳的是 {result: "success"}，代表 GAS 還是舊版！
+                           if (orderData.result === "success") {
+                               alert("🚨 抓到兇手了！\nGAS 把『算錢指令』當成『表單送出』了！\n這代表您的 GAS 還是舊版，或是部署時沒有選擇「新版本(New Version)」。\n請回 GAS 重新發佈為新版本！");
+                               return null;
+                           }
+                           
+                           if (orderData.error) {
+                               alert("後端發生錯誤: " + orderData.error);
+                               return null;
+                           }
+                           if (!orderData.id) {
+                               alert("GAS 沒有回傳訂單 ID！實際回傳：" + text);
+                               return null;
+                           }
+                           
+                           return orderData.id; 
+                       } catch (e) {
+                           alert("伺服器回傳格式錯誤，請檢查 F12 Console。回傳內容：" + text);
                            return null;
                        }
-                       return orderData.id; 
                    });
                },
                
-               // 客戶付款成功
                onApprove: function(data, actions) {
                    document.getElementById('paypal-button-container').innerHTML = '<div class="text-center text-[#d4af37] py-8"><i data-lucide="loader-2" class="mx-auto w-10 h-10 animate-spin"></i><p class="mt-4 text-sm font-bold tracking-wider">Processing payment & securing your booking...</p></div>';
                    lucide.createIcons();
@@ -1874,10 +1870,8 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    });
                },
 
-               // 客戶取消付款
                onCancel: function (data) {
                    alert("Payment was cancelled. You can modify your details and try again.");
-                   // 解鎖表單 (如果 Checkbox 有勾，要保持 readonly)
                    const isSameAsPickup = document.getElementById('sameAsPickupCharter').checked;
                    document.querySelectorAll('.onyx-input, select, textarea').forEach(input => {
                        if (input.id !== 'dropoffLocation' || !isSameAsPickup) {
@@ -1891,7 +1885,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    document.getElementById('deposit-notice').classList.add('hidden');
                },
 
-               // 發生錯誤
                onError: function (err) {
                    console.error('PayPal Error:', err);
                    alert("There was an issue loading the payment gateway. Please ensure popups are allowed or contact us via WhatsApp.");
@@ -1899,10 +1892,8 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            }).render('#paypal-button-container');
        }
 
-       // 3. 最終將「付款序號 + 表單資料」寫入資料庫
        window.submitFinalBooking = async function(transactionId, paidAmount) {
            
-           // 暫時解開 disabled 以便抓取 Value
            document.querySelectorAll('.onyx-input, select, textarea').forEach(input => {
                input.removeAttribute('disabled');
            });
@@ -1949,8 +1940,8 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                referral: document.getElementById('referral').value || 'N/A',
                createdAt: new Date().toLocaleString('en-US', { timeZone: 'Asia/Taipei', hour12: false }),
                estimatedPrice: document.getElementById('price-display').innerText + " " + kmText,
-               paypalTransactionId: transactionId,  // ✅ 寫入 PayPal 序號
-               depositPaid: paidAmount              // ✅ 寫入實際付款訂金
+               paypalTransactionId: transactionId,
+               depositPaid: paidAmount
            };
 
            const waMessage = `📌 NEW BOOKING [PAID]\nOrder ID: ${formData.orderId}\nDeposit Paid: TWD ${paidAmount} (TxID: ${transactionId})\nName: ${formData.name}\nPhone: ${formData.phone}\nService: ${formData.serviceType}\nDate: ${formData.date}\nVehicle: ${formData.vehicle}\nPick-up: ${formData.pickupLocation}\nDrop-off: ${formData.dropoffLocation}\nPromo Code: ${formData.referral}\nEstimated Price: ${formData.estimatedPrice}`;
@@ -1958,7 +1949,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            const waUrl = `https://wa.me/886970326591?text=${encodedMessage}`;
 
            try {
-               // 1. 傳送給 Google Sheet
                if(window.GOOGLE_SCRIPT_URL) {
                    const form = new FormData();
                    form.append('Order ID', formData.orderId);
@@ -1985,7 +1975,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    await fetch(window.GOOGLE_SCRIPT_URL, { method: 'POST', body: form, mode: 'no-cors' });
                }
 
-               // 2. 傳送 Email 通知 (FormSubmit)
                await fetch("https://formsubmit.co/ajax/onyxtaiwan.official@gmail.com", {
                    method: "POST",
                    headers: { "Content-Type": "application/json" },
@@ -1998,7 +1987,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    })
                });
 
-               // 3. 顯示成功畫面
                document.getElementById('form-container').classList.add('hidden');
                const successDiv = document.getElementById('success-container');
                successDiv.classList.remove('hidden');
@@ -2007,7 +1995,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                const waBtn = document.getElementById('success-whatsapp-btn');
                if(waBtn) waBtn.href = waUrl;
 
-               // 自動滾動到成功訊息
                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
 
            } catch (e) {
@@ -2026,7 +2013,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            location.reload();
        };
 
-       // Floating WhatsApp Logic (無變更)
        const waWrapper = document.getElementById('wa-float-wrapper');
        const waText = document.getElementById('wa-float-text');
        let isWaExpanded = false;
