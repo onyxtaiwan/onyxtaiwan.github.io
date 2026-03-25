@@ -1261,7 +1261,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            });
        }
 
-       // --- MAP ---
        let pickerMap = null;
        let pickerMarker = null;
        let geocoder = null;
@@ -1814,24 +1813,24 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            paypal.Buttons({
                style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay', height: 50 },
                
-               // 🚨【這裡換成了強力偵錯版】🚨
+               // 🚨【改用 GET 請求，完美繞過所有 CORS 與轉址阻擋】🚨
                createOrder: function(data, actions) {
                    const serviceType = document.getElementById('serviceType').value;
                    let days = serviceType.includes("Charter") ? window.calculateCharterDays() : 1;
 
-                   return fetch(window.GOOGLE_SCRIPT_URL, {
-                       method: "POST",
-                       headers: { "Content-Type": "text/plain;charset=utf-8" },
-                       body: JSON.stringify({
-                           action: "create_paypal_order",
-                           serviceType: serviceType,
-                           days: days
-                       })
+                   // 將參數附加在網址後方
+                   const url = window.GOOGLE_SCRIPT_URL + 
+                               "?action=create_paypal_order" + 
+                               "&serviceType=" + encodeURIComponent(serviceType) + 
+                               "&days=" + days;
+
+                   return fetch(url, {
+                       method: "GET"
                    })
                    .then(res => res.text()) // 抓取原始文字
                    .then(text => {
-                       // 直接彈出視窗顯示 GAS 回傳了什麼
-                       alert("【系統偵測】GAS 回傳內容：\n" + text);
+                       // 💡 強制印出 GAS 到底回傳了什麼
+                       alert("【系統檢測】GAS 回傳內容：\n" + text);
                        
                        try {
                            const orderData = JSON.parse(text);
@@ -1856,6 +1855,11 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                            alert("伺服器回傳格式錯誤，請檢查 F12 Console。回傳內容：" + text);
                            return null;
                        }
+                   })
+                   .catch(err => {
+                       console.error("Fetch API 失敗:", err);
+                       alert("網路或 CORS 錯誤！無法連上 GAS。這通常是因為部署設定不正確。\n錯誤內容: " + err);
+                       return null;
                    });
                },
                
@@ -1887,7 +1891,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
 
                onError: function (err) {
                    console.error('PayPal Error:', err);
-                   alert("There was an issue loading the payment gateway. Please ensure popups are allowed or contact us via WhatsApp.");
                }
            }).render('#paypal-button-container');
        }
