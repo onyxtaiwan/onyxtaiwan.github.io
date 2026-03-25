@@ -1607,7 +1607,7 @@
        // 💰 後端 PayPal 金流與表單送出邏輯
        // ==========================================
 
-       // ⭐ 新增：恢復表單狀態函數 (結帳失敗時呼叫，保留使用者填寫的資料)
+       // ⭐ 恢復表單狀態函數 (結帳失敗時呼叫，保留使用者填寫的資料)
        window.restoreFormState = function() {
            const isSameAsPickup = document.getElementById('sameAsPickupCharter').checked;
            
@@ -1629,7 +1629,7 @@
            container.classList.add('hidden');
            document.getElementById('deposit-notice').classList.add('hidden');
            
-           // 重新綁定 PayPal 按鈕 (這樣客人才可以再按一次結帳)
+           // 重新綁定 PayPal 按鈕
            renderPayPalButton();
        };
 
@@ -1735,7 +1735,7 @@
                    });
                },
                
-               // ⭐ 核心修正：加入強大的 Try-Catch 邏輯，避免 Sandbox 卡死
+               // ⭐ 核心修正：加入 DOM 錯誤提示與自動恢復機制
                onApprove: function(data, actions) {
                    document.getElementById('paypal-button-container').innerHTML = '<div class="text-center text-[#d4af37] py-8"><i data-lucide="loader-2" class="mx-auto w-10 h-10 animate-spin"></i><p class="mt-4 text-sm font-bold tracking-wider">Processing payment & securing your booking...</p></div>';
                    lucide.createIcons();
@@ -1746,7 +1746,6 @@
                            let transactionId = "Sandbox_Test_ID";
                            let paidAmount = "0";
 
-                           // 安全地讀取 PayPal 回傳的資料
                            if (orderData.purchase_units &&
                                orderData.purchase_units[0].payments &&
                                orderData.purchase_units[0].payments.captures &&
@@ -1755,7 +1754,6 @@
                                transactionId = orderData.purchase_units[0].payments.captures[0].id;
                                paidAmount = orderData.purchase_units[0].payments.captures[0].amount.value;
                            } else {
-                               // 沙盒環境下如果沒有 captures，改抓 order ID
                                transactionId = orderData.id;
                                if (orderData.purchase_units && orderData.purchase_units[0].amount) {
                                    paidAmount = orderData.purchase_units[0].amount.value;
@@ -1766,13 +1764,13 @@
                            window.submitFinalBooking(transactionId, paidAmount);
                        } catch (e) {
                            console.error("❌ 解析 PayPal 資料時發生錯誤：", e);
-                           alert("付款已成功授權，但處理訂單時發生錯誤。請勿重複付款並聯絡客服。");
-                           window.restoreFormState();
+                           document.getElementById('paypal-button-container').innerHTML = '<p class="text-red-500 font-bold py-4 text-center">付款處理發生錯誤，請聯絡客服。即將為您恢復表單...</p>';
+                           setTimeout(() => { window.restoreFormState(); }, 3000);
                        }
                    }).catch(function(err) {
                        console.error("❌ 捕捉款項 (Capture) 失敗：", err);
-                       alert("付款處理失敗，請重新嘗試。您的資料已保留。");
-                       window.restoreFormState();
+                       document.getElementById('paypal-button-container').innerHTML = '<p class="text-red-500 font-bold py-4 text-center">付款程序中斷 (視窗可能被提前關閉或遭擴充功能阻擋)。<br>請確認後再試一次，即將為您恢復表單...</p>';
+                       setTimeout(() => { window.restoreFormState(); }, 3000);
                    });
                },
 
@@ -1782,11 +1780,11 @@
                    window.restoreFormState();
                },
 
-               // ⭐ 修正：錯誤發生時，保留欄位資料
+               // ⭐ 修正：錯誤發生時，顯示 DOM 提示並保留欄位資料
                onError: function (err) {
                    console.error('❌ PayPal Error:', err);
-                   alert("發生 PayPal 連線或處理錯誤，請稍後再試。您的資料已保留。");
-                   window.restoreFormState();
+                   document.getElementById('paypal-button-container').innerHTML = '<p class="text-red-500 font-bold py-4 text-center">發生 PayPal 連線或處理錯誤，請稍後再試。即將為您恢復表單...</p>';
+                   setTimeout(() => { window.restoreFormState(); }, 3000);
                }
            }).render('#paypal-button-container');
        }
