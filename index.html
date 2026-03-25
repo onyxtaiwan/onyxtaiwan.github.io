@@ -1607,11 +1607,10 @@
        // 💰 後端 PayPal 金流與表單送出邏輯
        // ==========================================
 
-       // ⭐ 恢復表單狀態函數 (結帳失敗時呼叫，保留使用者填寫的資料)
+       // ⭐ 恢復表單狀態函數
        window.restoreFormState = function() {
            const isSameAsPickup = document.getElementById('sameAsPickupCharter').checked;
            
-           // 將所有欄位解鎖，除了有勾選同上且是降落地的欄位
            document.querySelectorAll('.onyx-input, select, textarea').forEach(input => {
                if (input.id === 'dropoffLocation' && isSameAsPickup) {
                    // 保持鎖定
@@ -1620,16 +1619,13 @@
                }
            });
            
-           // 恢復原本的「確認訂單」按鈕
            document.getElementById('submit-btn').classList.remove('hidden');
            
-           // 隱藏並清空 PayPal 容器，等待重新觸發
            const container = document.getElementById('paypal-button-container');
            container.innerHTML = ''; 
            container.classList.add('hidden');
            document.getElementById('deposit-notice').classList.add('hidden');
            
-           // 重新綁定 PayPal 按鈕
            renderPayPalButton();
        };
 
@@ -1694,7 +1690,7 @@
 
        function renderPayPalButton() {
            const container = document.getElementById('paypal-button-container');
-           container.innerHTML = ''; // 確保每次渲染前容器是乾淨的
+           container.innerHTML = ''; // 確保乾淨
 
            if (typeof paypal === 'undefined') {
                console.error("PayPal SDK not loaded.");
@@ -1704,41 +1700,26 @@
            paypal.Buttons({
                style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay', height: 50 },
                
+               // 💡【核心修正 1】：直接在前端秒速建立訂單，完全不透過 GAS 解決閃退問題
                createOrder: function(data, actions) {
                    const serviceType = document.getElementById('serviceType').value;
-                   let days = serviceType.includes("Charter") ? window.calculateCharterDays() : 1;
+                   let depositAmount = serviceType.includes("Charter") ? window.calculateCharterDays() * 1000 : 200;
 
-                   const url = window.GOOGLE_SCRIPT_URL + 
-                               "?action=create_paypal_order" + 
-                               "&serviceType=" + encodeURIComponent(serviceType) + 
-                               "&days=" + days;
-
-                   return fetch(url, { method: "GET" })
-                   .then(res => res.text())
-                   .then(text => {
-                       try {
-                           const orderData = JSON.parse(text);
-                           if (orderData.error) {
-                               console.error("後端發生錯誤: " + orderData.error);
-                               alert("無法建立訂單，請聯絡客服。");
-                               return null;
+                   return actions.order.create({
+                       purchase_units: [{
+                           description: "ONYX Taiwan Booking Deposit - " + serviceType,
+                           amount: {
+                               currency_code: "TWD",
+                               value: depositAmount.toString()
                            }
-                           return orderData.id; 
-                       } catch (e) {
-                           console.error("解析失敗:", text);
-                           return null;
-                       }
-                   })
-                   .catch(err => {
-                       console.error("Fetch API 失敗:", err);
-                       return null;
+                       }]
                    });
                },
                
-               // ⭐ 核心修正：加入 DOM 錯誤提示與自動恢復機制
+               // 💡【核心修正 2】：加入完美防呆與畫面提示，不再因錯誤卡死
                onApprove: function(data, actions) {
                    document.getElementById('paypal-button-container').innerHTML = '<div class="text-center text-[#d4af37] py-8"><i data-lucide="loader-2" class="mx-auto w-10 h-10 animate-spin"></i><p class="mt-4 text-sm font-bold tracking-wider">Processing payment & securing your booking...</p></div>';
-                   lucide.createIcons();
+                   if (typeof lucide !== 'undefined') lucide.createIcons();
 
                    return actions.order.capture().then(function(orderData) {
                        console.log("✅ PayPal 授權成功，回傳資料：", orderData);
@@ -1758,7 +1739,6 @@
                                if (orderData.purchase_units && orderData.purchase_units[0].amount) {
                                    paidAmount = orderData.purchase_units[0].amount.value;
                                }
-                               console.warn("⚠️ 找不到 captures 陣列，可能是 Sandbox 狀態。改用 Order ID：", transactionId);
                            }
 
                            window.submitFinalBooking(transactionId, paidAmount);
@@ -1769,21 +1749,19 @@
                        }
                    }).catch(function(err) {
                        console.error("❌ 捕捉款項 (Capture) 失敗：", err);
-                       document.getElementById('paypal-button-container').innerHTML = '<p class="text-red-500 font-bold py-4 text-center">付款程序中斷 (視窗可能被提前關閉或遭擴充功能阻擋)。<br>請確認後再試一次，即將為您恢復表單...</p>';
+                       document.getElementById('paypal-button-container').innerHTML = '<p class="text-red-500 font-bold py-4 text-center">扣款授權失敗 (可能是測試卡無效或被拒絕)。<br>即將為您恢復表單...</p>';
                        setTimeout(() => { window.restoreFormState(); }, 3000);
                    });
                },
 
-               // ⭐ 修正：取消付款時，保留欄位資料
                onCancel: function (data) {
-                   alert("付款已取消。您可以修改資料後再次嘗試。");
-                   window.restoreFormState();
+                   document.getElementById('paypal-button-container').innerHTML = '<p class="text-yellow-500 font-bold py-4 text-center">付款已取消。即將為您恢復表單...</p>';
+                   setTimeout(() => { window.restoreFormState(); }, 2000);
                },
 
-               // ⭐ 修正：錯誤發生時，顯示 DOM 提示並保留欄位資料
                onError: function (err) {
                    console.error('❌ PayPal Error:', err);
-                   document.getElementById('paypal-button-container').innerHTML = '<p class="text-red-500 font-bold py-4 text-center">發生 PayPal 連線或處理錯誤，請稍後再試。即將為您恢復表單...</p>';
+                   document.getElementById('paypal-button-container').innerHTML = '<p class="text-red-500 font-bold py-4 text-center">發生連線或系統錯誤，請稍後再試。即將為您恢復表單...</p>';
                    setTimeout(() => { window.restoreFormState(); }, 3000);
                }
            }).render('#paypal-button-container');
@@ -1840,13 +1818,14 @@
 
            const form = new FormData();
            
-           // 散彈槍機制
            for (const key in payload) {
                form.append(key, payload[key]);                          
                form.append(key.toLowerCase(), payload[key]);            
                form.append(key.replace(/ /g, ''), payload[key]);        
            }
            
+           // 💡 已經註解掉原本可能卡住的 alert(debugMsg); 確保流程 100% 跑完
+
            // 1. UI 立即切換 (包含 WhatsApp 按鈕)
            document.getElementById('form-container').classList.add('hidden');
            document.getElementById('success-container').classList.remove('hidden');
@@ -1877,7 +1856,6 @@
            }).catch(e => console.error(e));
        };
 
-       // 結帳成功後客人要再訂一單，才會真正重整網頁洗掉資料
        window.resetForm = function() {
            location.reload();
        };
