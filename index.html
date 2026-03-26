@@ -724,7 +724,13 @@
                            </div>
                        </div>
                        <div>
-                           <label for="dropoffLocation" class="block text-xs font-bold text-gray-200 mb-1">Drop-off Location <span class="text-red-500">*</span></label>
+                           <div class="flex justify-between items-end mb-1">
+                               <label for="dropoffLocation" class="block text-xs font-bold text-gray-200">Drop-off Location <span class="text-red-500">*</span></label>
+                               <label id="same-as-pickup-container" class="hidden flex items-center gap-1.5 cursor-pointer">
+                                   <input type="checkbox" id="sameAsPickup" class="accent-[#d4af37] w-3 h-3 cursor-pointer" onchange="toggleSameAsPickup()">
+                                   <span class="text-[10px] text-[#d4af37] font-bold">Same as Pick-up</span>
+                               </label>
+                           </div>
                            <div class="relative">
                                <input type="text" id="dropoffLocation" class="w-full onyx-input p-3 pr-12 rounded-lg text-sm required" placeholder="e.g. Taoyuan Airport T1">
                                <button type="button" aria-label="Select Drop-off Location on Map" onclick="initOrOpenMap('dropoffLocation')" class="absolute right-2 top-2 bottom-2 px-2 bg-[#2a2a2a] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0f0f0f] rounded transition-colors flex items-center gap-1 shadow">
@@ -1192,6 +1198,23 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                icon.style.transform = 'rotate(0deg)';
            }
        };
+       
+       window.toggleSameAsPickup = function() {
+           const checkbox = document.getElementById('sameAsPickup');
+           const pickupInput = document.getElementById('pickupLocation');
+           const dropoffInput = document.getElementById('dropoffLocation');
+           
+           if (checkbox.checked) {
+               dropoffInput.value = pickupInput.value;
+               dropoffInput.readOnly = true;
+               dropoffInput.classList.add('opacity-50', 'cursor-not-allowed');
+           } else {
+               dropoffInput.readOnly = false;
+               dropoffInput.classList.remove('opacity-50', 'cursor-not-allowed');
+               dropoffInput.value = ''; 
+           }
+           calculatePrice();
+       };
 
        window.toggleFlightField = function() {
            const type = document.getElementById('serviceType').value;
@@ -1199,6 +1222,10 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            const label = document.getElementById('flight-label');
            const dateInput = document.getElementById('date');
            const timeContainer = document.getElementById('time-container');
+           
+           const sameAsPickupContainer = document.getElementById('same-as-pickup-container');
+           const sameAsPickupCheckbox = document.getElementById('sameAsPickup');
+           const dropoffInput = document.getElementById('dropoffLocation');
 
            timeContainer.classList.remove('hidden'); 
            document.getElementById('pickupHour').classList.add('required');
@@ -1215,6 +1242,16 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    window.fpInstance.set('mode', 'single');
                    window.fpInstance.clear(); 
                }
+               
+               if(sameAsPickupContainer) {
+                   sameAsPickupContainer.classList.add('hidden');
+                   if (sameAsPickupCheckbox && sameAsPickupCheckbox.checked) {
+                       sameAsPickupCheckbox.checked = false;
+                       dropoffInput.readOnly = false;
+                       dropoffInput.classList.remove('opacity-50', 'cursor-not-allowed');
+                       dropoffInput.value = '';
+                   }
+               }
            } else {
                label.innerHTML = 'Flight Number (Optional)';
                flightInput.classList.remove('required');
@@ -1225,6 +1262,8 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    window.fpInstance.set('mode', 'range');
                    window.fpInstance.clear();
                }
+               
+               if(sameAsPickupContainer) sameAsPickupContainer.classList.remove('hidden');
            }
            calculatePrice();
        };
@@ -1328,6 +1367,13 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        function confirmMapLocation() {
            if(selectedAddressString) {
                document.getElementById(targetInputField).value = selectedAddressString;
+               
+               if (targetInputField === 'pickupLocation') {
+                   const checkbox = document.getElementById('sameAsPickup');
+                   if (checkbox && checkbox.checked) {
+                       document.getElementById('dropoffLocation').value = selectedAddressString;
+                   }
+               }
            }
            closeMapModal();
            calculatePrice(); 
@@ -1647,7 +1693,18 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
 
                const pickupAutocomplete = new google.maps.places.Autocomplete(pickupInput, autocompleteOptions);
                pickupAutocomplete.addListener('place_changed', () => {
+                   const checkbox = document.getElementById('sameAsPickup');
+                   if (checkbox && checkbox.checked) {
+                       document.getElementById('dropoffLocation').value = pickupInput.value;
+                   }
                    calculatePrice();
+               });
+               
+               pickupInput.addEventListener('input', function() {
+                   const checkbox = document.getElementById('sameAsPickup');
+                   if (checkbox && checkbox.checked) {
+                       document.getElementById('dropoffLocation').value = this.value;
+                   }
                });
 
                const dropoffAutocomplete = new google.maps.places.Autocomplete(dropoffInput, autocompleteOptions);
