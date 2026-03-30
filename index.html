@@ -102,6 +102,13 @@
            -ms-overflow-style: none;
            scrollbar-width: none;
        }
+       
+       /* 針對 disabled 的 option 添加更明顯的反灰效果 */
+       select option:disabled {
+           color: #555;
+           background-color: #111;
+           font-style: italic;
+       }
    </style>
 </head>
 <body class="bg-[#0f0f0f] text-gray-200 antialiased selection:bg-[#d4af37] selection:text-[#0f0f0f]">
@@ -993,7 +1000,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            let limit = maxVal;
            let showMore = false;
 
-           // 當 20吋選項超過 8 個時，預設收折顯示
            if (is20Inch && maxVal > 8 && select.dataset.expanded !== 'true') {
                limit = 8;
                showMore = true;
@@ -1007,7 +1013,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                select.add(new Option(`More options...`, 'more'));
            }
 
-           // 如果當前值大於 8，強制展開
            if (currentVal !== 'more' && currentVal > 8 && is20Inch) {
                select.dataset.expanded = 'true';
                return updateLuggageSelectOptions(select, maxVal, minVal, currentVal, label, true);
@@ -1020,7 +1025,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            const sel28 = document.getElementById('luggage28');
            const sel20 = document.getElementById('luggage20');
            
-           // 如果使用者點擊了 "More options..."
            if (source === '20' && sel20.value === 'more') {
                sel20.dataset.expanded = 'true';
                const max20 = window.currentMaxLuggage28 * 2;
@@ -1034,24 +1038,22 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            let val20 = parseInt(sel20.value) || 0;
 
            const max28 = window.currentMaxLuggage28;
-           const max20 = max28 * 2; // 1個28吋 = 2個20吋
+           const max20 = max28 * 2; 
 
            if (source === 'all') {
-               sel20.dataset.expanded = 'false'; // 切換車型時重新收折
+               sel20.dataset.expanded = 'false'; 
                if ((val28 * 2 + val20) > max20) {
                    val28 = 0;
                    val20 = 0;
                }
            }
 
-           // 更新 20吋選單的可用數量
            if (source === '28' || source === 'all') {
                const available20 = max20 - (val28 * 2);
                if (val20 > available20) val20 = available20;
                updateLuggageSelectOptions(sel20, available20, 0, val20, '20"', true);
            }
            
-           // 更新 28吋選單的可用數量
            if (source === '20' || source === 'all') {
                const available28 = Math.floor((max20 - val20) / 2);
                if (val28 > available28) val28 = available28;
@@ -1082,33 +1084,25 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            }
 
            updateSelect('pax', maxPax, 1);
-           
-           // 觸發嬰兒座椅連動更新
            window.currentMaxBabySeats = maxBaby;
            handleBabySeatChange('all');
-
-           // 觸發雙行李連動更新
            window.currentMaxLuggage28 = maxLuggage;
            handleLuggageChange('all');
        };
 
        const itineraries = [
-           // --- 第一排 (維持不變：皆為單日遊，首頁完美顯示) ---
            { id: 1, title_en: "Classic Must-Visit: Jiufen, Shifen & Yehliu", day: 1, region: "North", image_url: "./images/itinerary-01.jpg", desc: "The most comprehensive North Taiwan route. Includes the 'Yin Yang Sea' and 'Golden Waterfall' in the Gold Rush area, alongside the Queen's Head and Sky Lanterns. Ends with tea and ocean views in the lantern-lit village of Jiufen.", spots: ["Yehliu Geopark", "Yin Yang Sea", "Golden Waterfall", "Jiufen Old Street", "Shifen Waterfall", "Shifen Sky Lanterns"] },
            { id: 2, title_en: "Instagram Hotspots: Taichung City & Gaomei Wetlands", day: 1, region: "Central", image_url: "./images/itinerary-02.jpg", desc: "Designed for photography lovers. Connects the colorful Rainbow Village, a Harry Potter-style ice cream shop, creative markets, and architectural masterpieces, concluding with a spectacular sunset at the wetlands.", spots: ["Rainbow Village", "Miyahara", "Shenji New Village", "National Taichung Theater", "Gaomei Wetlands"] },
            { id: 3, title_en: "Lake & Mountains: Sun Moon Lake Scenic Tour", day: 1, region: "Central", image_url: "./images/itinerary-03.jpg", desc: "A comprehensive land, water, and air experience. Includes the scenic Xiangshan Center, a ropeway ride overlooking the lake, the grand Wenwu Temple, and indigenous cuisine at Ita Thao.", spots: ["Xiangshan Visitor Center", "Shuishe Pier", "Lake Cruise: Lalu Island", "Sun Moon Lake Ropeway", "Ita Thao Shopping District", "Wenwu Temple"] },
 
-           // --- 第二排 (依建議優化：整合其餘 3 個單日遊，高度完美對齊) ---
            { id: 4, title_en: "Metropolitan VIP: Taipei Highlights", day: 1, region: "Taipei", image_url: "./images/itinerary-04.jpg", desc: "A contrast of ancient and modern Taipei. Watch the changing of the guard, view imperial treasures, ascend the tallest landmark, visit the historic Lungshan Temple, and wander through baroque streets.", spots: ["C.K.S Memorial Hall", "National Palace Museum", "Taipei 101 & Xinyi District", "Lungshan Temple", "Dadaocheng Dihua Street"] },
            { id: 5, title_en: "Volcanic Wonders: Yangmingshan & Beitou", day: 1, region: "Taipei", image_url: "./images/itinerary-05.jpg", desc: "The closest natural wonders to Taipei. Witness the impressive sulfur vents at Xiaoyoukeng, take photos with grazing water buffaloes at Qingtiangang, and step into the misty Thermal Valley to experience rich Japanese culture.", spots: ["Xiaoyoukeng", "Qingtiangang Grassland", "Milk Lake", "Thermal Valley", "Hot Spring Museum", "Xinbeitou Historic Station"] },
            { id: 6, title_en: "Family & Culture: Yilan Lanyang Plain", day: 1, region: "East", image_url: "./images/itinerary-06.jpg", desc: "Perfect balance for families. Explore the unique Lanyang Museum, relax with a hot spring foot bath, stroll the traditional arts center, visit a world-champion distillery, and interact with Capybaras.", spots: ["Lanyang Museum", "Jiaoxi Hot Spring Park", "National Center for Traditional Arts", "Kavalan Whisky Distillery", "Zhang Mei Ama's Farm"] },
 
-           // --- 第三排 (依建議優化：整合 3 個國家級多日遊，高度完美對齊) ---
            { id: 7, title_en: "Pacific & Valleys: Hualien Nature Retreat", day: 3, region: "East", image_url: "./images/itinerary-07.jpg", desc: "Discover Hualien's breathtaking natural beauty. Marvel at the dramatic Qingshui Cliffs and the iconic Taroko Arch, wander through the picturesque East Rift Valley, and relax by the pristine Pacific coast.", spots: ["【 Day 1 】", "Qingshui Cliff", "Taroko National Park Gateway", "Qixingtan Beach", "【 Day 2 】", "Liyu Lake", "Yunshanshui Estate", "Danongdafu Forest Park", "【 Day 3 】", "Pine Garden", "Cultural Park", "Starbucks Container Store"] },
            { id: 8, title_en: "World Heritage: Alishan Forest Railway", day: 3, region: "South", image_url: "./images/itinerary-08.jpg", desc: "Dive into Taiwan's forestry history. Visit the largest Japanese dormitory complex, ride the century-old forest train through giant sacred trees, enjoy a railway lunchbox, and walk the famous Eternity Suspension Bridges.", spots: ["【 Day 1 】", "Hinoki Village", "Alishan Forest Railway Garage", "Wenhua Road Night Market", "【 Day 2 】", "Alishan Forest Recreation Area", "Sisters Ponds", "Giant Tree Trail", "【 Day 3 】", "Fenqihu Old Street", "Fenqihu Cedar Boardwalk", "Eternity Suspension Bridges"] },
            { id: 9, title_en: "Alpine Retreat: Qingjing & Hehuanshan", day: 2, region: "Mountain", image_url: "./images/itinerary-09.jpg", desc: "Experience the Alps of Taiwan. Visit Puli's famous spots, watch the sheep show, walk the Skywalk, and drive to Wuling, the highest point of Taiwan's highways, for breathtaking views of the sea of clouds.", spots: ["【 Day 1 】", "Puli Brewery", "Feeling 18 Chocolate", "The Old England Manor", "Small Swiss Garden", "【 Day 2 】", "Green Green Grassland", "Qingjing Skywalk", "Kunyang Rest Stop", "Hehuanshan Wuling"] },
 
-           // --- 第四排 (依建議優化：深度中南部與擴充後的苗栗) ---
            { id: 10, title_en: "Culinary Capital: Tainan History & Food", day: 3, region: "South", image_url: "./images/itinerary-10.jpg", desc: "A feast for the eyes and palate. Visit the stunning Art Museum, glide through the 'Amazon of Taiwan' at Sicao, explore Dutch colonial forts, and witness the glowing sunset over Taiwan's oldest salt fields.", spots: ["【 Day 1 】", "Chimei Museum", "Tainan Art Museum", "Night Market Food", "【 Day 2 】", "Sicao Green Tunnel", "Anping Tree House", "Anping Fort", "Shennong Street", "【 Day 3 】", "Jingzaijiao Salt Fields", "Black-faced Spoonbill Reserve"] },
            { id: 11, title_en: "Southern Border: Kenting Peninsula", day: 4, region: "South", image_url: "./images/itinerary-11.jpg", desc: "The ultimate tropical getaway. Features white sandy beaches, CNN-rated world-class sunsets, the southernmost lighthouse of Taiwan, vast cliff landscapes, historic city gates, and authentic local cuisine.", spots: ["【 Day 1 】", "Pier-2 Art Center", "Great Harbor Bridge", "【 Day 2 】", "Baisha Beach", "Houbihu Harbor", "Maobitou Sunset", "【 Day 3 】", "Chuanfan Rock", "Eluanbi Lighthouse", "Longpan Park", "Ancient City", "【 Day 4 】", "Victory Star Village", "Wanluan Pig's Knuckle"] },
            { id: 12, title_en: "Mountain Railway: Miaoli Old Mountain Line", day: 1, region: "Central", image_url: "./images/itinerary-12.jpg", desc: "A nostalgic and fun experience. Ride the popular Rail Bike across the high-altitude bridge overlooking the Longteng Broken Bridge ruins, stroll through the century-old wooden station, and explore historic old streets.", spots: ["Sanyi Wood Sculpture Museum", "Shengxing Railway Station", "Old Mountain Line Rail Bike", "Longteng Broken Bridge", "Nanzhuang Old Street", "Osmanthus Alley", "Château in the Air"] }
@@ -1154,14 +1148,13 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            lucide.createIcons();
        }
 
-       // 點擊行程按鈕後自動填寫表單的腳本
        window.prefillItinerary = function(id) {
            const item = itineraries.find(i => i.id === id);
            if (!item) return;
            
            const indexStr = item.id.toString().padStart(2, '0');
            const spotsText = item.spots.map(spot => {
-               if(spot.includes("Day")) return spot; // 針對多日遊的標題保留原樣
+               if(spot.includes("Day")) return spot;
                return `• ${spot}`;
            }).join('\n');
 
@@ -1169,7 +1162,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            
            document.getElementById('itinerary').value = formattedText;
            
-           // 自動依照天數切換對應的 Service Type
            const serviceTypeSelect = document.getElementById('serviceType');
            if (item.day === 1) {
                serviceTypeSelect.value = 'Private Charter (8 Hrs)';
@@ -1411,10 +1403,11 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            }
        }
        
-       window.activePromoDiscount = 0;
-       window.activePromoType = null;
+       // 更新全域變數
+       window.activePromoDiscountType = null; 
+       window.activePromoDiscountAmount = 0;
+       window.activePromoHasUpgrade = false;
        window.activePromoMinSpend = 0;
-       window.activePromoMessage = "";
 
        const vehicleUpgrades = {
            "Standard": 0,
@@ -1448,26 +1441,37 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            const applyDiscountAndUpdateUI = (baseTotal) => {
                let finalPrice = baseTotal;
                const messageEl = document.getElementById('promo-message');
+               let msgTexts = [];
 
-               if (window.activePromoType === 'discount' && window.activePromoDiscount > 0) {
-                   if (baseTotal >= window.activePromoMinSpend) {
-                       finalPrice = Math.max(0, finalPrice - window.activePromoDiscount);
-                       if (messageEl && !messageEl.classList.contains('hidden')) {
-                           messageEl.textContent = `✅ Discount applied! (-TWD ${window.activePromoDiscount})`;
-                           messageEl.className = "text-xs font-bold mt-2 text-green-500 block transition-all";
-                       }
-                   } else {
-                       if (messageEl && !messageEl.classList.contains('hidden')) {
-                           messageEl.textContent = `⚠️ Minimum spend of TWD ${window.activePromoMinSpend.toLocaleString()} required.`;
-                           messageEl.className = "text-xs font-bold mt-2 text-yellow-500 block transition-all";
-                       }
+               if (baseTotal >= window.activePromoMinSpend) {
+                   // 處理折扣 (固定金額 or 百分比)
+                   if (window.activePromoDiscountType === 'percentage' && window.activePromoDiscountAmount > 0) {
+                       let discountValue = Math.round(baseTotal * (window.activePromoDiscountAmount / 100));
+                       finalPrice = Math.max(0, finalPrice - discountValue);
+                       msgTexts.push(`-${window.activePromoDiscountAmount}% (TWD ${discountValue})`);
+                   } else if (window.activePromoDiscountType === 'fixed' && window.activePromoDiscountAmount > 0) {
+                       finalPrice = Math.max(0, finalPrice - window.activePromoDiscountAmount);
+                       msgTexts.push(`-TWD ${window.activePromoDiscountAmount}`);
                    }
-               } else if (window.activePromoType === 'upgrade') {
-                   if (messageEl && !messageEl.classList.contains('hidden')) {
-                       messageEl.textContent = `✅ ${window.activePromoMessage}`;
+
+                   // 處理升級顯示
+                   if (window.activePromoHasUpgrade) {
+                       msgTexts.push(`Free Upgrade`);
+                   }
+
+                   // 顯示成功訊息
+                   if (msgTexts.length > 0 && messageEl && !messageEl.classList.contains('hidden')) {
+                       messageEl.textContent = `✅ Applied: ${msgTexts.join(' & ')}`;
                        messageEl.className = "text-xs font-bold mt-2 text-green-500 block transition-all";
                    }
+               } else {
+                   // 未達低消
+                   if ((window.activePromoDiscountType || window.activePromoHasUpgrade) && messageEl && !messageEl.classList.contains('hidden')) {
+                       messageEl.textContent = `⚠️ Minimum spend of TWD ${window.activePromoMinSpend.toLocaleString()} required.`;
+                       messageEl.className = "text-xs font-bold mt-2 text-yellow-500 block transition-all";
+                   }
                }
+               
                updatePriceUI(finalPrice);
            };
 
@@ -1540,73 +1544,130 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
        };
 
        document.getElementById('verify-promo-btn').addEventListener('click', async function() {
-           const codeInput = document.getElementById('referral');
-           const code = codeInput.value.trim().toUpperCase();
-           const messageEl = document.getElementById('promo-message');
-           const serviceTypeSelect = document.getElementById('serviceType');
-           const currentService = serviceTypeSelect.value;
            const btn = this;
+           const codeInput = document.getElementById('referral');
+           const messageEl = document.getElementById('promo-message');
+           const serviceSelect = document.getElementById('serviceType');
+           const vehicleSelect = document.getElementById('vehicle');
+           
+           // [新增] 取消優惠碼機制 (Remove)
+           if (btn.textContent === 'Remove') {
+               codeInput.value = '';
+               codeInput.readOnly = false;
+               codeInput.classList.remove('opacity-50', 'cursor-not-allowed');
+               codeInput.style.borderColor = '#333';
+               
+               btn.textContent = 'Verify';
+               btn.className = "bg-[#2a2a2a] hover:bg-[#d4af37] text-white hover:text-[#0f0f0f] px-4 rounded-lg text-sm font-bold transition-colors whitespace-nowrap";
+               
+               messageEl.classList.add('hidden');
+               
+               window.activePromoDiscountType = null;
+               window.activePromoDiscountAmount = 0;
+               window.activePromoHasUpgrade = false;
+               window.activePromoMinSpend = 0;
 
+               // [核心邏輯] 解除所有下拉選單的鎖定 (反灰)
+               Array.from(serviceSelect.options).forEach(opt => opt.disabled = false);
+               Array.from(vehicleSelect.options).forEach(opt => opt.disabled = false);
+
+               // 將 8 Hrs + 1 Free Hour 的字樣改回來
+               Array.from(serviceSelect.options).forEach(opt => {
+                   if (opt.value === "Private Charter (8 Hrs) + 1 Free Hour") {
+                       opt.value = "Private Charter (8 Hrs)";
+                       opt.text = "Private Charter (8 Hrs)";
+                   }
+               });
+
+               calculatePrice();
+               return;
+           }
+
+           const code = codeInput.value.trim().toUpperCase();
            if (!code) return; 
 
            btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin mx-auto"></i>';
            btn.disabled = true;
 
            try {
-               const response = await fetch(`${window.PROMO_SCRIPT_URL}?action=checkPromo&code=${code}&service=${encodeURIComponent(currentService)}`);
+               // [核心修改] 不再傳送 service 與 vehicle 參數，只靠優惠碼去資料庫查詢規則
+               const response = await fetch(`${window.PROMO_SCRIPT_URL}?action=checkPromo&code=${code}`);
                const result = await response.json();
 
                if (!result.valid) {
-                   messageEl.textContent = result.message || "❌ Invalid, expired, or not applicable.";
+                   messageEl.textContent = result.message || "❌ Invalid or expired promo code.";
                    messageEl.className = "text-xs font-bold mt-2 text-red-500 block transition-all";
                    codeInput.style.borderColor = '#ef4444';
-                   
-                   window.activePromoDiscount = 0;
-                   window.activePromoType = null;
-                   window.activePromoMinSpend = 0;
-                   window.activePromoMessage = "";
                    
                    btn.innerHTML = 'Verify';
                    btn.disabled = false;
                    lucide.createIcons();
-                   calculatePrice();
                    return;
                }
 
-               window.activePromoType = result.type;
+               // 儲存狀態
+               window.activePromoDiscountType = result.discountType;
+               window.activePromoDiscountAmount = result.discountAmount;
+               window.activePromoHasUpgrade = result.hasUpgrade;
                window.activePromoMinSpend = parseInt(result.minSpend) || 0;
-               window.activePromoMessage = result.message;
 
-               codeInput.style.borderColor = '#22c55e';
-               codeInput.readOnly = true;
-               codeInput.classList.add('opacity-50', 'cursor-not-allowed');
-               
-               btn.textContent = 'Applied';
-               btn.disabled = true;
-               btn.classList.replace('bg-[#2a2a2a]', 'bg-green-600');
-               btn.classList.replace('hover:bg-[#d4af37]', 'bg-green-600');
-               btn.classList.add('cursor-not-allowed');
-               
-               messageEl.classList.remove('hidden');
+               // ============================================
+               // [核心邏輯] 依照回傳規則，強制切換下拉選單並將其餘選項反灰
+               // ============================================
+               const targetSvc = result.applicableService;
+               if (targetSvc && targetSvc.toUpperCase() !== 'ALL') {
+                   serviceSelect.value = targetSvc;
+                   Array.from(serviceSelect.options).forEach(opt => {
+                       if (opt.value !== targetSvc && opt.value !== targetSvc + " + 1 Free Hour") {
+                           opt.disabled = true; // 反灰不可選的項目
+                       }
+                   });
+               } else {
+                   Array.from(serviceSelect.options).forEach(opt => opt.disabled = false);
+               }
 
-               if (result.type === 'upgrade') {
+               const targetVeh = result.applicableVehicle;
+               if (targetVeh && targetVeh.toUpperCase() !== 'ALL') {
+                   vehicleSelect.value = targetVeh;
+                   Array.from(vehicleSelect.options).forEach(opt => {
+                       if (opt.value !== targetVeh) {
+                           opt.disabled = true; // 反灰不可選的項目
+                       }
+                   });
+               } else {
+                   Array.from(vehicleSelect.options).forEach(opt => opt.disabled = false);
+               }
+
+               // 重新整理 UI 限制
+               toggleFlightField();
+               updateVehicleLimits();
+
+               // 如果包含免費升級，則動態改變字眼
+               if (window.activePromoHasUpgrade) {
                    const original8HrText = "Private Charter (8 Hrs)";
                    const promo8HrText = "Private Charter (8 Hrs) + 1 Free Hour";
                    
-                   let targetOption = Array.from(serviceTypeSelect.options).find(opt => 
+                   let targetOption = Array.from(serviceSelect.options).find(opt => 
                        opt.value === original8HrText || opt.value === promo8HrText
                    );
                    
                    if (targetOption) {
                        targetOption.value = promo8HrText;
                        targetOption.text = promo8HrText;
-                       serviceTypeSelect.value = promo8HrText; 
-                       toggleFlightField(); 
+                       serviceSelect.value = promo8HrText; 
                    }
-                   window.activePromoDiscount = 0; 
-               } else if (result.type === 'discount') {
-                   window.activePromoDiscount = parseInt(result.amount) || 0;
                }
+
+               // 更新 UI 外觀 (改為 Remove 按鈕)
+               codeInput.style.borderColor = '#22c55e';
+               codeInput.readOnly = true;
+               codeInput.classList.add('opacity-50', 'cursor-not-allowed');
+               
+               btn.textContent = 'Remove';
+               btn.disabled = false;
+               btn.className = "bg-red-600 hover:bg-red-700 text-white px-4 rounded-lg text-sm font-bold transition-colors whitespace-nowrap";
+               
+               messageEl.classList.remove('hidden');
                
                calculatePrice();
 
@@ -1617,31 +1678,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                btn.innerHTML = 'Verify';
                btn.disabled = false;
                lucide.createIcons();
-           }
-       });
-
-       document.getElementById('serviceType').addEventListener('change', function() {
-           const btn = document.getElementById('verify-promo-btn');
-           if (btn.textContent === 'Applied') {
-               const codeInput = document.getElementById('referral');
-               codeInput.readOnly = false;
-               codeInput.classList.remove('opacity-50', 'cursor-not-allowed');
-               codeInput.style.borderColor = '#333';
-               
-               btn.textContent = 'Verify';
-               btn.disabled = false;
-               btn.classList.replace('bg-green-600', 'bg-[#2a2a2a]');
-               btn.classList.remove('cursor-not-allowed');
-               
-               document.getElementById('promo-message').classList.add('hidden');
-               
-               window.activePromoDiscount = 0;
-               window.activePromoType = null;
-               window.activePromoMinSpend = 0;
-               window.activePromoMessage = "";
-               
-               alert("Service type changed. Please verify your promo code again if applicable.");
-               calculatePrice();
            }
        });
 
