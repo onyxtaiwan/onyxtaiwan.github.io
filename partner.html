@@ -3,19 +3,19 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>ONYX Partner Program | Become a Partner</title>
+   <title>ONYX Partner Program</title>
    <meta name="description" content="Join ONYX Affiliate Program. Earn 10% commission and offer premium perks to your audience.">
 
    <script src="https://cdn.tailwindcss.com"></script>
 
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
    <script src="https://unpkg.com/lucide@latest"></script>
 
    <style>
-       body { font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+       body { font-family: 'Inter', sans-serif; }
        /* Custom Scrollbar */
        ::-webkit-scrollbar { width: 8px; height: 8px; }
        ::-webkit-scrollbar-track { background: #0f0f0f; }
@@ -151,7 +151,7 @@
                                    <i data-lucide="share-2" class="w-4 h-4 text-[#d4af37]"></i>
                                    <label class="text-xs font-bold text-gray-500 uppercase tracking-tighter text-left">Social Media Channels (At least one) <span class="text-red-500">*</span></label>
                                </div>
-                               <p class="text-[10px] text-gray-600 ml-6 uppercase tracking-tighter text-left">e.g. Instagram, RED, Facebook, YouTube, X, Threads, Blog</p>
+                               <p class="text-[10px] text-gray-600 ml-6 uppercase tracking-tighter text-left">e.g. Instagram, Xiaohongshu, Facebook, YouTube, X, Threads, Blog</p>
                            </div>
                            <span class="w-fit text-[10px] bg-[#d4af37]/10 text-[#d4af37] px-2 py-0.5 rounded border border-[#d4af37]/20 whitespace-nowrap">Choose any one</span>
                        </div>
@@ -285,7 +285,7 @@
 
            if(!isValid) return;
 
-           // --- Enhanced time logic: Standardize Taiwan time format for Google Sheets ---
+           // --- Enhanced Time Logic: Standardize Taiwan time format for Google Sheets ---
            const now = new Date();
            const options = {
                year: 'numeric',
@@ -304,7 +304,7 @@
            const partMap = {};
            parts.forEach(p => partMap[p.type] = p.value);
            
-           // Combine into YYYY/MM/DD HH:mm:ss (Most compatible string format for Google Sheets)
+           // Combine into YYYY/MM/DD HH:mm:ss (String format most compatible with Google Sheets)
            const twTimestamp = `${partMap.year}/${partMap.month}/${partMap.day} ${partMap.hour}:${partMap.minute}:${partMap.second}`;
 
            const formData = {
