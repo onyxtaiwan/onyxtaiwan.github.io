@@ -867,6 +867,19 @@
                        </div>
                    </div>
                    
+                   <div id="english-driver-container" class="bg-[#1a1a1a] p-3 md:p-4 rounded-lg border border-white/10 mb-4 transition-all duration-300 hidden">
+                       <label class="flex items-center gap-3 cursor-pointer">
+                           <input type="checkbox" id="englishDriver" class="accent-[#d4af37] w-5 h-5 cursor-pointer" onchange="calculatePrice()">
+                           <span class="text-xs md:text-sm font-bold text-gray-200">
+                               Upgrade to Fluent English Chauffeur
+                               <span class="text-[#d4af37] ml-1">+ TWD 500</span>
+                           </span>
+                       </label>
+                       <p class="text-[11px] text-gray-400 mt-2 pl-8 leading-relaxed">
+                           * Our standard service includes a chauffeur with basic English skills, using translation tools to ensure smooth communication.<br>
+                       </p>
+                   </div>
+
                    <div>
                        <label for="itinerary" class="block text-xs font-bold text-gray-200 mb-1">Travel Itinerary & Remarks (Optional)</label>
                        <textarea id="itinerary" rows="4" class="w-full onyx-input p-3 rounded-lg text-sm" placeholder="e.g. Visiting No.01 Itinerary, need stop for lunch,
@@ -1203,7 +1216,6 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            handleLuggageChange('all');
        };
 
-       // 保留完整的 itineraries 陣列供 prefillItinerary 呼叫
        const itineraries = [
            { id: 1, title_en: "Classic Must-Visit: Jiufen, Shifen & Yehliu", day: 1, region: "North", image_url: "./images/itinerary-01.jpg", desc: "The most comprehensive North Taiwan route. Includes the 'Yin Yang Sea' and 'Golden Waterfall' in the Gold Rush area, alongside the Queen's Head and Sky Lanterns. Ends with tea and ocean views in the lantern-lit village of Jiufen.", spots: ["Yehliu Geopark", "Yin Yang Sea", "Golden Waterfall", "Jiufen Old Street", "Shifen Waterfall", "Shifen Sky Lanterns"] },
            { id: 2, title_en: "Instagram Hotspots: Taichung City & Gaomei Wetlands", day: 1, region: "Central", image_url: "./images/itinerary-02.jpg", desc: "Designed for photography lovers. Connects the colorful Rainbow Village, a Harry Potter-style ice cream shop, creative markets, and architectural masterpieces, concluding with a spectacular sunset at the wetlands.", spots: ["Rainbow Village", "Miyahara", "Shenji New Village", "National Taichung Theater", "Gaomei Wetlands"] },
@@ -1293,6 +1305,9 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            const sameAsPickupCheckbox = document.getElementById('sameAsPickup');
            const dropoffInput = document.getElementById('dropoffLocation');
 
+           const engDriverContainer = document.getElementById('english-driver-container');
+           const engDriverCheckbox = document.getElementById('englishDriver');
+
            timeContainer.classList.remove('hidden'); 
            document.getElementById('pickupHour').classList.add('required');
            document.getElementById('pickupMinute').classList.add('required');
@@ -1318,6 +1333,12 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                        dropoffInput.value = '';
                    }
                }
+
+               if(engDriverContainer) {
+                   engDriverContainer.classList.add('hidden');
+                   if(engDriverCheckbox) engDriverCheckbox.checked = false;
+               }
+
            } else {
                label.innerHTML = 'Flight Number (Optional)';
                flightInput.classList.remove('required');
@@ -1330,6 +1351,8 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                }
                
                if(sameAsPickupContainer) sameAsPickupContainer.classList.remove('hidden');
+
+               if(engDriverContainer) engDriverContainer.classList.remove('hidden');
            }
            calculatePrice();
        };
@@ -1541,6 +1564,12 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                    }
                }
                
+               const currentSvc = document.getElementById('serviceType').value;
+               const isCharter = !(currentSvc.includes("Airport") || currentSvc.includes("One-Way"));
+               if (isCharter && document.getElementById('englishDriver') && document.getElementById('englishDriver').checked) {
+                   finalPrice += 500;
+               }
+
                updatePriceUI(finalPrice);
            };
 
@@ -1918,6 +1947,19 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
            const luggage20 = document.getElementById('luggage20').value || '0';
            const combinedLuggage = `${luggage28}x 28", ${luggage20}x 20"`;
 
+           const isCharterSvc = !(serviceType.includes("Airport") || serviceType.includes("One-Way"));
+           const isEnglishDriver = document.getElementById('englishDriver') && document.getElementById('englishDriver').checked;
+           
+           let finalItinerary = document.getElementById('itinerary').value || 'N/A';
+           
+           if (isCharterSvc) {
+               if (isEnglishDriver) {
+                   finalItinerary = "[✅ 升級：全英司機 +$500]\n" + (finalItinerary === 'N/A' ? '' : finalItinerary);
+               } else {
+                   finalItinerary = "[ℹ️ 預設：基本英文+翻譯機]\n" + (finalItinerary === 'N/A' ? '' : finalItinerary);
+               }
+           }
+
            const formData = {
                orderId: orderId,
                name: document.getElementById('name').value,
@@ -1932,7 +1974,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                pickupLocation: document.getElementById('pickupLocation').value,
                dropoffLocation: document.getElementById('dropoffLocation').value,
                flightNumber: document.getElementById('flightNumber').value || 'N/A',
-               itinerary: document.getElementById('itinerary').value || 'N/A',
+               itinerary: finalItinerary, 
                souvenir: document.getElementById('souvenir').value || 'N/A',
                referral: document.getElementById('referral').value || 'N/A',
                createdAt: new Date().toLocaleString('en-US', { timeZone: 'Asia/Taipei', hour12: false }),
@@ -2046,4 +2088,3 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
    </script>
 </body>
 </html>
-}
