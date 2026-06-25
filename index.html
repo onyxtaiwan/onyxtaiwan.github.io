@@ -872,7 +872,7 @@
                            <input type="checkbox" id="englishDriver" class="accent-[#d4af37] w-5 h-5 cursor-pointer" onchange="calculatePrice()">
                            <span class="text-xs md:text-sm font-bold text-gray-200">
                                Upgrade to Fluent English Chauffeur
-                               <span class="text-[#d4af37] ml-1">+ TWD 500</span>
+                               <span class="text-[#d4af37] ml-1">+ TWD 1000</span>
                            </span>
                        </label>
                        <p class="text-[11px] text-gray-400 mt-2 pl-8 leading-relaxed">
@@ -1567,7 +1567,7 @@ Yehliu>Jiufen>Shifen>Raohe Night Market, ...etc."></textarea>
                const currentSvc = document.getElementById('serviceType').value;
                const isCharter = !(currentSvc.includes("Airport") || currentSvc.includes("One-Way"));
                if (isCharter && document.getElementById('englishDriver') && document.getElementById('englishDriver').checked) {
-                   finalPrice += 500;
+                   finalPrice += 1000;
                }
 
                updatePriceUI(finalPrice);
