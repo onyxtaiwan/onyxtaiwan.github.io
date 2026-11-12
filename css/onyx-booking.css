@@ -1,0 +1,88 @@
+/* ONYX booking form (preview). Scoped under .obk so it cannot affect the rest of the page. */
+.obk{--bg:#0f0f0f;--panel:#161616;--panel-2:#1d1d1d;--line:#2b2b2b;--fg:#f2efe6;--muted:#9a968b;--gold:#d4af37;--gold-ink:#0f0f0f;--gold-wash:#2a2412;--req:#e5534b;--ok:#5fb878;--warn:#e6a23c;
+  color:var(--fg);font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:15px;line-height:1.5;display:flex;flex-direction:column;gap:20px;text-align:left}
+.obk *{box-sizing:border-box}
+.obk .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:22px}
+.obk .head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.obk .head b{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.obk .sub{font-size:12px;color:var(--muted)}
+.obk .rm{background:none;border:0;color:var(--muted);font:inherit;font-size:12px;cursor:pointer;text-decoration:underline}
+.obk .step{display:flex;flex-direction:column;gap:10px}
+.obk .step-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.obk .req{color:var(--req);margin-left:2px}
+.obk .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.obk .tab{background:var(--panel-2);border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:12px 8px;font:inherit;font-weight:600;cursor:pointer;text-align:center}
+.obk .tab small{display:block;font-weight:400;color:var(--muted);font-size:11px;margin-top:2px}
+.obk .tab[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-wash);color:var(--gold)}
+.obk button:focus-visible,.obk select:focus-visible,.obk input:focus-visible,.obk textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.obk .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.obk .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.obk .field{display:flex;flex-direction:column;gap:6px;min-width:0;position:relative}
+.obk .field>label,.obk .flabel{font-size:12px;color:var(--muted)}
+.obk input,.obk select,.obk textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:11px 12px;font:inherit;font-size:14px}
+.obk textarea{resize:vertical;min-height:84px}
+.obk select.empty{color:var(--muted)}
+.obk .bad{border-color:var(--req)!important}
+.obk .seg{display:grid;width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px}
+.obk .seg.two{grid-template-columns:1fr 1fr}.obk .seg.three{grid-template-columns:1fr 1fr 1fr}
+.obk .seg button{background:transparent;border:0;color:var(--muted);padding:11px 12px;border-radius:7px;font:inherit;font-weight:600;cursor:pointer}
+.obk .seg button[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink)}
+.obk .time2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.obk .route{display:flex;flex-direction:column;gap:8px}
+.obk .stop{display:flex;gap:8px;align-items:center;position:relative}
+.obk .dot{width:10px;height:10px;border-radius:50%;flex:none;border:2px solid var(--gold)}
+.obk .dot.end{background:var(--gold)}.obk .dot.mid{border-color:var(--muted)}
+.obk .fixed{flex:1;padding:11px 12px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:14px}
+.obk .addr{flex:1;position:relative;min-width:0}
+.obk .x,.obk .mapbtn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;width:42px;height:44px;cursor:pointer;flex:none;font:inherit}
+.obk .mapbtn{color:var(--gold)}
+.obk .sugg{position:absolute;left:0;right:0;top:calc(100% + 4px);background:var(--panel-2);border:1px solid var(--line);border-radius:8px;z-index:30;max-height:260px;overflow:auto;margin:0;padding:4px;list-style:none}
+.obk .sugg li{padding:9px 10px;border-radius:6px;cursor:pointer;font-size:13px}
+.obk .sugg li[aria-selected="true"],.obk .sugg li:hover{background:var(--gold-wash);color:var(--gold)}
+.obk .link{background:none;border:0;color:var(--gold);font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:2px 0;text-align:left}
+.obk .linkrow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.obk .info{background:none;border:1px solid var(--line);color:var(--muted);border-radius:50%;width:20px;height:20px;font-size:11px;font-weight:700;cursor:pointer;line-height:1;padding:0}
+.obk .infobox{font-size:12px;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.obk .hint{font-size:12px;color:var(--muted)}
+.obk .msg{font-size:12px}.obk .msg.ok{color:var(--ok)}.obk .msg.warn{color:var(--warn)}.obk .msg.stop{color:var(--req)}
+.obk .vehicle{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:14px;background:var(--bg)}
+.obk .vehicle .head b{font-size:12px}
+.obk .cars{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;border-radius:10px}
+.obk .cars.bad{outline:1px solid var(--req);outline-offset:4px}
+.obk .car{background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:12px 10px;cursor:pointer;color:var(--fg);font:inherit;text-align:left;display:flex;flex-direction:column;gap:6px}
+.obk .car[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-wash)}
+.obk .car .name{font-weight:600;font-size:13px}
+.obk .car .cap{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.obk .car .price{font-weight:700;font-size:15px;color:var(--gold);font-variant-numeric:tabular-nums;min-height:1.5em}
+.obk .car .price.wait{color:var(--line)}
+.obk .row-pax{display:grid;grid-template-columns:1.2fr 1fr 1fr 1.3fr;gap:12px}
+.obk .check{display:flex;gap:10px;align-items:center;font-size:14px;cursor:pointer}
+.obk .check input{width:18px;height:18px;accent-color:var(--gold);flex:none;padding:0}
+.obk .kids{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:10px}
+.obk .line-total{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;font-variant-numeric:tabular-nums}
+.obk .line-total .amt{font-weight:700}
+.obk .trip-total{border-top:1px solid var(--line);padding-top:14px}.obk .trip-total .amt{font-size:20px}
+.obk .badge{font-size:11px;color:var(--warn);border:1px solid var(--warn);border-radius:999px;padding:2px 8px;margin-left:6px;white-space:nowrap}
+.obk .gift{font-size:12px;color:var(--ok)}
+.obk .addtrip{align-self:flex-start;background:none;border:1px solid var(--line);color:var(--gold);border-radius:999px;padding:8px 16px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.obk .addtrip:hover{border-color:var(--gold)}
+.obk .promo{display:grid;grid-template-columns:1fr auto;gap:8px}
+.obk .promo button{background:var(--panel-2);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:0 16px;font:inherit;font-weight:600;cursor:pointer}
+.obk .summary{display:flex;flex-direction:column;gap:6px;font-variant-numeric:tabular-nums}
+.obk .summary div{display:flex;justify-content:space-between;gap:12px}
+.obk .summary .muted{color:var(--muted);font-size:13px}
+.obk .summary .total{font-size:22px;font-weight:700;color:var(--gold)}
+.obk .small{font-size:12px;color:var(--muted)}.obk .small a{color:var(--gold)}
+.obk .formerr{border:1px solid var(--req);color:var(--req);border-radius:8px;padding:10px 12px;font-size:13px}
+.obk .rush{font-size:12px;color:var(--warn)}
+.obk .btn{border-radius:10px;padding:14px 16px;font:inherit;font-weight:700;cursor:pointer;width:100%}
+.obk .btn.gold{background:var(--gold);border:0;color:var(--gold-ink);font-size:16px}
+.obk .btn.gold[disabled]{opacity:.6;cursor:wait}
+.obk .btn.wa{background:#25D366;border:0;color:#fff;text-decoration:none;text-align:center;display:block}
+.obk .included{border-top:1px solid var(--line);padding-top:10px}
+.obk .included ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:12px;display:grid;gap:4px}
+.obk ol.touch{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px}
+@media (max-width:640px){.obk .cars{grid-template-columns:1fr 1fr}.obk .row-pax{grid-template-columns:1fr 1fr}.obk .grid,.obk .grid3{grid-template-columns:1fr}.obk .tabs{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.obk *{transition:none!important}}
+.obk [hidden]{display:none!important}
+.obk a{color:var(--gold);text-decoration:underline}
