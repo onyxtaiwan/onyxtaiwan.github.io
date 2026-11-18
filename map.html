@@ -5,14 +5,17 @@
 .box{position:absolute;z-index:1000;left:12px;top:12px;max-width:330px;background:#fff;color:#1b1b1b;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.25);padding:12px 14px}
 .box h1{font-size:16px;margin:0 0 6px}.box p{margin:4px 0}.k{display:inline-block;width:12px;height:12px;border-radius:50%;vertical-align:-1px;margin-right:4px}
 .box button{margin:6px 6px 0 0;padding:5px 10px;border:1px solid #ccc;border-radius:6px;background:#f6f6f6;cursor:pointer;font:inherit}
-.small{color:#666;font-size:12px}.rbox{margin-top:10px;border-top:1px solid #eee;padding-top:8px}.rbox input{width:100%}@media (max-width:600px){.box{left:8px;right:8px;top:auto;bottom:16px;max-width:none}}</style></head><body>
+.small{color:#666;font-size:12px}.rbox{margin-top:10px;border-top:1px solid #eee;padding-top:8px}.rbox input{width:100%}.box{max-height:calc(100% - 40px);overflow:auto}@media (max-width:600px){.box{left:8px;right:8px;top:auto;bottom:16px;max-width:none}}</style></head><body>
 <div id="map"></div>
 <div class="box"><h1>ONYX 計價區域地圖</h1>
 <p><span class="k" style="background:#d04040"></span>高山 <span class="k" style="background:#a040d0"></span>清境 <span class="k" style="background:#ff8000"></span>中山 <span class="k" style="background:#2080d0"></span>偏遠（接送） <span class="k" style="background:#333"></span>人工報價</p>
 <p class="small">點任何一個圈看加價和半徑。點地圖上任一地點（例如飯店），會顯示它在哪些圈內、離清境中心幾 km。右上角可開關圖層。</p>
 <button id="qj">看清境</button><button id="all">看全台</button>
-<div class="rbox"><label for="r">試調清境圈半徑：<b id="rv">3.5</b> km（目前設定 3.5）</label><input id="r" type="range" min="2" max="8" step="0.5" value="3.5">
-<p class="small" id="gap"></p></div></div>
+<div class="rbox"><p class="small">點一個圈就能調它的大小（只是試看，不會改到計價）。</p>
+<label for="r">調整：<b id="rn"></b><br>半徑 <b id="rv"></b> km（目前設定 <span id="r0"></span>）</label><input id="r" type="range" min="1" max="15" step="0.5">
+<p class="small" id="gap"></p>
+<div id="chg" hidden><p class="small"><b>已調整</b>（傳給我就能改進計價）：</p><textarea id="chgt" readonly rows="3" style="width:100%;font:12px ui-monospace,Menlo,monospace"></textarea>
+<button id="cp">複製</button><button id="rs">全部還原</button></div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (function(){
@@ -26,8 +29,8 @@ osm.on('tileerror',function(){if(++bad===3){map.removeLayer(osm);L.tileLayer('ht
 var groups={'高山圈':L.layerGroup(),'清境':L.layerGroup(),'中山圈':L.layerGroup(),'偏遠景點（接送）':L.layerGroup(),'人工報價':L.layerGroup()};
 var GN={high:'高山圈',qj:'清境',mid:'中山圈',remote:'偏遠景點（接送）',manual:'人工報價'};
 var all=D.mountain.concat(D.remote,D.manual), QC=null;
-all.forEach(function(z){var c=L.circle([z.lat,z.lng],{radius:z.km*1000,color:C[z.t],weight:2,fillOpacity:z.t==='qj'?.22:.12});
-  c.on('click',function(e){L.DomEvent.stopPropagation(e);show(e.latlng);});
+all.forEach(function(z){z.km0=z.km;var c=L.circle([z.lat,z.lng],{radius:z.km*1000,color:C[z.t],weight:2,fillOpacity:z.t==='qj'?.22:.12});
+  z.c=c; c.on('click',function(e){L.DomEvent.stopPropagation(e);pick(z);show(e.latlng);});
   if(z.t==='qj')QC=c;
   c.addTo(groups[GN[z.t]]); L.circleMarker([z.lat,z.lng],{radius:3,color:C[z.t],weight:1,fillOpacity:1}).addTo(groups[GN[z.t]]);});
 Object.keys(groups).forEach(function(k){groups[k].addTo(map)});
@@ -39,13 +42,20 @@ function show(ll){var p={lat:ll.lat,lng:ll.lng};
   var inside=all.filter(function(z){return km(p,z)<=z.km}).map(function(z){return '<b>'+z.n+'</b>：'+z.info+'<br><span style="color:#666">半徑 '+z.km+' km，這個點離中心 '+km(p,z).toFixed(1)+' km</span>'});
   L.popup().setLatLng(ll).setContent('<b>點選位置</b> '+p.lat.toFixed(5)+', '+p.lng.toFixed(5)+' · <a target="_blank" href="https://www.google.com/maps?q='+p.lat.toFixed(5)+','+p.lng.toFixed(5)+'">Google 地圖</a><br>離清境中心 '+km(p,Q).toFixed(1)+' km（清境圈半徑 '+Q.km+' km）<hr style="border:0;border-top:1px solid #ddd">'+(inside.length?inside.join('<br>'):'不在任何圈內（不加山區、偏遠費）')).openOn(map);}
 map.on('click',function(e){show(e.latlng);});
-// try a different Qingjing radius: redraw the circle and show the gap to the nearest circles (negative = overlap)
-var NB=['Aowanda','Hehuanshan / Wuling Pass','Huisun Forest'].map(function(n){return all.filter(function(z){return z.n===n})[0];});
-var ZH={'Aowanda':'奧萬大','Hehuanshan / Wuling Pass':'合歡山','Huisun Forest':'惠蓀'};
-function setR(v){Q.km=v;QC.setRadius(v*1000);document.getElementById('rv').textContent=v;
-  document.getElementById('gap').innerHTML='和旁邊的圈相距：'+NB.map(function(z){var g=km(Q,z)-v-z.km;return ZH[z.n]+' '+(g<0?'<b style=\"color:#c00\">重疊 '+(-g).toFixed(1)+' km</b>':g.toFixed(1)+' km');}).join('、');}
-document.getElementById('r').oninput=function(){setR(Number(this.value));};
-setR(3.5);
+// try another radius for any circle: pick it, drag the slider; the gap to the nearest circles shows (negative = overlap)
+var ZH={high:'高山',qj:'清境',mid:'中山',remote:'偏遠',manual:'人工報價'}, sel=null;
+function pick(z){if(sel)sel.c.setStyle({weight:2});sel=z;z.c.setStyle({weight:4});
+  document.getElementById('rn').textContent=z.n+'（'+ZH[z.t]+'）';document.getElementById('r0').textContent=z.km0+' km';
+  document.getElementById('r').value=z.km;upd();}
+function upd(){var z=sel,v=z.km;document.getElementById('rv').textContent=v;
+  var nb=all.filter(function(o){return o!==z}).map(function(o){return {o:o,g:km(z,o)-v-o.km}}).sort(function(a,b){return a.g-b.g}).slice(0,3);
+  document.getElementById('gap').innerHTML='最近的圈：'+nb.map(function(x){return x.o.n+' '+(x.g<0?'<b style=\"color:#c00\">重疊 '+(-x.g).toFixed(1)+' km</b>':'相距 '+x.g.toFixed(1)+' km')}).join('、');
+  var ch=all.filter(function(o){return o.km!==o.km0}).map(function(o){return o.n+'：'+o.km0+' → '+o.km+' km'});
+  document.getElementById('chg').hidden=!ch.length;document.getElementById('chgt').value=ch.join('\n');}
+document.getElementById('r').oninput=function(){sel.km=Number(this.value);sel.c.setRadius(sel.km*1000);upd();};
+document.getElementById('cp').onclick=function(){var t=document.getElementById('chgt');t.select();try{navigator.clipboard.writeText(t.value).catch(function(){document.execCommand('copy')})}catch(e){document.execCommand('copy')}this.textContent='已複製';var b=this;setTimeout(function(){b.textContent='複製'},1500);};
+document.getElementById('rs').onclick=function(){all.forEach(function(o){o.km=o.km0;o.c.setRadius(o.km*1000)});upd();};
+pick(Q);
 document.getElementById('qj').onclick=function(){map.setView([Q.lat,Q.lng],12)};
 document.getElementById('all').onclick=function(){map.setView([23.7,121.0],8)};
 map.setView([Q.lat,Q.lng],12);
