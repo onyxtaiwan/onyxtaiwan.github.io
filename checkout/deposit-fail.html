@@ -2,15 +2,17 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
+   <script>/* browsers without WebP (old iPhone / Mac Safari): show the JPG (or PNG) copy instead */document.addEventListener('error',function(e){var t=e.target;if(!t||t.tagName!=='IMG')return;var s=t.getAttribute('src')||'',n=t.getAttribute('data-fb');if(!n&&/\.webp$/.test(s)){t.setAttribute('data-fb','1');t.src=s.replace(/\.webp$/,'.jpg');}else if(n==='1'&&/\.jpg$/.test(s)){t.setAttribute('data-fb','2');t.src=s.replace(/\.jpg$/,'.png');}},true);</script>
+   <script>/* keep hyphenated words (28-inch, Must-Visit) on one line */window.onyxKeepWords=function(root){if(!root||!document.createTreeWalker)return;var w=document.createTreeWalker(root,4,null),n,a=[];while((n=w.nextNode())){var p=n.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA|OPTION|TITLE|NOSCRIPT)$/.test(p.nodeName)||(p.className&&String(p.className).indexOf('kw')>=0))continue;if(/[A-Za-z0-9]-[A-Za-z0-9]/.test(n.nodeValue))a.push(n);}a.forEach(function(n){var s=n.nodeValue,re=/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+/g,m,i=0,f=document.createDocumentFragment();while((m=re.exec(s))){var L=m[0].length,bf=s.charAt(m.index-1),af=s.charAt(m.index+L),af2=s.charAt(m.index+L+1);if(L>20||/[@\/_.]/.test(bf)||/[@\/_]/.test(af)||(/[.:]/.test(af)&&/[A-Za-z0-9]/.test(af2)))continue;if(m.index>i)f.appendChild(document.createTextNode(s.slice(i,m.index)));var k=document.createElement('span');k.className='kw';k.style.whiteSpace='nowrap';k.textContent=m[0];f.appendChild(k);i=m.index+m[0].length;}if(i<s.length)f.appendChild(document.createTextNode(s.slice(i)));var p=n.parentNode,d=getComputedStyle(p).display;if(/flex|grid/.test(d)){var o=document.createElement('span');o.className='kw-box';o.appendChild(f);p.replaceChild(o,n);}else p.replaceChild(f,n);});};document.addEventListener('DOMContentLoaded',function(){onyxKeepWords(document.body);});</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="../images/favicon-32.png" type="image/png" sizes="32x32">
+   <link rel="apple-touch-icon" href="../images/icon.png">
     <title>Payment Not Completed | ONYX Taiwan</title>
     <meta name="robots" content="noindex">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../css/site.css?v=2026-11-25">
+    <link rel="preload" href="../fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin>
+    <script defer src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
 
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -32,14 +34,14 @@
             <h1 class="text-2xl font-bold text-white mb-2">Payment Not Completed</h1>
             <p class="text-sm text-gray-300 leading-relaxed mb-6">The payment was not completed. Your booking request is saved.<br>You can try again with the payment link in your confirmation email, or contact us on WhatsApp.</p>
             <a id="retry" href="../pay.html" class="w-full block bg-[#d4af37] text-[#0f0f0f] py-3.5 rounded-lg font-bold mb-3">Try again</a>
-            <a id="wa" href="https://wa.me/886970326591" target="_blank" rel="noopener" class="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd5b] text-white py-3.5 rounded-lg font-bold"><i data-lucide="message-circle" class="w-5 h-5"></i> Get help on WhatsApp</a>
+            <a id="wa" href="https://wa.me/886970326591" target="_blank" rel="noopener" class="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd5b] text-[#0f0f0f] py-3.5 rounded-lg font-bold"><i data-lucide="message-circle" class="w-5 h-5"></i> Get help on WhatsApp</a>
         </div>
     </main>
     <script>
-        const id = new URLSearchParams(location.search).get('order') || '';
-        document.getElementById('retry').href = '../pay.html?order=' + encodeURIComponent(id);
+        const qs = new URLSearchParams(location.search), id = qs.get('order') || '', k = qs.get('k') || '';
+        document.getElementById('retry').href = '../pay.html?order=' + encodeURIComponent(id) + '&k=' + encodeURIComponent(k);
         document.getElementById('wa').href = 'https://wa.me/886970326591?text=' + encodeURIComponent('Hi ONYX! My payment for ' + id + ' did not go through. Can you help?');
     </script>
-    <script>lucide.createIcons();</script>
+    <script>document.addEventListener('DOMContentLoaded', function () { if (window.lucide) lucide.createIcons(); });</script>
 </body>
 </html>

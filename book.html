@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+   <meta charset="UTF-8">
+   <script>/* browsers without WebP (old iPhone / Mac Safari): show the JPG (or PNG) copy instead */document.addEventListener('error',function(e){var t=e.target;if(!t||t.tagName!=='IMG')return;var s=t.getAttribute('src')||'',n=t.getAttribute('data-fb');if(!n&&/\.webp$/.test(s)){t.setAttribute('data-fb','1');t.src=s.replace(/\.webp$/,'.jpg');}else if(n==='1'&&/\.jpg$/.test(s)){t.setAttribute('data-fb','2');t.src=s.replace(/\.jpg$/,'.png');}},true);</script>
+   <script>/* keep hyphenated words (28-inch, Must-Visit) on one line */window.onyxKeepWords=function(root){if(!root||!document.createTreeWalker)return;var w=document.createTreeWalker(root,4,null),n,a=[];while((n=w.nextNode())){var p=n.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA|OPTION|TITLE|NOSCRIPT)$/.test(p.nodeName)||(p.className&&String(p.className).indexOf('kw')>=0))continue;if(/[A-Za-z0-9]-[A-Za-z0-9]/.test(n.nodeValue))a.push(n);}a.forEach(function(n){var s=n.nodeValue,re=/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+/g,m,i=0,f=document.createDocumentFragment();while((m=re.exec(s))){var L=m[0].length,bf=s.charAt(m.index-1),af=s.charAt(m.index+L),af2=s.charAt(m.index+L+1);if(L>20||/[@\/_.]/.test(bf)||/[@\/_]/.test(af)||(/[.:]/.test(af)&&/[A-Za-z0-9]/.test(af2)))continue;if(m.index>i)f.appendChild(document.createTextNode(s.slice(i,m.index)));var k=document.createElement('span');k.className='kw';k.style.whiteSpace='nowrap';k.textContent=m[0];f.appendChild(k);i=m.index+m[0].length;}if(i<s.length)f.appendChild(document.createTextNode(s.slice(i)));var p=n.parentNode,d=getComputedStyle(p).display;if(/flex|grid/.test(d)){var o=document.createElement('span');o.className='kw-box';o.appendChild(f);p.replaceChild(o,n);}else p.replaceChild(f,n);});};document.addEventListener('DOMContentLoaded',function(){onyxKeepWords(document.body);});</script>
+   <meta name="robots" content="noindex, follow">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+   <link rel="apple-touch-icon" href="images/icon.png">
+   <title>Book Your Ride | ONYX Taiwan</title>
+   <link rel="canonical" href="https://onyxtaiwan.com/book.html">
+   <meta name="description" content="Get your price and book a private car in Taiwan: airport transfers, city transfers and private charters. Fixed price, tolls and parking included.">
+
+   <meta property="og:type" content="website">
+   <meta property="og:site_name" content="ONYX Taiwan Private Travel">
+   <meta property="og:url" content="https://onyxtaiwan.com/book.html">
+   <meta property="og:title" content="Book Your Ride | ONYX Taiwan">
+   <meta property="og:description" content="Get your price and book a private car in Taiwan: airport transfers, city transfers and private charters. Fixed price, tolls and parking included.">
+   <meta property="og:image" content="https://onyxtaiwan.com/images/og-cover.jpg">
+   <meta property="og:image:width" content="1200">
+   <meta property="og:image:height" content="630">
+   <meta property="og:image:alt" content="ONYX Taiwan Premium Private Charter Fleet">
+
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="twitter:url" content="https://onyxtaiwan.com/book.html">
+   <meta name="twitter:title" content="Book Your Ride | ONYX Taiwan">
+   <meta name="twitter:description" content="Get your price and book a private car in Taiwan: airport transfers, city transfers and private charters. Fixed price, tolls and parking included.">
+   <meta name="twitter:image" content="https://onyxtaiwan.com/images/og-cover.jpg">
+
+   <link rel="stylesheet" href="css/site.css?v=2026-11-25">
+
+   <link rel="preload" href="fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin>
+
+
+   <script defer src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
+
+   <link rel="stylesheet" href="css/onyx-booking.css?v=2026-11-23">
+   <script>
+       // Google Maps loads only when needed (booking form near the screen, or the map picker): faster first view
+       window.onyxMapsReady = window.onyxMapsReady || function () {};
+       window.onyxMapsLoaded = new Promise(function (r) { window.__onyxMapsDone = r; });
+       // Maps blocked (ad blocker, firewall), key refused, or nothing after 20 s: the form offers WhatsApp instead; it clears itself if Maps arrives later
+       window.onyxMapsState = function (failed) {
+           if (!!window.onyxMapsFailed === !!failed) return;
+           window.onyxMapsFailed = failed || '';
+           try { window.dispatchEvent(new Event('onyx-maps')); } catch (e) { /* very old browser */ }
+       };
+       window.gm_authFailure = function () { window.onyxMapsState('key'); };
+       window.onyxMapsCb = function () { window.__onyxMapsOk = true; window.onyxMapsState(''); window.__onyxMapsDone(); window.onyxMapsReady(); };
+       window.onyxLoadMaps = function () {
+           if (window.__onyxMapsReq) return window.onyxMapsLoaded;
+           window.__onyxMapsReq = true;
+           var s = document.createElement('script'); s.async = true;
+           s.onerror = function () { window.onyxMapsState('blocked'); };
+           setTimeout(function () { if (!window.__onyxMapsOk) window.onyxMapsState('slow'); }, 20000);
+           s.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAL-5H4MI0pWS3ks5f6t9R5SwjZeXIM9uM&v=weekly&loading=async&libraries=places,routes,elevation,geocoding&callback=onyxMapsCb';
+           document.head.appendChild(s);
+           return window.onyxMapsLoaded;
+       };
+   </script>
+
+   <style>
+       body { font-family: 'Inter', sans-serif; }
+       ::-webkit-scrollbar { width: 8px; height: 8px; }
+       ::-webkit-scrollbar-track { background: #0f0f0f; }
+       ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
+       ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+       
+       .onyx-input {
+           background-color: #161616;
+           border: 1px solid #555;
+           color: #ffffff;
+           transition: all 0.3s ease;
+       }
+       .onyx-input::placeholder {
+           color: #9ca3af;
+       }
+       .onyx-input:focus {
+           border-color: #d4af37;
+           background-color: #1a1a1a;
+           box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+           outline: none;
+       }
+
+       
+       .pac-container {
+           background-color: #1a1a1a !important;
+           border: 1px solid #444 !important;
+           border-radius: 4px !important;
+           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8) !important;
+           font-family: 'Inter', sans-serif !important;
+           z-index: 999999 !important;
+           pointer-events: auto !important;
+       }
+       .pac-item {
+           color: #e5e5e5 !important;
+           border-top: 1px solid #333 !important;
+           padding: 10px !important;
+           cursor: pointer !important;
+       }
+       .pac-item:hover {
+           background-color: #2a2a2a !important;
+       }
+       .pac-item-query {
+           color: #d4af37 !important;
+           font-weight: bold !important;
+       }
+
+       .hide-scroll-mobile::-webkit-scrollbar {
+           display: none;
+       }
+       .hide-scroll-mobile {
+           -ms-overflow-style: none;
+           scrollbar-width: none;
+       }
+       
+       select option:disabled {
+           color: #555;
+           background-color: #111;
+           font-style: italic;
+       }
+   </style>
+
+</head>
+<body class="bg-[#0f0f0f] text-gray-200 antialiased selection:bg-[#d4af37] selection:text-[#0f0f0f]">
+
+   <div class="fixed top-0 w-full h-10 bg-[#111] border-b border-white/10 z-[60] flex justify-between items-center px-4">
+       <div class="text-[10px] md:text-xs text-gray-300 font-medium tracking-wider hidden md:block">
+           PREMIUM CHAUFFEUR SERVICES IN TAIWAN
+       </div>
+       <div class="flex items-center justify-end w-full md:w-auto">
+           <div class="flex items-center gap-1.5">
+               <i data-lucide="circle-dollar-sign" class="w-3.5 h-3.5 text-[#d4af37]"></i>
+               <select id="global-currency-select" aria-label="Select Currency" class="bg-transparent text-base sm:text-sm font-bold text-[#d4af37] focus:outline-none cursor-pointer appearance-none h-10 px-1" onchange="changeCurrency(this.value)">
+                   <option value="usd" class="bg-[#111] text-white" selected>USD ($)</option>
+                   <option value="aud" class="bg-[#111] text-white">AUD (A$)</option>
+                   <option value="cad" class="bg-[#111] text-white">CAD (C$)</option>
+                   <option value="cny" class="bg-[#111] text-white">CNY (¥)</option>
+                   <option value="eur" class="bg-[#111] text-white">EUR (€)</option>
+                   <option value="gbp" class="bg-[#111] text-white">GBP (£)</option>
+                   <option value="hkd" class="bg-[#111] text-white">HKD (HK$)</option>
+                   <option value="idr" class="bg-[#111] text-white">IDR (Rp)</option>
+                   <option value="jpy" class="bg-[#111] text-white">JPY (¥)</option>
+                   <option value="krw" class="bg-[#111] text-white">KRW (₩)</option>
+                   <option value="myr" class="bg-[#111] text-white">MYR (RM)</option>
+                   <option value="nzd" class="bg-[#111] text-white">NZD (NZ$)</option>
+                   <option value="php" class="bg-[#111] text-white">PHP (₱)</option>
+                   <option value="sgd" class="bg-[#111] text-white">SGD (S$)</option>
+                   <option value="thb" class="bg-[#111] text-white">THB (฿)</option>
+                   <option value="vnd" class="bg-[#111] text-white">VND (₫)</option>
+               </select>
+           </div>
+       </div>
+   </div>
+
+   <nav aria-label="Main" class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/10 top-10">
+       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex-shrink-0 flex items-center" aria-label="ONYX Taiwan home">
+                    <span class="text-2xl font-bold text-white tracking-widest uppercase mr-3">
+                        ONYX <span class="text-[#d4af37]">TAIWAN</span>
+                    </span>
+                </a>
+                <div class="hidden lg:block">
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="about.html" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Our Story</a>
+                        <a href="itineraries.html" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Itineraries</a>
+                        <a href="index.html#fleet" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Fleet & Pricing</a>
+                        <a href="index.html#reviews" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Reviews</a>
+                        <a href="#contact" class="bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 ml-2">Book Now</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex lg:hidden">
+                    <button type="button" aria-label="Open Mobile Menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center w-11 h-11 rounded-md text-[#d4af37] hover:text-white focus:outline-none">
+                        <i data-lucide="menu"></i>
+                    </button>
+                </div>
+           </div>
+       </div>
+       <div class="hidden lg:hidden bg-[#0a0a0a] border-b border-white/10" id="mobile-menu">
+           <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="about.html" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Our Story</a>
+                <a href="itineraries.html" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Itineraries</a>
+                <a href="index.html#fleet" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Fleet & Pricing</a>
+                <a href="index.html#reviews" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Reviews</a>
+                <a href="#contact" class="text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium font-bold mt-2">Book Now</a>
+           </div>
+       </div>
+   </nav>
+
+   <main id="contact" class="pt-32 md:pt-36 pb-16 md:pb-24 bg-[#0a0a0a] relative min-h-screen">
+       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div class="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] p-6 md:p-12 rounded-2xl border border-white/10 shadow-2xl">
+               <div class="text-center mb-10">
+                   <h1 class="text-3xl font-bold text-white mb-2">Get Your Price &amp; Book</h1>
+               </div>
+
+               <div id="onyx-booking"></div>
+
+               <div class="mt-8 border-t border-white/10 pt-6">
+                   <button class="w-full flex justify-center items-center gap-2 text-gray-300 hover:text-[#d4af37] transition-colors text-[11px] uppercase tracking-wider font-bold py-2" onclick="toggleAccordion('policy-accordion')">
+                       <span>Booking Terms</span>
+                       <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" id="icon-policy-accordion"></i>
+                   </button>
+                   <div id="policy-accordion" class="hidden mt-4 p-4 bg-[#0a0a0a] rounded-lg border border-white/5 text-[11px] text-gray-300 text-left leading-relaxed"><span id="booking-terms"></span>
+                       <p class="text-[#d4af37] font-bold mb-1">Cancellation (deposit)</p>
+                       <ul class="list-disc pl-5 space-y-1 mb-3">
+                           <li>7 days (168 hours) or more before pick-up: full deposit refund.</li>
+                           <li>3 to 7 days (72 to 168 hours) before pick-up: 50% of the deposit refunded.</li>
+                           <li>Less than 72 hours before pick-up, or no-show: deposit not refunded.</li>
+                           <li>Refunds are made in TWD to your original payment method. Exchange-rate differences are not covered.</li>
+                       </ul>
+                       <p class="text-[#d4af37] font-bold mb-1">Changes &amp; no-shows</p>
+                       <ul class="list-disc pl-5 space-y-1 mb-3">
+                           <li>Free changes to date, time or flight up to 48 hours before pick-up. A new route is re-quoted.</li>
+                           <li>Arrivals: if we can't reach you 60 minutes after landing, the booking counts as a no-show.</li>
+                           <li>Short-notice bookings (48–72 hours) are confirmed once a vehicle is available. If none is available, your deposit is fully refunded.</li>
+                           <li>If we can't confirm your booking, your deposit is fully refunded.</li>
+                       </ul>
+                       <p class="text-[#d4af37] font-bold mb-1">On the day</p>
+                       <ul class="list-disc pl-5 space-y-1 mb-3">
+                           <li>Balance is paid in cash (TWD) to your chauffeur.</li>
+                           <li>Free waiting: 60 minutes after landing for arrivals, 15 minutes for other pick-ups. After that, overtime is charged by the hour. Flight delays are not charged.</li>
+                           <li>Transfers: stops added on the day are TWD 500 each plus TWD 25 per extra km. Charters: changes on the day may add a mileage &amp; mountain surcharge.</li>
+                           <li>Transfer stops: up to 15 minutes each. For longer visits, please book a charter.</li>
+                           <li>Charters: overtime is charged after the hours shown in your booking. Days with a mountain fee include 1 extra hour.</li>
+                           <li>Cleaning fee for vomiting or smoking: TWD 2,000. Pets must travel in a carrier and be declared in advance.</li>
+                           <li>Children aged 0–4 must use a child seat (Taiwan law). A stroller counts as 2 × 28-inch suitcases, a wheelchair as 3; both need a Premium Van.</li>
+                           <li>Prices are charged in TWD. Converted prices are for reference only. Lunar New Year (Feb 3–11, 2027): +50%.</li>
+                       </ul>
+                       <p class="text-[#d4af37] font-bold mb-1">Force Majeure (Weather &amp; Flight Disruptions)</p>
+                       <p class="mb-3">In the event of flight cancellations due to severe weather (e.g., typhoons) or other force majeure events, please contact us immediately. We will offer a free rescheduling or a full refund upon verification of the official flight cancellation status.</p>
+                       <p class="text-[#d4af37] font-bold mb-1">How to Request a Cancellation</p>
+                       <p>To cancel your booking or request a refund, please contact us directly via Email or WhatsApp. Approved refunds will be processed back to the original payment method within 14-28 business days.</p>
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       <div id="wa-float-wrapper" class="fixed bottom-6 right-6 z-50 flex items-center justify-end cursor-pointer group">
+           <div id="wa-float-text" class="absolute right-full mr-4 bg-gradient-to-r from-[#1a1a1a] to-[#2a2a2a] text-white text-xs px-4 py-2.5 rounded-xl opacity-0 md:group-hover:opacity-100 pointer-events-none md:group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap border border-[#25D366]/40 shadow-lg shadow-[#25D366]/10 transform translate-x-4 md:translate-x-0 md:group-hover:translate-x-0 flex items-center gap-2">
+               <span class="flex h-2 w-2 relative">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-[#25D366]"></span>
+               </span>
+               <span class="font-bold tracking-wide">Personal Support</span>
+           </div>
+           <div class="flex items-center justify-center bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-[0_0_15px_rgba(37,211,102,0.4)] md:group-hover:shadow-[0_0_25px_rgba(37,211,102,0.6)] md:group-hover:scale-110 transition-all duration-300">
+               <i data-lucide="message-circle" class="w-6 h-6 md:w-7 md:h-7"></i>
+           </div>
+       </div>
+   </main>
+
+   <div id="map-modal" class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex overflow-y-auto overscroll-contain p-4 transition-opacity">
+       <div class="m-auto bg-[#1a1a1a] w-full max-w-lg rounded-xl overflow-hidden flex flex-col border border-white/20 shadow-2xl">
+           
+           <div class="p-4 border-b border-white/10 flex justify-between items-center bg-[#111]">
+               <h3 class="text-white font-bold flex items-center gap-2">
+                   <i data-lucide="map-pin" class="text-[#d4af37] w-5 h-5"></i>
+                   Select Location on Map
+               </h3>
+               <button onclick="closeMapModal()" aria-label="Close Map" class="text-gray-300 hover:text-white transition-colors bg-white/5 p-1 rounded">
+                   <i data-lucide="x" class="w-5 h-5"></i>
+               </button>
+           </div>
+           
+           <div class="p-3 bg-[#0f0f0f]">
+               <div class="flex gap-2">
+                   <input type="text" id="map-search-input" class="w-full onyx-input p-2.5 rounded-lg text-base sm:text-sm" placeholder="Search a place (e.g. Taipei 101, TPE Airport)" enterkeyhint="search" onkeydown="if (event.key === 'Enter') { event.preventDefault(); searchOnMap(); }">
+                   <button type="button" id="map-search-btn" onclick="searchOnMap()" class="bg-[#2a2a2a] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0f0f0f] px-4 rounded-lg text-sm font-bold transition-colors">
+                       Search
+                   </button>
+               </div>
+               <p id="map-search-msg" class="text-xs text-red-400 mt-2 empty:hidden" role="status"></p>
+               <p class="text-xs text-gray-400 mt-2">Drag the pin or tap the map to choose the exact spot.</p>
+           </div>
+           
+           <div id="map-container" class="h-[clamp(9rem,42vh,16rem)] sm:h-[clamp(9rem,45vh,20rem)] w-full bg-[#0a0a0a]"></div>
+           
+           <div class="p-4 border-t border-white/10 bg-[#111]">
+               <p class="text-xs text-gray-300 mb-1 font-bold">Selected Address:</p>
+               <p id="map-selected-address" class="text-sm text-[#d4af37] font-medium mb-4 min-h-[2.5rem] leading-snug">
+                   Drag the pin or tap the map.
+               </p>
+               <button onclick="confirmMapLocation()" class="w-full bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-3 rounded-lg font-bold transition-all shadow-lg flex justify-center items-center gap-2">
+                   <i data-lucide="check" class="w-4 h-4"></i> Confirm Location
+               </button>
+           </div>
+       </div>
+   </div>
+
+   <footer class="bg-black py-8 border-t border-white/10 text-center">
+       <div class="max-w-7xl mx-auto px-4">
+           
+           <span class="text-xl font-bold text-white tracking-widest uppercase block mb-4">
+               ONYX <span class="text-[#d4af37]">TAIWAN</span>
+           </span>
+           
+           <div class="flex items-center justify-center gap-3 md:gap-4 mb-6">
+               <span class="text-xs text-gray-300 font-bold uppercase tracking-widest">Get in Touch:</span>
+               <div class="flex space-x-6">
+                   <a href="https://www.facebook.com/profile.php?id=61586931347980" aria-label="Facebook" target="_blank" class="text-gray-300 hover:text-[#d4af37] transition-transform hover:scale-110">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                   </a>
+                   <a href="https://www.instagram.com/onyxtaiwan" aria-label="Instagram" target="_blank" class="text-gray-300 hover:text-[#d4af37] transition-transform hover:scale-110">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                   </a>
+                   <a href="https://wa.me/886970326591" aria-label="WhatsApp" target="_blank" class="text-gray-300 hover:text-[#25D366] transition-transform hover:scale-110">
+                       <i data-lucide="message-circle" class="w-8 h-8"></i>
+                   </a>
+               </div>
+           </div>
+           
+           <div class="text-gray-400 text-xs space-y-2">
+               <p class="text-sm text-gray-300 grid grid-cols-2 justify-items-center gap-x-4 gap-y-2 sm:flex sm:flex-wrap sm:justify-center">
+                   <a href="https://wa.me/886970326591" target="_blank" rel="noopener" class="col-span-2 sm:col-span-1 hover:text-[#25D366] transition-colors py-1">WhatsApp +886 970 326 591</a>
+                   <a href="https://www.facebook.com/profile.php?id=61586931347980" target="_blank" rel="noopener" class="hover:text-[#d4af37] transition-colors py-1">Facebook</a>
+                   <a href="https://www.instagram.com/onyxtaiwan" target="_blank" rel="noopener" class="hover:text-[#d4af37] transition-colors py-1">Instagram</a>
+               </p>
+               <p class="text-sm grid grid-cols-2 justify-items-center gap-x-4 gap-y-2 sm:flex sm:flex-wrap sm:justify-center">
+                   <a href="itineraries.html" class="hover:text-[#d4af37] transition-colors py-1">Itineraries</a>
+                   <a href="taoyuan-airport-transfer.html" class="hover:text-[#d4af37] transition-colors py-1">Airport Transfers</a>
+                   <a href="about.html" class="hover:text-[#d4af37] transition-colors py-1">Our Story</a>
+                   <a href="#booking-terms" onclick="var a=document.getElementById('policy-accordion');if(a &amp;&amp; a.classList.contains('hidden'))toggleAccordion('policy-accordion')" class="hover:text-[#d4af37] transition-colors py-1">Booking Terms</a>
+               </p>
+               <p>Email: <a href="mailto:onyxtaiwan.official@gmail.com" class="hover:text-[#d4af37] transition-colors">onyxtaiwan.official@gmail.com</a></p>
+               <p>© 2026 ONYX Taiwan Private Chauffeur. <span class="whitespace-nowrap">All rights reserved.</span></p>
+           </div>
+       </div>
+   </footer>
+
+   <div id="loading-overlay" class="fixed inset-0 z-[200] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center transition-opacity">
+       <div class="text-center flex flex-col items-center">
+           <i data-lucide="loader-2" class="w-12 h-12 text-[#d4af37] animate-spin mb-4"></i>
+           <p class="text-white font-bold text-lg tracking-widest animate-pulse">Processing Booking...</p>
+           <p class="text-[#d4af37] text-xs mt-2 italic">Please do not close this window</p>
+       </div>
+   </div>
+
+   <script src="js/onyx-config.js?v=2026-11-23"></script>
+   <script src="js/onyx-analytics.js?v=2026-11-23"></script>
+   <script>
+       window.ONYX_BOOKING_CONFIG = {
+           // the new ONYX GAS (orders, promo codes, payments): set in js/onyx-config.js
+           GAS_URL: (window.ONYX_SETTINGS || {}).GAS_URL || "",
+           // promo check: the new GAS (the 優惠碼 PromoCodes tab of the new order sheet). No GAS_URL = promo codes off
+           PROMO_GAS_URL: (window.ONYX_SETTINGS || {}).GAS_URL || "",
+           PAYPAL_CLIENT_ID: (window.ONYX_SETTINGS || {}).PAYPAL_CLIENT_ID || "",   // set in js/onyx-config.js
+           // backup only: when the GAS could not save or email a booking, it is sent to you here
+           FORMSUBMIT_URL: "https://formsubmit.co/ajax/onyxtaiwan.official@gmail.com",
+           FORMSUBMIT_CC: "treetea3322@gmail.com",
+           WHATSAPP: "886970326591",
+           FLIGHTDB_URL: "flightdb.json",
+           PAY_PAGE_URL: "https://onyxtaiwan.com/pay.html",
+           SUCCESS_URL: "checkout/deposit-success.html",
+           FAIL_URL: "checkout/deposit-fail.html"
+       };
+       let exchangeRates = {};
+       let targetCurrency = 'usd';
+
+       const fallbackRates = {
+           usd: 0.031, eur: 0.029, cny: 0.22, jpy: 4.65, krw: 42.5,
+           thb: 1.05, idr: 490.0, php: 1.75, vnd: 780.0, myr: 0.14, sgd: 0.041,
+           aud: 0.047, cad: 0.043, gbp: 0.024, hkd: 0.24, nzd: 0.052
+       };
+
+       async function initCurrency() {
+           startCurrency();
+           try {
+               const res = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/twd.json');
+               const data = await res.json();
+               exchangeRates = (data && data.twd && data.twd.usd) ? data.twd : fallbackRates;   // unexpected data: use the built-in rates
+           } catch (e) {
+               console.warn("Currency API failed, using fallback rates.");
+               exchangeRates = fallbackRates;
+           }
+           updatePricingDisplay();
+       }
+
+       // first visit: pick the visitor's currency from their time zone, then their browser language; USD when we don't have it
+       function guessCurrency() {
+           let tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+           const TZ = { 'Australia/': 'aud', 'Pacific/Auckland': 'nzd', 'Europe/London': 'gbp', 'Asia/Hong_Kong': 'hkd', 'Asia/Tokyo': 'jpy', 'Asia/Seoul': 'krw',
+               'Asia/Shanghai': 'cny', 'Asia/Singapore': 'sgd', 'Asia/Kuala_Lumpur': 'myr', 'Asia/Kuching': 'myr', 'Asia/Jakarta': 'idr', 'Asia/Makassar': 'idr', 'Asia/Jayapura': 'idr',
+               'Asia/Bangkok': 'thb', 'Asia/Ho_Chi_Minh': 'vnd', 'Asia/Saigon': 'vnd', 'Asia/Manila': 'php', 'America/Toronto': 'cad', 'America/Vancouver': 'cad',
+               'America/Edmonton': 'cad', 'America/Winnipeg': 'cad', 'America/Halifax': 'cad', 'America/Regina': 'cad', 'America/St_Johns': 'cad' };
+           for (const k in TZ) if (tz === k || (k.endsWith('/') && tz.indexOf(k) === 0)) return TZ[k];
+           const EURO_TZ = /^Europe\/(Amsterdam|Athens|Berlin|Bratislava|Brussels|Dublin|Helsinki|Lisbon|Ljubljana|Luxembourg|Madrid|Malta|Monaco|Paris|Riga|Rome|Tallinn|Vienna|Vilnius|Zagreb|Nicosia|Andorra|San_Marino|Vatican)$/;
+           if (EURO_TZ.test(tz)) return 'eur';
+           const langs = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || '']).map(l => String(l).toLowerCase());
+           const L = { 'en-au': 'aud', 'en-nz': 'nzd', 'en-gb': 'gbp', 'zh-hk': 'hkd', 'en-ca': 'cad', 'fr-ca': 'cad', 'zh-cn': 'cny', 'ja': 'jpy', 'ko': 'krw', 'ms': 'myr', 'en-my': 'myr',
+               'id': 'idr', 'th': 'thb', 'vi': 'vnd', 'fil': 'php', 'tl': 'php', 'en-ph': 'php', 'en-sg': 'sgd', 'zh-sg': 'sgd', 'de': 'eur', 'fr': 'eur', 'it': 'eur', 'es-es': 'eur', 'nl': 'eur', 'fi': 'eur', 'pt-pt': 'eur', 'el': 'eur' };
+           for (const l of langs) { if (L[l]) return L[l]; const base = l.split('-')[0]; if (L[base] && !(base === 'fr' && l === 'fr-ca')) return L[base]; }
+           return 'usd';
+       }
+       function startCurrency() {
+           let c = ''; try { c = localStorage.getItem('onyx-currency') || ''; } catch (e) {}
+           const sel = document.getElementById('global-currency-select');
+           if (!c || !sel.querySelector('option[value="' + c + '"]')) c = guessCurrency();
+           sel.value = c; targetCurrency = c; applyCurrencyHeader();
+       }
+       function applyCurrencyHeader() {
+           const selectEl = document.getElementById('global-currency-select');
+           const symbol = selectEl.options[selectEl.selectedIndex].text.split(' ')[0];
+           const th = document.getElementById('th-custom-currency'); if (th) { th.innerText = symbol; th.style.display = targetCurrency === 'usd' ? 'none' : ''; }
+       }
+       window.changeCurrency = function(currency) {
+           targetCurrency = currency;
+           try { localStorage.setItem('onyx-currency', currency); } catch (e) {}
+           applyCurrencyHeader();
+           updatePricingDisplay();
+       }
+
+       window.updatePricingDisplay = function() {
+           const usdRate = exchangeRates['usd'] || fallbackRates['usd'];
+           const customRate = exchangeRates[targetCurrency] || fallbackRates[targetCurrency];
+           const selectEl = document.getElementById('global-currency-select');
+           const customSymbol = selectEl.options[selectEl.selectedIndex].text.split(' ')[0];
+
+           document.querySelectorAll('.price-usd').forEach(el => {
+               const base = parseInt(el.getAttribute('data-base'));
+               el.innerText = `USD ${Math.round(base * usdRate).toLocaleString()}+`;
+           });
+           
+           document.querySelectorAll('.price-custom').forEach(el => {
+               const base = parseInt(el.getAttribute('data-base'));
+               el.innerText = `${customSymbol} ${Math.round(base * customRate).toLocaleString()}+`;
+               // USD is always shown: no second column when USD is the chosen currency
+               const cell = el.closest('td') || el; cell.style.display = targetCurrency === 'usd' ? 'none' : '';
+               // phone cards: the "|" between USD and the chosen currency goes too
+               const sep = !el.closest('td') && el.previousElementSibling; if (sep && sep.textContent.trim() === '|') sep.style.display = targetCurrency === 'usd' ? 'none' : '';
+           });
+           // the booking form shows its converted prices in the same currency
+           document.dispatchEvent(new CustomEvent('onyx:currency'));
+
+       }
+
+
+       // Reference conversion shown under the total
+       window.onyxConvert = function(twd) {
+           const usdRate = exchangeRates['usd'] || fallbackRates['usd'];
+           const customRate = exchangeRates[targetCurrency] || fallbackRates[targetCurrency];
+           const selectEl = document.getElementById('global-currency-select');
+           const sym = selectEl ? selectEl.options[selectEl.selectedIndex].text.split(' ')[0] : targetCurrency.toUpperCase();
+           // the currency chosen at the top first, then USD for reference
+           const n = v => Math.round(v).toLocaleString('en-US');
+           return '≈ ' + sym + ' ' + n(twd * customRate) + (targetCurrency !== 'usd' ? ' · USD ' + n(twd * usdRate) : '');
+       };
+
+       // itinerary data: js/onyx-tours.js (window.ONYX_TOURS); plan = where the guest stays (tour pages pass it)
+       window.prefillItinerary = function(id, plan) {
+           if (!window.ONYX_BOOKING || !window.ONYX_BOOKING.prefillItinerary(id, plan)) return;
+           const contact = document.getElementById('contact');
+           if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+       };
+
+       window.scrollItinerary = function(direction) {
+           const container = document.getElementById('itinerary-teaser-container');
+           const scrollAmount = container.clientWidth * 0.85; 
+           container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+       };
+
+       window.toggleAccordion = function(id) {
+           const content = document.getElementById(id);
+           const icon = document.getElementById('icon-' + id);
+           if (content.classList.contains('hidden')) {
+               content.classList.remove('hidden');
+               icon.style.transform = 'rotate(180deg)';
+           } else {
+               content.classList.add('hidden');
+               icon.style.transform = 'rotate(0deg)';
+           }
+       };
+       
+       let pickerMap = null;
+       let pickerMarker = null;
+       let geocoder = null;
+       let targetInputField = null;
+       let selectedAddressString = ""; 
+
+       window.initOrOpenMap = initOrOpenMap;
+       window.addEventListener('onyx-maps', function () {
+           var t = document.getElementById('map-selected-address');
+           if (window.onyxMapsFailed && t && t.innerText === 'Loading map...') t.innerText = "The map isn't loading on your network. Close this and message us on WhatsApp to book.";
+       });
+       function initOrOpenMap(inputId) {
+           if (!window.google || !google.maps || !google.maps.Map) {
+               document.getElementById('map-modal').classList.remove('hidden');
+               document.getElementById('map-selected-address').innerText = window.onyxMapsFailed ? "The map isn't loading on your network. Close this and message us on WhatsApp to book." : "Loading map...";
+               window.onyxLoadMaps().then(function () { initOrOpenMap(inputId); });
+               return;
+           }
+           targetInputField = inputId;
+           document.getElementById('map-modal').classList.remove('hidden');
+           document.getElementById('map-selected-address').innerText = "Loading map...";
+           document.getElementById('map-search-msg').textContent = '';
+
+           setTimeout(() => {
+               if (!geocoder) geocoder = new google.maps.Geocoder();
+
+               // start at the address already in this field; otherwise where the pin was last time, or Taipei 101
+               const cur = window.ONYX_BOOKING && window.ONYX_BOOKING.getAddress ? window.ONYX_BOOKING.getAddress(inputId) : null;
+               const hasCur = cur && typeof cur.lat === 'number' && typeof cur.lng === 'number';
+               const defaultPos = hasCur ? { lat: cur.lat, lng: cur.lng } : { lat: 25.0330, lng: 121.5654 };
+
+               if (!pickerMap) {
+                   pickerMap = new google.maps.Map(document.getElementById('map-container'), {
+                       center: defaultPos, zoom: 14, mapTypeId: 'roadmap',
+                       disableDefaultUI: true, zoomControl: true,
+                       styles: [
+                           { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+                           { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+                           { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+                           { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] },
+                           { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#d59563" }] },
+                           { featureType: "road", elementType: "geometry", stylers: [{ color: "#38414e" }] },
+                           { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#212a37" }] },
+                           { featureType: "road", elementType: "labels.text.fill", stylers: [{ color: "#9ca5b3" }] },
+                           { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#746855" }] },
+                           { featureType: "road.highway", elementType: "labels.text.fill", stylers: [{ color: "#f3d19c" }] },
+                           { featureType: "water", elementType: "geometry", stylers: [{ color: "#17263c" }] },
+                           { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#515c6d" }] }
+                       ]
+                   });
+
+                   pickerMarker = new google.maps.Marker({
+                       position: defaultPos, map: pickerMap, draggable: true,
+                       icon: 'images/map-pin-gold.png'   // our own pin (shipped in images/)
+                   });
+
+                   pickerMarker.addListener('dragend', function() {
+                       const pos = pickerMarker.getPosition();
+                       reverseGeocode(pos.lat(), pos.lng());
+                   });
+
+                   pickerMap.addListener('click', function(e) {
+                       pickerMarker.setPosition(e.latLng);
+                       reverseGeocode(e.latLng.lat(), e.latLng.lng());
+                   });
+                   
+                   reverseGeocode(defaultPos.lat, defaultPos.lng);
+               } else {
+                   if (hasCur) { pickerMarker.setPosition(defaultPos); pickerMap.setCenter(defaultPos); }
+                   const pos = pickerMarker.getPosition();
+                   reverseGeocode(pos.lat(), pos.lng());
+               }
+               const si = document.getElementById('map-search-input'); if (si && window.innerWidth >= 768) si.focus();
+           }, 100);
+       }
+
+       function reverseGeocode(lat, lng) {
+           document.getElementById('map-selected-address').innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin inline-block mr-1"></i> Resolving address...';
+           if (window.lucide) lucide.createIcons();
+           
+           geocoder.geocode({ location: { lat, lng } }, (results, status) => {
+               if (status === "OK" && results[0]) {
+                   selectedAddressString = results[0].formatted_address;
+                   document.getElementById('map-selected-address').innerText = selectedAddressString;
+               } else {
+                   // no street address here (mountains, coast): use the pin's coordinates
+                   selectedAddressString = 'Pinned location (' + lat.toFixed(5) + ', ' + lng.toFixed(5) + ')';
+                   document.getElementById('map-selected-address').innerText = selectedAddressString;
+               }
+           });
+       }
+
+       function searchOnMap() {
+           const query = document.getElementById('map-search-input').value.trim();
+           const msg = document.getElementById('map-search-msg'); msg.textContent = '';
+           if (!query || !geocoder) return;
+
+           const searchBtn = document.getElementById('map-search-btn');
+           searchBtn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>';
+           if (window.lucide) lucide.createIcons();
+           
+           geocoder.geocode({ address: query, region: 'tw', componentRestrictions: { country: 'TW' } }, (results, status) => {
+               if (status === "OK" && results[0]) {
+                   const loc = results[0].geometry.location;
+                   pickerMap.setCenter(loc);
+                   pickerMap.setZoom(16);
+                   pickerMarker.setPosition(loc);
+                   selectedAddressString = results[0].formatted_address;
+                   document.getElementById('map-selected-address').innerText = selectedAddressString;
+               } else {
+                   msg.textContent = 'Place not found. Try another name, or drag the pin.';
+               }
+               searchBtn.innerText = 'Search';
+           });
+       }
+
+       function confirmMapLocation() {
+           if (selectedAddressString && pickerMarker && window.ONYX_BOOKING) {
+               const pos = pickerMarker.getPosition();
+               window.ONYX_BOOKING.setAddress(targetInputField, selectedAddressString, pos.lat(), pos.lng());
+           }
+           closeMapModal();
+       }
+
+       function closeMapModal() {
+           document.getElementById('map-modal').classList.add('hidden');
+       }
+       document.addEventListener('keydown', function (e) {
+           if (e.key === 'Escape' && !document.getElementById('map-modal').classList.contains('hidden')) closeMapModal();
+       });
+
+       document.addEventListener('DOMContentLoaded', function() {
+           (function () {
+               var c = document.getElementById('contact');
+               if (!c || !('IntersectionObserver' in window)) { window.onyxLoadMaps(); return; }
+               var io = new IntersectionObserver(function (es) { if (es.some(function (x) { return x.isIntersecting; })) { io.disconnect(); window.onyxLoadMaps(); } }, { rootMargin: '800px 0px' });
+               io.observe(c);
+               c.addEventListener('focusin', function () { window.onyxLoadMaps(); }, { once: true });
+           })();
+           initCurrency();
+           if (window.lucide) lucide.createIcons();
+           const qs = new URLSearchParams(window.location.search), itiId = parseInt(qs.get('itinerary_id'));
+           if (itiId) setTimeout(() => prefillItinerary(itiId, qs.get('plan')), 300);
+       });
+
+       // Phone menu: close it after a link is tapped, otherwise it stays open over the section
+       document.querySelectorAll('#mobile-menu a').forEach(function (a) {
+           a.addEventListener('click', function () { document.getElementById('mobile-menu').classList.add('hidden'); });
+       });
+
+
+
+       const waWrapper = document.getElementById('wa-float-wrapper');
+       const waText = document.getElementById('wa-float-text');
+       let isWaExpanded = false;
+       let waTimeout;
+
+       if(waWrapper && waText) {
+           waWrapper.addEventListener('click', function(e) {
+               const isMobile = window.innerWidth < 768; 
+               
+               if (isMobile) {
+                   if (!isWaExpanded) {
+                       isWaExpanded = true;
+                       waText.classList.remove('opacity-0', 'translate-x-4', 'pointer-events-none');
+                       waText.classList.add('opacity-100', 'translate-x-0');
+                       
+                       clearTimeout(waTimeout);
+                       waTimeout = setTimeout(() => {
+                           isWaExpanded = false;
+                           waText.classList.remove('opacity-100', 'translate-x-0');
+                           waText.classList.add('opacity-0', 'translate-x-4', 'pointer-events-none');
+                       }, 4000);
+                   } else {
+                       window.open("https://wa.me/886970326591", "_blank");
+                       
+                       isWaExpanded = false;
+                       waText.classList.remove('opacity-100', 'translate-x-0');
+                       waText.classList.add('opacity-0', 'translate-x-4', 'pointer-events-none');
+                   }
+               } else {
+                   window.open("https://wa.me/886970326591", "_blank");
+               }
+           });
+       }
+   </script>
+   <script src="js/onyx-geo.js?v=2026-11-24"></script>
+   <script src="js/onyx-pricing.js?v=2026-11-25b"></script>
+   <script src="js/onyx-flight.js?v=2026-11-23"></script>
+   <script src="js/onyx-tours.js?v=2026-11-23"></script>
+   <script src="js/onyx-booking.js?v=2026-11-25c"></script>
+</body>
+</html>

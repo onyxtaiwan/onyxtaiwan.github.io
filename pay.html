@@ -2,15 +2,17 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
+   <script>/* browsers without WebP (old iPhone / Mac Safari): show the JPG (or PNG) copy instead */document.addEventListener('error',function(e){var t=e.target;if(!t||t.tagName!=='IMG')return;var s=t.getAttribute('src')||'',n=t.getAttribute('data-fb');if(!n&&/\.webp$/.test(s)){t.setAttribute('data-fb','1');t.src=s.replace(/\.webp$/,'.jpg');}else if(n==='1'&&/\.jpg$/.test(s)){t.setAttribute('data-fb','2');t.src=s.replace(/\.jpg$/,'.png');}},true);</script>
+   <script>/* keep hyphenated words (28-inch, Must-Visit) on one line */window.onyxKeepWords=function(root){if(!root||!document.createTreeWalker)return;var w=document.createTreeWalker(root,4,null),n,a=[];while((n=w.nextNode())){var p=n.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA|OPTION|TITLE|NOSCRIPT)$/.test(p.nodeName)||(p.className&&String(p.className).indexOf('kw')>=0))continue;if(/[A-Za-z0-9]-[A-Za-z0-9]/.test(n.nodeValue))a.push(n);}a.forEach(function(n){var s=n.nodeValue,re=/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+/g,m,i=0,f=document.createDocumentFragment();while((m=re.exec(s))){var L=m[0].length,bf=s.charAt(m.index-1),af=s.charAt(m.index+L),af2=s.charAt(m.index+L+1);if(L>20||/[@\/_.]/.test(bf)||/[@\/_]/.test(af)||(/[.:]/.test(af)&&/[A-Za-z0-9]/.test(af2)))continue;if(m.index>i)f.appendChild(document.createTextNode(s.slice(i,m.index)));var k=document.createElement('span');k.className='kw';k.style.whiteSpace='nowrap';k.textContent=m[0];f.appendChild(k);i=m.index+m[0].length;}if(i<s.length)f.appendChild(document.createTextNode(s.slice(i)));var p=n.parentNode,d=getComputedStyle(p).display;if(/flex|grid/.test(d)){var o=document.createElement('span');o.className='kw-box';o.appendChild(f);p.replaceChild(o,n);}else p.replaceChild(f,n);});};document.addEventListener('DOMContentLoaded',function(){onyxKeepWords(document.body);});</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+   <link rel="apple-touch-icon" href="images/icon.png">
     <title>Pay Deposit | ONYX Taiwan</title>
     <meta name="robots" content="noindex">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/site.css?v=2026-11-25">
+    <link rel="preload" href="fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin>
+    <script defer src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
 
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -32,21 +34,22 @@
             <p class="text-sm text-gray-400 mb-5">Order <strong class="text-[#d4af37]" id="oid">—</strong></p>
             <div id="box" class="text-sm text-gray-300">Loading…</div>
             <div id="paypal" class="mt-5"></div>
+            <p id="paynote" class="mt-3 text-xs text-gray-400" role="status"></p>
             <a href="https://wa.me/886970326591" target="_blank" rel="noopener" class="block mt-5 text-[#25D366] text-sm underline">Questions? WhatsApp us</a>
         </div>
     </main>
-    <script src="js/onyx-config.js?v=2026-11-12"></script>
+    <script src="js/onyx-config.js?v=2026-11-23"></script>
    <script>
         // set in js/onyx-config.js
-        const PAYMENT_GAS_URL = (window.ONYX_SETTINGS || {}).PAYMENT_GAS_URL || "";
+        const PAYMENT_GAS_URL = (window.ONYX_SETTINGS || {}).GAS_URL || "";
         const PAYPAL_CLIENT_ID = (window.ONYX_SETTINGS || {}).PAYPAL_CLIENT_ID || "";
-        const id = new URLSearchParams(location.search).get('order') || '';
+        const qs = new URLSearchParams(location.search), id = qs.get('order') || '', k = qs.get('k') || '';
         const box = document.getElementById('box');
         document.getElementById('oid').textContent = id || '—';
         const post = b => fetch(PAYMENT_GAS_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(b) }).then(r => r.json());
         const fmt = n => 'TWD ' + Number(n).toLocaleString('en-US');
         if (!id || !PAYMENT_GAS_URL || !PAYPAL_CLIENT_ID) { box.textContent = 'This payment link is not active yet. Please contact us on WhatsApp.'; }
-        else post({ action: 'status', orderId: id }).then(r => {
+        else post({ action: 'status', orderId: id, k: k }).then(r => {
             if (!r.ok) { box.textContent = 'We could not find this booking. Please contact us on WhatsApp.'; return; }
             if (r.status === 'Paid') { box.innerHTML = '<p class="text-green-400 font-bold">This deposit is already paid. Thank you!</p>'; return; }
             box.innerHTML = '<div class="flex justify-between"><span>Total</span><span>' + fmt(r.total) + '</span></div><div class="flex justify-between text-white font-bold text-lg mt-1"><span>Deposit</span><span>' + fmt(r.deposit) + '</span></div><div class="flex justify-between mt-1"><span>Balance (cash to chauffeur)</span><span>' + fmt(r.total - r.deposit) + '</span></div>';
@@ -54,14 +57,15 @@
             s.src = 'https://www.paypal.com/sdk/js?client-id=' + encodeURIComponent(PAYPAL_CLIENT_ID) + '&currency=TWD&intent=capture&components=buttons';
             s.onload = () => paypal.Buttons({
                 style: { color: 'gold', shape: 'rect', label: 'pay' },
-                createOrder: () => post({ action: 'create', orderId: id }).then(x => { if (!x.ok) throw new Error(x.error); return x.paypalOrderId; }),
-                onApprove: d => post({ action: 'capture', orderId: id, paypalOrderId: d.orderID }).then(x => { location.href = (x.ok ? 'checkout/deposit-success.html' : 'checkout/deposit-fail.html') + '?order=' + encodeURIComponent(id); }),
-                onError: () => { location.href = 'checkout/deposit-fail.html?order=' + encodeURIComponent(id); }
+                createOrder: () => post({ action: 'create', orderId: id, k: k }).then(x => { if (!x.ok) throw new Error(x.error); return x.paypalOrderId; }),
+                onApprove: d => post({ action: 'capture', orderId: id, k: k, paypalOrderId: d.orderID }).then(x => { location.href = (x.ok ? 'checkout/deposit-success.html' : 'checkout/deposit-fail.html') + '?order=' + encodeURIComponent(id) + '&k=' + encodeURIComponent(k); }),
+                onCancel: () => { const n = document.getElementById('paynote'); if (n) n.textContent = 'Payment not completed. Your booking is saved but not confirmed until the deposit is paid — tap the button above to try again, or use this link later.'; },
+                onError: () => { location.href = 'checkout/deposit-fail.html?order=' + encodeURIComponent(id) + '&k=' + encodeURIComponent(k); }
             }).render('#paypal');
             document.head.appendChild(s);
         }).catch(() => { box.textContent = 'We could not load this payment. Please try again or contact us on WhatsApp.'; });
     </script>
 
-    <script>lucide.createIcons();</script>
+    <script>document.addEventListener('DOMContentLoaded', function () { if (window.lucide) lucide.createIcons(); });</script>
 </body>
 </html>

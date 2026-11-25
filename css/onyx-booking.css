@@ -8,15 +8,22 @@
 .obk .sub{font-size:12px;color:var(--muted)}
 .obk .rm{background:none;border:0;color:var(--muted);font:inherit;font-size:12px;cursor:pointer;text-decoration:underline}
 .obk .step{display:flex;flex-direction:column;gap:10px}
-.obk .step-label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.obk .step-label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .obk .req{color:var(--req);margin-left:2px}
 .obk .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .obk .tab{background:var(--panel-2);border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:12px 8px;font:inherit;font-weight:600;cursor:pointer;text-align:center}
-.obk .tab small{display:block;font-weight:400;color:var(--muted);font-size:11px;margin-top:2px}
+.obk .tab small{display:block;font-weight:400;color:var(--muted);font-size:12px;margin-top:2px}
 .obk .tab[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-wash);color:var(--gold)}
 .obk button:focus-visible,.obk select:focus-visible,.obk input:focus-visible,.obk textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .obk .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .obk .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.obk .grid.ovs{grid-template-columns:repeat(4,1fr)}
+.obk .othrow{display:grid;grid-template-columns:90px repeat(3,1fr);gap:12px;align-items:end}
+.obk .othrow input{-moz-appearance:textfield}
+.obk .othrow input::-webkit-outer-spin-button,.obk .othrow input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.obk .othrow .othfoot{grid-column:1 / -1;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.obk .othrow .othfoot:empty{display:none}
+.obk .othrow .othu{font-size:13px;color:var(--gold)}
 .obk .field{display:flex;flex-direction:column;gap:6px;min-width:0;position:relative}
 .obk .field>label,.obk .flabel{font-size:12px;color:var(--muted)}
 .obk input,.obk select,.obk textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:11px 12px;font:inherit;font-size:14px}
@@ -32,7 +39,7 @@
 .obk .stop{display:flex;gap:8px;align-items:center;position:relative}
 .obk .dot{width:10px;height:10px;border-radius:50%;flex:none;border:2px solid var(--gold)}
 .obk .dot.end{background:var(--gold)}.obk .dot.mid{border-color:var(--muted)}
-.obk .fixed{flex:1;padding:11px 12px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:14px}
+.obk .fixedpt{flex:1;padding:11px 12px;border:1px dashed var(--line);border-radius:8px;color:var(--muted);font-size:14px}
 .obk .addr{flex:1;position:relative;min-width:0}
 .obk .x,.obk .mapbtn{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;width:42px;height:44px;cursor:pointer;flex:none;font:inherit}
 .obk .mapbtn{color:var(--gold)}
@@ -55,7 +62,7 @@
 .obk .car .cap{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .obk .car .price{font-weight:700;font-size:15px;color:var(--gold);font-variant-numeric:tabular-nums;min-height:1.5em}
 .obk .car .price.wait{color:var(--line)}
-.obk .row-pax{display:grid;grid-template-columns:1.2fr 1fr 1fr 1.3fr;gap:12px}
+.obk .row-pax{display:grid;grid-template-columns:1.2fr 1fr 1fr 1.3fr;gap:12px;align-items:end}
 .obk .check{display:flex;gap:10px;align-items:center;font-size:14px;cursor:pointer}
 .obk .check input{width:18px;height:18px;accent-color:var(--gold);flex:none;padding:0}
 .obk .kids{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:10px}
@@ -69,8 +76,10 @@
 .obk .promo{display:grid;grid-template-columns:1fr auto;gap:8px}
 .obk .promo button{background:var(--panel-2);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:0 16px;font:inherit;font-weight:600;cursor:pointer}
 .obk .summary{display:flex;flex-direction:column;gap:6px;font-variant-numeric:tabular-nums}
-.obk .summary div{display:flex;justify-content:space-between;gap:12px}
+.obk .sumrow{display:flex;flex-wrap:wrap;justify-content:space-between;column-gap:12px;align-items:baseline}
+.obk .sumrow>span:last-child{white-space:nowrap;text-align:right;margin-left:auto}
 .obk .summary .muted{color:var(--muted);font-size:13px}
+.obk .summary .muted span:last-child{text-align:right}
 .obk .summary .total{font-size:22px;font-weight:700;color:var(--gold)}
 .obk .small{font-size:12px;color:var(--muted)}.obk .small a{color:var(--gold)}
 .obk .formerr{border:1px solid var(--req);color:var(--req);border-radius:8px;padding:10px 12px;font-size:13px}
@@ -82,7 +91,153 @@
 .obk .included{border-top:1px solid var(--line);padding-top:10px}
 .obk .included ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:12px;display:grid;gap:4px}
 .obk ol.touch{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px}
-@media (max-width:640px){.obk .cars{grid-template-columns:1fr 1fr}.obk .row-pax{grid-template-columns:1fr 1fr}.obk .grid,.obk .grid3{grid-template-columns:1fr}.obk .tabs{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.obk *{transition:none!important}}
 .obk [hidden]{display:none!important}
 .obk a{color:var(--gold);text-decoration:underline}
+.obk .hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+
+/* date picker */
+.obk .datebtn{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;background:var(--bg);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:11px 12px;font:inherit;font-size:14px;cursor:pointer;text-align:left;min-height:44px}
+.obk .datebtn.empty{color:var(--muted)}
+.obk .datebtn .ico{color:var(--gold);flex:none}
+.obk .datebtn[aria-expanded="true"]{border-color:var(--gold)}
+.obk .cal{position:absolute;top:calc(100% + 6px);left:0;z-index:40;width:312px;max-width:calc(100vw - 32px);background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:0 12px 32px rgba(0,0,0,.55);display:flex;flex-direction:column;gap:8px}
+.obk .calhead{display:flex;align-items:center;justify-content:space-between}
+.obk .calhead b{font-size:14px;color:var(--fg);letter-spacing:0;text-transform:none}
+.obk .calhead button{background:none;border:1px solid var(--line);color:var(--fg);width:36px;height:36px;border-radius:8px;font-size:18px;cursor:pointer;line-height:1}
+.obk .calhead button:disabled{opacity:.25;cursor:default}
+.obk .calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.obk .calgrid .wd{font-size:11px;color:var(--muted);padding:4px 0}
+.obk .calgrid button{position:relative;background:none;border:1px solid transparent;color:var(--fg);height:38px;border-radius:8px;font:inherit;font-size:14px;cursor:pointer;font-variant-numeric:tabular-nums}
+.obk .calgrid button:hover:not(:disabled){border-color:var(--gold)}
+.obk .calgrid button:disabled{color:#4a4741;cursor:default}
+.obk .calgrid button.today{text-decoration:underline;text-underline-offset:3px}
+.obk .calgrid button.sel{background:var(--gold);color:var(--gold-ink);font-weight:700}
+.obk .calgrid button.hol::after,.obk .holdot{content:"";position:absolute;bottom:4px;left:50%;margin-left:-2px;width:4px;height:4px;border-radius:50%;background:var(--warn)}
+.obk .holdot{position:static;display:inline-block;margin:0 2px 1px 0;vertical-align:middle}
+.obk .calnote{font-size:12px;color:var(--muted)}
+/* children */
+.obk .lawnote{font-size:13px;color:var(--fg);font-weight:600}
+/* price breakdown */
+.obk .bdlist{display:flex;flex-direction:column;gap:8px;padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:4px}
+.obk .bd{display:flex;flex-direction:column;gap:6px}
+.obk .bdhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;background:none;border:0;padding:2px 0;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;text-align:left;width:100%}
+.obk .bdhead:disabled{cursor:default}
+.obk .bdhead .amt{color:var(--fg);white-space:nowrap;font-variant-numeric:tabular-nums}
+.obk .chev{display:inline-block;width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-3px);margin-left:8px;transition:transform .15s}
+.obk [aria-expanded="false"] .chev{transform:rotate(-45deg)}
+.obk .chev.up{transform:rotate(-135deg) translate(-2px,-2px)}
+.obk [aria-expanded="true"] .chev.up{transform:rotate(45deg) translateY(-3px)}
+.obk .parts{list-style:none;margin:0;padding:0 0 0 12px;border-left:2px solid var(--line);display:flex;flex-direction:column;gap:4px}
+.obk .parts li{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--fg)}
+.obk .parts li>span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
+.obk .parts li.minus>span:last-child{color:var(--ok)}
+.obk .car[aria-disabled="true"]{opacity:.45;cursor:not-allowed}
+.obk .car .cap{line-height:1.45}
+/* phone price bar */
+.obk-bar{position:fixed;left:0;right:0;bottom:0;z-index:70;gap:0!important;background:#121212;border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(0,0,0,.5);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.obk-bar .sheet{max-height:55vh;overflow:auto;padding:4px 0 12px;margin-bottom:10px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.obk-bar .barrow{display:flex;align-items:center;gap:12px}
+.obk-bar .barinfo{flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;background:none;border:0;color:var(--fg);font:inherit;padding:0;cursor:pointer;text-align:left}
+.obk-bar .barinfo:disabled{cursor:default}
+.obk-bar .lbl{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.obk-bar .lbl em{font-style:normal}
+.obk-bar .tot{font-size:20px;font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1.2}
+.obk-bar .sub{font-size:12px;color:var(--muted)}
+.obk-bar .barbtn{width:auto;flex:none;padding:12px 18px;font-size:15px}
+body.obk-bar-on{padding-bottom:84px}
+body.obk-bar-on #wa-float-wrapper{display:none!important}
+.obk-bar .barwa{flex:none;width:46px;height:46px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;text-decoration:none}
+/* phones */
+@media (max-width:640px){
+  .obk{font-size:15px}
+  .obk .card{padding:16px;gap:20px;border-radius:12px}
+  .obk input,.obk select,.obk textarea,.obk .datebtn{font-size:16px;min-height:46px}
+  .obk .cars{grid-template-columns:1fr 1fr}
+  .obk .row-pax{grid-template-columns:1fr 1fr}
+  .obk .grid,.obk .grid3{grid-template-columns:1fr}
+  .obk .grid.ovs{grid-template-columns:1fr 1fr}
+  .obk .othrow{grid-template-columns:1fr 1fr;gap:10px}
+  .obk .othrow > .field:not(:first-child){grid-column:1 / -1}
+  .obk .tabs{grid-template-columns:repeat(3,1fr);gap:6px}
+  .obk .tab{padding:10px 4px;font-size:13px;line-height:1.25}
+  .obk .tab small{font-size:11px}
+  .obk .seg button{padding:12px 8px}
+  .obk .check{font-size:15px;min-height:32px}
+  .obk .check input{width:22px;height:22px}
+  .obk .link{font-size:14px;padding:6px 0}
+  .obk .x,.obk .mapbtn{width:46px;height:46px}
+  .obk .cal{width:100%;max-width:none}
+  .obk .calgrid button{height:42px}
+  .obk .trip-total .amt{font-size:18px}
+  .obk .info{width:30px;height:30px;font-size:13px}
+  .obk .bdhead{padding:6px 0;font-size:14px}
+  .obk .rm{padding:8px 0;font-size:13px}
+}
+.obk-bar[hidden]{display:none!important}
+.obk .signbox{margin:2px 0 0 28px}
+@media (max-width:640px){.obk .signbox{margin-left:0}}
+/* vehicle photos */
+.obk .car .carimg{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:7px;background:#e9e9e9;display:block;margin-bottom:2px}
+.obk .car .models{font-size:12px;color:var(--muted);font-style:italic;line-height:1.35}
+.obk .car[aria-disabled="true"] .carimg{filter:grayscale(1)}
+/* dialogs (review, too-long, sending) */
+.obk .modal{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:16px}
+.obk .mbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;width:100%;max-width:560px;max-height:90vh;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 20px 50px rgba(0,0,0,.6);outline:none}
+.obk .mbox.small{max-width:440px}
+.obk .mbox p{margin:0;font-size:14px;color:var(--fg)}
+.obk .mtitle{font-size:17px;color:var(--fg)}
+.obk .mbtns{display:flex;flex-direction:column;gap:8px}
+.obk .btn.ghost{background:none;border:1px solid var(--line);color:var(--fg);font-size:15px}
+.obk .rv{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.obk .rvhead{display:flex;justify-content:space-between;gap:12px;font-size:14px}
+.obk .rvhead span{white-space:nowrap;font-weight:700;color:var(--gold)}
+.obk .rv ul{margin:0;padding-left:16px;font-size:13px;color:var(--muted);display:grid;gap:3px}
+.obk .rv .arrow{color:var(--gold)}
+.obk .steps{margin:0;padding-left:20px;display:grid;gap:8px;font-size:14px;color:var(--muted)}
+.obk .steps .done{color:var(--ok)}
+.obk .steps .now{color:var(--fg);font-weight:600}
+.obk .steps .now::after{content:"";display:inline-block;width:12px;height:12px;margin-left:8px;border:2px solid var(--gold);border-right-color:transparent;border-radius:50%;animation:obkspin .8s linear infinite;vertical-align:-2px}
+@keyframes obkspin{to{transform:rotate(360deg)}}
+.obk .paycancel{border:1px solid var(--warn);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.obk .paycancel p{margin:0;font-size:13px}
+.obk .msg.vague{display:block;margin-top:4px}
+body.obk-modal-open{overflow:hidden}
+@media (max-width:640px){
+  .obk .modal{align-items:flex-end;padding:0}
+  .obk .mbox{max-width:none;border-radius:16px 16px 0 0;max-height:92vh;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+}
+.obk .tourline{margin:6px 0 0;font-size:13px;color:#e8d9a8;line-height:1.45}
+.obk .tourline small{font-size:12px;color:#aaa}
+.obk .check.off{opacity:.5;cursor:not-allowed}
+.obk .check.off input{cursor:not-allowed}
+.obk .switchbox .swq{margin:0 0 10px;color:#f87171;font-weight:600}
+.obk .switchbox .swbtns{display:flex;flex-wrap:wrap;gap:10px}
+.obk .swbtn{background:transparent;border:1px solid var(--gold);color:var(--gold);border-radius:8px;padding:9px 16px;font-weight:700;font-size:14px;cursor:pointer;min-height:44px}
+.obk .swbtn:hover{background:var(--gold);color:var(--gold-ink)}
+.obk .mapsdown{margin-top:10px;font-size:13px;color:var(--fg);border-color:var(--gold)}
+.obk .mapsdown p{margin:0 0 10px}
+.obk .mapsdown .btn{display:inline-flex;width:auto}
+.obk textarea{min-height:100px}
+body.obk-typing .obk-bar,body.obk-typing #wa-float-wrapper{display:none!important}
+.obk .nw{white-space:nowrap}
+.obk .grid{align-items:end}
+.obk .seg button{white-space:nowrap}
+@media (max-width:359px){.obk .seg button{padding:11px 4px;font-size:14px}.obk .seg.three{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.obk .modal .mbox,.obk .summary,.obk .rv{overflow-wrap:anywhere}
+/* price breakdown: item + smaller grey line under it; amounts stay on the right; extra time */
+.obk .parts .plbl{flex:1 1 auto;min-width:0}
+.obk .parts .pamt{flex:0 0 auto;padding-left:12px}
+.obk .parts .psub{display:block;color:var(--muted);font-size:.86em;line-height:1.35;margin-top:2px}
+.obk .parts .phr{color:var(--gold)}
+.obk .parts li.phours{border-top:1px solid var(--line);margin-top:6px;padding-top:8px}
+.obk .parts li.phours>span:last-child{font-weight:700}
+.obk .bdhead .ttl{flex:1 1 auto;min-width:0;text-align:left}
+.obk .chev{margin-right:4px}
+@media (max-width:640px){.obk .bdhead .t2{display:block;font-size:.92em;margin-top:2px}.obk .bdhead .tsep{display:none}}
+/* bigger tap areas without changing the look: an invisible hit box around small controls */
+.obk .link,.obk .info,.obk .check{position:relative}
+.obk .link::before{content:"";position:absolute;left:50%;top:50%;width:max(100%,44px);height:max(100%,44px);transform:translate(-50%,-50%)}
+.obk .info::before{content:"";position:absolute;left:0;top:50%;width:44px;height:44px;transform:translateY(-50%)}   /* grows to the right only: the link before it keeps its own taps */
+.obk .check{z-index:0}   /* own layer: its hit box stays behind the checkbox and text */
+.obk .check::before{content:"";position:absolute;left:0;right:0;top:50%;height:max(100%,32px);transform:translateY(-50%);z-index:-1}

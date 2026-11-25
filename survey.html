@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <script>/* browsers without WebP (old iPhone / Mac Safari): show the JPG (or PNG) copy instead */document.addEventListener('error',function(e){var t=e.target;if(!t||t.tagName!=='IMG')return;var s=t.getAttribute('src')||'',n=t.getAttribute('data-fb');if(!n&&/\.webp$/.test(s)){t.setAttribute('data-fb','1');t.src=s.replace(/\.webp$/,'.jpg');}else if(n==='1'&&/\.jpg$/.test(s)){t.setAttribute('data-fb','2');t.src=s.replace(/\.jpg$/,'.png');}},true);</script>
+   <script>/* keep hyphenated words (28-inch, Must-Visit) on one line */window.onyxKeepWords=function(root){if(!root||!document.createTreeWalker)return;var w=document.createTreeWalker(root,4,null),n,a=[];while((n=w.nextNode())){var p=n.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA|OPTION|TITLE|NOSCRIPT)$/.test(p.nodeName)||(p.className&&String(p.className).indexOf('kw')>=0))continue;if(/[A-Za-z0-9]-[A-Za-z0-9]/.test(n.nodeValue))a.push(n);}a.forEach(function(n){var s=n.nodeValue,re=/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+/g,m,i=0,f=document.createDocumentFragment();while((m=re.exec(s))){var L=m[0].length,bf=s.charAt(m.index-1),af=s.charAt(m.index+L),af2=s.charAt(m.index+L+1);if(L>20||/[@\/_.]/.test(bf)||/[@\/_]/.test(af)||(/[.:]/.test(af)&&/[A-Za-z0-9]/.test(af2)))continue;if(m.index>i)f.appendChild(document.createTextNode(s.slice(i,m.index)));var k=document.createElement('span');k.className='kw';k.style.whiteSpace='nowrap';k.textContent=m[0];f.appendChild(k);i=m.index+m[0].length;}if(i<s.length)f.appendChild(document.createTextNode(s.slice(i)));var p=n.parentNode,d=getComputedStyle(p).display;if(/flex|grid/.test(d)){var o=document.createElement('span');o.className='kw-box';o.appendChild(f);p.replaceChild(o,n);}else p.replaceChild(f,n);});};document.addEventListener('DOMContentLoaded',function(){onyxKeepWords(document.body);});</script>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+   <link rel="apple-touch-icon" href="images/icon.png">
+   <title>How Was Your Trip? | ONYX Taiwan</title>
+   <meta name="robots" content="noindex, nofollow">
+   <meta name="description" content="Tell us about your trip with ONYX Taiwan. It takes about one minute.">
+   <link rel="preload" href="fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin>
+   <link rel="stylesheet" href="css/site.css?v=2026-11-25">
+   <style>
+       body { font-family: 'Inter', sans-serif; }
+       [hidden] { display: none !important; }   /* layout classes (grid, space-y) must not undo "hidden" */
+       /* 1–5 stars: radio buttons, shown right to left so "checked ~ label" colours the lower stars */
+       .stars { display: inline-flex; flex-direction: row-reverse; justify-content: flex-end; gap: 2px; }
+       .stars input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+       .stars label { font-size: 34px; line-height: 1; color: #6b6b6b; cursor: pointer; padding: 4px 3px; transition: color .15s; }
+       .stars input:checked ~ label, .stars label:hover, .stars label:hover ~ label { color: #d4af37; }
+       .stars input:focus-visible + label { outline: 2px solid #d4af37; outline-offset: 2px; border-radius: 4px; }
+       .nps { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 6px; }
+       @media (max-width: 480px) { .nps { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+       .nps input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+       .nps label { display: flex; align-items: center; justify-content: center; height: 44px; border: 1px solid #3a3a3a; border-radius: 8px; color: #ddd; cursor: pointer; font-weight: 600; }
+       .nps input:checked + label { background: #d4af37; border-color: #d4af37; color: #0f0f0f; }
+       .nps input:focus-visible + label { outline: 2px solid #d4af37; outline-offset: 2px; }
+       .q.bad { border-color: #f87171 !important; }
+       .field { width: 100%; background: #161616; border: 1px solid #555; color: #fff; border-radius: 8px; padding: 11px 12px; font-size: 16px; }
+       .field:focus { outline: none; border-color: #d4af37; box-shadow: 0 0 0 2px rgba(212,175,55,.25); }
+   </style>
+</head>
+<body class="bg-[#0f0f0f] text-gray-200 antialiased">
+   <header class="border-b border-white/10 bg-[#0a0a0a]">
+       <div class="max-w-2xl mx-auto px-4 h-16 flex items-center justify-between">
+           <a href="index.html" class="text-xl font-bold text-white tracking-widest uppercase">ONYX <span class="text-[#d4af37]">TAIWAN</span></a>
+           <a href="https://wa.me/886970326591" target="_blank" rel="noopener" class="text-sm font-bold text-gray-300 hover:text-[#25D366]">WhatsApp</a>
+       </div>
+   </header>
+
+   <main class="max-w-2xl mx-auto px-4 py-10">
+       <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">How was your trip?</h1>
+       <p class="text-gray-300 mb-1">It takes about one minute. Your answers go straight to our team.</p>
+       <p id="ref-line" class="text-sm text-gray-400 mb-8" hidden>Booking <span id="ref-text" class="text-gray-200"></span></p>
+       <div id="ref-gap" class="mb-8"></div>
+
+       <form id="survey" novalidate class="space-y-5">
+           <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="absolute -left-[9999px] w-px h-px">
+
+           <fieldset class="q rounded-xl border border-white/10 bg-[#151515] p-5" data-q="overall">
+               <legend class="sr-only">Overall rating</legend>
+               <p class="font-semibold text-white mb-2"><span class="text-[#d4af37]">1.</span> Overall, how was your trip with ONYX?</p>
+               <div class="stars" role="radiogroup" aria-label="Overall, 1 to 5 stars" data-stars="overall"></div>
+           </fieldset>
+
+           <fieldset class="q rounded-xl border border-white/10 bg-[#151515] p-5" data-q="punctual">
+               <legend class="sr-only">On time</legend>
+               <p class="font-semibold text-white mb-2"><span class="text-[#d4af37]">2.</span> Was your chauffeur on time?</p>
+               <div class="stars" role="radiogroup" aria-label="On time, 1 to 5 stars" data-stars="punctual"></div>
+           </fieldset>
+
+           <fieldset class="q rounded-xl border border-white/10 bg-[#151515] p-5" data-q="safe">
+               <legend class="sr-only">Driving</legend>
+               <p class="font-semibold text-white mb-2"><span class="text-[#d4af37]">3.</span> How safe and comfortable was the driving?</p>
+               <div class="stars" role="radiogroup" aria-label="Safe and comfortable driving, 1 to 5 stars" data-stars="safe"></div>
+           </fieldset>
+
+           <fieldset class="q rounded-xl border border-white/10 bg-[#151515] p-5" data-q="friendly">
+               <legend class="sr-only">Friendly and helpful</legend>
+               <p class="font-semibold text-white mb-2"><span class="text-[#d4af37]">4.</span> How friendly and helpful was your chauffeur?</p>
+               <div class="stars" role="radiogroup" aria-label="Friendly and helpful, 1 to 5 stars" data-stars="friendly"></div>
+           </fieldset>
+
+           <fieldset class="q rounded-xl border border-white/10 bg-[#151515] p-5" data-q="car">
+               <legend class="sr-only">The car</legend>
+               <p class="font-semibold text-white mb-2"><span class="text-[#d4af37]">5.</span> How clean and comfortable was the car?</p>
+               <div class="stars" role="radiogroup" aria-label="The car, 1 to 5 stars" data-stars="car"></div>
+           </fieldset>
+
+           <fieldset class="q rounded-xl border border-white/10 bg-[#151515] p-5" data-q="booking">
+               <legend class="sr-only">Booking and communication</legend>
+               <p class="font-semibold text-white mb-1"><span class="text-[#d4af37]">6.</span> How easy were booking and communication with us?</p>
+               <p class="text-sm text-gray-400 mb-2">Website, price, WhatsApp replies.</p>
+               <div class="stars" role="radiogroup" aria-label="Booking and communication, 1 to 5 stars" data-stars="booking"></div>
+           </fieldset>
+
+           <fieldset class="q rounded-xl border border-white/10 bg-[#151515] p-5" data-q="nps">
+               <legend class="sr-only">Recommend</legend>
+               <p class="font-semibold text-white mb-3"><span class="text-[#d4af37]">7.</span> How likely are you to recommend ONYX to a friend?</p>
+               <div class="nps" role="radiogroup" aria-label="0 = not likely, 10 = very likely" id="nps"></div>
+               <div class="flex justify-between text-xs text-gray-400 mt-2"><span>0 = Not likely</span><span>10 = Very likely</span></div>
+           </fieldset>
+
+           <div class="rounded-xl border border-white/10 bg-[#151515] p-5">
+               <label for="comments" class="block font-semibold text-white mb-2"><span class="text-[#d4af37]">8.</span> What did you enjoy most, and what could we do better? <span class="text-gray-400 font-normal text-sm">(optional)</span></label>
+               <textarea id="comments" name="comments" rows="4" maxlength="2000" class="field"></textarea>
+           </div>
+
+           <div class="rounded-xl border border-[#d4af37]/40 bg-[#151515] p-5">
+               <p class="font-semibold text-white mb-2"><span class="text-[#d4af37]">9.</span> Would you like to become an ONYX Ambassador?</p>
+               <p class="text-sm text-gray-300 leading-relaxed mb-3">Do you share travel content online? Creators with <b class="text-white">3,000+</b> followers on Instagram or YouTube, or <b class="text-white">6,000+</b> on Facebook, TikTok, Xiaohongshu or Threads can join our Ambassador program: earn 8% commission, and your followers get a travel perk.</p>
+               <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" id="amb" class="mt-1 w-5 h-5 accent-[#d4af37]"> <span>Yes, I'm interested. Please send me the details.</span></label>
+               <div id="amb-box" class="mt-4 space-y-3" hidden>
+                   <p class="text-sm text-gray-400">Tick at least one platform and add your account and followers:</p>
+                   <div id="platforms" class="space-y-3"></div>
+                   <p id="amb-msg" class="text-sm text-red-400" role="alert"></p>
+               </div>
+           </div>
+
+           <div id="who" class="rounded-xl border border-white/10 bg-[#151515] p-5 space-y-3" hidden>
+               <p class="font-semibold text-white">About you <span class="text-gray-400 font-normal text-sm" id="who-opt">(optional)</span></p>
+               <div><label for="name" class="block text-sm text-gray-300 mb-1">Name<span class="req text-red-400" hidden> *</span></label><input type="text" id="name" name="name" maxlength="100" class="field" autocomplete="name"></div>
+               <div><label for="whatsapp" class="block text-sm text-gray-300 mb-1">WhatsApp (with country code)<span class="req text-red-400" hidden> *</span></label><input type="tel" id="whatsapp" name="whatsapp" maxlength="30" class="field" autocomplete="tel" placeholder="+61 400 000 000"></div>
+               <div><label for="email" class="block text-sm text-gray-300 mb-1">Email<span class="req text-red-400" hidden> *</span></label><input type="email" id="email" name="email" maxlength="120" class="field" autocomplete="email"></div>
+               <p id="who-msg" class="text-sm text-red-400" role="alert"></p>
+           </div>
+
+           <p id="form-msg" class="text-red-400 text-sm" role="alert"></p>
+           <button type="submit" id="send" class="w-full bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] py-3.5 rounded-full font-bold text-base">Send</button>
+           <p class="text-xs text-gray-400 text-center">We only use your answers to improve our service. We never share them.</p>
+       </form>
+
+       <div id="thanks" class="text-center py-16" hidden>
+           <p class="text-5xl mb-4" aria-hidden="true">🙏</p>
+           <h2 class="text-2xl font-bold text-white mb-3">Thank you!</h2>
+           <p class="text-gray-300" id="thanks-text">Your answers help us get better.</p>
+           <div class="mt-8 rounded-xl border border-white/10 bg-[#151515] p-5 max-w-md mx-auto">
+               <p class="text-gray-200 mb-3">Would you also share a few words on Google? It helps other travelers find us.</p>
+               <a id="g-review" href="https://g.page/r/CXVfepLRYNsxEBM/review" target="_blank" rel="noopener" class="inline-flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-6 py-3 rounded-full font-bold">Leave a Google review</a>
+           </div>
+           <a href="index.html" class="inline-block mt-8 text-[#d4af37] font-bold">Back to ONYX Taiwan</a>
+       </div>
+   </main>
+
+   <script src="js/onyx-config.js?v=2026-11-23"></script>
+   <script>
+   (function () {
+       var CFG = window.ONYX_SETTINGS || {};
+       // platforms and followers needed (same numbers as the survey GAS)
+       var PLATFORMS = [['Instagram', 3000], ['YouTube', 3000], ['Facebook', 6000], ['TikTok', 6000], ['Xiaohongshu', 6000], ['Threads', 6000]];
+       var STARS = ['overall', 'punctual', 'safe', 'friendly', 'car', 'booking'];
+       var $ = function (id) { return document.getElementById(id); };
+       var qs = new URLSearchParams(location.search);
+       var ref = (qs.get('ref') || qs.get('b') || '').replace(/[^\w-]/g, '').slice(0, 40);
+       if (ref) { $('ref-line').hidden = false; $('ref-text').textContent = ref; $('ref-gap').hidden = true; }
+       // "About you": optional without a booking link; required (name, WhatsApp, email) for ambassadors
+       function whoBox() { var amb = $('amb').checked; $('who').hidden = !!ref && !amb; $('who-opt').textContent = amb ? '(required for the Ambassador program)' : '(optional)'; document.querySelectorAll('#who .req').forEach(function (x) { x.hidden = !amb; }); }
+       whoBox();
+
+       // build the 1–5 stars (5 first in the code; the row is shown reversed)
+       STARS.forEach(function (k) {
+           var box = document.querySelector('[data-stars="' + k + '"]'), h = '';
+           for (var v = 5; v >= 1; v--) h += '<input type="radio" name="' + k + '" id="' + k + v + '" value="' + v + '"><label for="' + k + v + '" title="' + v + ' / 5"><span aria-hidden="true">★</span><span class="sr-only">' + v + ' of 5</span></label>';
+           box.innerHTML = h;
+       });
+       var nh = ''; for (var i = 0; i <= 10; i++) nh += '<span><input type="radio" name="nps" id="nps' + i + '" value="' + i + '"><label for="nps' + i + '">' + i + '</label></span>';
+       $('nps').innerHTML = nh;
+       $('platforms').innerHTML = PLATFORMS.map(function (p) {
+           var id = p[0].toLowerCase();
+           return '<div class="rounded-lg border border-white/10 p-3"><label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" data-pf="' + p[0] + '" class="w-5 h-5 accent-[#d4af37]"> <span class="font-semibold">' + p[0] + '</span> <span class="text-xs text-gray-400">(' + p[1].toLocaleString('en-US') + '+)</span></label>' +
+               '<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3" data-pfbox="' + p[0] + '" hidden>' +
+               '<div><label for="h-' + id + '" class="block text-xs text-gray-400 mb-1">Account (@name or link)</label><input type="text" id="h-' + id + '" class="field" maxlength="120"></div>' +
+               '<div><label for="f-' + id + '" class="block text-xs text-gray-400 mb-1">Followers</label><input type="text" id="f-' + id + '" class="field" inputmode="numeric" maxlength="12" placeholder="e.g. 8500"></div></div></div>';
+       }).join('');
+       document.querySelectorAll('[data-pf]').forEach(function (cb) { cb.addEventListener('change', function () { document.querySelector('[data-pfbox="' + cb.dataset.pf + '"]').hidden = !cb.checked; }); });
+       $('amb').addEventListener('change', function () {
+           $('amb-box').hidden = !this.checked;
+           whoBox();
+       });
+       document.addEventListener('change', function (e) { var q = e.target.closest && e.target.closest('.q'); if (q) q.classList.remove('bad'); });
+
+       function val(name) { var c = document.querySelector('input[name="' + name + '"]:checked'); return c ? Number(c.value) : null; }
+       function num(s) { var n = parseInt(String(s || '').replace(/[^\d]/g, ''), 10); return isNaN(n) ? null : n; }
+
+       $('survey').addEventListener('submit', function (e) {
+           e.preventDefault();
+           $('form-msg').textContent = ''; $('amb-msg').textContent = ''; $('who-msg').textContent = '';
+           var missing = [];
+           STARS.concat(['nps']).forEach(function (k) { if (val(k) == null) { missing.push(k); document.querySelector('.q[data-q="' + k + '"]').classList.add('bad'); } });
+           var amb = $('amb').checked, platforms = [];
+           if (amb) {
+               document.querySelectorAll('[data-pf]:checked').forEach(function (cb) {
+                   var id = cb.dataset.pf.toLowerCase();
+                   platforms.push({ platform: cb.dataset.pf, account: $('h-' + id).value.trim().slice(0, 120), followers: num($('f-' + id).value) });
+               });
+               if (!platforms.length || platforms.some(function (p) { return !p.account || p.followers == null; })) { $('amb-msg').textContent = 'Please tick at least one platform and add your account and followers.'; missing.push('amb'); }
+               var nm = $('name').value.trim(), wa = $('whatsapp').value.trim(), em = $('email').value.trim(), wm = [];
+               if (!nm) wm.push('your name');
+               if ((wa.match(/\d/g) || []).length < 7) wm.push('your WhatsApp number');
+               if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) wm.push('a valid email');
+               if (wm.length) { $('who-msg').textContent = 'Please add ' + wm.join(', ') + '.'; missing.push('who'); }
+           }
+           if (missing.length) {
+               if (missing.some(function (m) { return m !== 'amb' && m !== 'who'; })) $('form-msg').textContent = 'Please answer the questions marked in red.'; else $('form-msg').textContent = 'Please complete the Ambassador details above.';
+               var first = document.querySelector('.q.bad') || (missing.indexOf('amb') >= 0 ? $('amb-box') : missing.indexOf('who') >= 0 ? $('who') : null);
+               if (first) first.scrollIntoView({ block: 'center', behavior: 'smooth' });
+               return;
+           }
+           var data = { action: 'survey', ref: ref, name: $('name').value.trim(), whatsapp: $('whatsapp').value.trim(), email: $('email').value.trim(), comments: $('comments').value.trim(),
+               nps: val('nps'), ambassador: amb, platforms: platforms, website: $('website').value, page: location.pathname };
+           STARS.forEach(function (k) { data[k] = val(k); });
+           var btn = $('send'); btn.disabled = true; btn.textContent = 'Sending…';
+           var url = CFG.SURVEY_GAS_URL;
+           (url ? fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) }).then(function (r) { return r.json(); }) : Promise.reject(new Error('no url')))
+               .then(function (r) {
+                   if (!r || !r.ok) throw new Error((r && r.error) || 'failed');
+                   $('survey').hidden = true; $('thanks').hidden = false;
+                   if (amb) $('thanks-text').textContent = 'Your answers help us get better. We\'ll send you the Ambassador details soon.';
+                   window.scrollTo(0, 0);
+               })
+               .catch(function () {
+                   btn.disabled = false; btn.textContent = 'Send';
+                   $('form-msg').innerHTML = 'Sorry, we couldn\'t send your answers. Please try again, or <a class="underline text-[#d4af37]" href="https://wa.me/886970326591" target="_blank" rel="noopener">message us on WhatsApp</a>.';
+               });
+       });
+   })();
+   </script>
+</body>
+</html>
