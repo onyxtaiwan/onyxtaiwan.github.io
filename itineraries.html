@@ -2,15 +2,25 @@
 <html lang="en" class="scroll-smooth">
 <head>
    <meta charset="UTF-8">
+   <script>/* browsers without WebP (old iPhone / Mac Safari): show the JPG (or PNG) copy instead */document.addEventListener('error',function(e){var t=e.target;if(!t||t.tagName!=='IMG')return;var s=t.getAttribute('src')||'',n=t.getAttribute('data-fb');if(!n&&/\.webp$/.test(s)){t.setAttribute('data-fb','1');t.src=s.replace(/\.webp$/,'.jpg');}else if(n==='1'&&/\.jpg$/.test(s)){t.setAttribute('data-fb','2');t.src=s.replace(/\.jpg$/,'.png');}},true);</script>
+   <script>/* keep hyphenated words (28-inch, Must-Visit) on one line */window.onyxKeepWords=function(root){if(!root||!document.createTreeWalker)return;var w=document.createTreeWalker(root,4,null),n,a=[];while((n=w.nextNode())){var p=n.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA|OPTION|TITLE|NOSCRIPT)$/.test(p.nodeName)||(p.className&&String(p.className).indexOf('kw')>=0))continue;if(/[A-Za-z0-9]-[A-Za-z0-9]/.test(n.nodeValue))a.push(n);}a.forEach(function(n){var s=n.nodeValue,re=/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+/g,m,i=0,f=document.createDocumentFragment();while((m=re.exec(s))){var L=m[0].length,bf=s.charAt(m.index-1),af=s.charAt(m.index+L),af2=s.charAt(m.index+L+1);if(L>20||/[@\/_.]/.test(bf)||/[@\/_]/.test(af)||(/[.:]/.test(af)&&/[A-Za-z0-9]/.test(af2)))continue;if(m.index>i)f.appendChild(document.createTextNode(s.slice(i,m.index)));var k=document.createElement('span');k.className='kw';k.style.whiteSpace='nowrap';k.textContent=m[0];f.appendChild(k);i=m.index+m[0].length;}if(i<s.length)f.appendChild(document.createTextNode(s.slice(i)));var p=n.parentNode,d=getComputedStyle(p).display;if(/flex|grid/.test(d)){var o=document.createElement('span');o.className='kw-box';o.appendChild(f);p.replaceChild(o,n);}else p.replaceChild(f,n);});};document.addEventListener('DOMContentLoaded',function(){onyxKeepWords(document.body);});</script>
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+   <link rel="apple-touch-icon" href="images/icon.png">
    <title>Curated Journeys | ONYX Taiwan Premium Chauffeur</title>
-   <meta name="description" content="Discover Taiwan's finest destinations with ONYX Taiwan's exclusive curated routes. From Taipei highlights to Alishan and Taroko Gorge.">
+   <link rel="canonical" href="https://onyxtaiwan.com/itineraries.html">
+   <meta property="og:type" content="website">
+   <meta property="og:site_name" content="ONYX Taiwan">
+   <meta property="og:url" content="https://onyxtaiwan.com/itineraries.html">
+   <meta property="og:title" content="Private Day Tours in Taiwan | ONYX Taiwan">
+   <meta property="og:description" content="Private chauffeur tours in Taiwan: Jiufen, Shifen and Yehliu, Sun Moon Lake, Taichung, Yilan, Alishan, Hualien and more. Book online with a fixed price.">
+   <meta property="og:image" content="https://onyxtaiwan.com/images/og-cover.jpg">
+   <meta name="twitter:card" content="summary_large_image">
+   <meta name="description" content="Discover Taiwan's finest destinations with ONYX Taiwan's exclusive curated routes. From Taipei highlights to Sun Moon Lake, Alishan and Hualien.">
 
-   <script src="https://cdn.tailwindcss.com"></script>
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-   <script src="https://unpkg.com/lucide@latest"></script>
+   <link rel="stylesheet" href="css/site.css?v=2026-11-25">
+   <link rel="preload" href="fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin>
+   <script defer src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
 
    <style>
        body { font-family: 'Inter', sans-serif; }
@@ -32,7 +42,7 @@
        "https://onyxtaiwan.com/images/og-cover.jpg",
        "https://onyxtaiwan.com/images/hero.jpg"
      ],
-     "description": "Experience premium travel in Taiwan with ONYX. We offer bespoke private charter cars, curated tours, luxury airport transfers, and VIP concierge services for global travelers.",
+     "description": "Private chauffeur and car charter in Taiwan with fixed prices. Taoyuan Airport to Taipei City TWD 1,300+, day tours to Jiufen, Sun Moon Lake and Alishan.",
      "telephone": "+886-970-326-591",
      "email": "onyxtaiwan.official@gmail.com",
      "taxID": "31089205",
@@ -69,7 +79,7 @@
        </div>
    </div>
 
-   <nav class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/10 top-10">
+   <nav aria-label="Main" class="fixed w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/10 top-10">
        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div class="flex items-center justify-between h-20">
                 <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.location.href='index.html'">
@@ -77,34 +87,36 @@
                         ONYX <span class="text-[#d4af37]">TAIWAN</span>
                     </span>
                 </div>
-                <div class="hidden md:block">
+                <div class="hidden lg:block">
                     <div class="ml-10 flex items-baseline space-x-6">
                         <a href="about.html" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Our Story</a>
                         <a href="itineraries.html" class="text-[#d4af37] px-2 py-2 text-sm font-bold transition-colors border-b-2 border-[#d4af37]">Itineraries</a>
                         <a href="index.html#fleet" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Fleet & Pricing</a>
-                        <a href="index.html#contact" class="bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 ml-2">Book Now</a>
+                        <!-- REVIEWS HIDDEN until the Google Business Profile is approved: <a href="index.html#reviews" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Reviews</a> -->
+                        <a href="book.html" class="bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 ml-2">Book Now</a>
                     </div>
                 </div>
-                <div class="-mr-2 flex md:hidden">
-                    <button type="button" aria-label="Open Mobile Menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-[#d4af37] hover:text-white focus:outline-none">
+                <div class="-mr-2 flex lg:hidden">
+                    <button type="button" aria-label="Open Mobile Menu" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center w-11 h-11 rounded-md text-[#d4af37] hover:text-white focus:outline-none">
                         <i data-lucide="menu"></i>
                     </button>
                 </div>
            </div>
        </div>
-       <div class="hidden md:hidden bg-[#0a0a0a] border-b border-white/10" id="mobile-menu">
+       <div class="hidden lg:hidden bg-[#0a0a0a] border-b border-white/10" id="mobile-menu">
            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="about.html" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Our Story</a>
                 <a href="itineraries.html" class="text-[#d4af37] block px-3 py-2 rounded-md text-base font-bold bg-white/5">Itineraries</a>
                 <a href="index.html#fleet" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Fleet & Pricing</a>
-                <a href="index.html#contact" class="text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium font-bold mt-2">Book Now</a>
+                <!-- REVIEWS HIDDEN until the Google Business Profile is approved: <a href="index.html#reviews" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Reviews</a> -->
+                <a href="book.html" class="text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium font-bold mt-2">Book Now</a>
            </div>
        </div>
    </nav>
 
    <section class="relative min-h-[50vh] flex items-center justify-center bg-[#0a0a0a] pt-32 pb-16 border-b border-white/5">
        <div class="absolute inset-0 z-0">
-           <div class="w-full h-full bg-[url('./images/itinerary-05.jpg')] bg-cover bg-center bg-no-repeat opacity-20"></div>
+           <div class="w-full h-full bg-[url('../images/itinerary-05.jpg')] bg-cover bg-center bg-no-repeat opacity-20"></div>
            <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#0f0f0f]/80 to-[#0f0f0f]"></div>
        </div>
        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -124,11 +136,11 @@
        
        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
            <div id="full-itinerary-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-               
+<!-- TOURS:START -->
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-01.jpg" alt="Classic Must-Visit: Jiufen, Shifen & Yehliu" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/jiufen-shifen-yehliu-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-01.webp" alt="Classic Must-Visit: Jiufen, Shifen &amp; Yehliu" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
@@ -137,7 +149,7 @@
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">North</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Classic Must-Visit: Jiufen, Shifen & Yehliu</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/jiufen-shifen-yehliu-day-tour.html" class="hover:text-[#d4af37] transition-colors">Classic Must-Visit: Jiufen, Shifen &amp; Yehliu</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li>• Yehliu Geopark</li>
                             <li>• Yin Yang Sea</li>
@@ -146,19 +158,21 @@
                             <li>• Shifen Waterfall</li>
                             <li>• Shifen Sky Lanterns</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
-                            <p class="text-gray-200 text-sm leading-relaxed">The most comprehensive North Taiwan route. Includes the 'Yin Yang Sea' and 'Golden Waterfall' in the Gold Rush area, alongside the Queen's Head and Sky Lanterns. Ends with tea and ocean views in the lantern-lit village of Jiufen.</p>
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
+                            <p class="text-gray-200 text-sm leading-relaxed">The most comprehensive North Taiwan route. Includes the &#x27;Yin Yang Sea&#x27; and &#x27;Golden Waterfall&#x27; in the Gold Rush area, alongside the Queen&#x27;s Head and Sky Lanterns. Ends with tea and ocean views in the lantern-lit village of Jiufen.</p>
                         </div>
-                        <a href="index.html?itinerary_id=1#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/jiufen-shifen-yehliu-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=1" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-02.jpg" alt="Instagram Hotspots: Taichung City & Gaomei Wetlands" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/taichung-gaomei-wetlands-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-02.webp" alt="Instagram Hotspots: Taichung City &amp; Gaomei Wetlands" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
@@ -167,7 +181,7 @@
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">Central</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Instagram Hotspots: Taichung City & Gaomei Wetlands</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/taichung-gaomei-wetlands-day-tour.html" class="hover:text-[#d4af37] transition-colors">Instagram Hotspots: Taichung City &amp; Gaomei Wetlands</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li>• Rainbow Village</li>
                             <li>• Miyahara</li>
@@ -175,19 +189,21 @@
                             <li>• National Taichung Theater</li>
                             <li>• Gaomei Wetlands</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
-                            <p class="text-gray-200 text-sm leading-relaxed">Designed for photography lovers. Connects the colorful Rainbow Village, a Harry Potter-style ice cream shop, creative markets, and architectural masterpieces, concluding with a spectacular sunset at the wetlands.</p>
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
+                            <p class="text-gray-200 text-sm leading-relaxed">Designed for photography lovers. Connects the colorful Rainbow Village, a storybook-style ice cream shop, creative markets, and architectural masterpieces, concluding with a spectacular sunset at the wetlands.</p>
                         </div>
-                        <a href="index.html?itinerary_id=2#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-2">From a Taichung hotel: 1 day. From Taipei: 12 hours or 2 days.</p>
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/taichung-gaomei-wetlands-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=2" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-03.jpg" alt="Lake & Mountains: Sun Moon Lake Scenic Tour" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/sun-moon-lake-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-03.webp" alt="Lake &amp; Mountains: Sun Moon Lake Scenic Tour" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
@@ -196,7 +212,7 @@
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">Central</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Lake & Mountains: Sun Moon Lake Scenic Tour</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/sun-moon-lake-day-tour.html" class="hover:text-[#d4af37] transition-colors">Lake &amp; Mountains: Sun Moon Lake Scenic Tour</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li>• Xiangshan Visitor Center</li>
                             <li>• Shuishe Pier</li>
@@ -205,19 +221,21 @@
                             <li>• Ita Thao Shopping District</li>
                             <li>• Wenwu Temple</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
                             <p class="text-gray-200 text-sm leading-relaxed">A comprehensive land, water, and air experience. Includes the scenic Xiangshan Center, a ropeway ride overlooking the lake, the grand Wenwu Temple, and indigenous cuisine at Ita Thao.</p>
                         </div>
-                        <a href="index.html?itinerary_id=3#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-2">From a Taichung hotel: 1 day. From Taipei: 2 days.</p>
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/sun-moon-lake-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=3" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-04.jpg" alt="Metropolitan VIP: Taipei Highlights" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/taipei-city-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-04.webp" alt="Metropolitan VIP: Taipei Highlights" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
@@ -226,27 +244,29 @@
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">Taipei</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Metropolitan VIP: Taipei Highlights</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/taipei-city-day-tour.html" class="hover:text-[#d4af37] transition-colors">Metropolitan VIP: Taipei Highlights</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li>• C.K.S Memorial Hall</li>
                             <li>• National Palace Museum</li>
-                            <li>• Taipei 101 & Xinyi District</li>
+                            <li>• Taipei 101 &amp; Xinyi District</li>
                             <li>• Lungshan Temple</li>
                             <li>• Dadaocheng Dihua Street</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
                             <p class="text-gray-200 text-sm leading-relaxed">A contrast of ancient and modern Taipei. Watch the changing of the guard, view imperial treasures, ascend the tallest landmark, visit the historic Lungshan Temple, and wander through baroque streets.</p>
                         </div>
-                        <a href="index.html?itinerary_id=4#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/taipei-city-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=4" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-05.jpg" alt="Volcanic Wonders: Yangmingshan & Beitou" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/yangmingshan-beitou-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-05.webp" alt="Volcanic Wonders: Yangmingshan &amp; Beitou" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
@@ -255,7 +275,7 @@
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">Taipei</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Volcanic Wonders: Yangmingshan & Beitou</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/yangmingshan-beitou-day-tour.html" class="hover:text-[#d4af37] transition-colors">Volcanic Wonders: Yangmingshan &amp; Beitou</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li>• Xiaoyoukeng</li>
                             <li>• Qingtiangang Grassland</li>
@@ -264,19 +284,21 @@
                             <li>• Hot Spring Museum</li>
                             <li>• Xinbeitou Historic Station</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
                             <p class="text-gray-200 text-sm leading-relaxed">The closest natural wonders to Taipei. Witness the impressive sulfur vents at Xiaoyoukeng, take photos with grazing water buffaloes at Qingtiangang, and step into the misty Thermal Valley to experience rich Japanese culture.</p>
                         </div>
-                        <a href="index.html?itinerary_id=5#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/yangmingshan-beitou-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=5" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-06.jpg" alt="Family & Culture: Yilan Lanyang Plain" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/yilan-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-06.webp" alt="Family &amp; Culture: Yilan Lanyang Plain" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
@@ -285,40 +307,41 @@
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">East</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Family & Culture: Yilan Lanyang Plain</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/yilan-day-tour.html" class="hover:text-[#d4af37] transition-colors">Family &amp; Culture: Yilan Lanyang Plain</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li>• Lanyang Museum</li>
                             <li>• Jiaoxi Hot Spring Park</li>
                             <li>• National Center for Traditional Arts</li>
                             <li>• Kavalan Whisky Distillery</li>
-                            <li>• Zhang Mei Ama's Farm</li>
+                            <li>• Zhang Mei Ama&#x27;s Farm</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
                             <p class="text-gray-200 text-sm leading-relaxed">Perfect balance for families. Explore the unique Lanyang Museum, relax with a hot spring foot bath, stroll the traditional arts center, visit a world-champion distillery, and interact with Capybaras.</p>
                         </div>
-                        <a href="index.html?itinerary_id=6#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/yilan-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=6" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-07.jpg" alt="Pacific & Valleys: Hualien Nature Retreat" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/hualien-3-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-07.webp" alt="Pacific &amp; Valleys: Hualien Nature Retreat" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
                                 <span class="text-[#d4af37] font-bold text-2xl tracking-wider">No.07</span>
-                                <span class="bg-[#b4941f] text-[#0f0f0f] text-[10px] font-bold px-2 py-1 rounded uppercase">3 Day</span>
+                                <span class="bg-[#b4941f] text-[#0f0f0f] text-[10px] font-bold px-2 py-1 rounded uppercase">3 Days</span>
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">East</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Pacific & Valleys: Hualien Nature Retreat</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/hualien-3-day-tour.html" class="hover:text-[#d4af37] transition-colors">Pacific &amp; Valleys: Hualien Nature Retreat</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li class="text-[#d4af37] font-bold pt-2 list-none -ml-2">【 Day 1 】</li>
-                            <li>• Qingshui Cliff</li>
-                            <li>• Taroko National Park Gateway</li>
+                            <li>• Taroko Visitor Center &amp; Dekalun Trail</li>
                             <li>• Qixingtan Beach</li>
                             <li class="text-[#d4af37] font-bold pt-2 list-none -ml-2">【 Day 2 】</li>
                             <li>• Liyu Lake</li>
@@ -329,28 +352,30 @@
                             <li>• Cultural Park</li>
                             <li>• Starbucks Container Store</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
-                            <p class="text-gray-200 text-sm leading-relaxed">Discover Hualien's breathtaking natural beauty. Marvel at the dramatic Qingshui Cliffs and the iconic Taroko Arch, wander through the picturesque East Rift Valley, and relax by the pristine Pacific coast.</p>
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
+                            <p class="text-gray-200 text-sm leading-relaxed">Discover Hualien&#x27;s natural beauty. Walk the Dekalun Trail at the Taroko Visitor Center, watch the Pacific waves at Qixingtan, wander through the East Rift Valley, and enjoy Hualien&#x27;s creative city spots.</p>
                         </div>
-                        <a href="index.html?itinerary_id=7#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-2">Parts of Taroko Gorge are still closed after the 2024 earthquake. This tour only visits areas that are open.</p>
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/hualien-3-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=7" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-08.jpg" alt="World Heritage: Alishan Forest Railway" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/alishan-3-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-08.webp" alt="World Heritage: Alishan Forest Railway" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
                                 <span class="text-[#d4af37] font-bold text-2xl tracking-wider">No.08</span>
-                                <span class="bg-[#b4941f] text-[#0f0f0f] text-[10px] font-bold px-2 py-1 rounded uppercase">3 Day</span>
+                                <span class="bg-[#b4941f] text-[#0f0f0f] text-[10px] font-bold px-2 py-1 rounded uppercase">3 Days</span>
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">South</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">World Heritage: Alishan Forest Railway</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/alishan-3-day-tour.html" class="hover:text-[#d4af37] transition-colors">World Heritage: Alishan Forest Railway</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li class="text-[#d4af37] font-bold pt-2 list-none -ml-2">【 Day 1 】</li>
                             <li>• Hinoki Village</li>
@@ -365,28 +390,30 @@
                             <li>• Fenqihu Cedar Boardwalk</li>
                             <li>• Eternity Suspension Bridges</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
-                            <p class="text-gray-200 text-sm leading-relaxed">Dive into Taiwan's forestry history. Visit the largest Japanese dormitory complex, ride the century-old forest train through giant sacred trees, enjoy a railway lunchbox, and walk the famous Eternity Suspension Bridges.</p>
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
+                            <p class="text-gray-200 text-sm leading-relaxed">Dive into Taiwan&#x27;s forestry history. Visit the largest Japanese dormitory complex, ride the century-old forest train through giant sacred trees, enjoy a railway lunchbox, and walk the famous Eternity Suspension Bridges.</p>
                         </div>
-                        <a href="index.html?itinerary_id=8#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-2">Forest Railway tickets are not included and must be booked in advance.</p><p class="text-gray-400 text-xs leading-relaxed mb-2">Mountain roads: we may adjust times for weather.</p>
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/alishan-3-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=8" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-09.jpg" alt="Alpine Retreat: Qingjing & Hehuanshan" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/qingjing-hehuanshan-2-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-09.webp" alt="Alpine Retreat: Qingjing &amp; Hehuanshan" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
                                 <span class="text-[#d4af37] font-bold text-2xl tracking-wider">No.09</span>
-                                <span class="bg-[#b4941f] text-[#0f0f0f] text-[10px] font-bold px-2 py-1 rounded uppercase">2 Day</span>
+                                <span class="bg-[#b4941f] text-[#0f0f0f] text-[10px] font-bold px-2 py-1 rounded uppercase">2 Days</span>
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">Mountain</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Alpine Retreat: Qingjing & Hehuanshan</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/qingjing-hehuanshan-2-day-tour.html" class="hover:text-[#d4af37] transition-colors">Alpine Retreat: Qingjing &amp; Hehuanshan</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li class="text-[#d4af37] font-bold pt-2 list-none -ml-2">【 Day 1 】</li>
                             <li>• Puli Brewery</li>
@@ -399,28 +426,30 @@
                             <li>• Kunyang Rest Stop</li>
                             <li>• Hehuanshan Wuling</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
-                            <p class="text-gray-200 text-sm leading-relaxed">Experience the Alps of Taiwan. Visit Puli's famous spots, watch the sheep show, walk the Skywalk, and drive to Wuling, the highest point of Taiwan's highways, for breathtaking views of the sea of clouds.</p>
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
+                            <p class="text-gray-200 text-sm leading-relaxed">Experience the Alps of Taiwan. Visit Puli&#x27;s famous spots, watch the sheep show, walk the Skywalk, and drive to Wuling, the highest point of Taiwan&#x27;s highways, for breathtaking views of the sea of clouds.</p>
                         </div>
-                        <a href="index.html?itinerary_id=9#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-2">In winter, the road to Hehuanshan may close or need snow chains after snow. We may change the plan on the day.</p>
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/qingjing-hehuanshan-2-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=9" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-10.jpg" alt="Culinary Capital: Tainan History & Food" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/tainan-3-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-10.webp" alt="Culinary Capital: Tainan History &amp; Food" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
                                 <span class="text-[#d4af37] font-bold text-2xl tracking-wider">No.10</span>
-                                <span class="bg-[#b4941f] text-[#0f0f0f] text-[10px] font-bold px-2 py-1 rounded uppercase">3 Day</span>
+                                <span class="bg-[#b4941f] text-[#0f0f0f] text-[10px] font-bold px-2 py-1 rounded uppercase">3 Days</span>
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">South</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Culinary Capital: Tainan History & Food</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/tainan-3-day-tour.html" class="hover:text-[#d4af37] transition-colors">Culinary Capital: Tainan History &amp; Food</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li class="text-[#d4af37] font-bold pt-2 list-none -ml-2">【 Day 1 】</li>
                             <li>• Chimei Museum</li>
@@ -435,28 +464,30 @@
                             <li>• Jingzaijiao Salt Fields</li>
                             <li>• Black-faced Spoonbill Reserve</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
-                            <p class="text-gray-200 text-sm leading-relaxed">A feast for the eyes and palate. Visit the stunning Art Museum, glide through the 'Amazon of Taiwan' at Sicao, explore Dutch colonial forts, and witness the glowing sunset over Taiwan's oldest salt fields.</p>
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
+                            <p class="text-gray-200 text-sm leading-relaxed">A feast for the eyes and palate. Visit the stunning Art Museum, glide through the &#x27;Amazon of Taiwan&#x27; at Sicao, explore Dutch colonial forts, and witness the glowing sunset over Taiwan&#x27;s oldest salt fields.</p>
                         </div>
-                        <a href="index.html?itinerary_id=10#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/tainan-3-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=10" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-11.jpg" alt="Southern Border: Kenting Peninsula" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/kenting-4-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-11.webp" alt="Southern Border: Kenting Peninsula" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
                                 <span class="text-[#d4af37] font-bold text-2xl tracking-wider">No.11</span>
-                                <span class="bg-[#b4941f] text-[#0f0f0f] text-[10px] font-bold px-2 py-1 rounded uppercase">4 Day</span>
+                                <span class="bg-[#b4941f] text-[#0f0f0f] text-[10px] font-bold px-2 py-1 rounded uppercase">4 Days</span>
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">South</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Southern Border: Kenting Peninsula</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/kenting-4-day-tour.html" class="hover:text-[#d4af37] transition-colors">Southern Border: Kenting Peninsula</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
                             <li class="text-[#d4af37] font-bold pt-2 list-none -ml-2">【 Day 1 】</li>
                             <li>• Pier-2 Art Center</li>
@@ -471,22 +502,24 @@
                             <li>• Longpan Park</li>
                             <li>• Ancient City</li>
                             <li class="text-[#d4af37] font-bold pt-2 list-none -ml-2">【 Day 4 】</li>
+                            <li>• Wanluan Pig&#x27;s Knuckle</li>
                             <li>• Victory Star Village</li>
-                            <li>• Wanluan Pig's Knuckle</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
-                            <p class="text-gray-200 text-sm leading-relaxed">The ultimate tropical getaway. Features white sandy beaches, CNN-rated world-class sunsets, the southernmost lighthouse of Taiwan, vast cliff landscapes, historic city gates, and authentic local cuisine.</p>
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
+                            <p class="text-gray-200 text-sm leading-relaxed">The ultimate tropical getaway. Features white sandy beaches, famous sunsets, the southernmost lighthouse of Taiwan, vast cliff landscapes, historic city gates, and authentic local cuisine.</p>
                         </div>
-                        <a href="index.html?itinerary_id=11#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-2">Coming from Taipei? Take the High Speed Rail to Zuoying (Kaohsiung) and start there.</p>
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/kenting-4-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=11" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
 
                <div class="bg-[#1a1a1a] rounded-xl overflow-hidden shadow-lg border border-white/5 hover:border-[#d4af37]/30 transition-all group flex flex-col relative">
-                    <div class="h-56 sm:h-64 overflow-hidden relative">
-                        <img src="./images/itinerary-12.jpg" alt="Mountain Railway: Miaoli Old Mountain Line" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    </div>
+                    <a href="tours/miaoli-old-mountain-line-day-tour.html" class="block h-56 sm:h-64 overflow-hidden relative" tabindex="-1" aria-hidden="true">
+                        <img src="./images/itinerary-12.webp" alt="Mountain Railway: Miaoli Old Mountain Line" width="800" height="600" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </a>
                     <div class="p-6 md:p-8 flex-grow flex flex-col">
                         <div class="flex justify-between items-start mb-4">
                             <div class="flex items-center gap-2">
@@ -495,30 +528,31 @@
                             </div>
                             <span class="text-gray-400 text-xs tracking-wider uppercase">Central</span>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight">Mountain Railway: Miaoli Old Mountain Line</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white mb-4 leading-tight"><a href="tours/miaoli-old-mountain-line-day-tour.html" class="hover:text-[#d4af37] transition-colors">Mountain Railway: Miaoli Old Mountain Line</a></h3>
                         <ul class="text-gray-300 text-sm space-y-1.5 mb-8 pl-2 flex-grow">
+                            <li>• Nanzhuang Old Street</li>
                             <li>• Sanyi Wood Sculpture Museum</li>
                             <li>• Shengxing Railway Station</li>
                             <li>• Old Mountain Line Rail Bike</li>
                             <li>• Longteng Broken Bridge</li>
-                            <li>• Nanzhuang Old Street</li>
-                            <li>• Osmanthus Alley</li>
                             <li>• Château in the Air</li>
                         </ul>
-                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-6">
+                        <div class="bg-[#0f0f0f]/50 p-4 rounded-lg border-l-2 border-[#d4af37]/50 mb-4">
                             <p class="text-gray-200 text-sm leading-relaxed">A nostalgic and fun experience. Ride the popular Rail Bike across the high-altitude bridge overlooking the Longteng Broken Bridge ruins, stroll through the century-old wooden station, and explore historic old streets.</p>
                         </div>
-                        <a href="index.html?itinerary_id=12#contact" class="mt-auto w-full inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors group/btn">
-                           Book This Journey <i data-lucide="arrow-right" class="ml-2 w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
-                        </a>
+                        <p class="text-gray-400 text-xs leading-relaxed mb-2">Rail Bike tickets must be booked in advance.</p>
+                        <div class="mt-auto pt-2 grid grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3">
+                            <a href="tours/miaoli-old-mountain-line-day-tour.html" class="inline-flex items-center justify-center border border-white/15 hover:border-[#d4af37] text-gray-200 hover:text-[#d4af37] py-3 px-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors">Details &amp; prices</a>
+                            <a href="book.html?itinerary_id=12" class="inline-flex items-center justify-center bg-[#2a2a2a] hover:bg-[#d4af37] text-gray-200 hover:text-[#0f0f0f] py-3 rounded-lg text-sm font-bold transition-colors">Book</a>
+                        </div>
                     </div>
                </div>
-
+               <!-- TOURS:END -->
            </div>
        </div>
    </section>
 
-   <section class="py-20 md:py-28 bg-[#0a0a0a] relative text-center border-t border-white/5 border-b border-white/5">
+   <section class="py-20 md:py-28 bg-[#0a0a0a] relative text-center border-t border-b border-white/5">
        <div class="max-w-3xl mx-auto px-6 relative z-10">
            <h2 class="text-[#d4af37] font-bold tracking-widest uppercase text-xs mb-4">Have a custom route in mind?</h2>
            <h3 class="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">Bespoke Private Charters</h3>
@@ -527,7 +561,7 @@
            </p>
            
            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-               <a href="index.html#contact" class="w-full sm:w-auto flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-6 py-3.5 rounded-full text-sm font-bold transition-all shadow-lg hover:shadow-[#d4af37]/50 transform hover:scale-105">
+               <a href="book.html" class="w-full sm:w-auto flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-6 py-3.5 rounded-full text-sm font-bold transition-all shadow-lg hover:shadow-[#d4af37]/50 transform hover:scale-105">
                    <i data-lucide="calendar" class="mr-2 w-4 h-4"></i> Book Your Journey
                </a>
                <a href="https://wa.me/886970326591" target="_blank" class="w-full sm:w-auto flex items-center justify-center border border-[#d4af37] text-[#d4af37] hover:bg-[#d4af37] hover:text-[#0f0f0f] px-6 py-3.5 rounded-full text-sm font-bold transition-all">
@@ -559,8 +593,19 @@
            </div>
            
            <div class="text-gray-400 text-xs space-y-2">
+               <p class="text-sm text-gray-300 grid grid-cols-2 justify-items-center gap-x-4 gap-y-2 sm:flex sm:flex-wrap sm:justify-center">
+                   <a href="https://wa.me/886970326591" target="_blank" rel="noopener" class="col-span-2 sm:col-span-1 hover:text-[#25D366] transition-colors py-1">WhatsApp +886 970 326 591</a>
+                   <a href="https://www.facebook.com/profile.php?id=61586931347980" target="_blank" rel="noopener" class="hover:text-[#d4af37] transition-colors py-1">Facebook</a>
+                   <a href="https://www.instagram.com/onyxtaiwan" target="_blank" rel="noopener" class="hover:text-[#d4af37] transition-colors py-1">Instagram</a>
+               </p>
+               <p class="text-sm grid grid-cols-2 justify-items-center gap-x-4 gap-y-2 sm:flex sm:flex-wrap sm:justify-center">
+                   <a href="itineraries.html" class="hover:text-[#d4af37] transition-colors py-1">Itineraries</a>
+                   <a href="taoyuan-airport-transfer.html" class="hover:text-[#d4af37] transition-colors py-1">Airport Transfers</a>
+                   <a href="about.html" class="hover:text-[#d4af37] transition-colors py-1">Our Story</a>
+                   <a href="index.html#booking-terms" class="hover:text-[#d4af37] transition-colors py-1">Booking Terms</a>
+               </p>
                <p>Email: <a href="mailto:onyxtaiwan.official@gmail.com" class="hover:text-[#d4af37] transition-colors">onyxtaiwan.official@gmail.com</a></p>
-               <p>© 2026 ONYX Taiwan Private Chauffeur. All rights reserved.</p>
+               <p>© 2026 ONYX Taiwan Private Chauffeur. <span class="whitespace-nowrap">All rights reserved.</span></p>
            </div>
        </div>
    </footer>
@@ -581,7 +626,7 @@
    <script>
        // Initialize Lucide Icons for the newly hardcoded HTML
        document.addEventListener('DOMContentLoaded', () => {
-           lucide.createIcons();
+           if (window.lucide) lucide.createIcons();
        });
 
        // WhatsApp 浮動按鈕邏輯
@@ -619,5 +664,7 @@
            });
        }
    </script>
+   <script src="js/onyx-config.js?v=2026-11-23"></script>
+   <script src="js/onyx-analytics.js?v=2026-11-23"></script>
 </body>
 </html>

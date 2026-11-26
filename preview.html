@@ -35,7 +35,7 @@
 
    <script defer src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
 
-   <link rel="stylesheet" href="css/onyx-booking.css?v=2026-11-23">
+   <link rel="stylesheet" href="css/onyx-booking.css?v=2026-11-26">
    <script>
        // Google Maps loads only when needed (booking form near the screen, or the map picker): faster first view
        window.onyxMapsReady = window.onyxMapsReady || function () {};
@@ -177,7 +177,7 @@
       "name": "What if my flight is delayed?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We track your flight, so delays are not charged. Free waiting is 60 minutes after landing. After that, overtime is charged by the hour."
+        "text": "We track your flight, so delays are not charged. Free waiting is 60 minutes after landing (15 minutes from your pick-up time if you choose your own time). After that, overtime is charged by the hour."
       }
     },
     {
@@ -268,7 +268,7 @@
                         <a href="about.html" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Our Story</a>
                         <a href="itineraries.html" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Itineraries</a>
                         <a href="#fleet" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Fleet & Pricing</a>
-                        <a href="#reviews" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Reviews</a>
+                        <!-- REVIEWS HIDDEN until the Google Business Profile is approved: <a href="#reviews" class="hover:text-[#d4af37] text-white px-2 py-2 text-sm font-medium transition-colors">Reviews</a> -->
                         <a href="#contact" class="bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-5 py-2 rounded-full text-sm font-bold transition-all transform hover:scale-105 ml-2">Book Now</a>
                     </div>
                 </div>
@@ -284,7 +284,7 @@
                 <a href="about.html" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Our Story</a>
                 <a href="itineraries.html" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Itineraries</a>
                 <a href="#fleet" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Fleet & Pricing</a>
-                <a href="#reviews" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Reviews</a>
+                <!-- REVIEWS HIDDEN until the Google Business Profile is approved: <a href="#reviews" class="text-gray-200 hover:text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium">Reviews</a> -->
                 <a href="#contact" class="text-[#d4af37] block px-3 py-2 rounded-md text-base font-medium font-bold mt-2">Book Now</a>
            </div>
        </div>
@@ -806,7 +806,8 @@
        </div>
    </section>
 
-   <section id="reviews" class="py-16 md:py-20 bg-[#0f0f0f] border-t border-white/5" aria-label="Guest reviews">
+   <!-- REVIEWS HIDDEN until the Google Business Profile is approved: remove "hidden" below to show it again -->
+   <section id="reviews" hidden class="py-16 md:py-20 bg-[#0f0f0f] border-t border-white/5" aria-label="Guest reviews">
        <div class="max-w-3xl mx-auto px-4 text-center">
            <h2 class="text-3xl md:text-4xl font-bold text-white">Guest Reviews</h2>
            <div class="w-16 h-1 bg-[#d4af37] mx-auto rounded-full mt-4 mb-4"></div>
@@ -843,14 +844,14 @@
                        <p class="text-[#d4af37] font-bold mb-1">Changes &amp; no-shows</p>
                        <ul class="list-disc pl-5 space-y-1 mb-3">
                            <li>Free changes to date, time or flight up to 48 hours before pick-up. A new route is re-quoted.</li>
-                           <li>Arrivals: if we can't reach you 60 minutes after landing, the booking counts as a no-show.</li>
+                           <li>Arrivals: if we can't reach you 60 minutes after landing (or 15 minutes after the pick-up time you chose), the booking counts as a no-show.</li>
                            <li>Short-notice bookings (48–72 hours) are confirmed once a vehicle is available. If none is available, your deposit is fully refunded.</li>
                            <li>If we can't confirm your booking, your deposit is fully refunded.</li>
                        </ul>
                        <p class="text-[#d4af37] font-bold mb-1">On the day</p>
                        <ul class="list-disc pl-5 space-y-1 mb-3">
                            <li>Balance is paid in cash (TWD) to your chauffeur.</li>
-                           <li>Free waiting: 60 minutes after landing for arrivals, 15 minutes for other pick-ups. After that, overtime is charged by the hour. Flight delays are not charged.</li>
+                           <li>Free waiting: 60 minutes after landing for arrivals (15 minutes from your pick-up time if you choose your own time), 15 minutes for other pick-ups. After that, overtime is charged by the hour. Flight delays are not charged.</li>
                            <li>Transfers: stops added on the day are TWD 500 each plus TWD 25 per extra km. Charters: changes on the day may add a mileage &amp; mountain surcharge.</li>
                            <li>Transfer stops: up to 15 minutes each. For longer visits, please book a charter.</li>
                            <li>Charters: overtime is charged after the hours shown in your booking. Days with a mountain fee include 1 extra hour.</li>
@@ -933,7 +934,7 @@
                </details>
                <details class="group bg-[#111] border border-white/10 rounded-xl p-5">
                    <summary class="cursor-pointer text-white font-semibold list-none flex justify-between items-center gap-4">What if my flight is delayed?<span class="text-[#d4af37] text-xl leading-none group-open:rotate-45 transition-transform" aria-hidden="true">+</span></summary>
-                   <p class="text-gray-300 text-sm leading-relaxed mt-3">We track your flight, so delays are not charged. Free waiting is 60 minutes after landing. After that, overtime is charged by the hour.</p>
+                   <p class="text-gray-300 text-sm leading-relaxed mt-3">We track your flight, so delays are not charged. Free waiting is 60 minutes after landing (15 minutes from your pick-up time if you choose your own time). After that, overtime is charged by the hour.</p>
                </details>
                <details class="group bg-[#111] border border-white/10 rounded-xl p-5">
                    <summary class="cursor-pointer text-white font-semibold list-none flex justify-between items-center gap-4">What&#x27;s included in the price?<span class="text-[#d4af37] text-xl leading-none group-open:rotate-45 transition-transform" aria-hidden="true">+</span></summary>
@@ -1016,6 +1017,7 @@
            // promo check: the new GAS (the 優惠碼 PromoCodes tab of the new order sheet). No GAS_URL = promo codes off
            PROMO_GAS_URL: (window.ONYX_SETTINGS || {}).GAS_URL || "",
            PAYPAL_CLIENT_ID: (window.ONYX_SETTINGS || {}).PAYPAL_CLIENT_ID || "",   // set in js/onyx-config.js
+           COUNTDOWN_SEC: (window.ONYX_SETTINGS || {}).COUNTDOWN_SEC || 10,   // seconds the customer can cancel after Book now (sent in the background meanwhile)
            // backup only: when the GAS could not save or email a booking, it is sent to you here
            FORMSUBMIT_URL: "https://formsubmit.co/ajax/onyxtaiwan.official@gmail.com",
            FORMSUBMIT_CC: "treetea3322@gmail.com",
@@ -1328,10 +1330,10 @@
            });
        }
    </script>
-   <script src="js/onyx-geo.js?v=2026-11-24"></script>
-   <script src="js/onyx-pricing.js?v=2026-11-25b"></script>
-   <script src="js/onyx-flight.js?v=2026-11-23"></script>
+   <script src="js/onyx-geo.js?v=2026-11-26"></script>
+   <script src="js/onyx-pricing.js?v=2026-11-26"></script>
+   <script src="js/onyx-flight.js?v=2026-11-26"></script>
    <script src="js/onyx-tours.js?v=2026-11-23"></script>
-   <script src="js/onyx-booking.js?v=2026-11-25c"></script>
+   <script src="js/onyx-booking.js?v=2026-11-26"></script>
 </body>
 </html>

@@ -286,18 +286,48 @@
     t.fres = null; t.fok = false;
     var raw = (t.flight || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
     t.flight = raw;
-    if (!raw || t.svc !== 'airport') return;
-    F.load(CFG.FLIGHTDB_URL).then(function () {
+    if (!raw || t.svc !== 'airport') { syncArrTime(t); return Promise.resolve(); }
+    return F.load(CFG.FLIGHTDB_URL).then(function () {
       if (t.flight !== raw) return;   // the guest typed another flight meanwhile
       var r = F.check({ flight: raw, date: t.date, airport: t.airport, dir: t.dir });
       if (r.flight) t.flight = r.flight;
       t.fres = r;
-      if (r.status === 'ok' && r.time && t.dir === 'arr' && !t.hh && !t.mm) {
-        t.hh = r.time.slice(0, 2); var m = Number(r.time.slice(3, 5)); t.mm = String(Math.floor(m / 10) * 10).padStart(2, '0');
-      }
+      syncArrTime(t);
       render();
     });
   }
+  // arrivals (same as 準點): one scheduled landing time that day -> we pick up when the flight lands (nothing to fill);
+  // otherwise the customer types the landing time from the ticket. 'custom' = the customer chose their own pick-up time.
+  function arrMode(t) { var r = t.fres; return r && r.status === 'ok' && r.time ? (t.custom ? 'custom' : 'flight') : 'ticket'; }
+  function syncArrTime(t) {
+    if (t.svc !== 'airport' || t.dir !== 'arr') return;
+    var r = t.fres;
+    if (r && r.status === 'ok' && r.time) { t.land = r.time; if (!t.custom) { t.hh = r.time.slice(0, 2); t.mm = r.time.slice(3, 5); t.autoTime = true; } }
+    else { t.land = ''; t.custom = false; if (t.autoTime) { t.hh = ''; t.mm = ''; t.autoTime = false; } }
+  }
+  function hm(x) { var m = /^(\d{1,2}):(\d{2})/.exec(String(x || '')); return m ? Number(m[1]) * 60 + Number(m[2]) : null; }
+  // "22:30 pick-up, 01:00 flight" is 150 minutes, not -1,290 (準點 _nearestDiffMin)
+  function nearestDiff(d) { var alt = d > 0 ? d - 1440 : d + 1440; return Math.abs(d) <= Math.abs(alt) ? d : alt; }
+  function hmText(min) { var h = Math.floor(Math.abs(min) / 60), m = Math.abs(min) % 60; return (h ? h + ' h' : '') + (h && m ? ' ' : '') + (m ? m + ' min' : '') || '0 min'; }
+  // reminders that never block the booking (準點 _flightWarnReason)
+  function timeWarn(t) {
+    var r = t.fres, k = hm(t.hh && t.mm ? t.hh + ':' + t.mm : '');
+    if (t.svc !== 'airport' || !r || r.status !== 'ok' || !r.time || k == null) return '';
+    var f = hm(r.time);
+    if (t.dir === 'dep') {
+      var d = nearestDiff(f - k);
+      if (d < 0) return t.flight + ' departs at ' + r.time + ', before your pick-up time. Check the time.';
+      if (d < 180) return t.flight + ' departs at ' + r.time + '. A ' + t.hh + ':' + t.mm + ' pick-up leaves ' + hmText(d) + '. We recommend arriving at the airport 3 hours before international flights.';
+      return '';
+    }
+    if (arrMode(t) !== 'custom') return '';
+    if (k - f < -720) return t.flight + ' lands at ' + r.time + ' on ' + niceDate(t.date) + '. A ' + t.hh + ':' + t.mm + ' pick-up on that date is before it lands. If you mean after midnight, change the date to ' + niceDate(addDays(t.date, 1)) + '.';
+    var d2 = nearestDiff(k - f);
+    if (d2 < 0) return 'Your pick-up time is before ' + t.flight + ' lands (' + r.time + ').';
+    if (d2 < 30) return t.flight + ' lands at ' + r.time + '. Immigration and baggage usually take at least 60 minutes.';
+    return '';
+  }
+  function addDays(ymd, n) { var d = new Date(ymd + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
 
   /* ---------------- rendering ---------------- */
   // Google Maps blocked or not loading (ad blocker, firewall, very slow network): addresses can't be found, so offer WhatsApp
@@ -392,6 +422,7 @@
   var HH = [], MM = [];
   for (var i = 0; i < 24; i++) HH.push(String(i).padStart(2, '0'));
   for (var j = 0; j < 60; j += 10) MM.push(String(j).padStart(2, '0'));
+  var MM5 = []; for (var j5 = 0; j5 < 60; j5 += 5) MM5.push(String(j5).padStart(2, '0'));   // landing times from a ticket (e.g. 16:35)
 
   function tripBlock(t, ti, q) {
     var k = 't' + ti, isAir = t.svc === 'airport', arr = t.dir === 'arr', dep = t.dir === 'dep';
@@ -406,11 +437,16 @@
         '<div class="step"><span class="step-label">Service<span class="req">*</span></span><div class="tabs" role="group" aria-label="Service" id="' + k + '-svc">' + tabs + '</div>' +
         '<span class="hint">Choose a service for Trip ' + (ti + 1) + '.</span></div></section>';
     }
-    var fr = t.fres, fmsg = '';
-    if (fr && fr.status === 'ok') fmsg = '<span class="msg ok">✓ ' + esc(t.flight) + (fr.airline ? ' · ' + esc(fr.airline) : '') + (fr.time ? ' · scheduled ' + (arr ? 'landing ' : 'departure ') + fr.time : '') + '</span>';
+    var fr = t.fres, fmsg = '', amode = isAir && arr ? arrMode(t) : '', twarn = timeWarn(t);
+    var flTag = '✓ ' + esc(t.flight) + (fr && fr.airline ? ' · ' + esc(fr.airline) : '');
+    if (fr && fr.status === 'ok' && fr.time) fmsg = '<span class="msg ok">' + flTag + ' · scheduled ' + (arr ? 'landing ' : 'departure ') + fr.time + '</span>';
+    else if (fr && fr.status === 'ok' && fr.reason === 'no_date') fmsg = '<span class="msg ok">' + flTag + '. Choose the date to see the ' + (arr ? 'landing' : 'departure') + ' time.</span>';
+    else if (fr && fr.status === 'ok' && fr.reason === 'ambiguous') fmsg = '<span class="msg ok">' + flTag + '. ' + (arr ? 'Landing' : 'Departure') + ' times differ on this date' + (arr ? ': enter the time on your ticket.' : '.') + '</span>';
+    else if (fr && fr.status === 'ok') fmsg = '<span class="msg ok">' + flTag + '. We\'ll track your flight.</span>';
+    else if (fr && fr.status === 'direction') fmsg = '<span class="msg stop">' + esc(t.flight) + (dep ? ' lands at ' + esc(fr.actual) + ': it\'s an arrival flight. You chose Departure. Choose Arrival, or check the flight number.' : ' departs from ' + esc(fr.actual) + ': it\'s a departure flight. You chose Arrival. Choose Departure, or check the flight number.') + '</span>';
     else if (fr && fr.status === 'mismatch') fmsg = '<span class="msg stop">' + esc(t.flight) + (dep ? ' departs from ' : ' lands at ') + esc(AP[fr.actual] ? AP[fr.actual].name : fr.actual) + ', not ' + esc(apName) + '. Check the airport.</span>';
     else if (fr && fr.status === 'notfound') fmsg = '<span class="msg warn">We can\'t find ' + esc(t.flight) + '. Check the number, or tick below if it\'s correct.</span><label class="check"><input type="checkbox" id="' + k + '-fok" data-f="fok"' + (t.fok ? ' checked' : '') + '> My flight number is correct</label>';
-    else if (fr && fr.status === 'not_operating') fmsg = '<span class="msg warn">' + esc(t.flight) + ' may not fly on this date. Check the date.</span>';
+    else if (fr && fr.status === 'not_operating') fmsg = '<span class="msg warn">' + esc(t.flight) + (arr ? ' doesn\'t seem to land on this date. Check your landing date' : ' doesn\'t seem to depart on this date. Check the date') + ', or send your booking and we\'ll confirm.</span>';
     var lines = t.cars.map(function (c, ci) { return lineFor(q, ti, ci); });
     var tripTotal = lines.every(function (l) { return l && l.ok; }) ? lines.reduce(function (s, l) { return s + l.total; }, 0) : null;
     var anyManual = lines.some(function (l) { return l && l.manual; });
@@ -452,13 +488,22 @@
         '<div class="grid"><div class="field"><span class="flabel" id="' + k + '-datel">' + (isAir && arr ? 'Landing date' : 'Date') + '<span class="req">*</span></span>' +
           '<button type="button" class="datebtn' + (t.date ? '' : ' empty') + '" id="' + k + '-date" data-act="cal" data-t="' + ti + '" aria-haspopup="dialog" aria-expanded="' + !!(S.cal && S.cal.ti === ti) + '" aria-labelledby="' + k + '-datel ' + k + '-date">' +
           '<span>' + (t.date ? niceDate(t.date) : 'Select date') + '</span>' + CAL_ICON + '</button>' + (S.cal && S.cal.ti === ti ? calHtml(t, ti) : '') + '</div>' +
-          '<div class="field"><span class="flabel">' + (isAir ? (arr ? 'Landing time' : dep ? 'Pick-up time' : 'Time') : t.svc === 'charter' ? 'Start time' : 'Pick-up time') + '<span class="req">*</span></span><div class="time2">' +
-          '<select id="' + k + '-hh" data-f="hh" aria-label="Hour" class="' + (t.hh ? '' : 'empty') + '">' + hoursOpts(t.hh, 'Hour', HH) + '</select>' +
-          '<select id="' + k + '-mm" data-f="mm" aria-label="Minute" class="' + (t.mm ? '' : 'empty') + '">' + hoursOpts(t.mm, 'Min', MM) + '</select></div></div></div>' +
+          (isAir && arr && amode === 'flight'
+            ? '<div class="field"><span class="flabel">Pick-up time</span><div class="ptbox" id="' + k + '-ptbox">Pick-up when your flight lands · scheduled ' + esc(t.land) + '</div></div></div>'
+            : '<div class="field"><span class="flabel">' + (isAir ? (arr ? (amode === 'custom' ? 'Pick-up time' : 'Landing time (from your ticket)') : dep ? 'Pick-up time' : 'Time') : t.svc === 'charter' ? 'Start time' : 'Pick-up time') + '<span class="req">*</span></span><div class="time2">' +
+              '<select id="' + k + '-hh" data-f="hh" aria-label="Hour" class="' + (t.hh ? '' : 'empty') + '">' + hoursOpts(t.hh, 'Hour', HH) + '</select>' +
+              '<select id="' + k + '-mm" data-f="mm" aria-label="Minute" class="' + (t.mm ? '' : 'empty') + '">' + hoursOpts(t.mm, 'Min', isAir && arr ? MM5 : MM) + '</select></div></div></div>') +
+        (isAir && arr ? '<span class="hint">Choose the landing date on your ticket ("+1" after the time means it lands the next day).</span>' : '') +
+        (isAir && arr && amode !== 'ticket' ? '<label class="check"><input type="checkbox" id="' + k + '-custom" data-f="custom"' + (t.custom ? ' checked' : '') + '> I\'ll choose my own pick-up time</label>' : '') +
+        (isAir && arr ? '<span class="hint">' + (amode === 'custom' ? 'Free waiting: 15 minutes from your pick-up time. Allow at least 60 minutes after landing for immigration and baggage.'
+          : !t.flight ? 'Enter your flight number: we fill in the landing time from the schedule when we can.'
+          : 'We track your flight and pick you up when it lands, with 60 minutes of free waiting.') + '</span>' : '') +
+        (twarn ? '<span class="msg warn" id="' + k + '-twarn">' + esc(twarn) + '</span>' : '') +
         (rush ? '<span class="rush">Short notice: we\'ll confirm availability. Full refund if no car.</span>' : '') +
         (isAir && dep ? '<span class="hint">Arrive 3 hours before international flights.</span>' : '') +
         '<div class="route"><span class="flabel">Route<span class="req">*</span></span>' +
           '<div class="stop"><span class="dot"></span>' + (isAir && !dep ? '<span class="fixedpt">' + esc(apName) + '</span>' : addrField(k + '-from', t.from, isAir ? 'Hotel or pick-up address' : 'Pick-up address')) + '</div>' +
+          closedHtml(t, ti) +
           stopsHtml +
           (!planOpen && t.stops.length < MAXSTOPS[t.svc] ? '<div class="linkrow"><button class="link" type="button" data-act="addstop" data-t="' + ti + '">+ Add stop' + (t.svc === 'charter' ? '' : ' · TWD 300 each') + '</button><button class="info" type="button" data-act="info" data-t="' + ti + '" aria-label="About stops">i</button></div>' : '') +
           '<div class="infobox" data-info="' + k + '" hidden>' + (t.svc === 'charter' ? 'Add all stops now. Changes on the day may add a mileage &amp; mountain surcharge.' : 'Add all stops now. Stops added on the day: TWD 500 + TWD 25/km. Up to 15 minutes per stop. For longer visits, book a charter.') + '</div>' +
@@ -592,14 +637,14 @@
         '<div class="summary">' + summaryHtml(q) + '</div>' +
         '<span class="small">Charged in TWD. Overtime extra. Conversions are estimates.</span>' +
         '<div class="included small">✓ Tolls &amp; parking included · Free waiting time · Flight tracking <button class="link" type="button" data-act="incl">What\'s included</button>' +
-          '<ul id="obk-incl" hidden><li>Fixed price: tolls, parking and fuel included.</li><li>Free waiting time: 60 min after landing, 15 min for other pick-ups.</li><li>Flight tracking: delays at no extra cost.</li><li>Free cancellation 7+ days before pick-up.</li><li>Typhoon or cancelled flight: free reschedule or full refund.</li><li>Licensed, insured vehicles and professional chauffeurs.</li><li>WhatsApp group chat with your chauffeur.</li><li>Child seats and meet &amp; greet name sign available.</li><li>Chauffeurs speak basic English and use a translation app.</li></ul></div>' +
+          '<ul id="obk-incl" hidden><li>Fixed price: tolls, parking and fuel included.</li><li>Free waiting time: 60 min after landing (15 min if you choose your own pick-up time), 15 min for other pick-ups.</li><li>Flight tracking: delays at no extra cost.</li><li>Free cancellation 7+ days before pick-up.</li><li>Typhoon or cancelled flight: free reschedule or full refund.</li><li>Licensed, insured vehicles and professional chauffeurs.</li><li>WhatsApp group chat with your chauffeur.</li><li>Child seats and meet &amp; greet name sign available.</li><li>Chauffeurs speak basic English and use a translation app.</li></ul></div>' +
         '<label class="check"><input type="checkbox" id="obk-terms" data-g="terms"' + (S.terms ? ' checked' : '') + '> <span>I agree to the <a class="nw" href="#booking-terms" data-act="terms">Booking Terms</a><span class="req">*</span></span></label>' +
         (S.errors.length ? '<div class="formerr" role="alert">Please complete: ' + esc(S.errors.join(', ')) + '.</div>' : '') +
         '<button class="btn gold" type="button" data-act="submit"' + (S.submitting ? ' disabled' : '') + '>' + (S.submitting ? 'Sending…' : payableNow ? 'Book &amp; pay deposit' : 'Book now') + '</button>' +
       '</section>' + modalHtml(q);
     if (S.badIds) S.badIds.forEach(function (id) { var el = $(id); if (el) el.classList.add('bad'); });
     // an open dialog keeps the page behind it still, and gets the keyboard focus once
-    var modal = S.proc ? 'proc' + (S.proc.err ? 'err' : '') : S.dlg ? 'dlg' : S.review ? 'review' : '';
+    var modal = S.proc ? 'proc' + (S.proc.err ? 'err' : '') : S.cdEnd ? 'cdend' : S.cd ? 'cd-' + S.cd.phase : S.xday ? 'xday' : S.dlg ? 'dlg' : '';
     document.body.classList.toggle('obk-modal-open', !!modal);
     if (modal && modal !== lastModal) { var f = root.querySelector('.modal .btn.gold') || root.querySelector('.modal .mbox'); if (f) { if (!f.hasAttribute('tabindex') && f.tagName !== 'BUTTON') f.setAttribute('tabindex', '-1'); f.focus(); } }
     else if (aid && $(aid)) { $(aid).focus(); try { if (caret != null) $(aid).setSelectionRange(caret, caret); } catch (e) { /* select elements */ } }
@@ -644,7 +689,8 @@
     var pts = enginePoints(t), list = [pts.from].concat(pts.stops, [t.same ? pts.from : pts.to]);
     return list.map(function (p) { return esc(p.label || '—'); }).join(' <span class="arrow">→</span> ');
   }
-  function reviewHtml(q) {
+  // trip summary shown inside the countdown (the customer checks it while the order is being sent)
+  function reviewBody(q) {
     var payable = ONLINE() && q.complete && !q.manual && q.deposit > 0, priced = q.complete && !q.manual, items = '';
     S.trips.forEach(function (t, ti) {
       t.cars.forEach(function (c, ci) {
@@ -656,22 +702,19 @@
         var head = (S.trips.length > 1 ? 'Trip ' + (ti + 1) + ' · ' : '') + (t.cars.length > 1 ? 'Vehicle ' + (ci + 1) + ' · ' : '') + SVC[t.svc] +
           (t.svc === 'airport' ? ' · ' + (t.dir === 'arr' ? 'Arrival' : 'Departure') : t.svc === 'charter' ? ' · ' + (t.hrs === 'custom' ? 'Custom' : t.hrs + ' hours') : '');
         items += '<div class="rv"><div class="rvhead"><b>' + esc(head) + '</b><span>' + (l && l.manual ? 'Custom quote' : l && l.ok ? fmt(l.total) : '—') + '</span></div><ul>' +
-          '<li>' + esc(niceDate(t.date) + ' · ' + t.hh + ':' + t.mm + (t.svc === 'airport' && t.flight ? ' · Flight ' + t.flight : '')) + '</li>' +
+          '<li>' + esc(niceDate(t.date) + ' · ' + (t.svc === 'airport' && t.dir === 'arr' ? arrWhen(t) : t.hh + ':' + t.mm) + (t.svc === 'airport' && t.flight ? ' · Flight ' + t.flight : '')) + '</li>' +
           '<li>' + routeText(t) + '</li>' +
           '<li>' + esc(c.vehicle + ' · ' + c.pax + '\u00a0passenger' + (c.pax === '1' ? '' : 's') + ' · ' + ([n0(c.l28) ? n0(c.l28) + '\u00a0×\u00a028-inch' : '', n0(c.l20) ? n0(c.l20) + '\u00a0×\u00a020-inch' : ''].filter(Boolean).concat(ovsText(c, '\u00a0×\u00a0')).join(', ') || 'no luggage')) + '</li>' +
           (extra.length ? '<li>' + extra.join(' · ') + '</li>' : '') +
           (P.hoursNote(l) ? '<li>Total time: ' + P.hoursNote(l).split(' (').map(function (x, i) { return nw(esc(i ? '(' + x : x)); }).join(' ') + '</li>' : '') + '</ul></div>';
       });
     });
-    return '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="obk-rv-t"><div class="mbox">' +
-      '<b class="mtitle" id="obk-rv-t">Review your booking</b>' + items +
+    return items +
       '<div class="summary">' + (payable
         ? '<div class="sumrow"><span>Total</span><span class="total">' + fmt(q.total) + '</span></div><div class="sumrow"><span>Deposit (pay now)</span><span>' + fmt(q.deposit) + '</span></div><div class="sumrow"><span>Balance (cash to chauffeur)</span><span>' + fmt(q.total - q.deposit) + '</span></div>'
         : (priced ? '<div class="sumrow"><span>Estimated total</span><span class="total">' + fmt(q.total) + '</span></div>' : '') +
           '<p class="msg warn" style="margin:0">' + nextStep(priced) + ' Nothing to pay now.</p>') + '</div>' +
-      '<p class="small">' + esc(S.name) + ' · ' + esc(S.phone) + ' · ' + esc(S.email) + '</p>' +
-      '<div class="mbtns"><button class="btn gold" type="button" data-act="revyes" id="obk-rv-yes">' + (payable ? 'Confirm &amp; pay deposit' : 'Confirm booking') + '</button>' +
-      '<button class="btn ghost" type="button" data-act="revno">Edit booking</button></div></div></div>';
+      '<p class="small">' + esc(S.name) + ' · ' + esc(S.phone) + ' · ' + esc(S.email) + '</p>';
   }
   function nextStep(priced) { return priced ? 'We\'ll check your trip and send your deposit link by email and WhatsApp.' : 'We\'ll check your trip and send a custom quote by email and WhatsApp.'; }
   var STEPS = ['Checking your price', 'Saving your booking', 'Preparing secure payment'];
@@ -689,8 +732,10 @@
   }
   function modalHtml(q) {
     if (S.proc) return progressHtml();
+    if (S.cdEnd) return cdEndHtml();
+    if (S.cd) return cdHtml(q);
+    if (S.xday) return xdayHtml();
     if (S.dlg) return dialogHtml();
-    if (S.review) return reviewHtml(q);
     return '';
   }
 
@@ -713,7 +758,7 @@
     if (!bar) return;
     var root = $('onyx-booking'), pay = root && root.querySelector('[data-act="submit"]');
     var show = false;
-    if (root && !S.done && !S.review && !S.dlg && !S.proc && window.matchMedia('(max-width: 768px)').matches) {
+    if (root && !S.done && !S.cd && !S.cdEnd && !S.xday && !S.dlg && !S.proc && window.matchMedia('(max-width: 768px)').matches) {
       var r = root.getBoundingClientRect(), vh = window.innerHeight;
       var p = pay ? pay.getBoundingClientRect() : null;
       show = r.top < vh - 120 && r.bottom > 160 && !(p && p.top < vh - 70 && p.bottom > 0);
@@ -750,6 +795,13 @@
   function pointRef(id) { var m = id.match(/^t(\d+)-(.+)$/); return m ? { trip: S.trips[+m[1]], key: m[2] } : null; }
   function liveId(ref) { var i = ref && ref.trip ? S.trips.indexOf(ref.trip) : -1; return i < 0 ? null : 't' + i + '-' + ref.key; }
   function hasData(t) { return !!(t.dir || t.airport || t.flight || t.hrs || t.date || t.hh || t.mm || t.from.label || t.to.label || t.same || t.sign || t.eng || t.stops.some(function (s) { return s.label; })); }
+  // city transfers from some counties are paused (engine list): ask for a charter instead
+  function closedCounty(t) { return t.svc === 'city' && hasCoords(t.from) && P.cityStartClosed ? P.cityStartClosed(t.from) : ''; }
+  function closedHtml(t, ti) {
+    var c = closedCounty(t); if (!c) return '';
+    return '<div class="msg stop" id="t' + ti + '-closed" role="alert">City transfers from ' + esc(P.countyEn(c)) + ' are not available at the moment. Please book a charter instead.</div>' +
+      '<div class="linkrow"><button class="link" type="button" data-act="tocharter" data-t="' + ti + '">Switch to charter</button></div>';
+  }
   function switched(t, svc) { var nt = newTrip(); nt.svc = svc; nt.cars = t.cars.map(newCar); if (svc === 'charter') nt.stops = [pt()]; return nt; }
   function dropPromo() { if (S.promo) { S.promo = null; S.promoStale = true; } }
   function clearErrors() { S.errors = []; S.badIds = null; }
@@ -800,9 +852,21 @@
     if (act === 'bd') { var bk = b.dataset.k; S.open[bk] = S.open[bk] === false; render(); return; }
     if (act === 'promo') { applyPromo(); return; }
     if (act === 'submit') { submit(); return; }
-    if (act === 'revno') { S.review = false; render(); var sb = document.querySelector('.obk [data-act="submit"]'); if (sb) sb.focus(); return; }
-    if (act === 'revyes') { S.review = false; doSubmit(); return; }
-    if (act === 'procretry') { doSubmit(); return; }
+    if (act === 'cdcancel') { cdCancel(); return; }
+    if (act === 'cdclose') { S.cdEnd = null; location.reload(); return; }   // a clean form after a cancel (same as 準點)
+    if (act === 'xpick') { S.xday.pick = b.dataset.v; render(); return; }
+    if (act === 'xback') { var xb = S.xday; S.xday = null; render(); var de = $('t' + xb.ti + '-date'); if (de) { de.scrollIntoView({ block: 'center' }); de.focus(); } return; }
+    if (act === 'xok') {
+      if (!S.xday || !S.xday.pick) return;
+      var xs = S.xday, xt2 = S.trips[xs.ti]; S.xday = null;
+      xt2.xack = xt2.flight + '|' + xs.pick;
+      if (xs.pick === xt2.date) { submit(); return; }
+      // the next day: change the date, check the flight again, then the normal checks and the review show the new price
+      clearErrors(); xt2.date = xs.pick; if (xt2.tour) xt2.tour.autoDate = false;
+      render(); checkFlight(xt2).then(function () { xt2.xack = xt2.flight + '|' + xt2.date; submit(); });
+      return;
+    }
+    if (act === 'procretry') { retryOrder(); return; }
     if (act === 'procback') { S.proc = null; render(); return; }
     if (act === 'paynow') { startPayment(); return; }
     if (act === 'dlgyes' || act === 'dlgno') {
@@ -820,7 +884,11 @@
     }
     if (act === 'svcyes') { S.trips[ti] = switched(t, t.pending); dropPromo(); }
     if (act === 'svcno') t.pending = null;
-    if (act === 'dir') { t.dir = b.dataset.v; checkFlight(t); }
+    if (act === 'tocharter') {   // keep the date, time and addresses; the customer then picks 4 or 8 hours
+      var nc = switched(t, 'charter'); nc.date = t.date; nc.hh = t.hh; nc.mm = t.mm; nc.from = t.from; nc.to = t.to;
+      if (t.stops.length) nc.stops = t.stops; S.trips[ti] = nc; dropPromo();
+    }
+    if (act === 'dir') { if (t.dir !== b.dataset.v) { if (t.autoTime) { t.hh = ''; t.mm = ''; t.autoTime = false; } t.custom = false; } t.dir = b.dataset.v; checkFlight(t); }
     if (act === 'hrs') { if (t.hrs !== b.dataset.v) dropPromo(); t.hrs = b.dataset.v; }
     if (act === 'car') {
       if (b.getAttribute('aria-disabled') === 'true') return;
@@ -881,6 +949,11 @@
     else if (f === 'flight') { t.flight = el.value; checkFlight(t); }
     else if (f === 'airport') { t.airport = el.value; checkFlight(t); }
     else if (f === 'date') { t.date = el.value; if (t.tour) t.tour.autoDate = false; if (t.flight) checkFlight(t); }
+    else if (f === 'custom') {   // arrivals: own pick-up time instead of "when the flight lands"
+      t.custom = el.checked;
+      if (t.custom) { t.hh = ''; t.mm = ''; t.autoTime = false; } else syncArrTime(t);
+    }
+    else if (f === 'hh' || f === 'mm') { t[f] = el.value; t.autoTime = false; }
     else if (el.type === 'checkbox') { t[f] = el.checked; if (f === 'same' && el.checked) t.to = pt(); }
     else t[f] = el.value;
     // a typed field (flight number, item size) changes when the guest taps the next field or a button:
@@ -903,7 +976,7 @@
     }, 200);
   }
   function onKey(e) {
-    if (e.key === 'Escape' && !S.proc && (S.dlg || S.review)) { S.dlg = null; S.review = false; render(); return; }
+    if (e.key === 'Escape' && !S.proc && !S.cd && !S.cdEnd && (S.dlg || S.xday)) { S.dlg = null; S.xday = null; render(); return; }
     // keep the keyboard inside an open dialog
     var m = e.key === 'Tab' && document.querySelector('#onyx-booking .modal');
     if (m) {
@@ -950,6 +1023,7 @@
       if (t.svc === 'airport') {
         need(!!t.dir, k + '-dir', T + 'direction'); need(!!t.airport, k + '-ap', T + 'airport'); need(!!t.flight, k + '-fl', T + 'flight number');
         need(!(t.fres && t.fres.status === 'mismatch'), k + '-fl', T + 'flight and airport do not match');
+        need(!(t.fres && t.fres.status === 'direction'), k + '-fl', T + (t.dir === 'dep' ? 'this is an arrival flight (choose Arrival)' : 'this is a departure flight (choose Departure)'));
         need(!(t.fres && t.fres.status === 'notfound') || t.fok, k + '-fl', T + 'confirm your flight number');
       }
       if (t.svc === 'charter') {
@@ -961,6 +1035,7 @@
       var ahead = t.date && t.hh && t.mm ? hoursUntil(t) : null;
       need((!t.date || t.date >= minDate) && (ahead == null || ahead >= 48), k + '-date', T + 'date and time at least 48 hours ahead');
       if (!(t.svc === 'airport' && t.dir === 'arr')) need(!!t.from.label.trim(), k + '-from', T + 'pick-up address');
+      if (closedCounty(t)) need(false, k + '-from', T + 'city transfers from ' + P.countyEn(closedCounty(t)) + ' are not available (book a charter)');
       if (!(t.svc === 'airport' && t.dir === 'dep') && !t.same) need(!!t.to.label.trim(), k + '-to', T + 'drop-off address');
       t.cars.forEach(function (c, ci) {
         var kk = k + 'c' + ci, C = T + (t.cars.length > 1 ? 'vehicle ' + (ci + 1) + ' ' : '');
@@ -1009,7 +1084,11 @@
     add('Trip', 'Day ' + (ti + 1) + ' · Car ' + (ci + 1));
     add('Service', serviceName(t));
     if (t.svc === 'airport') { add('Airport', AP[t.airport].name); add('Flight', t.flight + (t.fres && t.fres.status === 'notfound' ? ' (not in schedule, customer confirmed)' : '')); }
-    add(t.svc === 'airport' && t.dir === 'arr' ? 'Landing' : 'Date / time', t.date + ' ' + t.hh + ':' + t.mm);
+    if (t.svc === 'airport' && t.dir === 'arr') {
+      add(arrMode(t) === 'custom' ? 'Pick-up time' : 'Landing', t.date + ' ' + t.hh + ':' + t.mm + (arrMode(t) === 'flight' ? ' (scheduled)' : arrMode(t) === 'ticket' ? ' (from ticket)' : ''));
+      add('Pick-up', arrMode(t) === 'custom' ? 'customer\'s own time (flight lands ' + t.land + '; free waiting 15 min)' : 'when the flight lands (free waiting 60 min)');
+      if (t.fres && t.fres.hasXDay) add('Landing date', 'customer confirmed (flight can land after midnight)');
+    } else add('Date / time', t.date + ' ' + t.hh + ':' + t.mm);
     add('Pick-up', pts.from.label);
     pts.stops.forEach(function (s, i) { add('Stop ' + (i + 1), s.label); });
     add('Drop-off', t.same ? pts.from.label + ' (same as pick-up)' : pts.to.label);
@@ -1040,6 +1119,13 @@
   }
 
   // what the confirmation emails show for one vehicle of one trip: only what was filled in
+  // arrivals: "when the flight lands" (scheduled / from the ticket) or the customer's own pick-up time
+  function arrWhen(t) {
+    var m = arrMode(t);
+    if (m === 'flight') return t.hh + ':' + t.mm + ' landing (scheduled) · pick-up when the flight lands';
+    if (m === 'custom') return t.hh + ':' + t.mm + ' pick-up (flight lands ' + t.land + ')';
+    return t.hh + ':' + t.mm + ' landing (from ticket) · pick-up when the flight lands';
+  }
   function custFields(t, c, l) {
     var isAir = t.svc === 'airport', arr = isAir && t.dir === 'arr', pts = enginePoints(t);
     var lug = [n0(c.l28) ? n0(c.l28) + ' × 28-inch' : '', n0(c.l20) ? n0(c.l20) + ' × 20-inch' : ''].filter(Boolean).concat(ovsText(c, ' × '));
@@ -1050,7 +1136,7 @@
     if (l && l.overnight) extras.push('Chauffeur overnight');
     return {
       title: SVC[t.svc] + (isAir ? ' (' + (arr ? 'Arrival' : 'Departure') + ')' : t.svc === 'charter' ? ' (' + (t.hrs === 'custom' ? 'Custom' : t.hrs + ' hours') + ')' : ''),
-      when: niceDate(t.date) + ' · ' + t.hh + ':' + t.mm + (arr ? ' (landing)' : t.svc === 'charter' ? ' (start)' : ''),
+      when: niceDate(t.date) + ' · ' + (arr ? arrWhen(t) : t.hh + ':' + t.mm + (t.svc === 'charter' ? ' (start)' : '')),
       flight: isAir ? t.flight : '',
       pickup: pts.from.label, stops: planOpenOf(t) ? ['Plan not set yet'] : pts.stops.map(function (x) { return x.label; }),
       dropoff: t.svc === 'charter' && t.same ? 'Same as pick-up' : pts.to.label,
@@ -1095,16 +1181,34 @@
   function submit() {
     if (S.submitting) return;
     if (!validate()) { render(); var first = document.querySelector('.obk .bad'); if (first) first.scrollIntoView({ block: 'center' }); return; }
-    S.review = true; render();
+    // flights that can land after midnight: the customer confirms the landing date on the ticket first
+    for (var xi = 0; xi < S.trips.length; xi++) {
+      var xt = S.trips[xi];
+      if (xt.svc === 'airport' && xt.dir === 'arr' && xt.fres && xt.fres.hasXDay && xt.date && xt.xack !== xt.flight + '|' + xt.date) { S.xday = { ti: xi, d: xt.date, pick: '' }; render(); return; }
+    }
+    startCountdown();
   }
-  function doSubmit() {
-    if (S.submitting) return;
-    if (!validate()) { S.proc = null; render(); return; }
-    S.submitting = true; S.proc = { step: 0, slow: false, err: '' }; render();
-    var slowTimer = setTimeout(function () { if (S.proc && !S.proc.err) { S.proc.slow = true; render(); } }, 12000);
-    // the same order ID on a retry: the GAS ignores a repeat, so a retry can never create a second booking
-    var q = quote(), base = S.pendingId || (S.pendingId = orderBaseId());
-    S.proc.quote = !(ONLINE() && q.complete && !q.manual && q.deposit > 0);
+  function xdayHtml() {
+    var x = S.xday, t = S.trips[x.ti], d2 = addDays(x.d, 1);
+    var opt = function (ymd) { return '<button type="button" class="xopt" data-act="xpick" data-v="' + ymd + '" aria-pressed="' + (x.pick === ymd) + '">' + esc(niceDate(ymd)) + ' · landing</button>'; };
+    return '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="obk-xd-t"><div class="mbox small">' +
+      '<b class="mtitle" id="obk-xd-t">Please confirm your landing date</b>' +
+      '<p>' + esc(t.flight) + ' has flights that land after midnight. Check the <b>landing date</b> on your ticket:</p>' +
+      '<div class="xopts">' + opt(x.d) + opt(d2) + '</div>' +
+      '<p class="hint">"+1" after the time on your ticket means it lands the next day.</p>' +
+      '<div class="mbtns"><button class="btn gold" type="button" data-act="xok" id="obk-xd-ok"' + (x.pick ? '' : ' disabled') + '>Confirm</button>' +
+      '<button class="btn ghost" type="button" data-act="xback">Go back</button></div></div></div>';
+  }
+  /* ---------------- sending: 10-second countdown, sent in the background, can be cancelled (same as 準點, 2026-11-26) ----------------
+   * The order is sent the moment the countdown starts (the countdown covers the waiting time). Two things end it:
+   * the countdown reaching 0 and the GAS answering; cdSettle() is the one place that decides what happens next.
+   * The GAS keeps the emails until the countdown is over ('confirm'), so a cancelled booking never gets a confirmation.
+   * The order number and the submit key stay the same on every retry: the GAS never books it twice, and if another
+   * customer got the same number in the same second it moves this booking to the next free number. */
+  function cdSeconds() { var n = Number(CFG.COUNTDOWN_SEC); return n >= 1 && n <= 30 ? Math.round(n) : 10; }
+  function newNonce() { var a = ''; try { var u = new Uint8Array(12); crypto.getRandomValues(u); for (var i = 0; i < u.length; i++) a += ('0' + u[i].toString(16)).slice(-2); } catch (e) { a = String(Math.random()).slice(2) + Date.now().toString(36); } return a.slice(0, 24); }
+  function buildOrder() {
+    var q = quote(), base = S.pendingId || (S.pendingId = orderBaseId()), nonce = S.pendingNonce || (S.pendingNonce = newNonce());
     var items = [];
     S.trips.forEach(function (t, ti) { t.cars.forEach(function (c, ci) { items.push({ t: t, ti: ti, c: c, ci: ci, l: lineFor(q, ti, ci) }); }); });
     items.sort(function (a, b) {
@@ -1113,48 +1217,144 @@
     });
     items.forEach(function (it, i) { it.id = i === 0 ? base : base + '-' + (i + 1); });
     var rows = items.map(function (it) { return itemFor(it, q); });
-    var allDetails = rows.map(function (r) { return r.details; }).join('\n\n');
-    var created = new Date().toLocaleString('en-US', { timeZone: 'Asia/Taipei', hour12: false });
-    var priced = q.complete && !q.manual, payable = ONLINE() && priced && q.deposit > 0, tot = q.total, dep = q.deposit;
-    var waLines = rows.map(function (r) { return r.id + ' · ' + r.date + ' ' + r.time + ' · ' + r.service + (r.mode ? ' (' + r.mode + ')' : '') + ' · ' + r.vehicle; });
-    var waText = function (t2, d2) {
-      return 'Hi ONYX! My booking ' + base + '\nName: ' + S.name + '\n' + waLines.join('\n') + (t2 != null ? '\n' + (ONLINE() ? 'Total: ' + fmt(t2) + ' · Deposit: ' + fmt(d2) : 'Estimated total: ' + fmt(t2)) : '');
-    };
-    var req = { action: 'submit', orderId: base, order: payload(base), contact: { name: S.name, phone: S.phone, email: S.email },
+    var ctx = { q: q, base: base, nonce: nonce, rows: rows, allDetails: rows.map(function (r) { return r.details; }).join('\n\n'),
+      created: new Date().toLocaleString('en-US', { timeZone: 'Asia/Taipei', hour12: false }),
+      priced: q.complete && !q.manual, payable: ONLINE() && q.complete && !q.manual && q.deposit > 0,
+      waLines: rows.map(function (r) { return r.id + ' · ' + r.date + ' ' + r.time + ' · ' + r.service + (r.mode ? ' (' + r.mode + ')' : '') + ' · ' + r.vehicle; }) };
+    ctx.req = { action: 'submit', orderId: base, nonce: nonce, order: payload(base), contact: { name: S.name, phone: S.phone, email: S.email },
       remarks: S.remarks, promoCode: S.promo ? S.promo.code : '', hp: S.website || '', items: rows };
-    var reg = null, saved = false, noAnswer = false;
-    // one request writes the whole order (the GAS re-prices it); one retry is safe because the GAS ignores a repeated order ID.
-    // No answer in 45 s: stop waiting and use the backup email (the order may still be saved; the email says to check)
-    var send = function () { return gasPost(req, 45000).then(function (r) { return r && r.ok ? r : null; }, function (e) { if (e && e.timeout) noAnswer = true; return null; }); };
+    S.lastCtx = ctx;
+    return ctx;
+  }
+  // GAS only (no backup email yet: a cancelled booking must not send one): { saved, r, noAnswer }
+  function sendOrder(ctx) {
+    var noAnswer = false;
+    // one retry is safe (same number + key); no answer in 45 s: stop waiting (the order may still be saved)
+    var send = function () { return gasPost(ctx.req, 45000).then(function (r) { return r && r.ok ? r : null; }, function (e) { if (e && e.timeout) noAnswer = true; return null; }); };
     // ?backuptest=1 (owner's test): skip the order sheet so this one booking goes only to the backup email
-    (CFG.GAS_URL && !S.backupTest ? send().then(function (r) { return r || noAnswer ? r : send(); }) : Promise.resolve(null)).then(function (r) {
-      if (r) { saved = true; if (r.payable) { reg = r; tot = r.total; dep = r.deposit; } else if (r.priced) tot = r.total; }
-      if (S.proc) { S.proc.step = 1; render(); }
-      // the GAS emails the customer and you; FormSubmit is only the backup to you when that did not happen
-      if (saved && r.mailed && r.mailed.owner) return true;
-      if (!CFG.FORMSUBMIT_URL) return saved;
-      return fetch(CFG.FORMSUBMIT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
-        _subject: (S.backupTest ? '[TEST] ' : '') + '⚠ Booking ' + base + (saved ? ' – emails not sent, please contact the customer' : noAnswer ? ' – the order sheet did not answer: check the sheet, add it if missing, and contact the customer' : ' – NOT in the order sheet, please add it and contact the customer'),
-        _cc: CFG.FORMSUBMIT_CC || '', _template: 'table', _captcha: 'false',
-        orderId: base, name: S.name, phone: S.phone, email: S.email, estimatedTotal: priced ? fmt(tot) : 'To be quoted',
-        savedToSheet: saved ? 'yes' : 'NO', promoCode: S.promo ? S.promo.code : '-', createdAt: created, orderDetails: allDetails
-      }) }).then(function (res) {
-        // delivered only when FormSubmit accepted it (an HTTP error or {"success":"false"}, e.g. not activated, is not delivered)
-        if (!res.ok) return saved;
-        return res.json().then(function (j) { return !(j && String(j.success) === 'false') || saved; }, function () { return true; });
-      }, function () { return saved; });
-    }).then(function (delivered) {
-      S.submitting = false;
-      clearTimeout(slowTimer);
+    var p = CFG.GAS_URL && !S.backupTest ? send().then(function (r) { return r || noAnswer ? r : send(); }) : Promise.resolve(null);
+    return p.then(function (r) { return { saved: !!r, r: r, noAnswer: noAnswer }; });
+  }
+  function backupMail(ctx, res, why) {
+    if (!CFG.FORMSUBMIT_URL) return Promise.resolve(res.saved);
+    var id = res.r && res.r.orderId || ctx.base;
+    return fetch(CFG.FORMSUBMIT_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+      _subject: (S.backupTest ? '[TEST] ' : '') + '⚠ Booking ' + id + (why === 'emails' ? ' – emails not sent, please contact the customer' : why === 'noanswer' ? ' – the order sheet did not answer: check the sheet, add it if missing, and contact the customer' : ' – NOT in the order sheet, please add it and contact the customer'),
+      _cc: CFG.FORMSUBMIT_CC || '', _template: 'table', _captcha: 'false',
+      orderId: id, name: S.name, phone: S.phone, email: S.email, estimatedTotal: ctx.priced ? fmt(res.r && res.r.total || ctx.q.total) : 'To be quoted',
+      savedToSheet: res.saved ? 'yes' : 'NO', promoCode: S.promo ? S.promo.code : '-', createdAt: ctx.created, orderDetails: ctx.allDetails
+    }) }).then(function (x) {
+      // delivered only when FormSubmit accepted it (an HTTP error or {"success":"false"}, e.g. not activated, is not delivered)
+      if (!x.ok) return res.saved;
+      return x.json().then(function (j) { return !(j && String(j.success) === 'false') || res.saved; }, function () { return true; });
+    }, function () { return res.saved; });
+  }
+  function startCountdown() {
+    if (S.submitting || S.cd) return;
+    S.submitting = true;
+    var ctx = buildOrder(), cd = { left: cdSeconds() - 1, phase: 'count', cancelled: false, done: false, res: undefined, ctx: ctx, slow: false };
+    S.cd = cd; render();
+    sendOrder(ctx).then(function (res) { if (S.cd !== cd) return; cd.res = res; cdSettle(); });
+    cd.timer = setInterval(function () {
+      if (S.cd !== cd || cd.phase !== 'count') { clearInterval(cd.timer); return; }
+      if (cd.left > 0) { cd.left--; var n = $('obk-cd-num'); if (n) n.textContent = cd.left; else render(); return; }
+      // 0 has shown for a full second: "Sending your booking" for one more second, then settle
+      clearInterval(cd.timer); cd.phase = 'send'; render();
+      cd.slowT = setTimeout(function () { if (S.cd === cd && cd.phase === 'send') { cd.slow = true; render(); } }, 8000);
+      setTimeout(function () { if (S.cd !== cd) return; cd.done = true; cdSettle(); }, 1000);
+    }, 1000);
+  }
+  function cdCancel() {
+    var cd = S.cd; if (!cd || cd.phase !== 'count') return;
+    cd.cancelled = true; clearInterval(cd.timer); cd.phase = 'cancel'; cd.slow = false; render();
+    cd.slowT = setTimeout(function () { if (S.cd === cd) { cd.slow = true; render(); } }, 15000);
+    cdSettle();
+  }
+  function cdSettle() {
+    var cd = S.cd; if (!cd || cd.settled) return;
+    if (cd.cancelled) {
+      if (cd.res === undefined) return;   // the cancel needs the order in the sheet: wait for the answer
+      cd.settled = true;
+      if (cd.res.saved) return cancelOrder(cd, cd.res.r.orderId, true, 0);
+      if (cd.res.noAnswer) return cancelOrder(cd, cd.ctx.base, false, 0);   // not known yet: keep asking (about 2 minutes)
+      return cdCancelled(cd, true, cd.ctx.base);   // never reached the sheet: nothing was booked
+    }
+    if (cd.done && cd.res !== undefined) { cd.settled = true; finishOrder(cd); }
+  }
+  function cancelOrder(cd, id, known, n) {
+    var max = known ? 5 : 30, gap = known ? 2000 : 4000;
+    var again = function () { if (n + 1 < max) setTimeout(function () { cancelOrder(cd, id, known, n + 1); }, gap); else cdCancelled(cd, !known, id); };
+    gasPost({ action: 'cancel', orderId: id, nonce: cd.ctx.nonce, k: cd.res && cd.res.r ? cd.res.r.k : '' }, 8000).then(function (r) {
+      if (r && r.ok) return cdCancelled(cd, true, r.orderId || id);
+      if (r && r.code === 'NOT_YET') return again();       // not written yet (or never will be: after ~2 minutes nothing was booked)
+      if (r && (r.code === 'FORBIDDEN' || r.code === 'TOO_LATE')) return cdCancelled(cd, false, id);
+      again();
+    }, again);
+  }
+  function cdCancelled(cd, ok, id) {
+    clearTimeout(cd.slowT); clearInterval(cd.timer);
+    if (S.cd !== cd) return;
+    S.cd = null; S.submitting = false; S.cdEnd = { ok: ok, id: id };
+    try { if (window.onyxTrack && ok) window.onyxTrack('booking_cancelled', { during: 'countdown' }); } catch (e) { /* analytics never blocks */ }
+    render();
+  }
+  function finishOrder(cd) {
+    var ctx = cd.ctx, res = cd.res, r = res.r;
+    var after;
+    if (res.saved && r.mailPending) {
+      // the countdown is over: the GAS sends the confirmation and the new-order email now (or within 5 minutes if this call is lost)
+      after = gasPost({ action: 'confirm', orderId: r.orderId, nonce: ctx.nonce, k: r.k }, 30000).then(function (c) {
+        if (c && c.ok && c.mailed && !c.mailed.owner && !c.mailed.already && !c.mailed.cancelled) return backupMail(ctx, res, 'emails');
+        return true;
+      }, function () { return true; });
+    } else if (res.saved) after = r.mailed && r.mailed.owner ? Promise.resolve(true) : backupMail(ctx, res, 'emails');
+    else after = backupMail(ctx, res, res.noAnswer ? 'noanswer' : 'notsaved');
+    after.then(function (delivered) {
+      clearTimeout(cd.slowT);
+      if (S.cd !== cd) return;
+      S.cd = null; S.submitting = false;
       if (!delivered) { S.proc = { step: 0, err: 'The connection failed.' }; render(); return; }
-      S.proc = null; S.pendingId = null;
-      try { if (window.onyxTrack && !S.backupTest) window.onyxTrack('booking_submitted', { value: priced ? tot : 0, currency: 'TWD', quote_needed: !priced, trips: S.trips.length }); } catch (e) { /* analytics never blocks a booking */ }
-      S.done = { id: base, q: { total: tot, deposit: dep }, payable: payable, priced: priced, reg: reg,
-        wa: 'https://wa.me/' + (CFG.WHATSAPP || '886970326591') + '?text=' + encodeURIComponent(waText(priced ? tot : null, dep)) };
+      var id = r && r.orderId || ctx.base, tot = ctx.q.total, dep = ctx.q.deposit, reg = null;
+      if (r) { if (r.payable) { reg = r; tot = r.total; dep = r.deposit; } else if (r.priced) tot = r.total; }
+      S.proc = null; S.pendingId = null; S.pendingNonce = null;
+      try { if (window.onyxTrack && !S.backupTest) window.onyxTrack('booking_submitted', { value: ctx.priced ? tot : 0, currency: 'TWD', quote_needed: !ctx.priced, trips: S.trips.length }); } catch (e) { /* analytics never blocks a booking */ }
+      var wa = 'Hi ONYX! My booking ' + id + '\nName: ' + S.name + '\n' + ctx.waLines.join('\n').split(ctx.base).join(id) +
+        (ctx.priced ? '\n' + (ONLINE() ? 'Total: ' + fmt(tot) + ' · Deposit: ' + fmt(dep) : 'Estimated total: ' + fmt(tot)) : '');
+      S.done = { id: id, q: { total: tot, deposit: dep }, payable: ctx.payable, priced: ctx.priced, reg: reg,
+        wa: 'https://wa.me/' + (CFG.WHATSAPP || '886970326591') + '?text=' + encodeURIComponent(wa) };
       render();
       var root = $('onyx-booking'); if (root) root.scrollIntoView({ block: 'start' });
-      if (payable) startPayment();
+      if (ctx.payable) startPayment();
     });
+  }
+  // "Try again" after a failed send: same number and key, no second countdown (the customer already waited)
+  function retryOrder() {
+    var ctx = S.lastCtx; if (!ctx || S.submitting) return;
+    S.proc = null; S.submitting = true;
+    var cd = { phase: 'send', cancelled: false, done: true, res: undefined, ctx: ctx, slow: false };
+    S.cd = cd; render();
+    cd.slowT = setTimeout(function () { if (S.cd === cd) { cd.slow = true; render(); } }, 8000);
+    sendOrder(ctx).then(function (res) { if (S.cd !== cd) return; cd.res = res; cdSettle(); });
+  }
+  function cdHtml(q) {
+    var cd = S.cd, count = cd.phase === 'count';
+    var title = count ? 'Sending your booking in <span id="obk-cd-num" class="cdnum">' + cd.left + '</span>'
+      : cd.phase === 'send' ? 'Sending your booking…' : 'Cancelling your booking…';
+    return '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="obk-cd-t"><div class="mbox">' +
+      '<b class="mtitle" id="obk-cd-t">' + title + '</b>' +
+      (count ? '<p class="hint" style="margin:0">Please check your trip. You can still cancel.</p>' : '') +
+      reviewBody(q) +
+      (cd.slow ? '<p class="hint" role="status">' + (cd.phase === 'cancel' ? 'Still cancelling… please don\'t close this page.' : 'Still sending… please don\'t close this page.') + '</p>' : '') +
+      (count ? '<div class="mbtns"><button class="btn ghost" type="button" data-act="cdcancel" id="obk-cd-cancel">Cancel booking</button></div>' : '') +
+      '</div></div>';
+  }
+  function cdEndHtml() {
+    var e = S.cdEnd;
+    return '<div class="modal" role="alertdialog" aria-modal="true" aria-labelledby="obk-ce-t"><div class="mbox small">' +
+      '<b class="mtitle" id="obk-ce-t">' + (e.ok ? '✓ Booking cancelled' : 'We couldn\'t confirm the cancellation') + '</b>' +
+      '<p>' + (e.ok ? 'Nothing was booked or charged. You can book again any time.' : 'Please message us on WhatsApp with your order number <b>' + esc(e.id) + '</b> and we\'ll cancel it for you.') + '</p>' +
+      '<div class="mbtns">' + (e.ok ? '' : '<a class="btn wa" href="https://wa.me/' + (CFG.WHATSAPP || '886970326591') + '?text=' + encodeURIComponent('Hi ONYX! Please cancel my booking ' + e.id) + '" target="_blank" rel="noopener">WhatsApp us</a>') +
+      '<button class="btn ' + (e.ok ? 'gold' : 'ghost') + '" type="button" data-act="cdclose" id="obk-ce-close">Close</button></div></div></div>';
   }
 
   // What the payment GAS needs to re-check the price (no Google calls on the server)
@@ -1292,6 +1492,8 @@
     window.addEventListener('resize', onScroll);
     // currency picker at the top of the page: show converted prices in the new currency
     document.addEventListener('onyx:currency', function () { render(); });
+    // leaving or reloading during the countdown / while sending: the browser asks first (the booking may not be saved yet)
+    window.addEventListener('beforeunload', function (e) { if (S.cd) { e.preventDefault(); e.returnValue = ''; } });
     F.load(CFG.FLIGHTDB_URL);
     render();
     var qs = new URLSearchParams(location.search);

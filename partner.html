@@ -2,17 +2,20 @@
 <html lang="en" class="scroll-smooth">
 <head>
    <meta charset="UTF-8">
+   <script>/* browsers without WebP (old iPhone / Mac Safari): show the JPG (or PNG) copy instead */document.addEventListener('error',function(e){var t=e.target;if(!t||t.tagName!=='IMG')return;var s=t.getAttribute('src')||'',n=t.getAttribute('data-fb');if(!n&&/\.webp$/.test(s)){t.setAttribute('data-fb','1');t.src=s.replace(/\.webp$/,'.jpg');}else if(n==='1'&&/\.jpg$/.test(s)){t.setAttribute('data-fb','2');t.src=s.replace(/\.jpg$/,'.png');}},true);</script>
+   <script>/* keep hyphenated words (28-inch, Must-Visit) on one line */window.onyxKeepWords=function(root){if(!root||!document.createTreeWalker)return;var w=document.createTreeWalker(root,4,null),n,a=[];while((n=w.nextNode())){var p=n.parentNode;if(!p||/^(SCRIPT|STYLE|TEXTAREA|OPTION|TITLE|NOSCRIPT)$/.test(p.nodeName)||(p.className&&String(p.className).indexOf('kw')>=0))continue;if(/[A-Za-z0-9]-[A-Za-z0-9]/.test(n.nodeValue))a.push(n);}a.forEach(function(n){var s=n.nodeValue,re=/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)+/g,m,i=0,f=document.createDocumentFragment();while((m=re.exec(s))){var L=m[0].length,bf=s.charAt(m.index-1),af=s.charAt(m.index+L),af2=s.charAt(m.index+L+1);if(L>20||/[@\/_.]/.test(bf)||/[@\/_]/.test(af)||(/[.:]/.test(af)&&/[A-Za-z0-9]/.test(af2)))continue;if(m.index>i)f.appendChild(document.createTextNode(s.slice(i,m.index)));var k=document.createElement('span');k.className='kw';k.style.whiteSpace='nowrap';k.textContent=m[0];f.appendChild(k);i=m.index+m[0].length;}if(i<s.length)f.appendChild(document.createTextNode(s.slice(i)));var p=n.parentNode,d=getComputedStyle(p).display;if(/flex|grid/.test(d)){var o=document.createElement('span');o.className='kw-box';o.appendChild(f);p.replaceChild(o,n);}else p.replaceChild(f,n);});};document.addEventListener('DOMContentLoaded',function(){onyxKeepWords(document.body);});</script>
+   <meta name="robots" content="noindex, nofollow">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+   <link rel="apple-touch-icon" href="images/icon.png">
    <title>ONYX Partner Program</title>
-   <meta name="description" content="Join ONYX Affiliate Program. Earn 10% commission and offer premium perks to your audience.">
+   <meta name="description" content="Join the ONYX Affiliate Program. Earn 8% commission and give your audience a travel perk in Taiwan.">
 
-   <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="stylesheet" href="css/site.css?v=2026-11-25">
 
-   <link rel="preconnect" href="https://fonts.googleapis.com">
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+   <link rel="preload" href="fonts/inter-latin-v20.woff2" as="font" type="font/woff2" crossorigin>
 
-   <script src="https://unpkg.com/lucide@latest"></script>
+   <script defer src="https://unpkg.com/lucide@0.536.0/dist/umd/lucide.min.js"></script>
 
    <style>
        body { font-family: 'Inter', sans-serif; }
@@ -47,12 +50,12 @@
 </head>
 <body class="bg-[#0f0f0f] text-gray-300 antialiased selection:bg-[#d4af37] selection:text-[#0f0f0f]">
 
-   <nav class="fixed w-full z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/10">
+   <nav aria-label="Main" class="fixed w-full z-50 bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/10">
        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div class="flex items-center justify-between h-20">
                 <a href="index.html" class="flex-shrink-0 flex items-center cursor-pointer">
-                    <span class="text-xl sm:text-2xl font-bold text-white tracking-widest uppercase">
-                        ONYX <span class="text-[#d4af37]">TAIWAN</span> <span class="text-gray-500 font-light border-l border-gray-600 pl-3 ml-1">PARTNER</span>
+                    <span class="text-lg min-[360px]:text-xl sm:text-2xl font-bold text-white tracking-wider min-[360px]:tracking-widest uppercase whitespace-nowrap">
+                        ONYX <span class="text-[#d4af37]">TAIWAN</span> <span class="text-gray-400 font-light border-l border-gray-600 pl-3 ml-1">PARTNER</span>
                     </span>
                 </a>
                 <div class="hidden md:block">
@@ -64,7 +67,7 @@
 
    <section class="relative min-h-[60vh] flex items-center justify-center bg-[#0a0a0a] pt-32 md:pt-40 pb-20">
        <div class="absolute inset-0 z-0">
-           <img src="./images/hero.jpg" alt="Luxury Fleet" class="w-full h-full object-cover opacity-20" onerror="this.style.display='none'">
+           <img src="./images/hero.webp" alt="Luxury Fleet" class="w-full h-full object-cover opacity-20" onerror="this.style.display='none'">
            <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-[#0f0f0f]"></div>
        </div>
        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
@@ -74,7 +77,7 @@
                <span class="text-2xl sm:text-3xl font-light text-gray-300 block mt-4">Grow with Taiwan's Premium Chauffeur Brand</span>
            </h1>
            <p class="max-w-2xl mx-auto text-sm md:text-lg text-gray-400 font-light mb-12 animate-fade-in-up" style="animation-delay: 0.2s">
-               Join our network and earn 10% commission on every booking. Offer your audience an "8+1" hour Taiwan travel perk.
+               Join our network and earn 8% commission on every completed booking. Your followers get 1 free hour on 8-hour charters and 5% off transfers and 4-hour charters (up to TWD 100).
            </p>
            <a href="#apply" class="inline-flex items-center justify-center bg-[#d4af37] hover:bg-[#b4941f] text-[#0f0f0f] px-10 py-4 rounded-full text-lg font-bold transition-all shadow-xl hover:shadow-[#d4af37]/40 transform hover:scale-105 animate-fade-in-up" style="animation-delay: 0.3s">
                Apply to Join
@@ -89,15 +92,15 @@
                     <div class="w-16 h-16 bg-[#1a1a1a] rounded-2xl flex items-center justify-center mb-6 mx-auto text-[#d4af37] group-hover:scale-110 transition-transform">
                         <i data-lucide="banknote" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-3">10% Commission</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Earn 10% on Net Booking Value for every completed trip.</p>
+                    <h3 class="text-xl font-bold text-white mb-3">8% Commission</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Earn 8% on Net Booking Value for every completed trip.</p>
                 </div>
                 <div class="bg-[#151515] p-10 rounded-2xl border border-white/5 hover:border-[#d4af37]/30 transition-all text-center group">
                     <div class="w-16 h-16 bg-[#1a1a1a] rounded-2xl flex items-center justify-center mb-6 mx-auto text-[#d4af37] group-hover:scale-110 transition-transform">
                         <i data-lucide="clock-plus" class="w-8 h-8"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">Audience Bonus</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Followers receive 1 EXTRA HOUR for free on any 8-hour private charter.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Followers get 1 free hour on 8-hour charters, and 5% off transfers and 4-hour charters (up to TWD 100).</p>
                 </div>
                 <div class="bg-[#151515] p-10 rounded-2xl border border-white/5 hover:border-[#d4af37]/30 transition-all text-center group">
                     <div class="w-16 h-16 bg-[#1a1a1a] rounded-2xl flex items-center justify-center mb-6 mx-auto text-[#d4af37] group-hover:scale-110 transition-transform">
@@ -130,18 +133,18 @@
                <div id="form-container" class="space-y-8">
                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                        <div>
-                           <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-tighter">Name / Nickname <span class="text-red-500">*</span></label>
-                           <input type="text" id="name" placeholder="Alice Lee" class="w-full onyx-input p-4 rounded-xl text-sm required">
+                           <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-tighter">Name / Nickname <span class="text-red-500">*</span></label>
+                           <input type="text" id="name" placeholder="Alice Lee" class="w-full onyx-input p-4 rounded-xl text-base sm:text-sm required">
                        </div>
                        <div>
-                           <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-tighter">Email <span class="text-red-500">*</span></label>
-                           <input type="email" id="email" placeholder="alice@example.com" class="w-full onyx-input p-4 rounded-xl text-sm required">
+                           <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-tighter">Email <span class="text-red-500">*</span></label>
+                           <input type="email" id="email" placeholder="alice@example.com" class="w-full onyx-input p-4 rounded-xl text-base sm:text-sm required">
                        </div>
                    </div>
 
                    <div>
-                       <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-tighter">WhatsApp Number (Optional) <span class="text-[#d4af37] ml-2 font-normal">For quick communication</span></label>
-                       <input type="tel" id="whatsapp" placeholder="e.g. +65 9123 4567" class="w-full onyx-input p-4 rounded-xl text-sm">
+                       <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-tighter">WhatsApp Number (Optional) <span class="text-[#d4af37] ml-2 font-normal">For quick communication</span></label>
+                       <input type="tel" id="whatsapp" placeholder="e.g. +65 9123 4567" class="w-full onyx-input p-4 rounded-xl text-base sm:text-sm">
                    </div>
 
                    <div class="bg-[#1a1a1a]/50 p-6 md:p-8 rounded-2xl border border-white/5 shadow-inner">
@@ -149,9 +152,9 @@
                            <div class="flex flex-col gap-1">
                                <div class="flex items-center gap-2">
                                    <i data-lucide="share-2" class="w-4 h-4 text-[#d4af37]"></i>
-                                   <label class="text-xs font-bold text-gray-500 uppercase tracking-tighter text-left">Social Media Channels (At least one) <span class="text-red-500">*</span></label>
+                                   <label class="text-xs font-bold text-gray-400 uppercase tracking-tighter text-left">Social Media Channels (At least one) <span class="text-red-500">*</span></label>
                                </div>
-                               <p class="text-[10px] text-gray-600 ml-6 uppercase tracking-tighter text-left">e.g. Instagram, Xiaohongshu, Facebook, YouTube, X, Threads, Blog</p>
+                               <p class="text-[10px] text-gray-400 ml-6 uppercase tracking-tighter text-left">e.g. Instagram, Xiaohongshu, Facebook, YouTube, X, Threads, Blog</p>
                            </div>
                            <span class="w-fit text-[10px] bg-[#d4af37]/10 text-[#d4af37] px-2 py-0.5 rounded border border-[#d4af37]/20 whitespace-nowrap">Choose any one</span>
                        </div>
@@ -160,43 +163,43 @@
                            <div class="relative group">
                                <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
                                    <i data-lucide="instagram" class="w-4 h-4 text-gray-600 group-focus-within:text-[#d4af37] transition-colors"></i>
-                                   <span class="text-[10px] text-gray-700 uppercase font-bold border-r border-gray-800 pr-2">IG / HS</span>
+                                   <span class="text-[10px] text-gray-400 uppercase font-bold border-r border-gray-800 pr-2">IG / HS</span>
                                </div>
-                               <input type="url" id="socialLink1" placeholder="https://www.instagram.com/yourname" class="w-full onyx-input pl-24 p-3.5 rounded-xl text-sm text-left">
+                               <input type="url" id="socialLink1" placeholder="https://www.instagram.com/yourname" class="w-full onyx-input pl-24 p-3.5 rounded-xl text-base sm:text-sm text-left">
                            </div>
                            
                            <div class="relative group">
                                <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
                                    <i data-lucide="facebook" class="w-4 h-4 text-gray-600 group-focus-within:text-[#d4af37] transition-colors"></i>
-                                   <span class="text-[10px] text-gray-700 uppercase font-bold border-r border-gray-800 pr-2">FB</span>
+                                   <span class="text-[10px] text-gray-400 uppercase font-bold border-r border-gray-800 pr-2">FB</span>
                                </div>
-                               <input type="url" id="socialLink2" placeholder="https://www.facebook.com/yourpage" class="w-full onyx-input pl-24 p-3.5 rounded-xl text-sm text-left">
+                               <input type="url" id="socialLink2" placeholder="https://www.facebook.com/yourpage" class="w-full onyx-input pl-24 p-3.5 rounded-xl text-base sm:text-sm text-left">
                            </div>
                            
                            <div class="relative group">
                                <div class="absolute left-4 top-1/2 -translate-y-1/2 flex items-center gap-2 pointer-events-none">
                                    <i data-lucide="youtube" class="w-4 h-4 text-gray-600 group-focus-within:text-[#d4af37] transition-colors"></i>
-                                   <span class="text-[10px] text-gray-700 uppercase font-bold border-r border-gray-800 pr-2">YT</span>
+                                   <span class="text-[10px] text-gray-400 uppercase font-bold border-r border-gray-800 pr-2">YT</span>
                                </div>
-                               <input type="url" id="socialLink3" placeholder="https://www.youtube.com/@yourchannel" class="w-full onyx-input pl-24 p-3.5 rounded-xl text-sm text-left">
+                               <input type="url" id="socialLink3" placeholder="https://www.youtube.com/@yourchannel" class="w-full onyx-input pl-24 p-3.5 rounded-xl text-base sm:text-sm text-left">
                            </div>
                        </div>
                    </div>
 
                    <div>
-                       <label class="block text-xs font-bold text-gray-500 mb-2 uppercase tracking-tighter text-left">PayPal Account (Email) <span class="text-red-500">*</span></label>
-                       <input type="email" id="paypal" placeholder="e.g. payment@example.com" class="w-full onyx-input p-4 rounded-xl text-sm required">
+                       <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-tighter text-left">PayPal Account (Email) <span class="text-red-500">*</span></label>
+                       <input type="email" id="paypal" placeholder="e.g. payment@example.com" class="w-full onyx-input p-4 rounded-xl text-base sm:text-sm required">
                    </div>
 
                    <div class="mt-4">
                        <label class="block text-xs font-bold text-[#d4af37] mb-3 uppercase tracking-widest text-left">Partnership Agreement & Privacy Policy</label>
-                       <div class="h-72 overflow-y-auto bg-black border border-white/10 rounded-2xl p-6 text-[11px] text-gray-500 leading-relaxed agreement-box text-left">
+                       <div class="h-72 overflow-y-auto bg-black border border-white/10 rounded-2xl p-6 text-[11px] text-gray-400 leading-relaxed agreement-box text-left" tabindex="0" role="region" aria-label="Partnership agreement">
                            <div class="space-y-4">
                                <section>
                                    <h4 class="text-white font-bold mb-2 uppercase tracking-wider">ONYX KOL Affiliate Partnership Agreement</h4>
                                    <p class="mb-2"><strong class="text-gray-300">1. Partnership Overview:</strong> ONYX will provide the Affiliate (KOL) with a promotional tracking link and/or promo code to promote ONYX's premium private charter and transfer services in Taiwan.</p>
-                                   <p class="mb-2"><strong class="text-gray-300">2. Customer Offer:</strong> Customers who book an 8-hour private charter through the ONYX official website using the Affiliate's link/code will be entitled to 1 complimentary additional hour of service.</p>
-                                   <p class="mb-2"><strong class="text-gray-300">3. Commission Structure:</strong> For every eligible booking, the Affiliate will earn a ten percent (10%) commission based on the order's amount excluding tax. An eligible booking is defined as: a booking made explicitly via the Affiliate's specific tracking link/code where the customer has successfully completed their travel itinerary, and no refunds or transaction disputes have occurred.</p>
+                                   <p class="mb-2"><strong class="text-gray-300">2. Customer Offer:</strong> Customers who book through the ONYX official website using the Affiliate's link/code get 1 complimentary additional hour on an 8-hour private charter, and 5% off each transfer and 4-hour charter (up to TWD 100 per vehicle).</p>
+                                   <p class="mb-2"><strong class="text-gray-300">3. Commission Structure:</strong> For every eligible booking, the Affiliate will earn an eight percent (8%) commission based on the order's amount excluding tax. An eligible booking is defined as: a booking made explicitly via the Affiliate's specific tracking link/code where the customer has successfully completed their travel itinerary, and no refunds or transaction disputes have occurred.</p>
                                    <p class="mb-2"><strong class="text-gray-300">4. Tracking and Attribution:</strong> Commissions will only be credited for orders explicitly tracked through the Affiliate's assigned promotional link or code.</p>
                                    <p class="mb-2"><strong class="text-gray-300">5. Payout Terms:</strong></p>
                                    <ul class="list-disc pl-4 space-y-1 mb-4">
@@ -235,19 +238,19 @@
            <span class="text-xl font-bold text-white tracking-widest uppercase block mb-6">
                ONYX <span class="text-[#d4af37]">TAIWAN</span>
            </span>
-           <div class="text-gray-500 text-xs space-y-3">
+           <div class="text-gray-400 text-xs space-y-3">
                <p class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
                    <span>Official Support: <a href="mailto:onyxtaiwan.official@gmail.com" class="hover:text-[#d4af37] transition-colors">onyxtaiwan.official@gmail.com</a></span>
                    <span class="hidden sm:inline text-gray-700 opacity-30">|</span>
                    <span>WhatsApp: <a href="https://wa.me/886970326591" target="_blank" class="hover:text-[#d4af37] transition-colors font-medium">+886 970 326 591</a></span>
                </p>
-               <p>&copy; 2026 ONYX Taiwan Private Chauffeur. All rights reserved.</p>
+               <p>&copy; 2026 ONYX Taiwan Private Chauffeur. <span class="whitespace-nowrap">All rights reserved.</span></p>
            </div>
        </div>
    </footer>
 
    <script>
-       lucide.createIcons();
+       document.addEventListener('DOMContentLoaded', function () { if (window.lucide) lucide.createIcons(); });
 
        // Configuration
        window.GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtiJsAMCKXYB_UG34txcTonDEb5ylqwf4zLJ03Hj_9y0cZlAJs2LkAEpiUxiqJL9eV/exec"; 
@@ -369,5 +372,7 @@
            }
        };
    </script>
+   <script src="js/onyx-config.js?v=2026-11-23"></script>
+   <script src="js/onyx-analytics.js?v=2026-11-23"></script>
 </body>
 </html>

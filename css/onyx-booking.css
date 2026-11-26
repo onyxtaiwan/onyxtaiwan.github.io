@@ -241,3 +241,14 @@ body.obk-typing .obk-bar,body.obk-typing #wa-float-wrapper{display:none!importan
 .obk .info::before{content:"";position:absolute;left:0;top:50%;width:44px;height:44px;transform:translateY(-50%)}   /* grows to the right only: the link before it keeps its own taps */
 .obk .check{z-index:0}   /* own layer: its hit box stays behind the checkbox and text */
 .obk .check::before{content:"";position:absolute;left:0;right:0;top:50%;height:max(100%,32px);transform:translateY(-50%);z-index:-1}
+/* arrivals: "Pick-up when your flight lands" box; landing-date choice for flights that land after midnight (2026-11-25) */
+.obk .ptbox{padding:11px 12px;border:1px solid var(--gold);border-radius:8px;color:var(--fg);font-size:14px;font-weight:600;line-height:1.4;background:var(--gold-wash)}
+.obk .xopts{display:flex;flex-direction:column;gap:8px;margin:10px 0 4px}
+.obk .xopt{width:100%;text-align:left;padding:13px 14px;border-radius:10px;border:2px solid var(--line);background:var(--panel-2);color:var(--fg);font:inherit;font-weight:700;cursor:pointer;min-height:44px}
+.obk .xopt[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-wash)}
+.obk .btn[disabled]{opacity:.5;cursor:default}
+.obk [id$="-closed"]{margin-top:6px}
+/* text links in the form (e.g. "Remove" next to Other items): at least 40 px tall on every screen (tap-size check, 2026-11-26) */
+.obk .link{min-height:40px}
+/* countdown while the booking is sent (2026-11-26) */
+.obk .cdnum{display:inline-block;min-width:1.3em;text-align:center;color:var(--gold);font-variant-numeric:tabular-nums}

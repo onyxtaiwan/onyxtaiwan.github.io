@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /preview.html
+Disallow: /pay.html
+Disallow: /checkout/
+Disallow: /partner.html
+Disallow: /map.html
+Disallow: /survey.html
+
+Sitemap: https://onyxtaiwan.com/sitemap.xml

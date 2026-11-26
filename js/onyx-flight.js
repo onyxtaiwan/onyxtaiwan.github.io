@@ -199,7 +199,12 @@
   function stripDay(t) { return String(t || '').replace(/[+-]\d\s*$/, '').trim(); }
 
   function check(p) {
-    var out = { status: 'skip', flight: '', airline: '', time: '', actual: '' };
+    // status: 'ok' | 'direction' (an arrival flight booked as a departure, or the other way) | 'mismatch' (other Taiwan airport)
+    //         | 'notfound' | 'not_operating' | 'skip' (no data: never block the customer)
+    // time: the one scheduled time on that date (landing for arrivals, departure for departures), '' when not certain
+    // reason (time = ''): 'no_date' | 'ambiguous' (two times that day) | 'out_of_season' (no schedule for that date yet)
+    // hasXDay (arrivals): some flights with this number land the next day (+1): the customer confirms the landing date
+    var out = { status: 'skip', flight: '', airline: '', time: '', timeRaw: '', reason: '', hasXDay: false, actual: '' };
     if (!db || !db.flights || !db.generatedAt) return out;
     var gen8 = _d8_(String(db.generatedAt).slice(0, 10));
     if (!gen8 || _dayNum_(todayTaipei8()) - _dayNum_(gen8) > 1) return out;      // stale file: skip
@@ -210,6 +215,11 @@
     out.airline = f.a || '';
     var dir = p.dir === 'dep' ? 'dropoff' : 'pickup';
     var ap = AIRPORTS[p.airport] ? p.airport : '';
+    // direction first (same as 準點), even before an airport is chosen
+    var all = _resolveFlight_(f, '', '', dir);
+    var twDep = all.depAirports.filter(function (a) { return AIRPORTS[a]; }), twArr = all.arrAirports.filter(function (a) { return AIRPORTS[a]; });
+    if (dir === 'dropoff' && twArr.length && !twDep.length) { out.status = 'direction'; out.actual = twArr[0]; return out; }
+    if (dir === 'pickup' && twDep.length && !twArr.length) { out.status = 'direction'; out.actual = twDep[0]; return out; }
     var r = _resolveFlight_(f, p.date || '', ap, dir);
     var served = dir === 'dropoff' ? r.depAirports : r.arrAirports;
     if (ap && served.length && served.indexOf(ap) < 0) {
@@ -217,10 +227,14 @@
       out.actual = served.filter(function (a) { return AIRPORTS[a]; })[0] || served[0];
       return out;
     }
+    // any flight with this number (at this airport) landing the next day -> ask for the landing date (準點 v3.2.153)
+    if (dir === 'pickup') out.hasXDay = /[+]\d/.test(r.arrTimes.join(',') + ',' + (r.matchedArr || ''));
     if (r.reason === 'not_operating') { out.status = 'not_operating'; return out; }
     out.status = 'ok';
     var t = dir === 'dropoff' ? (r.resolved ? r.matchedDep : '') : (r.resolved ? r.matchedArr : '');
+    out.timeRaw = String(t || '');          // with +1 / -1 as in the schedule
     out.time = stripDay(t);                 // only when the schedule gives one exact time
+    out.reason = r.resolved ? '' : (r.reason || '');
     return out;
   }
 
