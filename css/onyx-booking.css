@@ -252,3 +252,11 @@ body.obk-typing .obk-bar,body.obk-typing #wa-float-wrapper{display:none!importan
 .obk .link{min-height:40px}
 /* countdown while the booking is sent (2026-11-26) */
 .obk .cdnum{display:inline-block;min-width:1.3em;text-align:center;color:var(--gold);font-variant-numeric:tabular-nums}
+/* locked extra (same chauffeur on multi-day charters): shown ticked, can't be changed */
+.obk .check.lock{cursor:default}
+.obk .check.lock input{cursor:default;opacity:1;min-height:0;height:18px;width:18px;padding:0;border:0;box-sizing:border-box;-webkit-appearance:none;appearance:none;margin:0;border-radius:3px;background:var(--gold);position:relative}
+.obk .check.lock input::after{content:"";position:absolute;left:36%;top:14%;width:26%;height:50%;border:solid var(--gold-ink);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.obk .hint a{color:var(--gold);text-decoration:underline}
+.obk .hint.fit{color:var(--warn)}
+@media (max-width:640px){.obk .check.lock input{width:22px;height:22px}}
+.obk .hint.warnc{color:var(--warn)}

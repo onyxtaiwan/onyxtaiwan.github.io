@@ -166,7 +166,35 @@
   var Maps = {
     route: function (points) {
       return maps().then(function () {
-        return google.maps.importLibrary('routes').then(function (lib) {
+        return google.maps.importLibrary('routes').then(function (lib) { return Maps.routeNew(lib, points); })
+          .catch(function () { return Maps.legacyRoute(points); });
+      });
+    },
+    // the same route, but to each place's Google ID where we have one: Google then drives to the place's entrance
+    // (a hotel inside a park, a campus) instead of the map pin
+    routeIds: function (pts) {
+      var at = function (p, PL) { return p.pid ? (PL ? new PL.Place({ id: p.pid }) : { placeId: p.pid }) : { lat: p.lat, lng: p.lng }; };
+      return maps().then(function () { return Promise.all([google.maps.importLibrary('routes'), google.maps.importLibrary('places')]); })
+        .then(function (libs) { if (!libs[1].Place) throw new Error('no Place class'); return Maps.routeNew(libs[0], pts.map(function (p) { return at(p, libs[1]); })); })
+        .catch(function () { return Maps.legacyRoute(pts.map(function (p) { return at(p); })); });
+    },
+    // places on the map near a point that a car can reach (nearest road / address first), at most 3 km away
+    nearRoads: function (p) {
+      return maps().then(function () {
+        return new Promise(function (resolve) {
+          new google.maps.Geocoder().geocode({ location: { lat: p.lat, lng: p.lng } }, function (r, s) {
+            if (s !== 'OK' || !r) return resolve([]);
+            try {
+            var c = r.filter(function (x) { return x && x.geometry && x.geometry.location && !isArea(x.types); }).map(function (x) { var q = ll(x.geometry.location); q.road = (x.types || []).indexOf('route') >= 0 ? 1 : 0; q.d = P.distKm(p, q); return q; })
+              .filter(function (q) { return q.d > 0.03 && q.d <= 3; });
+            c.sort(function (a, b) { return (b.road - a.road) || (a.d - b.d); });
+            resolve(c.slice(0, 3).map(function (q) { return { lat: q.lat, lng: q.lng }; }));
+            } catch (e) { resolve([]); }
+          });
+        });
+      }).catch(function () { return []; });
+    },
+    routeNew: function (lib, points) {
           if (!lib.Route || !lib.Route.computeRoutes) throw new Error('no Route class');
           return lib.Route.computeRoutes({
             origin: points[0], destination: points[points.length - 1],
@@ -177,8 +205,6 @@
             if (!rt) throw new Error('no route');
             return { km: rt.distanceMeters / 1000, durationMin: (rt.durationMillis || 0) / 60000, path: (rt.path || []).map(ll) };
           });
-        }).catch(function () { return Maps.legacyRoute(points); });
-      });
     },
     legacyRoute: function (points) {
       return new Promise(function (resolve, reject) {
@@ -230,10 +256,11 @@
           var name = place.displayName || '', addr = place.formattedAddress || '';
           var p = pt(name && addr.indexOf(name) < 0 ? name + ', ' + addr : (addr || name), place.location.lat(), place.location.lng());
           if (isArea(place.types)) p.vague = true;
+          if (place.id) p.pid = place.id;
           return p;
         });
       }
-      return Maps.geocode({ placeId: item.placeId }, item.text);
+      return Maps.geocode({ placeId: item.placeId }, item.text).then(function (p) { if (p && item.placeId) p.pid = item.placeId; return p; });
     },
     geocode: function (req, label) {
       return maps().then(function () {
@@ -248,6 +275,54 @@
   };
 
   /* ---------------- route + elevation per trip ---------------- */
+  // Google can't always drive to a place as pinned (a hotel inside a forest park, a viewpoint on a footpath). Only when the
+  // normal route fails: 1) route to the places' Google IDs (Google picks the entrance); 2) find the stops it can't reach:
+  // a stop that is a short walk (1.5 km) from the stop before or after is left out of the drive, any other is moved to the
+  // nearest road or address (3 km at most). Still no route: custom quote, naming the place.
+  function routeSmart(pts) {
+    var plain = function (list) { return list.map(function (p) { return { lat: p.lat, lng: p.lng }; }); };
+    return Maps.route(plain(pts)).catch(function () {
+      var byId = pts.some(function (p) { return p.pid; }) ? Maps.routeIds(pts) : Promise.reject(new Error('no place IDs'));
+      return byId.catch(function () { return routeAround(pts, plain); });
+    });
+  }
+  function routeAround(pts, plain) {
+    var legs = [];
+    for (var i = 0; i < pts.length - 1; i++) legs.push(i);
+    return Promise.all(legs.map(function (i) {
+      return P.distKm(pts[i], pts[i + 1]) < 0.03 ? null : Maps.route(plain([pts[i], pts[i + 1]])).then(function () { return true; }, function () { return false; });
+    })).then(function (ok) {
+      // a point is unreachable when no leg to or from it works (a leg of the same point twice tells nothing)
+      var bad = pts.map(function (p, i) { var a = i > 0 ? ok[i - 1] : null, b = i < ok.length ? ok[i] : null; return a !== true && b !== true && (a === false || b === false); });
+      // the same place twice (round trip): both or neither
+      pts.forEach(function (p, i) { pts.forEach(function (q, j) { if (bad[i] && P.distKm(p, q) < 0.03) bad[j] = true; }); });
+      var names = pts.filter(function (p, i) { return bad[i]; }).map(function (p) { return p.label; }).filter(function (n, i, a) { return a.indexOf(n) === i; });
+      if (!names.length) throw { bad: '' };
+      // every leg failed (no connection, or Google is down): we can't tell which place is the problem, so name none
+      var blame = ok.some(function (x) { return x === true; }) ? names[0] : '';
+      var keep = pts.map(function (p, i) {
+        if (!bad[i] || i === 0 || i === pts.length - 1) return true;
+        return !((!bad[i - 1] && P.distKm(p, pts[i - 1]) <= 1.5) || (!bad[i + 1] && P.distKm(p, pts[i + 1]) <= 1.5));
+      });
+      return Promise.all(pts.map(function (p, i) { return bad[i] && keep[i] ? Maps.nearRoads(p) : null; })).then(function (near) {
+        var tryN = function (n) {
+          var list = [];
+          for (var i = 0; i < pts.length; i++) {
+            if (!keep[i]) continue;
+            if (!bad[i]) { list.push({ lat: pts[i].lat, lng: pts[i].lng }); continue; }
+            var c = near[i] && (near[i][n] || near[i][near[i].length - 1]);
+            list.push(c || { lat: pts[i].lat, lng: pts[i].lng });   // nothing nearby: keep the pin
+          }
+          if (list.length < 2) throw { bad: blame };
+          return Maps.route(list).then(function (r) { r.adjusted = names; return r; }, function () {
+            if (near.some(function (c) { return c && c.length > n + 1; })) return tryN(n + 1);
+            throw { bad: blame };
+          });
+        };
+        return tryN(0);
+      });
+    });
+  }
   function routeKey(t) {
     var pts = enginePoints(t), list = [pts.from].concat(pts.stops, [pts.to]);
     return t.svc + (t.svc === 'charter' && t.plan ? '+plan' : '') + '|' + list.map(function (p) { return p.lat.toFixed(5) + ',' + p.lng.toFixed(5); }).join(';');
@@ -255,7 +330,7 @@
   function ensureRoute(t) {
     if (!routeReady(t)) { if (t.route && t.route.status !== 'loading') t.route = null; return; }
     var key = routeKey(t);
-    if (t.route && t.route.key === key && !(t.route.status === 'fail' && Date.now() - t.route.at > 15000)) return;
+    if (t.route && t.route.key === key && !(t.route.status === 'fail' && Date.now() - t.route.at > (t.route.bad ? 600000 : 15000))) return;
     t.route = { key: key, status: 'loading' };
     var pts = enginePoints(t), list = [pts.from].concat(pts.stops, [pts.to]).map(function (p) { return { lat: p.lat, lng: p.lng }; });
     if (t.svc === 'charter' && t.plan && P.distKm(pts.from, pts.to) < 0.5) {
@@ -265,19 +340,19 @@
       }).then(function () { render(); });
       return;
     }
-    Maps.route(list).then(function (r) {
+    routeSmart([pts.from].concat(pts.stops, [pts.to])).then(function (r) {
       if (!t.route || t.route.key !== key) return null;
       // 150 rounded points: exactly what the payment GAS receives, so both price the same path
       var path = sample(r.path, 150).map(function (p) { return { lat: Math.round(p.lat * 1e5) / 1e5, lng: Math.round(p.lng * 1e5) / 1e5 }; });
-      var base = { key: key, status: 'ok', km: Math.round(r.km * 10) / 10, durationMin: Math.round(r.durationMin), path: path, pointElev: null, endElev: null, elevs: null };
+      var base = { key: key, status: 'ok', km: Math.round(r.km * 10) / 10, durationMin: Math.round(r.durationMin), path: path, pointElev: null, endElev: null, elevs: null, adjusted: r.adjusted || null };
       return Maps.pointElevation(list).then(function (e) {
         if (e) { base.pointElev = Math.round(e.max); base.endElev = Math.round(e.end); base.elevs = e.all.map(function (x) { return Math.round(x); }); }
         return base;
       });
     }).then(function (done) {
       if (done && t.route && t.route.key === key) t.route = done;
-    }, function () {
-      if (t.route && t.route.key === key) t.route = { key: key, status: 'fail', at: Date.now() };
+    }, function (e) {
+      if (t.route && t.route.key === key) t.route = { key: key, status: 'fail', at: Date.now(), bad: e && e.bad ? String(e.bad) : '' };
     }).then(function () { render(); });   // a display problem can never turn a good route into a failed one
   }
 
@@ -389,6 +464,7 @@
         '<div class="field"><label for="' + k + '-l28">28-inch suitcases<span class="req">*</span></label><select id="' + k + '-l28" data-f="l28" class="' + (c.l28 === '' ? 'empty' : '') + '">' + opts(0, max28, c.l28, true) + '</select></div>' +
         '<div class="field"><label for="' + k + '-l20">20-inch suitcases<span class="req">*</span></label><select id="' + k + '-l20" data-f="l20" class="' + (c.l20 === '' ? 'empty' : '') + '">' + opts(0, max20, c.l20, true) + '</select></div>' +
       '</div><span class="hint">' + bagHint + ' <span class="nw">(2 × 20-inch = 1 × 28-inch.)</span></span>' +
+      '<span class="hint fit">Please enter the exact number of passengers, children and suitcases. If the details are wrong and everyone can\'t fit in the car on the day, the booking is non-refundable.</span>' +
       '<label class="check' + (vanOk && c.vehicle ? '' : ' off') + '"><input type="checkbox" id="' + k + '-ovs" data-f="ovs"' + (c.ovs ? ' checked' : '') + (vanOk && c.vehicle ? '' : ' disabled') + '> <span>Oversized items <span class="nw">(need a Premium Van)</span></span></label>' +
       (c.ovs ? '<div class="kids"><div class="grid ovs">' + OVS.map(function (o) {
           return '<div class="field"><label for="' + k + '-' + o[0] + '">' + o[1] + '</label><select id="' + k + '-' + o[0] + '" data-f="' + o[0] + '">' + opts(0, maxOv(o[0], LU.units[o[0]]), c[o[0]], false) + '</select></div>';
@@ -450,6 +526,8 @@
     var lines = t.cars.map(function (c, ci) { return lineFor(q, ti, ci); });
     var tripTotal = lines.every(function (l) { return l && l.ok; }) ? lines.reduce(function (s, l) { return s + l.total; }, 0) : null;
     var anyManual = lines.some(function (l) { return l && l.manual; });
+    // multi-day charter: the same chauffeur stays away overnight after this day (fee set by the engine)
+    var overnight = t.svc === 'charter' && lines.some(function (l) { return l && l.overnight > 0; });
     var tooLong = lines.filter(function (l) { return l && l.reason === 'too-long'; })[0];
     var holiday = lines.some(function (l) { return l && l.holiday; });
     var freeHour = lines.some(function (l) { return l && l.freeHour; });
@@ -466,8 +544,8 @@
     }).join('');
     var routeHint = '';
     if (t.route && t.route.status === 'loading') routeHint = 'Calculating route…';
-    else if (t.route && t.route.status === 'fail') routeHint = 'No route found. We\'ll send a custom quote by email and WhatsApp.';
-    else if (t.route && t.route.status === 'ok' && t.route.km > 0 && !planOpenOf(t)) routeHint = 'Distance ' + t.route.km + ' km';
+    else if (t.route && t.route.status === 'fail') routeHint = (t.route.bad ? 'We can\'t find a driving route to ' + t.route.bad.split(',')[0] + '.' : 'No route found.') + ' We\'ll send a custom quote by email and WhatsApp.';
+    else if (t.route && t.route.status === 'ok' && t.route.km > 0 && !planOpenOf(t)) routeHint = 'Distance ' + t.route.km + ' km' + (t.route.adjusted && t.route.adjusted.length ? ' (to the nearest road for ' + t.route.adjusted.map(function (n) { return n.split(',')[0]; }).join(', ') + ')' : '');
     var sub = (t.date ? niceDate(t.date) + ' · ' : '') + SVC[t.svc] + (isAir && t.dir ? ' · ' + (arr ? 'Arrival' : 'Departure') : '') + (t.svc === 'charter' && t.hrs ? ' · ' + (t.hrs === 'custom' ? 'Custom' : t.hrs + ' hours') : '');
     return '<section class="card" aria-label="Trip ' + (ti + 1) + '">' +
       '<div class="head"><span><b>Trip ' + (ti + 1) + '</b> <span class="sub">' + esc(sub) + '</span></span>' + (ti > 0 ? '<button class="rm" type="button" data-act="rmtrip" data-t="' + ti + '">Remove trip</button>' : '') + '</div>' +
@@ -516,9 +594,12 @@
         '</div></div>' +
       t.cars.map(function (c, ci) { return carBlock(t, ti, c, ci, q); }).join('') +
       ((isAir && arr) || t.svc === 'charter' ? '<div class="step"><span class="step-label">Extras</span>' +
-        (isAir && arr ? '<label class="check"><input type="checkbox" id="' + k + '-sign" data-f="sign"' + (t.sign ? ' checked' : '') + '> Meet &amp; greet name sign · TWD 300 per car</label>' +
+        (isAir && arr ? '<label class="check' + (signOk(t) ? '' : ' off') + '"><input type="checkbox" id="' + k + '-sign" data-f="sign"' + (t.sign ? ' checked' : '') + (signOk(t) ? '' : ' disabled') + '> Meet &amp; greet name sign · TWD 300 per car</label>' +
+          (signOk(t) ? '' : '<span class="hint' + (t.signDropped ? ' warnc' : '') + '">' + (t.signDropped ? 'Name sign is not available at this time (05:00–22:00 only), so we removed it.' : 'Name sign available for pick-ups 05:00–22:00.') + '</span>') +
           (t.sign ? '<div class="field signbox"><label for="' + k + '-signtext">Name on the sign</label><input id="' + k + '-signtext" data-f="signText" maxlength="40" autocomplete="off" placeholder="e.g. Mr. John Smith" value="' + esc(t.signText) + '"><span class="hint">Shown at arrivals. Leave blank to use your name.</span></div>' : '') : '') +
-        (t.svc === 'charter' ? '<label class="check"><input type="checkbox" id="' + k + '-eng" data-f="eng"' + (t.eng ? ' checked' : '') + '> English-speaking chauffeur · TWD 1,000 per day</label>' + (t.eng ? '<span class="hint">For full conversation in English.</span>' : '') : '') + '</div>' : '') +
+        (t.svc === 'charter' ? '<label class="check"><input type="checkbox" id="' + k + '-eng" data-f="eng"' + (t.eng ? ' checked' : '') + '> English-speaking chauffeur · TWD 1,000 per day</label>' + (t.eng ? '<span class="hint">For full conversation in English.</span>' : '') : '') +
+        (overnight ? '<label class="check lock"><input type="checkbox" id="' + k + '-night" checked disabled> <span>Same chauffeur for your whole trip · Chauffeur overnight <span class="nw">TWD ' + P.CONFIG.charter.overnight.toLocaleString('en-US') + (t.cars.length > 1 ? ' per car' : '') + '</span> <span class="nw">(night after this day)</span></span></label>' +
+          '<span class="hint">Don\'t need the same chauffeur? <a href="https://wa.me/' + (CFG.WHATSAPP || '886970326591') + '?text=' + encodeURIComponent('Hi ONYX! I\'m booking a multi-day charter. Can I have a different chauffeur each day (no overnight fee)?') + '" target="_blank" rel="noopener">Contact us</a>.</span>' : '') + '</div>' : '') +
       '<div class="field"><label for="' + k + '-notes">Trip notes</label><textarea id="' + k + '-notes" data-f="notes" rows="2" maxlength="1000" placeholder="' +
         (t.svc === 'charter' ? 'e.g. places to visit, lunch stop, special requests' : 'e.g. special requests, anything your chauffeur should know') + '">' + esc(t.notes) + '</textarea></div>' +
       warns.map(function (w) { return '<span class="msg warn">' + esc(w) + '</span>'; }).join('') +
@@ -601,8 +682,19 @@
       if (t.tour.autoDate && p.date) { var nd = addDays(p.date, 1); if (t.date !== nd) t.date = nd; }
     });
   }
+  // meet & greet name sign: only for arrival pick-ups 05:00–22:00 (both included); no time yet = still allowed
+  var SIGN_FROM = 5 * 60, SIGN_TO = 22 * 60;
+  function signOk(t) { var k = hm(t.hh && t.mm ? t.hh + ':' + t.mm : ''); return k == null || (k >= SIGN_FROM && k <= SIGN_TO); }
+  function checkSigns() {
+    S.trips.forEach(function (t) {
+      if (t.svc !== 'airport' || t.dir !== 'arr') { t.signDropped = false; return; }
+      if (signOk(t)) t.signDropped = false;
+      else if (t.sign) { t.sign = false; t.signDropped = true; }   // the time moved outside the hours: take it off (and say so)
+    });
+  }
   function render() {
     syncTours();
+    checkSigns();
     rendering = true;
     try { renderNow(); } finally { rendering = false; }
     renderBar();
@@ -625,7 +717,7 @@
     root.innerHTML =
       '<div id="obk-trips" style="display:flex;flex-direction:column;gap:20px">' + S.trips.map(function (t, ti) { return tripBlock(t, ti, q); }).join('') + '</div>' +
       '<div class="linkrow"><button class="addtrip" type="button" data-act="addtrip">+ Add another trip</button><button class="info" type="button" data-act="tripinfo" aria-label="About multi-day charters">i</button></div>' +
-      '<div class="infobox" id="obk-tripinfo" hidden>Multi-day: same chauffeur when possible. Nights away: TWD 1,500 per night.</div>' +
+      '<div class="infobox" id="obk-tripinfo" hidden>Multi-day: the same chauffeur drives every day. Nights away: TWD 1,500 per night.</div>' +
       '<section class="card" aria-label="Your details"><span class="step-label">Your details</span><div class="grid3">' +
         '<div class="field"><label for="obk-name">Name<span class="req">*</span></label><input id="obk-name" data-g="name" autocomplete="name" placeholder="e.g. Ann Lee" value="' + esc(S.name) + '"></div>' +
         '<div class="field"><label for="obk-phone">Phone / WhatsApp<span class="req">*</span></label><input id="obk-phone" data-g="phone" type="tel" placeholder="+65 9123 4567" autocomplete="tel" value="' + esc(S.phone) + '"><span class="hint">WhatsApp number — we\'ll add you to a chat with your chauffeur.</span></div>' +
@@ -637,7 +729,7 @@
         '<div class="summary">' + summaryHtml(q) + '</div>' +
         '<span class="small">Charged in TWD. Overtime extra. Conversions are estimates.</span>' +
         '<div class="included small">✓ Tolls &amp; parking included · Free waiting time · Flight tracking <button class="link" type="button" data-act="incl">What\'s included</button>' +
-          '<ul id="obk-incl" hidden><li>Fixed price: tolls, parking and fuel included.</li><li>Free waiting time: 60 min after landing (15 min if you choose your own pick-up time), 15 min for other pick-ups.</li><li>Flight tracking: delays at no extra cost.</li><li>Free cancellation 7+ days before pick-up.</li><li>Typhoon or cancelled flight: free reschedule or full refund.</li><li>Licensed, insured vehicles and professional chauffeurs.</li><li>WhatsApp group chat with your chauffeur.</li><li>Child seats and meet &amp; greet name sign available.</li><li>Chauffeurs speak basic English and use a translation app.</li></ul></div>' +
+          '<ul id="obk-incl" hidden><li>Fixed price: tolls, parking and fuel included.</li><li>Free waiting time: 60 min after landing (15 min if you choose your own pick-up time), 15 min for other pick-ups.</li><li>Flight tracking: delays at no extra cost.</li><li>Free cancellation 7+ days before pick-up.</li><li>Typhoon or cancelled flight: free reschedule or full refund.</li><li>Licensed, insured vehicles and professional chauffeurs.</li><li>WhatsApp group chat with your chauffeur.</li><li>Child seats and meet &amp; greet name sign (05:00–22:00) available.</li><li>Chauffeurs speak basic English and use a translation app.</li></ul></div>' +
         '<label class="check"><input type="checkbox" id="obk-terms" data-g="terms"' + (S.terms ? ' checked' : '') + '> <span>I agree to the <a class="nw" href="#booking-terms" data-act="terms">Booking Terms</a><span class="req">*</span></span></label>' +
         (S.errors.length ? '<div class="formerr" role="alert">Please complete: ' + esc(S.errors.join(', ')) + '.</div>' : '') +
         '<button class="btn gold" type="button" data-act="submit"' + (S.submitting ? ' disabled' : '') + '>' + (S.submitting ? 'Sending…' : payableNow ? 'Book &amp; pay deposit' : 'Book now') + '</button>' +
@@ -853,6 +945,8 @@
     if (act === 'promo') { applyPromo(); return; }
     if (act === 'submit') { submit(); return; }
     if (act === 'cdcancel') { cdCancel(); return; }
+    // booking received → Close: the booking page goes back to the home page; the home page starts again at the top with an empty form
+    if (act === 'doneclose') { leaveDone(); return; }
     if (act === 'cdclose') { S.cdEnd = null; location.reload(); return; }   // a clean form after a cancel (same as 準點)
     if (act === 'xpick') { S.xday.pick = b.dataset.v; render(); return; }
     if (act === 'xback') { var xb = S.xday; S.xday = null; render(); var de = $('t' + xb.ti + '-date'); if (de) { de.scrollIntoView({ block: 'center' }); de.focus(); } return; }
@@ -1380,8 +1474,15 @@
           '<p class="msg warn" style="margin:0">' + nextStep(d.priced) + '</p>') +
       '<div><b>Staying in touch</b><ol class="touch"><li>Save our WhatsApp: +886 970 326 591</li><li>The day before, we\'ll add you to a group chat with your chauffeur.</li></ol></div>' +
       '<a class="btn wa" href="' + esc(d.wa) + '" target="_blank" rel="noopener">WhatsApp us</a>' +
+      '<button class="btn ghost" type="button" data-act="doneclose">Close</button>' +
       '<button class="link" type="button" onclick="location.reload()">Book another trip</button>' +
     '</section>';
+  }
+  function leaveDone() {
+    if (/\/book(\.html)?$/.test(location.pathname)) { location.href = location.pathname.replace(/book(\.html)?$/, ''); return; }
+    try { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; } catch (e) {}
+    window.scrollTo(0, 0);
+    location.replace(location.pathname);
   }
   // ms: give up after this long (the answer may still come later; a retry with the same order ID is ignored by the GAS)
   function gasPost(body, ms) {
